@@ -36,6 +36,8 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         InputAction.Player.AddX.performed += _ => AddCodeCharacter('X');
         InputAction.Player.AddY.performed += _ => AddCodeCharacter('Y');
         InputAction.Player.Enable();
+
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     /// <summary>
