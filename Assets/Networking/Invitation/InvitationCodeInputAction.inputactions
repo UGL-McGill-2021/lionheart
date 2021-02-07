@@ -1,0 +1,102 @@
+{
+    "name": "InvitationCodeInputAction",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "f221172a-f867-4cff-94dc-c1cf0b1b2419",
+            "actions": [
+                {
+                    "name": "AddX",
+                    "type": "Button",
+                    "id": "9e9ffb80-b169-4660-a526-7c5c571ee578",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "AddA",
+                    "type": "Button",
+                    "id": "e5adbe2e-7e18-4db3-9d05-52c97a2296a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "AddB",
+                    "type": "Button",
+                    "id": "1ef8fd83-e22b-47f1-9c26-fc64192785e1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "AddY",
+                    "type": "Button",
+                    "id": "2eb52b38-bc32-4368-bc9d-9bf6391a6b2e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7e0ebc23-7fb9-4790-92c0-af56d93bd407",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AddX",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21fb2994-9f1f-4c81-99bc-ddc9c23de405",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AddA",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8955f43-d09c-4fc8-b657-2cdfb0482fd5",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AddB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26d53c46-9775-4fb6-aa56-18c725678e43",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "AddY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Controller",
+            "bindingGroup": "Controller",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

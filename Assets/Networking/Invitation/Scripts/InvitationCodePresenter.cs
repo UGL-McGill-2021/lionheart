@@ -18,13 +18,9 @@ public class InvitationCodePresenter : MonoBehaviour {
     /// </summary>
     /// <param name="InvitationCode"></param>
     public void Present(string InvitationCode) {
-        if (InvitationCode.Length != Slots.Count) {
-            Debug.LogError("Networking(ERROR) - InvitationCodePresenter: Invalid Invitation Code " + InvitationCode + " , bad length");
-            return;
-        }
-
-        for (int i = 0; i < InvitationCode.Length; i++) {
-            if (Slots[i] != null) {
+        Debug.Log("Invitation Code Presented: " + InvitationCode);
+        for (int i = 0; i < Slots.Count; i++) {
+            if (Slots[i] != null && i < InvitationCode.Length) {
                 switch (InvitationCode[i]) {
                     case 'X':
                         Slots[i].sprite = ButtonXTexture;
@@ -39,6 +35,8 @@ public class InvitationCodePresenter : MonoBehaviour {
                         Slots[i].sprite = ButtonBTexture;
                         break;
                 }
+            } else {
+                Slots[i].sprite = null;
             }
         }
     }
