@@ -91,7 +91,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// Invoked when successfully handled the invitation
     /// </summary>
     public override void OnJoinedRoom() {
-        Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
+        // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
 
     }
 
@@ -124,7 +124,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         if (!InputCodePresenter.gameObject.activeSelf)
             InputCodePresenter.gameObject.SetActive(true);
 
-        Debug.Log("Pressed " + character);
+        //Debug.Log("Pressed " + character);
 
         InvitationCodeInput += character;
 
@@ -144,5 +144,6 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
 
     public override void OnJoinRoomFailed(short returnCode, string message) {
         Debug.Log("Failed to join room " + message);
+        InputCodePresenter.Present("");
     }
 }

@@ -18,7 +18,7 @@ public class InvitationCodePresenter : MonoBehaviour {
     /// </summary>
     /// <param name="InvitationCode"></param>
     public void Present(string InvitationCode) {
-        Debug.Log("Invitation Code Presented: " + InvitationCode);
+        //Debug.Log("Invitation Code Presented: " + InvitationCode);
         for (int i = 0; i < Slots.Count; i++) {
             if (Slots[i] != null && i < InvitationCode.Length) {
                 switch (InvitationCode[i]) {
