@@ -81,11 +81,33 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""894a94d1-6a02-4283-bd17-57bd131696cf"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddX"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""21fb2994-9f1f-4c81-99bc-ddc9c23de405"",
                     ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
+                    ""action"": ""AddA"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c6c1909-dc73-4350-98d5-b6ac32c901f0"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""AddA"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -103,11 +125,33 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""fb76a7ba-cc02-47ec-a807-416b740bba03"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""26d53c46-9775-4fb6-aa56-18c725678e43"",
                     ""path"": ""<XInputController>/buttonNorth"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
+                    ""action"": ""AddY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""275564aa-7824-494c-9e95-5ab1fae8fd02"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""AddY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -125,8 +169,30 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""cb21a549-7013-4b8e-aef7-a3a4620c7105"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Talk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""402eadf2-b682-49f9-9ac5-87e1959d23ec"",
                     ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a51a4f7-b443-4329-9c0c-1a2c64ad66d8"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
