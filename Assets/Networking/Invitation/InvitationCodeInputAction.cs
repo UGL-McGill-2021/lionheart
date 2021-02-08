@@ -49,6 +49,22 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Talk"",
+                    ""type"": ""Button"",
+                    ""id"": ""fca7d825-2984-46d6-a5bb-c3df2463a75a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mute"",
+                    ""type"": ""Button"",
+                    ""id"": ""b63ef39d-89f3-433c-93af-7db6dba150b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -95,6 +111,28 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                     ""action"": ""AddY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc0a7287-9b41-4667-95c1-60be55481655"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Talk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""402eadf2-b682-49f9-9ac5-87e1959d23ec"",
+                    ""path"": ""<XInputController>/dpad/left"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -119,6 +157,8 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
         m_Player_AddA = m_Player.FindAction("AddA", throwIfNotFound: true);
         m_Player_AddB = m_Player.FindAction("AddB", throwIfNotFound: true);
         m_Player_AddY = m_Player.FindAction("AddY", throwIfNotFound: true);
+        m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
+        m_Player_Mute = m_Player.FindAction("Mute", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -172,6 +212,8 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_AddA;
     private readonly InputAction m_Player_AddB;
     private readonly InputAction m_Player_AddY;
+    private readonly InputAction m_Player_Talk;
+    private readonly InputAction m_Player_Mute;
     public struct PlayerActions
     {
         private @InvitationCodeInputAction m_Wrapper;
@@ -180,6 +222,8 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
         public InputAction @AddA => m_Wrapper.m_Player_AddA;
         public InputAction @AddB => m_Wrapper.m_Player_AddB;
         public InputAction @AddY => m_Wrapper.m_Player_AddY;
+        public InputAction @Talk => m_Wrapper.m_Player_Talk;
+        public InputAction @Mute => m_Wrapper.m_Player_Mute;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -201,6 +245,12 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 @AddY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAddY;
                 @AddY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAddY;
                 @AddY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAddY;
+                @Talk.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTalk;
+                @Talk.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTalk;
+                @Talk.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTalk;
+                @Mute.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMute;
+                @Mute.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMute;
+                @Mute.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMute;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -217,6 +267,12 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 @AddY.started += instance.OnAddY;
                 @AddY.performed += instance.OnAddY;
                 @AddY.canceled += instance.OnAddY;
+                @Talk.started += instance.OnTalk;
+                @Talk.performed += instance.OnTalk;
+                @Talk.canceled += instance.OnTalk;
+                @Mute.started += instance.OnMute;
+                @Mute.performed += instance.OnMute;
+                @Mute.canceled += instance.OnMute;
             }
         }
     }
@@ -236,5 +292,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
         void OnAddA(InputAction.CallbackContext context);
         void OnAddB(InputAction.CallbackContext context);
         void OnAddY(InputAction.CallbackContext context);
+        void OnTalk(InputAction.CallbackContext context);
+        void OnMute(InputAction.CallbackContext context);
     }
 }

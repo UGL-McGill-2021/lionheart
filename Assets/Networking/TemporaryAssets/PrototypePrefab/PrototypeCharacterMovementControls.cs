@@ -23,7 +23,6 @@ public class PrototypeCharacterMovementControls : MonoBehaviour {
         controller.Move(new Vector3(MoveDirection.x, 0, MoveDirection.y));
 
         var LookDirection = LookAction.ReadValue<Vector2>();
-        Debug.Log("Right Joystick" + LookDirection);
         gameObject.transform.Rotate(new Vector3(LookDirectoin.x, 0, LookDirectoin.y));
     }
 }
