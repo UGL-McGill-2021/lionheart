@@ -10,9 +10,4 @@ public class GameManager : MonoBehaviour {
             listener.enabled = true;
         }
     }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
 }

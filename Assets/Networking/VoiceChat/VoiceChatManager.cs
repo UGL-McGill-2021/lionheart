@@ -12,7 +12,6 @@ public class VoiceChatManager : MonoBehaviour {
 
     private void Awake() {
         punVoiceNetwork = PhotonVoiceNetwork.Instance;
-
         VoiceChatAction = new InvitationCodeInputAction();
         VoiceChatAction.Player.Talk.performed += _ => Talk();
         VoiceChatAction.Player.Mute.performed += _ => Mute();
@@ -27,16 +26,5 @@ public class VoiceChatManager : MonoBehaviour {
     public void Mute() {
         Debug.Log("Mute");
         this.recorder.TransmitEnabled = false;
-    }
-
-    // Update is called once per frame
-    void Update() {
-        //if (Input.GetKey(KeyCode.Q)) this.recorder.TransmitEnabled = true;
-        //else this.recorder.TransmitEnabled = false;
-
-        //if (Input.GetKey(KeyCode.E)) this.recorder.DebugEchoMode = true;
-        //else this.recorder.DebugEchoMode = false;
-
-        //Debug.Log(this.recorder.TransmitEnabled);
     }
 }

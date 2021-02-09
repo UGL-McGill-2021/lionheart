@@ -61,7 +61,6 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InvitationCodeInput = "";
         } else
             CreateInvitation();
-        
     }
 
     /// <summary>
@@ -127,14 +126,12 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         if (!InputCodePresenter.gameObject.activeSelf)
             InputCodePresenter.gameObject.SetActive(true);
 
-        //Debug.Log("Pressed " + character);
-
         InvitationCodeInput += character;
 
         InputCodePresenter.Present(InvitationCodeInput);
 
         if (InvitationCodeInput.Length == 4) {
-            // invitation code input completed. Try to join
+            // invitation code input completed. Accept invitation and try to join.
             if (PhotonNetwork.CurrentRoom != null) {
                 PhotonNetwork.LeaveRoom();
                 GeneratedCodePresenter.enabled = false;

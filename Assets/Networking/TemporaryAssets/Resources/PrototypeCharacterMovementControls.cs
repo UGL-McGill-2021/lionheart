@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 /// <summary>
 /// Ahutor: Feiyang Li
 /// Created for Prototype Testing Purposes
 /// </summary>
-public class PrototypeCharacterMovementControls : MonoBehaviour {
+public class PrototypeCharacterMovementControls : MonoBehaviour{
     public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
     public InputAction LookAction = new InputAction("look", binding: "<Gamepad>/rightStick");
     private Vector2 MoveDirection;
     private Vector2 LookDirectoin;
     public CharacterController controller;
+    public Camera camera;
 
     private void Awake() {
         MoveAction.Enable();
