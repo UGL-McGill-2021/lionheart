@@ -13,6 +13,8 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
     private Vector2 MoveDirection;
     private Vector2 LookDirectoin;
     public CharacterController controller;
+    public float speed = 8f;
+    public float gravity = -9.8f;
 
     private void Awake() {
         MoveAction.Enable();
@@ -22,10 +24,16 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
     }
 
     private void Update() {
+
+        // adding gravity
+        controller.Move(new Vector3(0, gravity * Time.deltaTime, 0));
+
         var MoveDirection = MoveAction.ReadValue<Vector2>();
-        controller.Move(new Vector3(MoveDirection.x, 0, MoveDirection.y));
+        controller.Move(new Vector3(MoveDirection.x, 0, MoveDirection.y) * Time.deltaTime * speed);
 
         var LookDirection = LookAction.ReadValue<Vector2>();
-        gameObject.transform.Rotate(new Vector3(LookDirectoin.x, 0, LookDirectoin.y));
+        gameObject.transform.Rotate(new Vector3(LookDirectoin.x, 0, LookDirectoin.y) * 10);
     }
+
+
 }
