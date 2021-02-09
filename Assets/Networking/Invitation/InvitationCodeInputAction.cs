@@ -137,7 +137,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""26d53c46-9775-4fb6-aa56-18c725678e43"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
@@ -181,7 +181,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""402eadf2-b682-49f9-9ac5-87e1959d23ec"",
-                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",

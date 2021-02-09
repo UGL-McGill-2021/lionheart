@@ -13,7 +13,6 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
     private Vector2 MoveDirection;
     private Vector2 LookDirectoin;
     public CharacterController controller;
-    public Camera camera;
 
     private void Awake() {
         MoveAction.Enable();
@@ -24,7 +23,6 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
 
     private void Update() {
         var MoveDirection = MoveAction.ReadValue<Vector2>();
-        //Debug.Log("Joystick Input: " + MoveDirection);
         controller.Move(new Vector3(MoveDirection.x, 0, MoveDirection.y));
 
         var LookDirection = LookAction.ReadValue<Vector2>();
