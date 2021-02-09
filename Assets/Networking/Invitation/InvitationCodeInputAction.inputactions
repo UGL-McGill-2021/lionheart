@@ -58,7 +58,7 @@
                 {
                     "name": "",
                     "id": "7e0ebc23-7fb9-4790-92c0-af56d93bd407",
-                    "path": "<XInputController>/buttonWest",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
@@ -80,7 +80,7 @@
                 {
                     "name": "",
                     "id": "21fb2994-9f1f-4c81-99bc-ddc9c23de405",
-                    "path": "<XInputController>/buttonSouth",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
@@ -102,7 +102,7 @@
                 {
                     "name": "",
                     "id": "c8955f43-d09c-4fc8-b657-2cdfb0482fd5",
-                    "path": "<XInputController>/buttonEast",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
@@ -124,7 +124,7 @@
                 {
                     "name": "",
                     "id": "26d53c46-9775-4fb6-aa56-18c725678e43",
-                    "path": "<XInputController>/buttonNorth",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Controller",
@@ -146,7 +146,7 @@
                 {
                     "name": "",
                     "id": "cc0a7287-9b41-4667-95c1-60be55481655",
-                    "path": "<XInputController>/dpad/left",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
@@ -168,7 +168,7 @@
                 {
                     "name": "",
                     "id": "402eadf2-b682-49f9-9ac5-87e1959d23ec",
-                    "path": "<XInputController>/dpad/left",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
