@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using AssemblyCSharp.Assets;
 
 /// <summary>
 /// Ahutor: Feiyang Li
@@ -17,6 +18,8 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
     private void Awake() {
         MoveAction.Enable();
         LookAction.Enable();
+
+        DualShock4GamepadHID controller = new AssemblyCSharp.Assets.DualShock4GamepadHID();
     }
 
     private void Update() {
