@@ -114,12 +114,13 @@ public class MovingPlatform : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!isAutomatic) isTriggered = true;
+        if (other.tag == "Player")
         other.gameObject.transform.parent = transform;  // transport object on this platform
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.parent == this.gameObject.transform) other.transform.parent = null;
+        if (other.tag == "Player" && other.transform.parent == this.gameObject.transform) other.transform.parent = null;
     }
 
 }
