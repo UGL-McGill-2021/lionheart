@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 
@@ -110,7 +111,13 @@ public class MovingPlatform : MonoBehaviour
         CurrentTarget = PathPoints[CurrentTargetIndex];  // update the current target
     }
 
-
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Callback function of isTrigger collider
+    /// Use RPC call to make it updated to all clients
+    /// </summary>
+    /// <param name="other"></param>
+    [PunRPC]
     private void OnTriggerEnter(Collider other)
     {
         if (!isAutomatic) isTriggered = true;
@@ -118,6 +125,13 @@ public class MovingPlatform : MonoBehaviour
         other.gameObject.transform.parent = transform;  // transport object on this platform
     }
 
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Callback function of isTrigger collider
+    /// Use RPC call to make it updated to all clients
+    /// </summary>
+    /// <param name="other"></param>
+    [PunRPC]
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player" && other.transform.parent == this.gameObject.transform) other.transform.parent = null;
