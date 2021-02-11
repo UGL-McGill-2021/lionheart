@@ -74,8 +74,8 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
         else
         {
             // update the position and rotation of this character (which doesn't belong to the current client)
-            transform.position = Vector3.Lerp(transform.position, RealPosition, 0.1f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, RealRotation, 0.1f);
+            //transform.position = Vector3.Lerp(transform.position, RealPosition, 0.1f);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, RealRotation, 0.1f);
         }
     }
 
@@ -90,16 +90,16 @@ public class PrototypeCharacterMovementControls : MonoBehaviour{
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         // Sending messages to server if this character belong to the current client, otherwise receive messages
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        }
-        else
-        {
-            RealPosition = (Vector3)stream.ReceiveNext();
-            RealRotation = (Quaternion)stream.ReceiveNext();
-        }
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(transform.position);
+        //    stream.SendNext(transform.rotation);
+        //}
+        //else
+        //{
+        //    RealPosition = (Vector3)stream.ReceiveNext();
+        //    RealRotation = (Quaternion)stream.ReceiveNext();
+        //}
     }
 
 

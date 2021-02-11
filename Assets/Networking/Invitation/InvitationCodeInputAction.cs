@@ -145,7 +145,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""26d53c46-9775-4fb6-aa56-18c725678e43"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Controller"",
