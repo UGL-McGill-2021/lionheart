@@ -95,7 +95,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     public override void OnJoinedRoom() {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
         //if (PhotonNetwork.IsMasterClient)
-            //PhotonNetwork.LoadLevel("SampleScene");
+        //    PhotonNetwork.LoadLevel("SampleScene");
     }
 
     /// <summary>
