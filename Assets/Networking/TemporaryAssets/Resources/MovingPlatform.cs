@@ -10,7 +10,7 @@ using UnityEngine;
 /// Author: Ziqi Li
 /// Script for moving platform object
 /// </summary>
-public class MovingPlatform : MonoBehaviour, IOnEventCallback
+public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
 {
     public List<GameObject> PathPointObjects = new List<GameObject>();
     public float delay = 2f;
@@ -20,8 +20,14 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
 
     [SerializeField]
     private List<Vector3> PathPoints = new List<Vector3>();
+    // list to store players standing on this platform
+    [SerializeField]
+    private List<PrototypeCharacterMovementControls> PlayersList = new List<PrototypeCharacterMovementControls>();
     private Vector3 _CurrentTarget;
-    private int CurrentTargetIndex;
+    [SerializeField]
+    private Vector3 _CurrentVelocity;
+    private Vector3 _RealVelocity;
+    private int _CurrentTargetIndex;
     private bool isMovingToward = true;
     private bool isTriggered = false;  // motion of platform have to be triggered if !isAutomatic
     private float DelayTimer;
@@ -45,8 +51,7 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
             foreach (GameObject obj in PathPointObjects) PathPoints.Add(obj.transform.position);
 
             _CurrentTarget = PathPoints[0];
-            CurrentTargetIndex = 0;
-            //CurrentMovingCoroutine = StartCoroutine(MovePlatform());  // start the coroutine
+            _CurrentTargetIndex = 0;
         }
     }
 
@@ -61,14 +66,46 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
                 UpdateTarget();
 
                 // stop for a delay when reaching two ends of path
-                if ((CurrentTargetIndex == 1 && isMovingToward) || (CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
+                if ((_CurrentTargetIndex == 1 && isMovingToward) || (_CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
                 {
                     DelayTimer = 0;
+                    _CurrentVelocity = Vector3.zero;
                 }
             }
-            MovePlatform();
+            else
+            {
+                MovePlatform();
+            }
         }
 
+        if(PlayersList.Count > 0)
+        {
+            foreach (PrototypeCharacterMovementControls player in PlayersList)
+                player.AddVelocity(_CurrentVelocity);
+        }
+
+        if(!PhotonView.IsMine) _CurrentVelocity = _RealVelocity;
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Called by PUN several times per second, so that your script can write and
+    /// read synchronization data for the PhotonView
+    /// This method will be called in scripts that are assigned as Observed component of a PhotonView
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="info"></param>
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        // Sending messages to server if this object belong to the current client, otherwise receive messages
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_CurrentVelocity);
+        }
+        else
+        {
+            _RealVelocity = (Vector3)stream.ReceiveNext();
+        }
     }
 
 
@@ -79,6 +116,7 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
     private void MovePlatform()
     {
         Vector3 TargetDirection = _CurrentTarget - this.transform.position;
+        if (_CurrentVelocity != TargetDirection.normalized * speed) _CurrentVelocity = TargetDirection.normalized * speed;
         this.transform.Translate(TargetDirection.normalized * speed * Time.deltaTime);
     }
 
@@ -91,31 +129,60 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
         // If the platform goes back and forth along the path points
         if (isMovingToward)
         {
-            if (CurrentTargetIndex < PathPoints.Count - 1)
+            if (_CurrentTargetIndex < PathPoints.Count - 1)
             {
-                CurrentTargetIndex++;
+                _CurrentTargetIndex++;
             }
             else
             {
                 isMovingToward = false;
-                CurrentTargetIndex--;
+                _CurrentTargetIndex--;
             }
         }
         else
         {
-            if (CurrentTargetIndex == 0)
+            if (_CurrentTargetIndex == 0)
             {
                 isMovingToward = true;
-                CurrentTargetIndex++;
+                _CurrentTargetIndex++;
             }
             else
             {
-                CurrentTargetIndex--;
+                _CurrentTargetIndex--;
             }
         }
-        _CurrentTarget = PathPoints[CurrentTargetIndex];  // update the current target
+        _CurrentTarget = PathPoints[_CurrentTargetIndex];  // update the current target
     }
-    
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Callback function of isTrigger collider
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isAutomatic) isTriggered = true;  // trigger the platform motion once a player standing on it
+
+        if (other.tag == "Player")
+        {
+            PlayersList.Add(other.gameObject.GetComponent<PrototypeCharacterMovementControls>());
+        }
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Callback function of isTrigger collider
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            PlayersList.Remove(other.gameObject.GetComponent<PrototypeCharacterMovementControls>());
+        }
+    }
+
+    /*
     /// <summary>
     /// Author: Ziqi Li
     /// Callback function of isTrigger collider
@@ -147,7 +214,6 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
         }
     }
 
-
     //private void SendAddChildEvent(GameObject child)
     //{
     //    // set the Receivers to All in order to receive this event on the local client as well
@@ -171,6 +237,7 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
     [PunRPC]
     private void AddChild(int ViewID)
     {
+        Debug.Log(ViewID);
         //child.gameObject.transform.parent = transform;
         PhotonView.Find(ViewID).gameObject.transform.parent = transform;
         Debug.Log(PhotonNetwork.IsMasterClient);
@@ -188,7 +255,7 @@ public class MovingPlatform : MonoBehaviour, IOnEventCallback
         //child.transform.parent = null;
         PhotonView.Find(ViewID).gameObject.transform.parent = null;
     }
-    
+    */
     /// <summary>
     /// Author: Ziqi Li
     /// Callback function when this gameObject is enable

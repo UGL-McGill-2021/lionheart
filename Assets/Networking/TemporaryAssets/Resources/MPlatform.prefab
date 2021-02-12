@@ -67,6 +67,8 @@ MonoBehaviour:
   epsilon: 0.2
   isAutomatic: 1
   PathPoints: []
+  PlayersList: []
+  _CurrentVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &3738885367909632117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +88,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
+  - {fileID: 3738885367909632116}
   - {fileID: 3738885367909632122}
   viewIdField: 0
   InstantiationId: 0

@@ -419,6 +419,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
+  - {fileID: 6505429409326896305}
   - {fileID: 7233557936618768666}
   viewIdField: 0
   InstantiationId: 0
@@ -488,7 +489,7 @@ MonoBehaviour:
       m_Flags: 0
   controller: {fileID: 8250964491736608995}
   speed: 7.5
-  gravity: -3.5
+  gravity: -9.8
 --- !u!143 &8250964491736608995
 CharacterController:
   m_ObjectHideFlags: 0
