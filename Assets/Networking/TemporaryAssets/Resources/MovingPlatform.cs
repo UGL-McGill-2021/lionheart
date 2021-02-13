@@ -161,7 +161,7 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
     private void MovePlatform()
     {
         Vector3 TargetDirection = _CurrentTarget - this.transform.position;
-        if (_CurrentVelocity != TargetDirection.normalized * speed) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.AllViaServer, TargetDirection.normalized * speed);
+        if (PhotonView.IsMine && _CurrentVelocity != TargetDirection.normalized * speed) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.AllViaServer, TargetDirection.normalized * speed);
         this.transform.Translate(TargetDirection.normalized * speed * Time.deltaTime);
     }
 
