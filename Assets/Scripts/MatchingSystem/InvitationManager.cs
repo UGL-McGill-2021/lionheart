@@ -107,7 +107,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2) {
             Debug.Log("Network (INFO): Invitation complete!");
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("SampleScene");
+                PhotonNetwork.LoadLevel("DemoScene");
         }
     }
 

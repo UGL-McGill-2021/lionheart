@@ -8,6 +8,6 @@ public class MultiplayerCharacterManager : MonoBehaviour, IPunInstantiateMagicCa
         if (this.gameObject.GetPhotonView().IsMine) {
             cam.enabled = true;
             controls.enabled = true;
-        }
+        }   
     }
 }
