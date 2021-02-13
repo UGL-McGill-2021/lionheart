@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// Ahutor: Feiyang Li, Ziqi Li
 /// Created for Prototype Testing Purposes
 /// </summary>
-public class PrototypeCharacterMovementControls : MonoBehaviour, IPunObservable
+public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservable
 {
     public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
     public InputAction LookAction = new InputAction("look", binding: "<Gamepad>/rightStick");
@@ -84,7 +84,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour, IPunObservable
 
             // rotate character
             gameObject.transform.Rotate(new Vector3(0, LookDirection.x * 80 * Time.deltaTime, 0));
-        }
+            }
         else
         {
             //Lag compensation
@@ -99,7 +99,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour, IPunObservable
             transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
         }
 
-        _AdditionalVelocity = Vector3.zero; 
+        _AdditionalVelocity = Vector3.zero;
     }
 
     
