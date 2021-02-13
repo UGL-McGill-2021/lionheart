@@ -15,10 +15,10 @@ MonoBehaviour:
   AppSettings:
     AppIdRealtime: 751ec0fd-732d-4995-aab3-06ef3a81511f
     AppIdChat: 1b41eea0-6917-4c6d-9faf-d150113111ff
-    AppIdVoice: 
+    AppIdVoice: d1194c7f-5d7b-4a41-aab1-bd9e2f857b75
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: cae
     Server: 
     Port: 0
     ProxyServer: 
@@ -27,12 +27,24 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
-  PunLogging: 0
+  DevRegion: cae
+  PunLogging: 2
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList: []
+  RpcList:
+  - ChangeColour
+  - ClickRpc
+  - DestroyRpc
+  - DestroySpaceship
+  - Fire
+  - OnTriggerEnter
+  - OnTriggerExit
+  - RespawnSpaceship
+  - AddChild
+  - RemoveChild
+  - RPC_Fire
+  - RPC_SetCurrentVelocity
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 0

@@ -5,6 +5,7 @@ namespace Photon.Pun.Demo.Asteroids
 {
     public class Bullet : MonoBehaviour
     {
+        public float Speed;
         public Player Owner { get; private set; }
 
         public void Start()

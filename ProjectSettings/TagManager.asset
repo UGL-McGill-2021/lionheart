@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - BouncingPad
+  - MovingPlatform
   - Bullet
-  - Ground
+  - LocalMovingPlatform
   layers:
   - Default
   - TransparentFX
