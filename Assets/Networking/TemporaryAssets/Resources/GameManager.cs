@@ -23,18 +23,21 @@ public class GameManager : MonoBehaviour {
             GameObject platform = PhotonNetwork.Instantiate("MPlatform",
                 PathPoints[0].transform.position,
                 PathPoints[0].transform.rotation, 0);
+            platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[0]);
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[1]);
 
             platform = PhotonNetwork.Instantiate("MPlatform",
                 PathPoints[2].transform.position,
                 PathPoints[2].transform.rotation, 0);
+            platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[2]);
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[3]);
 
             platform = PhotonNetwork.Instantiate("MPlatform",
                 PathPoints[4].transform.position,
                 PathPoints[4].transform.rotation, 0);
+            platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[4]);
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[5]);
         }

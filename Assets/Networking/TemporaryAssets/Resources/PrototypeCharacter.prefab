@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 0.9688814, y: 0.2, z: 0.4154754}
   m_Children: []
   m_Father: {fileID: 662894895262404910}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &565719487982963900
 MeshFilter:
@@ -125,7 +125,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 662894895262404910}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1042675775129082836
 AudioSource:
@@ -243,6 +243,36 @@ MonoBehaviour:
     MinDelaySoft: 200
     MaxDelaySoft: 400
     MaxDelayHard: 1000
+--- !u!1 &1428720345215456850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2998836402027244188}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2998836402027244188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428720345215456850}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.714, z: 0.976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 662894895262404910}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1526743819168367627
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +304,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 662894895262404910}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 22.35, y: 0, z: 0}
 --- !u!20 &8138508734380832026
 Camera:
@@ -393,6 +423,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2998836402027244188}
   - {fileID: 4690425715697326099}
   - {fileID: 7196753899384309157}
   - {fileID: 2712504400391990851}
@@ -488,6 +519,8 @@ MonoBehaviour:
       m_Action: look
       m_Flags: 0
   controller: {fileID: 8250964491736608995}
+  ShootingPoint: {fileID: 1428720345215456850}
+  BulletPrefab: {fileID: 4004048691340662988, guid: e53176fe5c76f4e42b80ebe32b902640, type: 3}
   speed: 7.5
   gravity: -9.8
 --- !u!143 &8250964491736608995
@@ -599,7 +632,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 662894895262404910}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &177390642810653421
 MeshFilter:

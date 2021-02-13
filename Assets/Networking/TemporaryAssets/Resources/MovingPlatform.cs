@@ -36,6 +36,14 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
     public const byte AddChildEventCode = 1;  // Event code for Photon RaiseEvent
     public const byte RemoveChildEventCode = 2;  // Event code for Photon RaiseEvent
 
+    //Lag compensation
+    float _CurrentTime = 0;
+    double _CurrentPacketTime = 0;
+    double _LastPacketTime = 0;
+
+    private Vector3 RemotePosition;
+    private Quaternion RemoteRotation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,26 +65,42 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
 
     private void FixedUpdate()
     {
-        DelayTimer += Time.deltaTime;
-
-        if ((PathPoints.Count) > 1 && isTriggered && (DelayTimer > delay))
+        if(PhotonView.IsMine)
         {
-            if (Vector3.Distance(this.transform.position, _CurrentTarget) < epsilon)
-            {
-                UpdateTarget();
+            DelayTimer += Time.deltaTime;
 
-                // stop for a delay when reaching two ends of path
-                if ((_CurrentTargetIndex == 1 && isMovingToward) || (_CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
+            if ((PathPoints.Count) > 1 && isTriggered && (DelayTimer > delay))
+            {
+                if (Vector3.Distance(this.transform.position, _CurrentTarget) < epsilon)
                 {
-                    DelayTimer = 0;
-                    _CurrentVelocity = Vector3.zero;
+                    UpdateTarget();
+
+                    // stop for a delay when reaching two ends of path
+                    if ((_CurrentTargetIndex == 1 && isMovingToward) || (_CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
+                    {
+                        DelayTimer = 0;
+                        // call the RPC function to reset the current velocity
+                        if (PhotonView.IsMine) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.AllViaServer, Vector3.zero);
+                        //_CurrentVelocity = Vector3.zero;
+                    }
+                }
+                else
+                {
+                    MovePlatform();
                 }
             }
-            else
-            {
-                MovePlatform();
-            }
         }
+        else
+        {
+            //Lag compensation
+            //double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
+            //_CurrentTime += Time.deltaTime;
+
+            ////Update remote position
+            transform.position = Vector3.Lerp(transform.position, RemotePosition, Time.deltaTime);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
+        }
+
 
         if(PlayersList.Count > 0)
         {
@@ -84,7 +108,7 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
                 player.AddVelocity(_CurrentVelocity);
         }
 
-        if(!PhotonView.IsMine) _CurrentVelocity = _RealVelocity;
+        //if(!PhotonView.IsMine) _CurrentVelocity = _RealVelocity;
     }
 
     /// <summary>
@@ -100,12 +124,33 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
         // Sending messages to server if this object belong to the current client, otherwise receive messages
         if (stream.IsWriting)
         {
-            stream.SendNext(_CurrentVelocity);
+            //stream.SendNext(_CurrentVelocity);
+            stream.SendNext(transform.position);
+            //stream.SendNext(transform.rotation);
         }
         else
         {
-            _RealVelocity = (Vector3)stream.ReceiveNext();
+            //_RealVelocity = (Vector3)stream.ReceiveNext();
+            RemotePosition = (Vector3)stream.ReceiveNext();
+            //RemoteRotation = (Quaternion)stream.ReceiveNext();
+
+            //Lag compensation
+            //_CurrentTime = 0.0f;
+            //_LastPacketTime = _CurrentPacketTime;
+            //_CurrentPacketTime = info.SentServerTime;
         }
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// RPC function to set the current velocity value of this platform
+    /// (the current velocity will be added to players standing on this platform)
+    /// </summary>
+    /// <param name="velocity"></param>
+    [PunRPC]
+    void RPC_SetCurrentVelocity(Vector3 velocity)
+    {
+        _CurrentVelocity = velocity;
     }
 
 
@@ -116,7 +161,7 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
     private void MovePlatform()
     {
         Vector3 TargetDirection = _CurrentTarget - this.transform.position;
-        if (_CurrentVelocity != TargetDirection.normalized * speed) _CurrentVelocity = TargetDirection.normalized * speed;
+        if (_CurrentVelocity != TargetDirection.normalized * speed) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.AllViaServer, TargetDirection.normalized * speed);
         this.transform.Translate(TargetDirection.normalized * speed * Time.deltaTime);
     }
 

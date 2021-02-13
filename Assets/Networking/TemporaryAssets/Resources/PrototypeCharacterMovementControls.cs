@@ -14,6 +14,8 @@ public class PrototypeCharacterMovementControls : MonoBehaviour, IPunObservable
     public InputAction LookAction = new InputAction("look", binding: "<Gamepad>/rightStick");
 
     public CharacterController controller;
+    public GameObject ShootingPoint;
+    public GameObject BulletPrefab;
     public float speed = 20f;
     public float gravity = -3f; 
 
@@ -153,6 +155,30 @@ public class PrototypeCharacterMovementControls : MonoBehaviour, IPunObservable
 
     /// <summary>
     /// Author: Ziqi Li
+    /// Callbakc function of input system
+    /// </summary>
+    void OnFire()
+    {
+        // call the RPC function to fire bullet if this player belong to the current client
+        if (PhotonView.IsMine) PhotonView.RPC("RPC_Fire", RpcTarget.AllViaServer);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function to fire a bullet (RPC function)
+    /// </summary>
+    [PunRPC]
+    void RPC_Fire(PhotonMessageInfo info)
+    {
+        float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
+
+        GameObject bullet = Instantiate(BulletPrefab, ShootingPoint.transform.position, Quaternion.identity);
+        bullet.GetComponent<TestBullet>().InitializeBullet(PhotonView.Owner, transform.forward, Mathf.Abs(lag));
+    }
+
+
+    /// <summary>
+    /// Author: Ziqi Li
     /// Function for adding velocity to current additional velocity of this player (will be called by other objects
     /// or player ex: moving platform)
     /// </summary>
@@ -161,5 +187,16 @@ public class PrototypeCharacterMovementControls : MonoBehaviour, IPunObservable
     {
         _AdditionalVelocity += velocity;
     }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function for substract velocity from current additional velocity of this player (will be called by other objects
+    /// or player ex: moving platform)
+    /// </summary>
+    /// <param name="velocity"></param>
+    //public void SubstractVelocity(Vector3 velocity)
+    //{
+    //    _AdditionalVelocity -= velocity;
+    //}
 
 }

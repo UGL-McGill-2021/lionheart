@@ -73,6 +73,14 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc6f6f53-821b-47e9-95ba-3d1b66497218"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -218,6 +226,17 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37744fd8-6401-450c-8f7d-a63dddbf39e8"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -245,6 +264,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Mute = m_Player.FindAction("Mute", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -301,6 +321,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Mute;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Fire;
     public struct PlayerActions
     {
         private @InvitationCodeInputAction m_Wrapper;
@@ -312,6 +333,7 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Mute => m_Wrapper.m_Player_Mute;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -342,6 +364,9 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -367,6 +392,9 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -389,5 +417,6 @@ public class @InvitationCodeInputAction : IInputActionCollection, IDisposable
         void OnTalk(InputAction.CallbackContext context);
         void OnMute(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
