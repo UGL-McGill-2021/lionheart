@@ -10,8 +10,8 @@ using System.Collections.Generic;
 /// </summary>
 public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservable
 {
-    public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
-    public InputAction LookAction = new InputAction("look", binding: "<Gamepad>/rightStick");
+    //public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
+    //public InputAction LookAction = new InputAction("look", binding: "<Gamepad>/rightStick");
 
     public CharacterController controller;
     public GameObject ShootingPoint;
@@ -38,8 +38,8 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
 
     private void Awake()
     {
-        MoveAction.Enable();
-        LookAction.Enable();
+        //MoveAction.Enable();
+        //LookAction.Enable();
         PhotonView = GetComponent<PhotonView>();
         _AdditionalVelocity = Vector3.zero;
 
@@ -51,9 +51,6 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
         // If this character belong to the current client
         if (PhotonView.IsMine)
         {
-            var MoveDirection = MoveAction.ReadValue<Vector2>();
-            var LookDirection = LookAction.ReadValue<Vector2>();
-
             // calculate moving vector
             Vector3 movement = transform.forward * MoveDirection.y;
             movement += transform.right * MoveDirection.x;
@@ -142,6 +139,24 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
         {
             isJumped = true;
         }
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Callbakc function of input system
+    /// </summary>
+    void OnMove(InputValue movementValue)
+    {
+        MoveDirection = movementValue.Get<Vector2>();
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Callbakc function of input system
+    /// </summary>
+    void OnLook(InputValue lookValue)
+    {
+        LookDirection = lookValue.Get<Vector2>();
     }
 
     /// <summary>

@@ -3,27 +3,37 @@ using Photon.Voice.Unity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Author: Ziqi Li
+/// Script for voice chat manager
+/// Note: attach the Player Input component and assign an InputAction to it
+/// for using the callback functions from Input System
+/// </summary>
 public class VoiceChatManager : MonoBehaviour {
+
     public Recorder recorder;
     private PhotonVoiceNetwork punVoiceNetwork;
 
-    // Temporary key binding
-    private InvitationCodeInputAction VoiceChatAction;
-
     private void Awake() {
         punVoiceNetwork = PhotonVoiceNetwork.Instance;
-        VoiceChatAction = new InvitationCodeInputAction();
-        VoiceChatAction.Player.Talk.performed += _ => Talk();
-        VoiceChatAction.Player.Mute.performed += _ => Mute();
-        VoiceChatAction.Enable();
     }
 
-    public void Talk() {
+    /// <summary>
+    /// Author: Ziqi Li
+    /// CallBack function from input system
+    /// Activate talking
+    /// </summary>
+    public void OnTalk() {
         Debug.Log("Talk");
         this.recorder.TransmitEnabled = true;
     }
 
-    public void Mute() {
+    /// <summary>
+    /// Author: Ziqi Li
+    /// CallBack function from input system
+    /// Mute talking
+    /// </summary>
+    public void OnMute() {
         Debug.Log("Mute");
         this.recorder.TransmitEnabled = false;
     }

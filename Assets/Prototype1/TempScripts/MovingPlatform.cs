@@ -8,7 +8,7 @@ using UnityEngine;
 
 /// <summary>
 /// Author: Ziqi Li
-/// Script for moving platform object
+/// Script for remote moving platform object
 /// </summary>
 public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
 {
@@ -37,9 +37,9 @@ public class MovingPlatform : MonoBehaviour, IPunObservable, IOnEventCallback
     public const byte RemoveChildEventCode = 2;  // Event code for Photon RaiseEvent
 
     //Lag compensation
-    float _CurrentTime = 0;
-    double _CurrentPacketTime = 0;
-    double _LastPacketTime = 0;
+    //float _CurrentTime = 0;
+    //double _CurrentPacketTime = 0;
+    //double _LastPacketTime = 0;
 
     private Vector3 RemotePosition;
     private Quaternion RemoteRotation;

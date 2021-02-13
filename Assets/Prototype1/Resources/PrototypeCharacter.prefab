@@ -485,38 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b25e2890a6d0ad41a86dea4713648bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveAction:
-    m_Name: move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4d46a50f-d55e-43a8-9482-6f05c8b0a0b6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 1cdf5f44-2974-4986-8ed9-000b405250d6
-      m_Path: <Gamepad>/leftStick
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: move
-      m_Flags: 0
-  LookAction:
-    m_Name: look
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4bde8065-92d4-4b75-ac59-586a2351dfd0
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: db759a33-ee1a-4364-b6ea-38c71276827b
-      m_Path: <Gamepad>/rightStick
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: look
-      m_Flags: 0
   controller: {fileID: 8250964491736608995}
   ShootingPoint: {fileID: 1428720345215456850}
   BulletPrefab: {fileID: 4004048691340662988, guid: e53176fe5c76f4e42b80ebe32b902640, type: 3}
@@ -582,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: c0e0b5b2bef7c3c48aacb41ce6d3ab2d, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 134cf49d473a440d99e0649612bd8f83, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:

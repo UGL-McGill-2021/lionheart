@@ -96,6 +96,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
         //if (PhotonNetwork.IsMasterClient)
         //    PhotonNetwork.LoadLevel("SampleScene");
+        if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
     }
 
     /// <summary>
@@ -106,10 +107,13 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     public override void OnPlayerEnteredRoom(Player newPlayer) {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2) {
             Debug.Log("Network (INFO): Invitation complete!");
+            InputAction.Player.Disable();
+            
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.LoadLevel("DemoScene");
         }
     }
+
 
     /// <summary>
     /// Author: Feiyang Li

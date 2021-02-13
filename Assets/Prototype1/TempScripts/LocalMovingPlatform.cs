@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Author: Ziqi Li
+/// A local version of moving platform for testing
+/// </summary>
 public class LocalMovingPlatform : MonoBehaviour
 {
     public List<GameObject> PathPointObjects = new List<GameObject>();
