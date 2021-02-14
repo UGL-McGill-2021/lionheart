@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour {
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[2]);
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[3]);
 
+            // Generate enermy
+            GameObject enermy = PhotonNetwork.InstantiateRoomObject("Grunt", new Vector3(0, 0, 25), Quaternion.identity);
+            enermy.GetComponent<Grunt>().PlayerTransform = player.transform;
+            
+
         }
         else
         {

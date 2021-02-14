@@ -31,6 +31,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// @TODO: Move this to UI controller when UI is being formally constructed
     /// </summary>
     private void Awake() {
+        //PhotonNetwork.OfflineMode = true;
         InputAction = new InvitationCodeInputAction();
         InputAction.Player.AddA.performed += _ => AddCodeCharacter('A');
         InputAction.Player.AddB.performed += _ => AddCodeCharacter('B');
@@ -95,7 +96,11 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     public override void OnJoinedRoom() {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
         //if (PhotonNetwork.IsMasterClient)
-        //    PhotonNetwork.LoadLevel("SampleScene");
+        //{
+        //    InputAction.Player.Disable();
+        //    PhotonNetwork.LoadLevel("DemoScene");
+        //}
+            
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
     }
 

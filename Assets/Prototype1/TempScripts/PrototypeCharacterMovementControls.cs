@@ -38,12 +38,15 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
 
     private void Awake()
     {
-        //MoveAction.Enable();
-        //LookAction.Enable();
         PhotonView = GetComponent<PhotonView>();
         _AdditionalVelocity = Vector3.zero;
 
         DualShock4GamepadHID controller = new AssemblyCSharp.Assets.DualShock4GamepadHID();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void FixedUpdate()
@@ -81,7 +84,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
 
             // rotate character
             gameObject.transform.Rotate(new Vector3(0, LookDirection.x * 80 * Time.deltaTime, 0));
-            }
+        }
         else
         {
             //Lag compensation

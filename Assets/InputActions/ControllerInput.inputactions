@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "ControllerInput",
     "maps": [
         {
             "name": "Player",
@@ -33,6 +33,22 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "61efde13-b407-4b8b-b681-8d656abba1b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Talk",
+                    "type": "Button",
+                    "id": "40d68474-3321-400a-a433-f1154e06395e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mute",
+                    "type": "Button",
+                    "id": "008adaf0-f535-4fd1-90e1-a7e22cb4d26b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -157,6 +173,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c8d4f79-69bc-4363-b2da-5e2d67ef6afb",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a1ac633-edf8-4992-b6da-4fd0377732b4",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "960586e2-03be-4a17-b17a-ab466d4f7104",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e14b271e-c848-4d53-b8df-3e1849bc3672",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

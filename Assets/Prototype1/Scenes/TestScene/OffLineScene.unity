@@ -628,8 +628,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2271345433001750746, guid: 58072af4fd99b5a4189f534dd6f5eb75, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6505429409326896305, guid: 58072af4fd99b5a4189f534dd6f5eb75, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505429409326896305, guid: 58072af4fd99b5a4189f534dd6f5eb75, type: 3}
+      propertyPath: OffLineMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7087117848794031499, guid: 58072af4fd99b5a4189f534dd6f5eb75, type: 3}
