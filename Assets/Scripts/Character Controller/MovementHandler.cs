@@ -9,33 +9,29 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] CharacterController PlayerController;
         [SerializeField] Camera PlayerCamera;
-
-        private Vector3 PCamOffset;
+        [SerializeField] GameObject Player;
 
         private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
 
-        private void Awake()
-        {
-            //PCamOffset = Vector3.Distance(PlayerCamera.transform.position, PlayerController.transform.position);
-        }
-
         private void Update() => Move();
 
-        public void AddModifier(MovementModifier mod) => Modifiers.Add(mod);
+        public void AddModifier(MovementModifier Mod) => Modifiers.Add(Mod);
 
-        public void RemoveModifier(MovementModifier mod) => Modifiers.Remove(mod);
+        public void RemoveModifier(MovementModifier Mod) => Modifiers.Remove(Mod);
 
         private void Move()
         {
             Vector3 Movement = Vector3.zero;
 
-            foreach (MovementModifier m in Modifiers)
+            foreach (MovementModifier M in Modifiers)
             {
-                Movement += m.Value;
+                Movement += M.Value;
             }
             
             PlayerController.Move(Movement * Time.deltaTime);
-            PlayerCamera.transform.position += Movement * Time.deltaTime;
+
+            Player.transform.position = new Vector3(PlayerController.transform.position.x,
+                PlayerController.transform.position.y, PlayerController.transform.position.z);
         }
     }
 }
