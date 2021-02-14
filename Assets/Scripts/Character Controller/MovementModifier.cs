@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Lionheart.Player.Movement
 {
+    /// <summary>
+    /// Auhtor: Denis
+    /// Interface for movement modifiers
+    /// </summary>
     public interface MovementModifier
     {
         public Vector3 Value { get; }
@@ -11,8 +15,8 @@ namespace Lionheart.Player.Movement
         public enum MovementType
         {
             Walk,
-            Rotation,
-            Vertical
+            Vertical,
+            Dash
         }
     }
 }
