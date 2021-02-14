@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Lionheart.Player.Movement
@@ -19,6 +20,11 @@ namespace Lionheart.Player.Movement
 
         public Vector3 Value { get; private set; }
 
+        // Photon:
+        public PhotonView PhotonView;
+        private bool isOffLineMode;
+        private Quaternion RemoteRotation;
+
         /// <summary>
         /// Author: Denis
         /// Initial setup
@@ -27,6 +33,12 @@ namespace Lionheart.Player.Movement
         {
             ControllerActions = new ControllerInput();
             Direction = new Vector3();
+        }
+
+        private void Start()
+        {
+            PhotonView = GetComponent<PhotonView>();
+            isOffLineMode = GetComponent<MultiplayerActivator>().isOffLine;
         }
 
         /// <summary>
@@ -51,7 +63,27 @@ namespace Lionheart.Player.Movement
             ControllerActions.Player.Move.Disable();
         }
 
-        private void Update() => Rotate();
+        private void Update()
+        {
+            // If online mode
+            if (!isOffLineMode)
+            {
+                if (PhotonView.IsMine)
+                {
+                    Rotate();
+                }
+                else
+                {
+                    Debug.Log("rec");
+                    transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, Time.deltaTime);
+                }
+            }
+            else
+            {
+                Rotate();
+
+            }
+        }
 
         /// <summary>
         /// Author: Denis
@@ -65,6 +97,27 @@ namespace Lionheart.Player.Movement
             }
 
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(Direction), 15 * Time.deltaTime);
+        }
+
+        /// <summary>
+        /// Author: Ziqi Li
+        /// Called by PUN several times per second, so that your script can write and
+        /// read synchronization data for the PhotonView
+        /// This method will be called in scripts that are assigned as Observed component of a PhotonView
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="info"></param>
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            // Sending messages to server if this object belong to the current client, otherwise receive messages
+            if (stream.IsWriting)
+            {
+                stream.SendNext(transform.rotation);
+            }
+            else
+            {
+                RemoteRotation = (Quaternion)stream.ReceiveNext();
+            }
         }
     }
 }

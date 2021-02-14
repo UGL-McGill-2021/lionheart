@@ -79,6 +79,17 @@
                 },
                 {
                     "name": "",
+                    "id": "eb8cbf89-2148-4e14-b8ed-924dd7d42934",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "115a182e-036f-4aa2-94b0-c8119428fd0b",
                     "path": "<XInputController>/rightStick",
                     "interactions": "",
@@ -200,6 +211,17 @@
                 },
                 {
                     "name": "",
+                    "id": "94456552-10cc-4934-b5b0-ec6857019631",
+                    "path": "<XInputController>/dpad/left",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "960586e2-03be-4a17-b17a-ab466d4f7104",
                     "path": "<Gamepad>/dpad/left",
                     "interactions": "Press(behavior=1)",
@@ -213,6 +235,17 @@
                     "name": "",
                     "id": "e14b271e-c848-4d53-b8df-3e1849bc3672",
                     "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe097086-1f4f-4689-9e2a-e509d9c467dd",
+                    "path": "<XInputController>/dpad/left",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",

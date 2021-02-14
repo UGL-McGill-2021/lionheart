@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Lionheart.Player.Movement
@@ -18,7 +19,37 @@ namespace Lionheart.Player.Movement
 
         private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
 
-        private void Update() => Move();
+        // Photon:
+        public PhotonView PhotonView;
+        private Vector3 RemotePosition;
+        private bool isOffLineMode;
+
+        private void Start()
+        {
+            PhotonView = GetComponent<PhotonView>();
+            isOffLineMode = GetComponent<MultiplayerActivator>().isOffLine;
+        }
+
+        private void Update()
+        {
+            // If online mode
+            if (!isOffLineMode)
+            {
+                if (PhotonView.IsMine)
+                {
+                    Move();
+                }
+                else
+                {
+                    //Update remote player
+                    transform.position = Vector3.Lerp(transform.position, RemotePosition, Time.deltaTime);
+                }
+            }
+            else
+            {
+                Move();
+            }
+        }
 
         /// <summary>
         /// Author: Denis
@@ -52,6 +83,27 @@ namespace Lionheart.Player.Movement
 
             Player.transform.position = new Vector3(PlayerController.transform.position.x,
                 PlayerController.transform.position.y, PlayerController.transform.position.z);
+        }
+
+        /// <summary>
+        /// Author: Ziqi Li
+        /// Called by PUN several times per second, so that your script can write and
+        /// read synchronization data for the PhotonView
+        /// This method will be called in scripts that are assigned as Observed component of a PhotonView
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="info"></param>
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            // Sending messages to server if this object belong to the current client, otherwise receive messages
+            if (stream.IsWriting)
+            {
+                stream.SendNext(transform.position);
+            }
+            else
+            {
+                RemotePosition = (Vector3)stream.ReceiveNext();
+            }
         }
     }
 }

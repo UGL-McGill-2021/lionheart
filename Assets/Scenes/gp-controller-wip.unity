@@ -754,6 +754,7 @@ GameObject:
   - component: {fileID: 1798567814}
   - component: {fileID: 1798567813}
   - component: {fileID: 1798567812}
+  - component: {fileID: 1798567821}
   - component: {fileID: 1798567818}
   - component: {fileID: 1798567819}
   - component: {fileID: 1798567816}
@@ -899,6 +900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 1798567815}
   PlayerMovementHandler: {fileID: 1798567818}
+  PhotonView: {fileID: 0}
 --- !u!114 &1798567818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,6 +916,7 @@ MonoBehaviour:
   PlayerController: {fileID: 1798567815}
   PlayerCamera: {fileID: 904536843}
   Player: {fileID: 1798970679}
+  PhotonView: {fileID: 0}
 --- !u!114 &1798567819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,6 +949,25 @@ MonoBehaviour:
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
+--- !u!114 &1798567821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798567810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d94a80e4e69844e4b980592b503ca87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOffLine: 1
+  cam: {fileID: 904536843}
+  script1: {fileID: 1798567819}
+  script2: {fileID: 1798567817}
+  script3: {fileID: 1798567816}
+  script4: {fileID: 1798567820}
+  script5: {fileID: 1798567818}
 --- !u!1 &1798970679
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 
         if (PhotonNetwork.IsMasterClient) // 2
         {
-            GameObject player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate("Player", new Vector3(0, 1.25f, 0), Quaternion.identity);
             AudioListener listener = player.GetComponentInChildren<AudioListener>();
             if (listener != null)
             {
@@ -40,14 +40,14 @@ public class GameManager : MonoBehaviour {
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[3]);
 
             // Generate enermy
-            GameObject enermy = PhotonNetwork.InstantiateRoomObject("Grunt", new Vector3(0, 0, 25), Quaternion.identity);
-            enermy.GetComponent<Grunt>().PlayerTransform = player.transform;
+            //GameObject enermy = PhotonNetwork.InstantiateRoomObject("Grunt", new Vector3(0, 0, 20), Quaternion.identity);
+            //enermy.GetComponent<Grunt>().PlayerTransform = player.transform;
             
 
         }
         else
         {
-            GameObject player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(4, 0, 0), Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate("Player", new Vector3(4, 1.25f, 0), Quaternion.identity);
             AudioListener listener = player.GetComponentInChildren<AudioListener>();
             if (listener != null)
             {

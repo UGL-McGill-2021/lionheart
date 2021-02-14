@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,13 +20,12 @@ namespace Lionheart.Player.Movement
         [SerializeField] Gamepad Controller;
 
         [Header("Parameters")]
-        [SerializeField] private readonly float GroundPull = 50f;
-        [SerializeField] private readonly float JumpHeight = 10f;
+        [SerializeField] private readonly float GroundPull = 2f;
+        [SerializeField] private readonly float JumpHeight = 25f;
         [SerializeField] private float GroundDistance = 0.4f;
         [SerializeField] private LayerMask GroundMask;
 
         private readonly float GravityMagnitude = Physics.gravity.y;
-
         private bool IsAirborne;
         private bool IsGrounded;
         private bool HasJumped;
