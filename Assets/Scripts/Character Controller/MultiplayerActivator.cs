@@ -23,7 +23,7 @@ namespace Lionheart.Player.Movement
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            if (!isOffLine && this.gameObject.GetPhotonView().IsMine)
+            if (!isOffLine && this.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 cam.enabled = true;
                 script1.enabled = true;
