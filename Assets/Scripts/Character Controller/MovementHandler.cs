@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lionheart.Player.Movement
-{
+namespace Lionheart.Player.Movement {
     /// <summary>
     /// Author: Denis
     /// This class adds movement vectors to produce a cobined vector and move the player.
     /// The Vectors come from the interface list Movement Modifier
     /// </summary>
-    public class MovementHandler : MonoBehaviour
-    {
+    public class MovementHandler : MonoBehaviour {
         [Header("References")]
         [SerializeField] CharacterController PlayerController;
         [SerializeField] Camera PlayerCamera;
@@ -24,31 +21,13 @@ namespace Lionheart.Player.Movement
         private Vector3 RemotePosition;
         private bool isOffLineMode;
 
-        private void Start()
-        {
+        private void Start() {
             PhotonView = GetComponent<PhotonView>();
-            isOffLineMode = this.GetComponent<MultiplayerActivator>().isOffLine;
+            //isOffLineMode = this.GetComponent<MultiplayerActivator>().isOffLine;
         }
 
-        private void Update()
-        {
-            // If online mode
-            if (!isOffLineMode)
-            {
-                if (PhotonView.IsMine)
-                {
-                    Move();
-                }
-                else
-                {
-                    //Update remote player
-                    transform.position = Vector3.Lerp(transform.position, RemotePosition, Time.deltaTime);
-                }
-            }
-            else
-            {
-                Move();
-            }
+        private void FixedUpdate() {
+            Move();
         }
 
         /// <summary>
@@ -70,19 +49,14 @@ namespace Lionheart.Player.Movement
         /// Adds every movement modifier vector and moves the player to the final position.
         /// Also move sthe camera to follow the player.
         /// </summary>
-        private void Move()
-        {
+        private void Move() {
             Vector3 Movement = Vector3.zero;
 
-            foreach (MovementModifier M in Modifiers)
-            {
+            foreach (MovementModifier M in Modifiers) {
                 Movement += M.Value;
             }
-            
-            PlayerController.Move(Movement * Time.deltaTime);
 
-            Player.transform.position = new Vector3(PlayerController.transform.position.x,
-                PlayerController.transform.position.y, PlayerController.transform.position.z);
+            PlayerController.Move(Movement * Time.deltaTime);
         }
 
         /// <summary>
@@ -93,18 +67,14 @@ namespace Lionheart.Player.Movement
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="info"></param>
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
+        //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
             // Sending messages to server if this object belong to the current client, otherwise receive messages
-            if (stream.IsWriting)
-            {
-                stream.SendNext(transform.position);
-            }
-            else
-            {
-                RemotePosition = (Vector3)stream.ReceiveNext();
-            }
-        }
+            //if (stream.IsWriting) {
+                //stream.SendNext(transform.position);
+            //} else {
+                //RemotePosition = (Vector3)stream.ReceiveNext();
+            //}
+        //}
     }
 }
 

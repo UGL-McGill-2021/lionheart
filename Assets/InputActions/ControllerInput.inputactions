@@ -79,17 +79,6 @@
                 },
                 {
                     "name": "",
-                    "id": "eb8cbf89-2148-4e14-b8ed-924dd7d42934",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "115a182e-036f-4aa2-94b0-c8119428fd0b",
                     "path": "<XInputController>/rightStick",
                     "interactions": "",
@@ -103,17 +92,6 @@
                     "name": "",
                     "id": "1e58d27b-3c39-47c9-b214-f34a7692b611",
                     "path": "<DualShockGamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a628ac9c-1303-4515-84c3-a20db84d78b0",
-                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -145,17 +123,6 @@
                 },
                 {
                     "name": "",
-                    "id": "507f2b22-9d02-4868-b3cf-7de7a698a731",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6f04366a-8894-4627-affe-ce332ee0df47",
                     "path": "<XInputController>/buttonWest",
                     "interactions": "",
@@ -178,28 +145,6 @@
                 },
                 {
                     "name": "",
-                    "id": "dd02f257-b422-47b7-8749-030771666931",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c8d4f79-69bc-4363-b2da-5e2d67ef6afb",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Talk",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3a1ac633-edf8-4992-b6da-4fd0377732b4",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "Press",
@@ -217,17 +162,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Talk",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "960586e2-03be-4a17-b17a-ab466d4f7104",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
