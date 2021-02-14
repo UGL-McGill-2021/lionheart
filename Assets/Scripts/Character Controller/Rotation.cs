@@ -38,7 +38,7 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PhotonView = GetComponent<PhotonView>();
-            isOffLineMode = GetComponent<MultiplayerActivator>().isOffLine;
+            isOffLineMode = this.GetComponent<MultiplayerActivator>().isOffLine;
         }
 
         /// <summary>
@@ -68,13 +68,15 @@ namespace Lionheart.Player.Movement
             // If online mode
             if (!isOffLineMode)
             {
+                Debug.Log("1");
                 if (PhotonView.IsMine)
                 {
+                    Debug.Log("2");
                     Rotate();
                 }
                 else
                 {
-                    Debug.Log("rec");
+                    Debug.Log("3");
                     transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, Time.deltaTime);
                 }
             }

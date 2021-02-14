@@ -27,7 +27,7 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PhotonView = GetComponent<PhotonView>();
-            isOffLineMode = GetComponent<MultiplayerActivator>().isOffLine;
+            isOffLineMode = this.GetComponent<MultiplayerActivator>().isOffLine;
         }
 
         private void Update()

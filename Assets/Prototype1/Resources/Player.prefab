@@ -263,6 +263,8 @@ GameObject:
   - component: {fileID: 1595909332799769024}
   - component: {fileID: 635182408175296659}
   - component: {fileID: 5240929538399574904}
+  - component: {fileID: 1615932756202264780}
+  - component: {fileID: 3122234873796800120}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Player
@@ -490,6 +492,44 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &1615932756202264780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595909332799769038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d94a80e4e69844e4b980592b503ca87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOffLine: 0
+  cam: {fileID: 1595909334047071559}
+  script1: {fileID: 1595909332799769031}
+  script2: {fileID: 1595909332799769029}
+  script3: {fileID: 1595909332799769028}
+  script4: {fileID: 1595909332799769024}
+  script5: {fileID: 1595909332799769030}
+--- !u!114 &3122234873796800120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595909332799769038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logLevel: 3
+  ignoreGlobalLogLevel: 0
+  recorderInUse: {fileID: 0}
+  speakerInUse: {fileID: 4300820908731567280}
+  AutoCreateRecorderIfNotFound: 0
+  UsePrimaryRecorder: 1
+  SetupDebugSpeaker: 0
 --- !u!1 &1595909332800316283
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,10 +540,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1595909332800316276}
   - component: {fileID: 1595909332800316277}
-  - component: {fileID: 2892402685512892167}
-  - component: {fileID: 1198118855213592653}
-  - component: {fileID: 5824341707160456457}
-  - component: {fileID: 2207023548814146425}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -558,83 +594,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2892402685512892167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595909332800316283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 2207023548814146425}
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1198118855213592653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595909332800316283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logLevel: 3
-  ignoreGlobalLogLevel: 0
-  recorderInUse: {fileID: 0}
-  speakerInUse: {fileID: 4300820908731567280}
-  AutoCreateRecorderIfNotFound: 0
-  UsePrimaryRecorder: 1
-  SetupDebugSpeaker: 0
---- !u!114 &5824341707160456457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595909332800316283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d94a80e4e69844e4b980592b503ca87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOffLine: 0
-  cam: {fileID: 1595909334047071559}
-  script1: {fileID: 1595909332799769031}
-  script2: {fileID: 1595909332799769029}
-  script3: {fileID: 1595909332799769028}
-  script4: {fileID: 1595909332799769024}
-  script5: {fileID: 1595909332799769030}
---- !u!114 &2207023548814146425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595909332800316283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &1595909333327164420
 GameObject:
   m_ObjectHideFlags: 0
