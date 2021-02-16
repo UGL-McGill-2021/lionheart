@@ -85,15 +85,9 @@ namespace Lionheart.Player.Movement {
         /// Applies the joystick rotation to the player
         /// </summary>
         private void Rotate() {
-
-
-            //if (Value.magnitude > 0.2f) {
-            //Direction = Value.normalized;
-            //}
-
             var MoveDirection = MoveAction.ReadValue<Vector2>();
             if (MoveDirection != Vector2.zero) {
-                transform.parent.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(MoveDirection.x, 0f, MoveDirection.y)), 15 * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(MoveDirection.x, 0f, MoveDirection.y)), 15 * Time.deltaTime);
             } 
         }
 

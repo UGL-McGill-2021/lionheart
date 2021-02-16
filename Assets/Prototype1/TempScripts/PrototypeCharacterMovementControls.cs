@@ -1,8 +1,7 @@
+using AssemblyCSharp.Assets;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Photon.Pun;
-using AssemblyCSharp.Assets;
-using System.Collections.Generic;
 
 /// <summary>
 /// Ahutor: Feiyang Li, Ziqi Li
@@ -10,14 +9,11 @@ using System.Collections.Generic;
 /// </summary>
 public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservable
 {
-    //public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
-    //public InputAction LookAction = new InputAction("look", binding: "<Gamepad>/rightStick");
-
     public CharacterController controller;
     public GameObject ShootingPoint;
     public GameObject BulletPrefab;
     public float speed = 20f;
-    public float gravity = -3f; 
+    public float gravity = -3f;
 
     private Vector2 MoveDirection;
     private Vector2 LookDirection;
@@ -36,43 +32,32 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     double _LastPacketTime = 0;
 
 
-    private void Awake()
-    {
+    private void Awake() {
         PhotonView = GetComponent<PhotonView>();
         _AdditionalVelocity = Vector3.zero;
 
         DualShock4GamepadHID controller = new AssemblyCSharp.Assets.DualShock4GamepadHID();
     }
 
-    private void Start()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         // If this character belong to the current client
-        if (PhotonView.IsMine)
-        {
+        if (PhotonView.IsMine) {
             // calculate moving vector
             Vector3 movement = transform.forward * MoveDirection.y;
             movement += transform.right * MoveDirection.x;
             movement *= speed;
 
             // detect jump action
-            if (controller.isGrounded)
-            {
-                if (isJumped)
-                {
+            if (controller.isGrounded) {
+                if (isJumped) {
                     //set the y-movement to 0, and then add the y-movement with the jump movement value 
                     //_AdditionalVelocity.y = 0f;
                     //_AdditionalVelocity.y += Mathf.Sqrt(jumpSpeed * -gravity);
                     movement.y += Mathf.Sqrt(jumpSpeed * 200 * -gravity);
                     isJumped = false;
                 }
-            }
-            else  //if not grounded, apply gravity
-            {
+            } else  //if not grounded, apply gravity
+              {
                 movement.y += gravity;
                 isJumped = false;
             }
@@ -84,17 +69,11 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
 
             // rotate character
             gameObject.transform.Rotate(new Vector3(0, LookDirection.x * 80 * Time.deltaTime, 0));
-        }
-        else
-        {
+        } else {
             //Lag compensation
             double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
             _CurrentTime += Time.deltaTime;
 
-            // update the position and rotation of this character (which doesn't belong to the current client)
-            //transform.position = Vector3.Lerp(transform.position, RemotePosition, 0.1f);
-            //transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, 0.1f);
-            ////Update remote player
             transform.position = Vector3.Lerp(transform.position, RemotePosition, (float)(_CurrentTime / timeToReachGoal));
             transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
         }
@@ -102,7 +81,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
         _AdditionalVelocity = Vector3.zero;
     }
 
-    
+
     /// <summary>
     /// Author: Ziqi Li
     /// Called by PUN several times per second, so that your script can write and
@@ -111,16 +90,12 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="info"></param>
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         // Sending messages to server if this character belong to the current client, otherwise receive messages
-        if (stream.IsWriting)
-        {
+        if (stream.IsWriting) {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
-        }
-        else
-        {
+        } else {
             RemotePosition = (Vector3)stream.ReceiveNext();
             RemoteRotation = (Quaternion)stream.ReceiveNext();
 
@@ -136,10 +111,8 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Callbakc function of character controller's collider
     /// </summary>
     /// <param name="hit"></param>
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.tag == "BouncingPad" && controller.isGrounded)
-        {
+    private void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (hit.gameObject.tag == "BouncingPad" && controller.isGrounded) {
             isJumped = true;
         }
     }
@@ -148,8 +121,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Author: Ziqi Li
     /// Callbakc function of input system
     /// </summary>
-    void OnMove(InputValue movementValue)
-    {
+    void OnMove(InputValue movementValue) {
         MoveDirection = movementValue.Get<Vector2>();
     }
 
@@ -157,8 +129,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Author: Ziqi Li
     /// Callbakc function of input system
     /// </summary>
-    void OnLook(InputValue lookValue)
-    {
+    void OnLook(InputValue lookValue) {
         LookDirection = lookValue.Get<Vector2>();
     }
 
@@ -166,8 +137,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Author: Ziqi Li
     /// Callbakc function of input system
     /// </summary>
-    void OnJump()
-    {
+    void OnJump() {
         if (controller.isGrounded) isJumped = true;
     }
 
@@ -175,8 +145,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Author: Ziqi Li
     /// Callbakc function of input system
     /// </summary>
-    void OnFire()
-    {
+    void OnFire() {
         // call the RPC function to fire bullet if this player belong to the current client
         if (PhotonView.IsMine) PhotonView.RPC("RPC_Fire", RpcTarget.AllViaServer);
     }
@@ -186,8 +155,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Function to fire a bullet (RPC function)
     /// </summary>
     [PunRPC]
-    void RPC_Fire(PhotonMessageInfo info)
-    {
+    void RPC_Fire(PhotonMessageInfo info) {
         float lag = (float)(PhotonNetwork.Time - info.SentServerTime);
 
         GameObject bullet = Instantiate(BulletPrefab, ShootingPoint.transform.position, Quaternion.identity);
@@ -201,8 +169,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// or player ex: moving platform)
     /// </summary>
     /// <param name="velocity"></param>
-    public void AddVelocity(Vector3 velocity)
-    {
+    public void AddVelocity(Vector3 velocity) {
         _AdditionalVelocity += velocity;
     }
 
