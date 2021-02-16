@@ -1,7 +1,6 @@
-using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
+using UnityEngine;
 
 
 /// <summary>
@@ -17,10 +16,9 @@ public class GameManager : MonoBehaviour {
 
         if (PhotonNetwork.IsMasterClient) // 2
         {
-            GameObject player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject player = PhotonNetwork.Instantiate("Player", new Vector3(0, 1.25f, 0), Quaternion.identity);
             AudioListener listener = player.GetComponentInChildren<AudioListener>();
-            if (listener != null)
-            {
+            if (listener != null) {
                 listener.enabled = true;
             }
 
@@ -39,13 +37,11 @@ public class GameManager : MonoBehaviour {
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[2]);
             platform.GetComponent<MovingPlatform>().PathPointObjects.Add(PathPoints[3]);
 
-        }
-        else
-        {
-            GameObject player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(4, 0, 0), Quaternion.identity);
+
+        } else {
+            GameObject player = PhotonNetwork.Instantiate("Player", new Vector3(4, 1.25f, 0), Quaternion.identity);
             AudioListener listener = player.GetComponentInChildren<AudioListener>();
-            if (listener != null)
-            {
+            if (listener != null) {
                 listener.enabled = true;
             }
         }

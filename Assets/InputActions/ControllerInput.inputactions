@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "ControllerInput",
     "maps": [
         {
             "name": "Player",
@@ -33,6 +33,22 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "61efde13-b407-4b8b-b681-8d656abba1b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Talk",
+                    "type": "Button",
+                    "id": "40d68474-3321-400a-a433-f1154e06395e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mute",
+                    "type": "Button",
+                    "id": "008adaf0-f535-4fd1-90e1-a7e22cb4d26b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -85,17 +101,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a628ac9c-1303-4515-84c3-a20db84d78b0",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9b2c3ce2-9772-4e4c-9d90-18cb9112ff5e",
                     "path": "<XInputController>/buttonSouth",
                     "interactions": "",
@@ -109,17 +114,6 @@
                     "name": "",
                     "id": "d07ceea1-2aec-4b60-a97a-c2079e68415c",
                     "path": "<DualShockGamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "507f2b22-9d02-4868-b3cf-7de7a698a731",
-                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -151,12 +145,45 @@
                 },
                 {
                     "name": "",
-                    "id": "dd02f257-b422-47b7-8749-030771666931",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
+                    "id": "3a1ac633-edf8-4992-b6da-4fd0377732b4",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94456552-10cc-4934-b5b0-ec6857019631",
+                    "path": "<XInputController>/dpad/left",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e14b271e-c848-4d53-b8df-3e1849bc3672",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe097086-1f4f-4689-9e2a-e509d9c467dd",
+                    "path": "<XInputController>/dpad/left",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

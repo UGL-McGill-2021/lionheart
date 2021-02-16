@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class ShootNode : Node
@@ -14,6 +15,8 @@ public class ShootNode : Node
     private Transform Transform;
     private Transform Target;
 
+    private PhotonView PhotonView;
+
     public ShootNode(GameObject Projectile, Transform Target, float Speed, float CooldownTime, GameObject Shooter)
     {
         this.Projectile = Projectile;
@@ -24,6 +27,7 @@ public class ShootNode : Node
 
         Transform = Shooter.GetComponent<Transform>();
         MonoBehaviour = Shooter.GetComponent<MonoBehaviour>();
+        //PhotonView = Shooter.GetComponent<Shooter>().PhotonView;
     }
 
     public override NodeState Evaluate()
@@ -46,6 +50,8 @@ public class ShootNode : Node
         return NodeState.RUNNING;
     }
 
+
+    //[PunRPC]
     private void Shoot()
     {
         GameObject bullet = MonoBehaviour.Instantiate(Projectile, Transform.position + Transform.forward * 1.5f, Quaternion.identity) as GameObject;
@@ -54,6 +60,8 @@ public class ShootNode : Node
 
     IEnumerator AttackAndCooldown()
     {
+        // call the RPC function to fire bullet if this player belong to the current client
+        //if (PhotonView.IsMine) PhotonView.RPC("Shoot", RpcTarget.AllViaServer);
         Shoot();
         yield return new WaitForSeconds(CooldownTime);
         AttackRunning = false;

@@ -419,11 +419,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904536841}
   m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 8, z: -10}
+  m_LocalPosition: {x: -14.7, y: 9.559999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1798970680}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!114 &904536845
 MonoBehaviour:
@@ -550,7 +550,7 @@ Transform:
   m_LocalScale: {x: 5.9, y: 2.37, z: -17.25}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1056220943
 GameObject:
@@ -754,6 +754,7 @@ GameObject:
   - component: {fileID: 1798567814}
   - component: {fileID: 1798567813}
   - component: {fileID: 1798567812}
+  - component: {fileID: 1798567821}
   - component: {fileID: 1798567818}
   - component: {fileID: 1798567819}
   - component: {fileID: 1798567816}
@@ -783,7 +784,7 @@ Transform:
   - {fileID: 1633713555}
   - {fileID: 810788554}
   m_Father: {fileID: 1798970680}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1798567812
 CapsuleCollider:
@@ -878,7 +879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b898dc428c42f7349863d5a337652d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 1798567815}
+  PlayerController: {fileID: 1798970682}
   PlayerMovementHandler: {fileID: 1798567818}
   GroundCheck: {fileID: 810788553}
   GroundDistance: 0.15
@@ -897,8 +898,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd27a20393fb574a9c276614f82e3e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 1798567815}
+  PlayerController: {fileID: 1798970682}
   PlayerMovementHandler: {fileID: 1798567818}
+  PhotonView: {fileID: 0}
+  MoveAction:
+    m_Name: move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6565534e-b5bb-41a0-85a8-ebb309708156
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 7e768483-67a5-4196-89b5-1c749881684a
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: move
+      m_Flags: 0
+  MoveDirection: {x: 0, y: 0}
 --- !u!114 &1798567818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,9 +930,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd2a2aab53e1fb4983b1b26d0be4c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 1798567815}
+  PlayerController: {fileID: 1798970682}
   PlayerCamera: {fileID: 904536843}
   Player: {fileID: 1798970679}
+  PhotonView: {fileID: 0}
 --- !u!114 &1798567819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,8 +946,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b37db309c8c0e419005cdca6d05dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 1798567815}
+  PlayerController: {fileID: 1798970682}
   PlayerMovementHandler: {fileID: 1798567818}
+  MoveAction:
+    m_Name: <Gamepad>/leftStick
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 984248d1-a428-45f8-971f-e7855d79997a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 4d4f0910-03ad-42a0-b91d-6a2d0dd683cb
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: <Gamepad>/leftStick
+      m_Flags: 0
 --- !u!114 &1798567820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,12 +976,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede76f42a051dae488e66b7538333a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 1798567815}
+  PlayerController: {fileID: 1798970682}
   PlayerMovementHandler: {fileID: 1798567818}
   Direction: {x: 0, y: 0, z: 0}
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
+--- !u!114 &1798567821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798567810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d94a80e4e69844e4b980592b503ca87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOffLine: 1
+  cam: {fileID: 904536843}
+  script1: {fileID: 1798567819}
+  script2: {fileID: 1798567817}
+  script3: {fileID: 1798567816}
+  script4: {fileID: 1798567820}
+  script5: {fileID: 1798567818}
 --- !u!1 &1798970679
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +1011,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1798970680}
   - component: {fileID: 1798970681}
+  - component: {fileID: 1798970682}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -974,10 +1030,9 @@ Transform:
   m_LocalPosition: {x: -14.7, y: 1.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 904536844}
   - {fileID: 1798567811}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1798970681
 MonoBehaviour:
@@ -1009,6 +1064,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!143 &1798970682
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798970679}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1799970909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1175,7 @@ Transform:
   m_LocalScale: {x: 1.01, y: 16.15, z: -17.48}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -61.31}
 --- !u!1 &2095584388
 GameObject:
@@ -1197,7 +1270,7 @@ Transform:
   m_LocalScale: {x: 13.82, y: 10.81, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2105376701
 GameObject:
