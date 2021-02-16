@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservable
 {
+    public bool isOffLine;
     public CharacterController controller;
     public GameObject ShootingPoint;
     public GameObject BulletPrefab;
@@ -18,11 +19,13 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     private Vector2 MoveDirection;
     private Vector2 LookDirection;
     private PhotonView PhotonView;
+    private Rigidbody rb;
 
     private Vector3 RemotePosition;
     private Quaternion RemoteRotation;
 
     private float jumpSpeed = 6f;
+    [SerializeField]
     private Vector3 _AdditionalVelocity;  // additional velocity caused by other objects
     private bool isJumped = false;
 
@@ -34,49 +37,53 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
 
     private void Awake() {
         PhotonView = GetComponent<PhotonView>();
+        rb = GetComponent<Rigidbody>();
         _AdditionalVelocity = Vector3.zero;
 
         DualShock4GamepadHID controller = new AssemblyCSharp.Assets.DualShock4GamepadHID();
     }
 
     private void FixedUpdate() {
-        // If this character belong to the current client
-        if (PhotonView.IsMine) {
-            // calculate moving vector
-            Vector3 movement = transform.forward * MoveDirection.y;
-            movement += transform.right * MoveDirection.x;
-            movement *= speed;
+        if(!isOffLine)
+        {
+            // If this character belong to the current client
+            if (PhotonView.IsMine)
+            {
+                // calculate moving vector
+                Vector3 movement = transform.forward * MoveDirection.y;
+                movement += transform.right * MoveDirection.x;
+                movement *= speed;
+                movement += _AdditionalVelocity/2;
+                
 
-            // detect jump action
-            if (controller.isGrounded) {
-                if (isJumped) {
-                    //set the y-movement to 0, and then add the y-movement with the jump movement value 
-                    //_AdditionalVelocity.y = 0f;
-                    //_AdditionalVelocity.y += Mathf.Sqrt(jumpSpeed * -gravity);
-                    movement.y += Mathf.Sqrt(jumpSpeed * 200 * -gravity);
-                    isJumped = false;
-                }
-            } else  //if not grounded, apply gravity
-              {
-                movement.y += gravity;
-                isJumped = false;
+                rb.MovePosition(this.transform.position + movement * Time.deltaTime);
+                rb.MoveRotation(Quaternion.Euler(this.transform.rotation.eulerAngles + new Vector3(0, LookDirection.x * 80, 0) * Time.deltaTime));
             }
-
-            movement.x += _AdditionalVelocity.x;
-            movement.y += _AdditionalVelocity.y;
-            movement.z += _AdditionalVelocity.z;
-            controller.Move(movement * Time.deltaTime);
-
-            // rotate character
-            gameObject.transform.Rotate(new Vector3(0, LookDirection.x * 80 * Time.deltaTime, 0));
-        } else {
-            //Lag compensation
-            double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
-            _CurrentTime += Time.deltaTime;
-
-            transform.position = Vector3.Lerp(transform.position, RemotePosition, (float)(_CurrentTime / timeToReachGoal));
-            transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
         }
+        else
+        {
+            // calculate moving vector
+            Vector3 movement = transform.forward * (MoveDirection.y);
+            movement += transform.right * (MoveDirection.x);
+            movement *= speed;
+            
+
+
+
+            rb.MovePosition(this.transform.position + movement * Time.deltaTime);
+            rb.MoveRotation(Quaternion.Euler(this.transform.rotation.eulerAngles + new Vector3(0, LookDirection.x * 80, 0) * Time.deltaTime));
+            // rotate character
+            //gameObject.transform.Rotate(new Vector3(0, LookDirection.x * 80 * Time.deltaTime, 0));
+        }
+            
+        //} else {
+        //    //Lag compensation
+        //    double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
+        //    _CurrentTime += Time.deltaTime;
+
+        //    transform.position = Vector3.Lerp(transform.position, RemotePosition, (float)(_CurrentTime / timeToReachGoal));
+        //    transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
+        //}
 
         _AdditionalVelocity = Vector3.zero;
     }
