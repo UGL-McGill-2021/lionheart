@@ -7,7 +7,7 @@ public class MovingPlatformRB : MonoBehaviour
 {
     public bool isOffLine;
     public List<GameObject> PathPointObjects = new List<GameObject>();
-    public float delay = 2f;
+    public float StopTime = 2f;  // the time of stopping when reaching ends
     public float speed = 3f;
     public float epsilon = 0.2f;
     public bool isAutomatic = true;  // whether this platform will move automatically
@@ -17,18 +17,20 @@ public class MovingPlatformRB : MonoBehaviour
     // list to store players standing on this platform
     [SerializeField]
     private List<PrototypeCharacterMovementControls> PlayersList = new List<PrototypeCharacterMovementControls>();
+    [SerializeField]
     private Vector3 _CurrentTarget;
     private Vector3 _RealVelocity;
+
+    // Motion:
+    [SerializeField]
     private Vector3 _CurrentVelocity;
     private int _CurrentTargetIndex;
-    private bool isMovingToward = true;
-    private bool isTriggered = false;  // motion of platform have to be triggered if !isAutomatic
-    private float DelayTimer;
-    PhotonView PhotonView;
-    private Rigidbody RigidBody;
+    private bool isMovingToward = true; // for determining when to stop
+    private bool isTriggered = false;  // motion of platform have to be triggered by player if !isAutomatic
+    private Coroutine CurrentCoroutine;
 
-    public const byte AddChildEventCode = 1;  // Event code for Photon RaiseEvent
-    public const byte RemoveChildEventCode = 2;  // Event code for Photon RaiseEvent
+    private PhotonView PhotonView;
+    private Rigidbody RigidBody;
 
     //Lag compensation
     //float _CurrentTime = 0;
@@ -42,93 +44,72 @@ public class MovingPlatformRB : MonoBehaviour
     void Start()
     {
         // initialization
-        isTriggered = isAutomatic;
-        DelayTimer = delay;
+        if (isOffLine) PhotonNetwork.OfflineMode = true;
         PhotonView = this.GetComponent<PhotonView>();
         RigidBody = this.GetComponent<Rigidbody>();
 
+        isTriggered = isAutomatic;
+
         // Need at least 2 points to move
-        if (PathPointObjects.Count > 1)
+        if(PathPointObjects.Count > 1)
         {
             // convert to a Vector3 list
-            foreach (GameObject obj in PathPointObjects) PathPoints.Add(obj.transform.position);
-
+            foreach (GameObject obj in PathPointObjects)
+                PathPoints.Add(obj.transform.position);
             _CurrentTarget = PathPoints[0];
             _CurrentTargetIndex = 0;
         }
+
+        if(isOffLine || PhotonView.IsMine)
+        {
+            CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
+        }
+            
     }
 
     private void FixedUpdate()
     {
-        if(!isOffLine)
+        if(!isOffLine && !PhotonView.IsMine)
         {
-            if (PhotonView.IsMine)
+            // Only add additional velocity for non master clients (Platforms are belong to the master client)
+            if (PlayersList.Count > 0)
             {
-                DelayTimer += Time.deltaTime;
-
-                if ((PathPoints.Count) > 1 && isTriggered && (DelayTimer > delay))
+                foreach (PrototypeCharacterMovementControls player in PlayersList)
                 {
-                    if (Vector3.Distance(this.transform.position, _CurrentTarget) < epsilon)
-                    {
-                        UpdateTarget();
+                    if (player.gameObject.GetComponent<PhotonView>().IsMine) player.AddVelocity(_CurrentVelocity);
+                }
+            }
+        }
+    }
 
-                        // stop for a delay when reaching two ends of path
-                        if ((_CurrentTargetIndex == 1 && isMovingToward) || (_CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
-                        {
-                            DelayTimer = 0;
-                            // call the RPC function to reset the current velocity
-                            if (PhotonView.IsMine) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.AllViaServer, Vector3.zero);
-                        }
-                    }
-                    else
-                    {
-                        MovePlatform();
-                    }
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Coroutine for starting the motion of this platform
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator StartMotion(bool isTriggered)
+    {
+        while (isTriggered)
+        {
+            if (Vector3.Distance(this.transform.position, _CurrentTarget) < epsilon)
+            {
+                UpdateTarget();
+
+                // stop for a delay when reaching two ends of path
+                if ((_CurrentTargetIndex == 1 && isMovingToward) || (_CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
+                {
+                    // call the RPC function to reset the current velocity
+                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.All, Vector3.zero);
+                    yield return new WaitForSeconds(StopTime);
                 }
             }
             else
             {
-                if (PlayersList.Count > 0)
-                {
-                    foreach (PrototypeCharacterMovementControls player in PlayersList)
-                    {
-                        if(player.gameObject.GetComponent<PhotonView>().IsMine) player.AddVelocity(_CurrentVelocity);
-                    }
-                }
-
-                //Lag compensation
-                //double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
-                //_CurrentTime += Time.deltaTime;
-
-                ////Update remote position
-                //transform.position = Vector3.Lerp(transform.position, RemotePosition, Time.deltaTime);
-                //transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
-            }
-
-
-        }
-        else
-        {
-            DelayTimer += Time.deltaTime;
-
-            if ((PathPoints.Count) > 1 && isTriggered && (DelayTimer > delay))
-            {
-                if (Vector3.Distance(this.transform.position, _CurrentTarget) < epsilon)
-                {
-                    UpdateTarget();
-
-                    // stop for a delay when reaching two ends of path
-                    if ((_CurrentTargetIndex == 1 && isMovingToward) || (_CurrentTargetIndex == PathPoints.Count - 2 && !isMovingToward))
-                    {
-                        DelayTimer = 0;
-                    }
-                }
-                else
-                {
-                    MovePlatform();
-                }
+                MovePlatform();
+                yield return new WaitForFixedUpdate();
             }
         }
+        
     }
 
     /// <summary>
@@ -138,7 +119,9 @@ public class MovingPlatformRB : MonoBehaviour
     private void MovePlatform()
     {
         Vector3 TargetDirection = _CurrentTarget - this.transform.position;
-        if (PhotonView.IsMine && _CurrentVelocity != TargetDirection.normalized * speed) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.AllViaServer, TargetDirection.normalized * speed);
+
+        // call RPC to update the current velocity field
+        if (PhotonView.IsMine && _CurrentVelocity != TargetDirection.normalized * speed) PhotonView.RPC("RPC_SetCurrentVelocity", RpcTarget.All, TargetDirection.normalized * speed);
         this.RigidBody.MovePosition(this.transform.position + TargetDirection.normalized * speed * Time.deltaTime);
     }
 
@@ -148,7 +131,6 @@ public class MovingPlatformRB : MonoBehaviour
     /// </summary>
     private void UpdateTarget()
     {
-        // If the platform goes back and forth along the path points
         if (isMovingToward)
         {
             if (_CurrentTargetIndex < PathPoints.Count - 1)
@@ -195,12 +177,16 @@ public class MovingPlatformRB : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (!isAutomatic) isTriggered = true;  // trigger the platform motion once a player standing on it
-
         if (other.CompareTag("Player"))
         {
+            // trigger the platform motion once a player standing on it
+            if (!isAutomatic && !isTriggered)
+            {
+                isTriggered = true;
+                CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
+            }
+            // update player list
             PlayersList.Add(other.gameObject.GetComponent<PrototypeCharacterMovementControls>());
-            //PhotonView.TransferOwnership(PhotonNetwork.PlayerListOthers[0]);
         }
     }
 

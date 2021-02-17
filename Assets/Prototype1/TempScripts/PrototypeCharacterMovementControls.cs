@@ -10,7 +10,6 @@ using UnityEngine.InputSystem;
 public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservable
 {
     public bool isOffLine;
-    public CharacterController controller;
     public GameObject ShootingPoint;
     public GameObject BulletPrefab;
     public float speed = 20f;
@@ -53,11 +52,19 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
                 Vector3 movement = transform.forward * MoveDirection.y;
                 movement += transform.right * MoveDirection.x;
                 movement *= speed;
-                movement += _AdditionalVelocity/2;
-                
+                movement += _AdditionalVelocity;
 
                 rb.MovePosition(this.transform.position + movement * Time.deltaTime);
                 rb.MoveRotation(Quaternion.Euler(this.transform.rotation.eulerAngles + new Vector3(0, LookDirection.x * 80, 0) * Time.deltaTime));
+            }
+            else
+            {
+                ////Lag compensation
+                //double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
+                //_CurrentTime += Time.deltaTime;
+
+                //transform.position = Vector3.Lerp(transform.position, RemotePosition, (float)(_CurrentTime / timeToReachGoal));
+                //transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
             }
         }
         else
@@ -67,25 +74,13 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
             movement += transform.right * (MoveDirection.x);
             movement *= speed;
             
-
-
-
             rb.MovePosition(this.transform.position + movement * Time.deltaTime);
             rb.MoveRotation(Quaternion.Euler(this.transform.rotation.eulerAngles + new Vector3(0, LookDirection.x * 80, 0) * Time.deltaTime));
             // rotate character
             //gameObject.transform.Rotate(new Vector3(0, LookDirection.x * 80 * Time.deltaTime, 0));
         }
-            
-        //} else {
-        //    //Lag compensation
-        //    double timeToReachGoal = _CurrentPacketTime - _LastPacketTime;
-        //    _CurrentTime += Time.deltaTime;
 
-        //    transform.position = Vector3.Lerp(transform.position, RemotePosition, (float)(_CurrentTime / timeToReachGoal));
-        //    transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, (float)(_CurrentTime / timeToReachGoal));
-        //}
-
-        _AdditionalVelocity = Vector3.zero;
+        _AdditionalVelocity = Vector3.zero;  // reset the additional velocity every frame
     }
 
 
@@ -97,21 +92,21 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="info"></param>
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        // Sending messages to server if this character belong to the current client, otherwise receive messages
-        if (stream.IsWriting) {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        } else {
-            RemotePosition = (Vector3)stream.ReceiveNext();
-            RemoteRotation = (Quaternion)stream.ReceiveNext();
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+    //    // Sending messages to server if this character belong to the current client, otherwise receive messages
+    //    if (stream.IsWriting) {
+    //        stream.SendNext(transform.position);
+    //        stream.SendNext(transform.rotation);
+    //    } else {
+    //        RemotePosition = (Vector3)stream.ReceiveNext();
+    //        RemoteRotation = (Quaternion)stream.ReceiveNext();
 
-            //Lag compensation
-            _CurrentTime = 0.0f;
-            _LastPacketTime = _CurrentPacketTime;
-            _CurrentPacketTime = info.SentServerTime;
-        }
-    }
+    //        //Lag compensation
+    //        _CurrentTime = 0.0f;
+    //        _LastPacketTime = _CurrentPacketTime;
+    //        _CurrentPacketTime = info.SentServerTime;
+    //    }
+    //}
 
     /// <summary>
     /// Author: Ziqi Li
@@ -119,7 +114,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// </summary>
     /// <param name="hit"></param>
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-        if (hit.gameObject.tag == "BouncingPad" && controller.isGrounded) {
+        if (hit.gameObject.tag == "BouncingPad") {
             isJumped = true;
         }
     }
@@ -145,7 +140,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
     /// Callbakc function of input system
     /// </summary>
     void OnJump() {
-        if (controller.isGrounded) isJumped = true;
+        //if (controller.isGrounded) isJumped = true;
     }
 
     /// <summary>
@@ -180,15 +175,5 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
         _AdditionalVelocity += velocity;
     }
 
-    /// <summary>
-    /// Author: Ziqi Li
-    /// Function for substract velocity from current additional velocity of this player (will be called by other objects
-    /// or player ex: moving platform)
-    /// </summary>
-    /// <param name="velocity"></param>
-    //public void SubstractVelocity(Vector3 velocity)
-    //{
-    //    _AdditionalVelocity -= velocity;
-    //}
 
 }

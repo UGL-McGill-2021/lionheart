@@ -167,6 +167,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ae5a4626-fbc7-457a-aecd-bb35160989b1",
+                    "path": "<DualShockGamepad>/dpad/left",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e14b271e-c848-4d53-b8df-3e1849bc3672",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "Press(behavior=1)",
@@ -180,6 +191,17 @@
                     "name": "",
                     "id": "fe097086-1f4f-4689-9e2a-e509d9c467dd",
                     "path": "<XInputController>/dpad/left",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70ed0cd4-fe7f-492c-90bc-0483413d8558",
+                    "path": "<DualShockGamepad>/dpad/left",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
