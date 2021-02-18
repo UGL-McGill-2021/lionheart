@@ -41,7 +41,7 @@ namespace Photon.Pun.UtilityScripts
     /// There are no rules when / if you can join a team. You could add this in JoinTeam or something.
     /// </remarks>
     [DisallowMultipleComponent]
-    public class PhotonTeamsManager : MonoBehaviour, IMatchmakingCallbacks, IInRoomCallbacks
+    public class PhotonTeamsManager : MonoBehaviour, IMatchmakingCallbacks, Realtime.IInRoomCallbacks
     {
         #if UNITY_EDITOR
         #pragma warning disable 0414
@@ -143,7 +143,7 @@ namespace Photon.Pun.UtilityScripts
             this.ClearTeams();
         }
 
-        void IInRoomCallbacks.OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+        void Realtime.IInRoomCallbacks.OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
             object temp;
             if (changedProps.TryGetValue(TeamPlayerProp, out temp))
@@ -200,7 +200,7 @@ namespace Photon.Pun.UtilityScripts
             }
         }
 
-        void IInRoomCallbacks.OnPlayerLeftRoom(Player otherPlayer)
+        void Realtime.IInRoomCallbacks.OnPlayerLeftRoom(Player otherPlayer)
         {
             if (otherPlayer.IsInactive)
             {
@@ -215,7 +215,7 @@ namespace Photon.Pun.UtilityScripts
             }
         }
 
-        void IInRoomCallbacks.OnPlayerEnteredRoom(Player newPlayer)
+        void Realtime.IInRoomCallbacks.OnPlayerEnteredRoom(Player newPlayer)
         {
             PhotonTeam team = newPlayer.GetPhotonTeam();
             if (team == null)
@@ -477,11 +477,11 @@ namespace Photon.Pun.UtilityScripts
         {
         }
 
-        void IInRoomCallbacks.OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        void Realtime.IInRoomCallbacks.OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
         }
 
-        void IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient)
+        void Realtime.IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient)
         {
         }
 

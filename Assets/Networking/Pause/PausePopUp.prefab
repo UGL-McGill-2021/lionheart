@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 7170050040369580084}
   - component: {fileID: 7170050040369580085}
   - component: {fileID: 7170050040369580086}
-  - component: {fileID: 2457945017659506602}
+  - component: {fileID: 3302867927606876276}
   m_Layer: 5
   m_Name: PausePopUp
   m_TagString: Untagged
@@ -346,8 +346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 395, y: 203.75}
-  m_SizeDelta: {x: -870, y: -492.5}
+  m_AnchoredPosition: {x: 395, y: 200}
+  m_SizeDelta: {x: -870, y: -500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7170050040369580084
 Canvas:
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2457945017659506602
+--- !u!114 &3302867927606876276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7170050040369580080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: addb83e4a7ea46d448e326dd1a27c95b, type: 3}
+  m_Script: {fileID: 11500000, guid: cfbf4991abb77443a92b59956cf76cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonXTexture: {fileID: 21300000, guid: 68a4d70bec1b20941878587217c5f6f2, type: 3}

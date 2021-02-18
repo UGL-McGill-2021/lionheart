@@ -20,7 +20,7 @@ namespace Photon.Pun.Demo.PunBasics
     /// <summary>
     /// Launch manager. Connect, join a random room or create one if none or all full.
     /// </summary>
-	public class Launcher : MonoBehaviourPunCallbacks
+	public class Launcher : IInRoomCallbacks
     {
 
 		#region Private Serializable Fields

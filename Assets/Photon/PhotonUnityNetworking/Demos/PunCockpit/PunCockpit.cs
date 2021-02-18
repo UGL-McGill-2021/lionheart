@@ -23,7 +23,7 @@ namespace Photon.Pun.Demo.Cockpit
     /// <summary>
     /// UI based work in progress to test out api and act as foundation when dealing with room, friends and player list
     /// </summary>
-    public class PunCockpit : MonoBehaviourPunCallbacks
+    public class PunCockpit : IInRoomCallbacks
     {
         public static PunCockpit Instance;
         public static bool Embedded;

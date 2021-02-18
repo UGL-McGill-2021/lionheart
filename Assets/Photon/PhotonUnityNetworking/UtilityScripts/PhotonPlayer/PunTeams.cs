@@ -32,7 +32,7 @@ namespace Photon.Pun.UtilityScripts
     /// There are no rules when / if you can join a team. You could add this in JoinTeam or something.
     /// </remarks>
     [Obsolete("do not use this or add it to the scene. use PhotonTeamsManager instead")]
-    public class PunTeams : MonoBehaviourPunCallbacks
+    public class PunTeams : IInRoomCallbacks
     {
         /// <summary>Enum defining the teams available. First team should be neutral (it's the default value any field of this enum gets).</summary>
         [Obsolete("use custom PhotonTeam instead")]

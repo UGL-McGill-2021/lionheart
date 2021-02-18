@@ -24,7 +24,7 @@ namespace Photon.Pun
     /// <summary>
     /// Internal MonoBehaviour that allows Photon to run an Update loop.
     /// </summary>
-    public class PhotonHandler : ConnectionHandler, IInRoomCallbacks, IMatchmakingCallbacks
+    public class PhotonHandler : ConnectionHandler, Realtime.IInRoomCallbacks, IMatchmakingCallbacks
     {
 
         private static PhotonHandler instance;

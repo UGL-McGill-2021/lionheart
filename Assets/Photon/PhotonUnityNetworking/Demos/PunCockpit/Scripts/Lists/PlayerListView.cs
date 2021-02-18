@@ -20,7 +20,7 @@ namespace Photon.Pun.Demo.Cockpit
     /// <summary>
     /// Player list UI View.
     /// </summary>
-    public class PlayerListView : MonoBehaviourPunCallbacks
+    public class PlayerListView : IInRoomCallbacks
     {
         public PlayerDetailsController PlayerDetailManager;
 

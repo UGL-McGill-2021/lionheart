@@ -19,7 +19,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace Photon.Pun.Demo.Asteroids
 {
-    public class AsteroidsGameManager : MonoBehaviourPunCallbacks
+    public class AsteroidsGameManager : IInRoomCallbacks
     {
         public static AsteroidsGameManager Instance = null;
 

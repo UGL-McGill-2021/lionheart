@@ -27,7 +27,7 @@ namespace Photon.Pun.UtilityScripts
     /// indexing remains for the player while in room.
 	/// If a Player is numbered 2 and player numbered 1 leaves, numbered 1 become vacant and will assigned to the future player joining (the first available vacant number is assigned when joining)
     /// </remarks>
-    public class PlayerNumbering : MonoBehaviourPunCallbacks
+    public class PlayerNumbering : IInRoomCallbacks
     {
         //TODO: Add a "numbers available" bool, to allow easy access to this?!
 

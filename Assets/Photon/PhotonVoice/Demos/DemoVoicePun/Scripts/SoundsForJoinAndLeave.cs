@@ -2,7 +2,7 @@
 using Photon.Realtime;
 using UnityEngine;
 
-public class SoundsForJoinAndLeave : MonoBehaviourPunCallbacks
+public class SoundsForJoinAndLeave : Photon.Pun.IInRoomCallbacks
 {
     public AudioClip JoinClip;
     public AudioClip LeaveClip;

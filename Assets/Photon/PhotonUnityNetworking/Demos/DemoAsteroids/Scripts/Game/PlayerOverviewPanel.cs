@@ -19,7 +19,7 @@ using Photon.Pun.UtilityScripts;
 
 namespace Photon.Pun.Demo.Asteroids
 {
-    public class PlayerOverviewPanel : MonoBehaviourPunCallbacks
+    public class PlayerOverviewPanel : IInRoomCallbacks
     {
         public GameObject PlayerOverviewEntryPrefab;
 

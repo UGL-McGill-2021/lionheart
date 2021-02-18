@@ -9,7 +9,7 @@ namespace Photon.Pun.Demo.Procedural
     /// The Ingame Control Panel basically controls the WorldGenerator.
     /// It is only interactable for the current MasterClient in the room.
     /// </summary>
-    public class IngameControlPanel : MonoBehaviourPunCallbacks
+    public class IngameControlPanel : IInRoomCallbacks
     {
         private bool isSeedValid;
 

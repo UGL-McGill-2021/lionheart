@@ -22,7 +22,7 @@ namespace Photon.Pun.Demo.Cockpit
     /// <summary>
     /// Friend list UI view.
     /// </summary>
-    public class FriendListView : MonoBehaviourPunCallbacks
+    public class FriendListView : IInRoomCallbacks
     {
         /// <summary>
         /// Friend detail class

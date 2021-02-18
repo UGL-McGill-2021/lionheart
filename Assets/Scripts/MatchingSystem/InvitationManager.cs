@@ -14,7 +14,7 @@ enum ControllerButton {
  *  This class handles the creation of invitation codes and display them on canvas
  *  Special note: Invitation code = room name
  */
-public class InvitationManager : MonoBehaviourPunCallbacks {
+public class InvitationManager : Photon.Pun.IInRoomCallbacks {
     public InvitationCodeInputAction InputAction;
     private string InvitationCodeInput = "";
 

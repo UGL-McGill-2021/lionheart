@@ -32,7 +32,7 @@ namespace Photon.Pun.UtilityScripts
     /// 
     /// You can do this from Unity's OnEnable and OnDisable functions.
     /// </remarks>
-    public class CountdownTimer : MonoBehaviourPunCallbacks
+    public class CountdownTimer : IInRoomCallbacks
     {
         /// <summary>
         ///     OnCountdownTimerHasExpired delegate.

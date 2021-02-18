@@ -20,7 +20,7 @@ namespace ExitGames.Demos.DemoPunVoice
     using UnityEditor;
     #endif
 
-    public class CharacterInstantiation : MonoBehaviourPunCallbacks, IOnEventCallback
+    public class CharacterInstantiation : Photon.Pun.IInRoomCallbacks, IOnEventCallback
     {
         public enum SpawnSequence { Connection, Random, RoundRobin }
 

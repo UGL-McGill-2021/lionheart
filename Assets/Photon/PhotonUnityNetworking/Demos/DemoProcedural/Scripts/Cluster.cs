@@ -11,7 +11,7 @@ namespace Photon.Pun.Demo.Procedural
     /// It provides functions for modifying single Blocks inside this Cluster.
     /// It also handles modifications made to the world by other clients.
     /// </summary>
-    public class Cluster : MonoBehaviourPunCallbacks
+    public class Cluster : IInRoomCallbacks
     {
         private string propertiesKey;
 

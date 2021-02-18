@@ -24,7 +24,7 @@ namespace Photon.Pun.UtilityScripts
 {
     /// <summary>Simple component to call ConnectUsingSettings and to get into a PUN room easily.</summary>
     /// <remarks>A custom inspector provides a button to connect in PlayMode, should AutoConnect be false.</remarks>
-    public class ConnectAndJoinRandom : MonoBehaviourPunCallbacks
+    public class ConnectAndJoinRandom : IInRoomCallbacks
     {
         /// <summary>Connect automatically? If false you can set this to true later on or call ConnectUsingSettings in your own scripts.</summary>
         public bool AutoConnect = true;

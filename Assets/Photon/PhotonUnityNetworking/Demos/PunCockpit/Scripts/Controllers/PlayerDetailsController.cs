@@ -20,7 +20,7 @@ namespace Photon.Pun.Demo.Cockpit
     /// <summary>
     /// Controller for the Playerdetails UI view
     /// </summary>
-    public class PlayerDetailsController : MonoBehaviourPunCallbacks
+    public class PlayerDetailsController : IInRoomCallbacks
     {
 
         public GameObject ContentPanel;

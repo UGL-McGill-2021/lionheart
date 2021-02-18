@@ -19,7 +19,7 @@ namespace Photon.Pun.Demo.Cockpit
     /// <summary>
     /// Room list UI View.
     /// </summary>
-    public class RoomListView : MonoBehaviourPunCallbacks
+    public class RoomListView : IInRoomCallbacks
     {
         [System.Serializable]
         public class OnJoinRoomEvent : UnityEvent<string> { }
