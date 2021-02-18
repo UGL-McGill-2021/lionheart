@@ -9,7 +9,7 @@ namespace Lionheart.Player.Movement {
     /// </summary>
     public class Rotation : MonoBehaviour {
         [Header("References")]
-        [SerializeField] CharacterController PlayerController;
+        //[SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
 

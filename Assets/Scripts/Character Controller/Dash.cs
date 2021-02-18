@@ -12,7 +12,7 @@ namespace Lionheart.Player.Movement
     public class Dash : MonoBehaviour, MovementModifier
     {
         [Header("References")]
-        [SerializeField] CharacterController PlayerController;
+        //[SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Vector3 Direction;

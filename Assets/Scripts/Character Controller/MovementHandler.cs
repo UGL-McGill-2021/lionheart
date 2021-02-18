@@ -10,7 +10,8 @@ namespace Lionheart.Player.Movement {
     /// </summary>
     public class MovementHandler : MonoBehaviour {
         [Header("References")]
-        [SerializeField] CharacterController PlayerController;
+        //[SerializeField] CharacterController PlayerController;
+        [SerializeField] Rigidbody Rb;
         [SerializeField] Camera PlayerCamera;
         [SerializeField] GameObject Player;
 
@@ -56,7 +57,8 @@ namespace Lionheart.Player.Movement {
                 Movement += M.Value;
             }
 
-            PlayerController.Move(Movement * Time.deltaTime);
+            //PlayerController.Move(Movement * Time.deltaTime);
+            Rb.MovePosition(transform.position + Movement * Time.deltaTime);
         }
 
         /// <summary>

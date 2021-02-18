@@ -8,7 +8,7 @@ namespace Lionheart.Player.Movement {
     /// </summary>
     public class WalkMotion : MonoBehaviour, MovementModifier {
         [Header("References")]
-        [SerializeField] CharacterController PlayerController;
+        //[SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
 
