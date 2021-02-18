@@ -994,6 +994,7 @@ MonoBehaviour:
   - {fileID: 421969562}
   - {fileID: 1168873066}
   - {fileID: 1756998234}
+  platformPrefab: {fileID: 757595185740353406, guid: 419b9690bb422467aa15d9a6e27cfc9b, type: 3}
 --- !u!4 &1787155884
 Transform:
   m_ObjectHideFlags: 0
