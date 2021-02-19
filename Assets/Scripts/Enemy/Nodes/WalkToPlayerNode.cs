@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// moves towards given target
-// nav mesh used for pathfinding
+
+/// <summary>
+/// Author: Daniel Holker
+/// move towards given target; nav mesh used for pathfinding
+/// </summary>
 
 public class WalkToPlayerNode : Node
 {
-    private Transform Target;
-    private NavMeshAgent Agent;
-    private float Range;
+    private Transform Target;       //target to walk towards
+    private NavMeshAgent Agent;     //navmesh agent to move
+    private float Range;            //how close to get to target
 
     public WalkToPlayerNode(Transform Target, float Range, NavMeshAgent Agent) {
         this.Target = Target;

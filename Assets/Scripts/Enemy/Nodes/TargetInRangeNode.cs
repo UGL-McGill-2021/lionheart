@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Author: Daniel Holker
+/// Check if target is within a given range
+/// </summary>
 public class TargetInRangeNode : Node
 {
     private float Range;
