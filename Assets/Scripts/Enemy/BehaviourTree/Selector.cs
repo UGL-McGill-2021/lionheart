@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//a selector node waits one of its children to run/succeed
+/// <summary>
+/// waits for a node in the list to evaluate as SUCCESS or RUNNING before returning the correspopnding NodeState
+/// </summary>
 
 public class Selector : Node
 {
