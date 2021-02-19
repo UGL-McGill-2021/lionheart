@@ -18,10 +18,11 @@ namespace Lionheart.Player.Movement
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] GameObject GroundCheck;
         [SerializeField] Gamepad Controller;
+        [SerializeField] Rigidbody Rb;
 
         [Header("Parameters")]
+        [SerializeField] private readonly float JumpPower = 15f;
         [SerializeField] private readonly float GroundPull = 2f;
-        [SerializeField] private readonly float JumpHeight = 25f;
         [SerializeField] private float GroundDistance = 0.4f;
         [SerializeField] private LayerMask GroundMask;
 
@@ -29,7 +30,7 @@ namespace Lionheart.Player.Movement
         private readonly float GravityMagnitude = Physics.gravity.y;
         private bool IsGrounded;
         private bool HasJumped;
-        private bool IsFalling;
+        private int JumpedFrameCounter = 10;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -48,7 +49,6 @@ namespace Lionheart.Player.Movement
             ControllerActions = new ControllerInput();
             IsGrounded = true;
             HasJumped = false;
-            IsFalling = false;
             Type = MovementModifier.MovementType.Vertical;
         }
 
@@ -84,10 +84,16 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterJump(InputAction.CallbackContext Ctx)
         {
-            if (IsGrounded == true)
+            if (IsGrounded == true && HasJumped == false)
             {
-                Value = new Vector3(0f, Mathf.Sqrt(JumpHeight * -2 * GravityMagnitude), 0f);
+                Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityMagnitude), 0f);
                 HasJumped = true;
+                JumpedFrameCounter = 10;
+                //Debug.Log("Pressed Jump at "+Time.time);
+            }
+            else
+            {
+                //Debug.Log("Pressing Jump at " + Time.time);
             }
         }
 
@@ -101,31 +107,26 @@ namespace Lionheart.Player.Movement
         private void VerticalForces()
         {
             Vector3 Vec=Vector3.zero;
-
             CheckIfGrounded();
-            Debug.Log("IsGrounded " + IsGrounded);
 
-            if (IsGrounded == false)
+            if (IsGrounded == false && JumpedFrameCounter==0)
             {
-                //Vec = new Vector3(0f, 3f * GravityMagnitude * Time.deltaTime, 0f);
-
-                /*if (HasJumped == false)
-                {
-                    IsFalling = true;
-                }*/
+                Vec = new Vector3(0f, 3f * GravityMagnitude * Time.deltaTime, 0f);
             }
-            else
+
+            if (IsGrounded == true && JumpedFrameCounter==0)
             {
                 Value = Vector3.zero;
-                Vec = Vector3.zero;
-
-                if (IsFalling == true || HasJumped == true)
+                if (HasJumped == true)
                 {
                     StartCoroutine(PlayHaptics());
-                    IsFalling = true;  HasJumped = true;
+                    HasJumped = false;
                 }
             }
-
+            if (JumpedFrameCounter > 0)
+            {
+                JumpedFrameCounter--;
+            }
             Value += Vec;
         }
 

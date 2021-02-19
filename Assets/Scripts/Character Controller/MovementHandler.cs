@@ -57,26 +57,20 @@ namespace Lionheart.Player.Movement {
                 Movement += M.Value;
             }
 
-            //PlayerController.Move(Movement * Time.deltaTime);
             Rb.MovePosition(transform.position + Movement * Time.deltaTime);
         }
 
         /// <summary>
-        /// Author: Ziqi Li
-        /// Called by PUN several times per second, so that your script can write and
-        /// read synchronization data for the PhotonView
-        /// This method will be called in scripts that are assigned as Observed component of a PhotonView
+        /// Author: Denis
+        /// Stops Drift after clipping through a wall. 
+        /// TODO: Prevent wall clipping
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="info"></param>
-        //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            // Sending messages to server if this object belong to the current client, otherwise receive messages
-            //if (stream.IsWriting) {
-                //stream.SendNext(transform.position);
-            //} else {
-                //RemotePosition = (Vector3)stream.ReceiveNext();
-            //}
-        //}
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            Rb.velocity = new Vector3(0f, Rb.velocity.y, 0f);
+            Debug.Log("Colliding at " + Time.time);
+        }
     }
 }
 
