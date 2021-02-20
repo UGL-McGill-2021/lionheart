@@ -9,18 +9,8 @@ namespace Lionheart.Player.Movement {
     /// </summary>
     public class Rotation : MonoBehaviour {
         [Header("References")]
-        //[SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
-
-        //private Vector3 Direction { get; set; }
-
-        //public Vector3 Value { get; private set; }
-
-        // Photon:
-        public PhotonView PhotonView;
-        private bool isOffLineMode;
-        private Quaternion RemoteRotation;
 
         //The following is a polling approache
         public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");

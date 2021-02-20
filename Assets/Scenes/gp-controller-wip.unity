@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &6902431
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959614731839605070, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401703996827886909, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_Name
+      value: Playerv2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
 --- !u!1 &180554312
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,22 +924,6 @@ MonoBehaviour:
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
-  MoveAction:
-    m_Name: move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 06cda768-926e-408e-9ec3-82dff54fb4e6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: cc65b3c0-81e2-4bc9-9b05-a2160b16e4d5
-      m_Path: <Gamepad>/leftStick
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: move
-      m_Flags: 0
 --- !u!114 &1798567817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,7 +937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 1798567818}
-  PhotonView: {fileID: 0}
   MoveAction:
     m_Name: move
     m_Type: 0
@@ -1027,7 +1067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1798970680
 Transform:
   m_ObjectHideFlags: 0

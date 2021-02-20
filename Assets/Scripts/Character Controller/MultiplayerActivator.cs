@@ -16,7 +16,7 @@ namespace Lionheart.Player.Movement
         public Camera cam;
         public WalkMotion script1;
         public Rotation script2;
-        public Vertical script3;
+        public Jump script3;
         public Dash script4;
         public MovementHandler script5;
 

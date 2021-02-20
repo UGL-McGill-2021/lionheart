@@ -103,7 +103,7 @@
                     "name": "",
                     "id": "9b2c3ce2-9772-4e4c-9d90-18cb9112ff5e",
                     "path": "<XInputController>/buttonSouth",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",

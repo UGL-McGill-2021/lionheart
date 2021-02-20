@@ -10,7 +10,6 @@ namespace Lionheart.Player.Movement {
     /// </summary>
     public class MovementHandler : MonoBehaviour {
         [Header("References")]
-        //[SerializeField] CharacterController PlayerController;
         [SerializeField] Rigidbody Rb;
         [SerializeField] Camera PlayerCamera;
         [SerializeField] GameObject Player;
@@ -19,17 +18,12 @@ namespace Lionheart.Player.Movement {
 
         // Photon:
         public PhotonView PhotonView;
-        private Vector3 RemotePosition;
-        private bool isOffLineMode;
 
         private void Start() {
             PhotonView = GetComponent<PhotonView>();
-            //isOffLineMode = this.GetComponent<MultiplayerActivator>().isOffLine;
         }
 
-        private void FixedUpdate() {
-            Move();
-        }
+        private void FixedUpdate() => Move();
 
         /// <summary>
         /// Author: Denis
@@ -69,7 +63,7 @@ namespace Lionheart.Player.Movement {
         private void OnCollisionEnter(Collision collision)
         {
             Rb.velocity = new Vector3(0f, Rb.velocity.y, 0f);
-            Debug.Log("Colliding at " + Time.time);
+            //Debug.Log("Colliding at " + Time.time);
         }
     }
 }

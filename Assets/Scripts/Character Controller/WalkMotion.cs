@@ -7,8 +7,8 @@ namespace Lionheart.Player.Movement {
     /// This class handles walking and it's acceleration and deceleration
     /// </summary>
     public class WalkMotion : MonoBehaviour, MovementModifier {
+
         [Header("References")]
-        //[SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
 
@@ -29,7 +29,6 @@ namespace Lionheart.Player.Movement {
         /// Initial setup
         /// </summary>
         private void Awake() {
-            Debug.Log("WalkMotion.cs enabled");
             Type = MovementModifier.MovementType.Walk;
         }
 

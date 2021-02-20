@@ -10,10 +10,9 @@ namespace Lionheart.Player.Movement
     /// Author: Denis
     /// This class handles gravity and jumps.
     /// </summary>
-    public class Vertical : MonoBehaviour, MovementModifier
+    public class Jump : MonoBehaviour, MovementModifier
     {
         [Header("References")]
-        //[SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] GameObject GroundCheck;
@@ -49,7 +48,7 @@ namespace Lionheart.Player.Movement
             ControllerActions = new ControllerInput();
             IsGrounded = true;
             HasJumped = false;
-            Type = MovementModifier.MovementType.Vertical;
+            Type = MovementModifier.MovementType.Jump;
         }
 
         /// <summary>
@@ -91,9 +90,9 @@ namespace Lionheart.Player.Movement
                 JumpedFrameCounter = 10;
                 //Debug.Log("Pressed Jump at "+Time.time);
             }
-            else
+            else if (HasJumped == true)
             {
-                //Debug.Log("Pressing Jump at " + Time.time);
+                //Debug.Log("Pressing at " + Time.time);
             }
         }
 
