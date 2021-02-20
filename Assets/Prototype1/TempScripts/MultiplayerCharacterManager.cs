@@ -7,10 +7,12 @@ using Photon.Pun;
 /// </summary>
 public class MultiplayerCharacterManager : MonoBehaviour, IPunInstantiateMagicCallback{
     public Camera cam;
+    public AudioListener aud;
     public PrototypeCharacterMovementControls controls;
     void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info) {
         if (this.gameObject.GetPhotonView().IsMine) {
             cam.enabled = true;
+            aud.enabled = true;
             controls.enabled = true;
         }   
     }

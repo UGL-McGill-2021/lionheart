@@ -16,6 +16,14 @@ namespace Lionheart.Player.Movement {
         public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
         public Vector2 MoveDirection = new Vector2();
 
+        // Photon:
+        public PhotonView PhotonView;
+
+        private void Start()
+        {
+            PhotonView = GetComponent<PhotonView>();
+        }
+
         /// <summary>
         /// Author: Denis
         /// Subscribing to the controller events and adding this modifier to the movement modifiers list
@@ -39,11 +47,15 @@ namespace Lionheart.Player.Movement {
         /// Applies the joystick rotation to the player
         /// </summary>
         private void Rotate() {
-            var MoveDirection = MoveAction.ReadValue<Vector2>();
+            if (PhotonView.IsMine)
+            {
+                var MoveDirection = MoveAction.ReadValue<Vector2>();
 
-            if (MoveDirection != Vector2.zero) {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(MoveDirection.x, 0f, MoveDirection.y)), 15 * Time.deltaTime);
-            } 
+                if (MoveDirection != Vector2.zero)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(MoveDirection.x, 0f, MoveDirection.y)), 15 * Time.deltaTime);
+                }
+            }
         }
     }
 }

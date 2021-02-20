@@ -174,6 +174,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4481042545804515369, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: isOffLine
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480352261030030601, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449621252990841457, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: isOffLine
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8401703996827886909, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
       propertyPath: m_Name
       value: Playerv2
@@ -954,6 +966,7 @@ MonoBehaviour:
       m_Action: move
       m_Flags: 0
   MoveDirection: {x: 0, y: 0}
+  PhotonView: {fileID: 0}
 --- !u!114 &1798567818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,6 +1043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOffLine: 1
   cam: {fileID: 904536843}
+  aud: {fileID: 0}
   script1: {fileID: 1798567819}
   script2: {fileID: 1798567817}
   script3: {fileID: 1798567816}
