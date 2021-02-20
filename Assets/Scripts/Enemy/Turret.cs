@@ -4,28 +4,19 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// An enemy that wanders when target is not in range.
-/// When target is in range, it freezes and shoots projectiles towards it.
-/// </summary>
-public class Shooter : Enemy
+public class Turret : Enemy
 {
     //TODO: find a better way to access player transform
     public Transform PlayerTransform;
 
-    public float ChasingRange;      // How far the player must be for the shooter to take notice
-    public float NearnessToPlayer;  // How close the shooter will get to the player when approaching
+    public float Range;
 
-    public Transform WanderTarget;  // the area the shooter will wander around
-    public float WanderRange;       // how far to wander around the wander target
-
-    public float ProjectileSpeed;   // how fast the projectile will travel
-    public float ShootCooldown;     // how long to wait in between attacks
+    public float ProjectileSpeed;
+    public float ShootCooldown;
 
     public GameObject Projectile;
 
     private Node RootNode;
-    private NavMeshAgent NavMeshAgent;
 
     // Photon:
     public PhotonView PhotonView;
@@ -35,7 +26,6 @@ public class Shooter : Enemy
 
     void Awake()
     {
-        NavMeshAgent = this.GetComponent<NavMeshAgent>();
         PhotonView = this.GetComponent<PhotonView>();
     }
 
@@ -63,35 +53,21 @@ public class Shooter : Enemy
         {
             RootNode.Evaluate();
         }
-
-        //DEBUGGING: show where the shooter will go next
-        //Debug.DrawLine(NavMeshAgent.destination, new Vector3(NavMeshAgent.destination.x, NavMeshAgent.destination.y + 1f, NavMeshAgent.destination.z), Color.red);
     }
 
     public override void Attacked()
     {
-        print("Shooter has been attacked!");
+        print("Turret has been attacked!");
     }
 
-    /// <summary>
-    /// Author: Daniel Holker
-    /// Constructs nodes and puts them together into a behaviour tree that determines its actions
-    /// </summary>
     private void ConstructBehaviourTree()
     {
-        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(PlayerTransform, NearnessToPlayer, NavMeshAgent);
-        WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
-        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerTransform, this.transform);
+        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(Range, PlayerTransform, this.transform);
         ShootNode ShootNode = new ShootNode(Projectile, PlayerTransform, ProjectileSpeed, ShootCooldown, this.gameObject);
 
-        Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
+        Sequence ShootSequence = new Sequence(new List<Node> { TargetInRangeNode, ShootNode});
 
-
-        Sequence AttackSequence = new Sequence(new List<Node> { WalkToPlayerNode, ShootNode });
-        Sequence ChaseSequence = new Sequence(new List<Node> { TargetInRangeNode, AttackSequence });
-        Sequence ReturnToWander = new Sequence(new List<Node> { TargetNotInRange, WanderNode });
-
-        RootNode = new Selector(new List<Node> { ChaseSequence, ReturnToWander });
+        RootNode = new Selector(new List<Node> { ShootSequence});
     }
 
     /// <summary>

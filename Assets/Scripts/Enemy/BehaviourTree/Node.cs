@@ -4,6 +4,11 @@ using UnityEngine;
 
 [System.Serializable]
 
+/// <summary>
+/// Author: Daniel Holker
+/// Nodes are constructed into a behaviour tree and determine how it is traversed.
+/// It returns a RUNNING, SUCCESS or FAILURE NodeState.
+/// </summary>
 public abstract class Node
 {
     protected NodeState CurrentNodeState;

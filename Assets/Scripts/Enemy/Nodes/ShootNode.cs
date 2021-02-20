@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// Author : Daniel Holker
+/// Instantiates a GameObject and adds force towards a given Transform
+/// </summary>
+
 public class ShootNode : Node
 {
     private GameObject Projectile;
-    private float Speed;
-    private float CooldownTime;
-    private MonoBehaviour MonoBehaviour;
+    private float Speed;                    //how fast the projectile will travel
+    private float CooldownTime;             //how often to shoot
+    private MonoBehaviour MonoBehaviour;    //used for running coroutines
     private GameObject Shooter;
     private bool AttackRunning = false;
     private bool AttackComplete = false;
