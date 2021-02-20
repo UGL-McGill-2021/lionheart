@@ -235,7 +235,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
-  PlayerTransform: {fileID: 0}
   ChasingRange: 15
   NearnessToPlayer: 2
   WanderTarget: {fileID: 0}

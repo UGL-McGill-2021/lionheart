@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> PathPoints = new List<GameObject>();
     public List<GameObject> EnemySpawningPoints = new List<GameObject>();
+    public List<GameObject> TurretTargets = new List<GameObject>();
 
     public List<GameObject> PlayerList = new List<GameObject>();
 
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour {
             enemy = PhotonNetwork.Instantiate("Turret",
                  EnemySpawningPoints[2].transform.position,
                 Quaternion.identity);
+            enemy.GetComponent<Turret>().Target = TurretTargets[0].transform;
 
 
         } else {
