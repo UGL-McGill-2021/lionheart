@@ -15,6 +15,7 @@ namespace Lionheart.Player.Movement {
         [SerializeField] GameObject Player;
 
         private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
+        private Vector3 _AdditionalVelocity;
 
         // Photon:
         public PhotonView PhotonView;
@@ -45,13 +46,31 @@ namespace Lionheart.Player.Movement {
         /// Also move sthe camera to follow the player.
         /// </summary>
         private void Move() {
-            Vector3 Movement = Vector3.zero;
+            if (PhotonView.IsMine)
+            {
+                Vector3 Movement = Vector3.zero;
 
-            foreach (MovementModifier M in Modifiers) {
-                Movement += M.Value;
+                foreach (MovementModifier M in Modifiers)
+                {
+                    Movement += M.Value;
+                }
+                Movement += _AdditionalVelocity;
+
+                Rb.MovePosition(transform.position + Movement * Time.deltaTime);
             }
 
-            Rb.MovePosition(transform.position + Movement * Time.deltaTime);
+            _AdditionalVelocity = Vector3.zero;  // reset the additional velocity
+        }
+
+        /// <summary>
+        /// Author: Ziqi Li
+        /// Function for adding velocity to current additional velocity of this player (will be called by other objects
+        /// or player ex: moving platform)
+        /// </summary>
+        /// <param name="velocity"></param>
+        public void AddVelocity(Vector3 velocity)
+        {
+            _AdditionalVelocity += velocity;
         }
 
         /// <summary>

@@ -14,18 +14,21 @@ namespace Lionheart.Player.Movement
     {
         public bool isOffLine;
         public Camera cam;
+        public AudioListener aud;
         public WalkMotion script1;
         public Rotation script2;
         public Jump script3;
         public Dash script4;
         public MovementHandler script5;
+        
 
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
             if (!isOffLine && this.gameObject.GetComponent<PhotonView>().IsMine)
             {
-                cam.enabled = true;
+                //cam.enabled = true;
+                aud.enabled = true;
                 script1.enabled = true;
                 script2.enabled = true;
                 script3.enabled = true;

@@ -2,6 +2,7 @@
 using System.Collections;
 using Photon.Pun;
 using System.Collections.Generic;
+using Lionheart.Player.Movement;
 
 public class MovingPlatformRB : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class MovingPlatformRB : MonoBehaviour
     private List<Vector3> PathPoints = new List<Vector3>();
     // list to store players standing on this platform
     [SerializeField]
-    private List<PrototypeCharacterMovementControls> PlayersList = new List<PrototypeCharacterMovementControls>();
+    private List<MovementHandler> PlayersList = new List<MovementHandler>();
     [SerializeField]
     private Vector3 _CurrentTarget;
     private Vector3 _RealVelocity;
@@ -74,7 +75,7 @@ public class MovingPlatformRB : MonoBehaviour
             // Only add additional velocity for non master clients (Platforms are belong to the master client)
             if (PlayersList.Count > 0)
             {
-                foreach (PrototypeCharacterMovementControls player in PlayersList)
+                foreach (MovementHandler player in PlayersList)
                 {
                     if (player.gameObject.GetComponent<PhotonView>().IsMine) player.AddVelocity(_CurrentVelocity);
                 }
@@ -186,7 +187,7 @@ public class MovingPlatformRB : MonoBehaviour
                 CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
             }
             // update player list
-            PlayersList.Add(other.gameObject.GetComponent<PrototypeCharacterMovementControls>());
+            PlayersList.Add(other.gameObject.GetComponent<MovementHandler>());
         }
     }
 
@@ -199,7 +200,7 @@ public class MovingPlatformRB : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayersList.Remove(other.gameObject.GetComponent<PrototypeCharacterMovementControls>());
+            PlayersList.Remove(other.gameObject.GetComponent<MovementHandler>());
         }
     }
 }

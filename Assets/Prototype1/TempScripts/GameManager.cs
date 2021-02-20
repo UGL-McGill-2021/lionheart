@@ -21,11 +21,7 @@ public class GameManager : MonoBehaviour {
 
         if (PhotonNetwork.IsMasterClient) // 2
         {
-            player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(0, 1.25f, 0), Quaternion.identity);
-            AudioListener listener = player.GetComponentInChildren<AudioListener>();
-            if (listener != null) {
-                listener.enabled = true;
-            }
+            player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
 
             // Generate moving platforms
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
@@ -62,11 +58,7 @@ public class GameManager : MonoBehaviour {
 
 
         } else {
-            player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(4, 1.25f, 0), Quaternion.identity);
-            AudioListener listener = player.GetComponentInChildren<AudioListener>();
-            if (listener != null) {
-                listener.enabled = true;
-            }
+            player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
         }
 
         // Add players to the player list for both clients

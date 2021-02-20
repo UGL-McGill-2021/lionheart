@@ -505,6 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 8138508734380832026}
+  aud: {fileID: 9128520488258975042}
   controls: {fileID: 6505429409326896305}
 --- !u!114 &3390025613650583715
 MonoBehaviour:
