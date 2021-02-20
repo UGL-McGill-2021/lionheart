@@ -10,14 +10,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     public List<GameObject> PathPoints = new List<GameObject>();
-    public GameObject platformPrefab;
+    public List<GameObject> EnemySpawningPoints = new List<GameObject>();
+
+    public List<GameObject> PlayerList = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start() {
 
+        GameObject player;
+
         if (PhotonNetwork.IsMasterClient) // 2
         {
-            GameObject player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(0, 1.25f, 0), Quaternion.identity);
+            player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(0, 1.25f, 0), Quaternion.identity);
             AudioListener listener = player.GetComponentInChildren<AudioListener>();
             if (listener != null) {
                 listener.enabled = true;
@@ -40,16 +44,33 @@ public class GameManager : MonoBehaviour {
 
             PhotonNetwork.Instantiate("Ball", new Vector3(7, 1.25f, 0), Quaternion.identity);
 
+            //Generate enemies
+            GameObject enemy;
+            enemy = PhotonNetwork.Instantiate("Grunt",
+                 EnemySpawningPoints[0].transform.position,
+                Quaternion.identity);
+            enemy.GetComponent<Grunt>().WanderTarget = EnemySpawningPoints[0].transform;
+
+            enemy = PhotonNetwork.Instantiate("Shooter",
+                 EnemySpawningPoints[1].transform.position,
+                Quaternion.identity);
+            enemy.GetComponent<Shooter>().WanderTarget = EnemySpawningPoints[1].transform;
+
+            enemy = PhotonNetwork.Instantiate("Turret",
+                 EnemySpawningPoints[2].transform.position,
+                Quaternion.identity);
+
 
         } else {
-            GameObject player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(4, 1.25f, 0), Quaternion.identity);
+            player = PhotonNetwork.Instantiate("PrototypeCharacter", new Vector3(4, 1.25f, 0), Quaternion.identity);
             AudioListener listener = player.GetComponentInChildren<AudioListener>();
             if (listener != null) {
                 listener.enabled = true;
             }
-
-
         }
+
+        // Add players to the player list for both clients
+        PlayerList.Add(player);
 
     }
 

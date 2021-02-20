@@ -25,10 +25,7 @@ public class Grunt : Enemy
     private NavMeshAgent NavMeshAgent;
 
     // Photon:
-    public PhotonView PhotonView;
-    public bool isOffLine = false;
-    private Vector3 RemotePosition;
-    private Quaternion RemoteRotation;
+    private List<GameObject> PlayerList;
 
     void Awake() {
         NavMeshAgent = this.GetComponent<NavMeshAgent>();
@@ -36,28 +33,16 @@ public class Grunt : Enemy
     }
 
     void Start() {
+        // get the player list from game manager
+        PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
+        PlayerTransform = PlayerList[0].transform;
+
         ConstructBehaviourTree();
     }
 
     private void Update()
     {
-        if (!isOffLine)
-        {
-            if (PhotonView.IsMine)
-            {
-                RootNode.Evaluate();
-            }
-            else
-            {
-                //Update remote player
-                transform.position = Vector3.Lerp(transform.position, RemotePosition, Time.deltaTime);
-                transform.rotation = Quaternion.Lerp(transform.rotation, RemoteRotation, Time.deltaTime);
-            }
-        }
-        else
-        {
-            RootNode.Evaluate();
-        }
+        if (PhotonView.IsMine) RootNode.Evaluate();
 
         //DEBUGGING: show where the grunt will go next
         //Debug.DrawLine(NavMeshAgent.destination, new Vector3(NavMeshAgent.destination.x, NavMeshAgent.destination.y + 1f, NavMeshAgent.destination.z), Color.red);
@@ -89,27 +74,5 @@ public class Grunt : Enemy
         RootNode = new Selector(new List<Node>{ChaseSequence, ReturnToWander});
     }
 
-    /// <summary>
-    /// Author: Ziqi Li
-    /// Called by PUN several times per second, so that your script can write and
-    /// read synchronization data for the PhotonView
-    /// This method will be called in scripts that are assigned as Observed component of a PhotonView
-    /// </summary>
-    /// <param name="stream"></param>
-    /// <param name="info"></param>
-    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        // Sending messages to server if this object belong to the current client, otherwise receive messages
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        }
-        else
-        {
-            RemotePosition = (Vector3)stream.ReceiveNext();
-            RemoteRotation = (Quaternion)stream.ReceiveNext();
-        }
-    }
 
 }
