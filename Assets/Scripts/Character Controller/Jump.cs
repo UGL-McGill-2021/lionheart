@@ -10,29 +10,34 @@ namespace Lionheart.Player.Movement
     /// Author: Denis
     /// This class handles gravity and jumps.
     /// </summary>
-    public class Vertical : MonoBehaviour, MovementModifier
+    public class Jump : MonoBehaviour, MovementModifier
     {
         [Header("References")]
-        [SerializeField] CharacterController PlayerController;
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] GameObject GroundCheck;
         [SerializeField] Gamepad Controller;
+        [SerializeField] Rigidbody Rb;
 
         [Header("Parameters")]
+        [SerializeField] private readonly float JumpPower = 15f;
         [SerializeField] private readonly float GroundPull = 2f;
-        [SerializeField] private readonly float JumpHeight = 25f;
         [SerializeField] private float GroundDistance = 0.4f;
         [SerializeField] private LayerMask GroundMask;
 
+        private float DistanceToGround;
         private readonly float GravityMagnitude = Physics.gravity.y;
-        private bool IsAirborne;
         private bool IsGrounded;
         private bool HasJumped;
-        private bool JumpedLastFrame;
+        private int JumpedFrameCounter = 10;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
+
+        void Start()
+        {
+            DistanceToGround = GetComponent<Collider>().bounds.extents.y;
+        }
 
         /// <summary>
         /// Author: Denis
@@ -41,11 +46,9 @@ namespace Lionheart.Player.Movement
         private void Awake()
         {
             ControllerActions = new ControllerInput();
-            IsAirborne = false;
             IsGrounded = true;
             HasJumped = false;
-            JumpedLastFrame = false;
-            Type = MovementModifier.MovementType.Vertical;
+            Type = MovementModifier.MovementType.Jump;
         }
 
         /// <summary>
@@ -80,12 +83,16 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterJump(InputAction.CallbackContext Ctx)
         {
-            if (IsAirborne == false)
+            if (IsGrounded == true && HasJumped == false)
             {
-                Value = new Vector3(0f, Mathf.Sqrt(JumpHeight * -2 * GravityMagnitude), 0f);
-                IsAirborne = true;
+                Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityMagnitude), 0f);
                 HasJumped = true;
-                JumpedLastFrame = true;
+                JumpedFrameCounter = 10;
+                //Debug.Log("Pressed Jump at "+Time.time);
+            }
+            else if (HasJumped == true)
+            {
+                //Debug.Log("Pressing at " + Time.time);
             }
         }
 
@@ -98,38 +105,41 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void VerticalForces()
         {
-            Vector3 Vec;
-            IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
+            Vector3 Vec=Vector3.zero;
+            CheckIfGrounded();
 
-            if (IsGrounded == false)
+            if (IsGrounded == false && JumpedFrameCounter==0)
             {
                 Vec = new Vector3(0f, 3f * GravityMagnitude * Time.deltaTime, 0f);
-                //IsAirborne = true;
+            }
+
+            if (IsGrounded == true && JumpedFrameCounter==0)
+            {
+                Value = Vector3.zero;
+                if (HasJumped == true)
+                {
+                    StartCoroutine(PlayHaptics());
+                    HasJumped = false;
+                }
+            }
+            if (JumpedFrameCounter > 0)
+            {
+                JumpedFrameCounter--;
+            }
+            Value += Vec;
+        }
+
+        private void CheckIfGrounded()
+        {
+            //IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
+            if (!Physics.Raycast(transform.position, -Vector3.up, DistanceToGround + 0.1f))
+            {
+                IsGrounded = false;
             }
             else
             {
-                Vec = Vector3.zero;
+                IsGrounded = true;
             }
-
-            if (IsGrounded == true && JumpedLastFrame == false)
-            {
-                
-                Value = Vector3.zero;
-                Vec = Vector3.zero;
-
-                if (IsAirborne == true)
-                {
-                    StartCoroutine(PlayHaptics());
-                    IsAirborne = false;
-                }
-            }
-
-            if (JumpedLastFrame == true)
-            {
-                JumpedLastFrame = false;
-            }
-
-            Value += Vec;
         }
         
         /// <summary>
