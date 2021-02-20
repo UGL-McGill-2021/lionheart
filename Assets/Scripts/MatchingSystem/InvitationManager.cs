@@ -100,7 +100,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         //    InputAction.Player.Disable();
         //    PhotonNetwork.LoadLevel("DemoScene");
         //}
-            
+
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
     }
 

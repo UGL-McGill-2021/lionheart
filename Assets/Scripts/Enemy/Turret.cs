@@ -19,7 +19,6 @@ public class Turret : Enemy
     private Node RootNode;
 
     // Photon:
-    public bool isOffLine = true;
     private List<GameObject> PlayerList;
 
     void Awake()
@@ -38,14 +37,7 @@ public class Turret : Enemy
 
     private void Update()
     {
-        if (!isOffLine)
-        {
-            if (PhotonView.IsMine) RootNode.Evaluate();
-        }
-        else
-        {
-            RootNode.Evaluate();
-        }
+        if (PhotonView.IsMine) RootNode.Evaluate();
     }
 
     public override void Attacked()

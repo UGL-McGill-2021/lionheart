@@ -28,7 +28,6 @@ public class Shooter : Enemy
     private NavMeshAgent NavMeshAgent;
 
     // Photon:
-    public bool isOffLine = true;
     private List<GameObject> PlayerList;
 
     void Awake()
@@ -48,14 +47,8 @@ public class Shooter : Enemy
 
     private void Update()
     {
-        if (!isOffLine)
-        {
-            if (PhotonView.IsMine) RootNode.Evaluate();
-        }
-        else
-        {
-            RootNode.Evaluate();
-        }
+        if (PhotonView.IsMine) RootNode.Evaluate();
+
 
         //DEBUGGING: show where the shooter will go next
         //Debug.DrawLine(NavMeshAgent.destination, new Vector3(NavMeshAgent.destination.x, NavMeshAgent.destination.y + 1f, NavMeshAgent.destination.z), Color.red);
