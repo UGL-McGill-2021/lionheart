@@ -8,6 +8,7 @@ public class InvitationCodePresenter : MonoBehaviour {
     public Sprite ButtonYTexture;
     public Sprite ButtonBTexture;
     public Sprite ButtonATexture;
+    public Sprite EmptyTexture;
 
     [Header("Invitation Code Character Slots")]
     public List<Image> Slots;
@@ -36,7 +37,7 @@ public class InvitationCodePresenter : MonoBehaviour {
                         break;
                 }
             } else {
-                Slots[i].sprite = null;
+                Slots[i].sprite = EmptyTexture;
             }
         }
     }
