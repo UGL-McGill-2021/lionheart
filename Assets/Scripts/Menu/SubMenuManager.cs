@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Author: Ziqi, Kaya
+/// Author: Ziqi Li
 /// Script for sub menu
 /// </summary>
 public class SubMenuManager : MonoBehaviour
@@ -17,12 +17,6 @@ public class SubMenuManager : MonoBehaviour
     void Start()
     {
         BackButton.Select();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>
