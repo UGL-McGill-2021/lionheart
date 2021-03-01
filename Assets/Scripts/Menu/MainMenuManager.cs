@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake()
     {
-        StartButton.Select();
+        if (StartButton != null) StartButton.Select();
 
         if (!cursor)
         {
@@ -29,22 +30,40 @@ public class MainMenuManager : MonoBehaviour
             Cursor.visible = true;
     }
 
+    private void Update()
+    {
+        // make sure the button is always selected despite having mouse interference
+        if (StartButton != null && !EventSystem.current.currentSelectedGameObject) StartButton.Select();
+    }
 
+    /// <summary>
+    /// Author: Kaya
+    /// </summary>
     public void Play()
     {
         SceneLoader.LoadSceneWithName("Matching");
     }
 
+    /// <summary>
+    /// Author: Kaya
+    /// </summary>
     public void Quit()
     {
         Application.Quit();
     }
 
+    /// <summary>
+    /// Author: Kaya
+    /// </summary>
     public void URL(string url)
     {
         Application.OpenURL(url);
     }
 
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function for loading credits scene
+    /// </summary>
     public void Credits()
     {
         SceneLoader.LoadSceneWithName("Credits");

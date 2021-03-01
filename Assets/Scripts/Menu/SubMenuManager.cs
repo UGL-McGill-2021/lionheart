@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,7 +17,13 @@ public class SubMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BackButton.Select();
+        if(BackButton != null) BackButton.Select();
+    }
+
+    private void Update()
+    {
+        // make sure the button is always selected despite to mouse input
+        if (BackButton != null && !EventSystem.current.IsPointerOverGameObject()) BackButton.Select();
     }
 
     /// <summary>
