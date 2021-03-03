@@ -442,7 +442,6 @@ GameObject:
   - component: {fileID: 9036160769017361850}
   - component: {fileID: 999449373465562442}
   - component: {fileID: 2767656285700879784}
-  - component: {fileID: 5338429238542081890}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -517,19 +516,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5338429238542081890
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7308590943580400861}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8401703996827886909
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +536,7 @@ GameObject:
   - component: {fileID: 5566292478228044567}
   - component: {fileID: 3535366763632785127}
   - component: {fileID: 3327485241153220109}
-  - component: {fileID: 3546963094804581164}
+  - component: {fileID: 3922513343799244647}
   m_Layer: 0
   m_Name: Playerv2
   m_TagString: Player
@@ -727,10 +713,13 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   GroundCheck: {fileID: 5590533885952136207}
   Rb: {fileID: 3535366763632785127}
+  CounterJumpForce: 2
   GroundDistance: 0.15
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
+  IsGrounded: 0
+  Vec2: {x: 0, y: 0, z: 0}
 --- !u!114 &8654789910141434568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,8 +800,8 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!65 &3546963094804581164
-BoxCollider:
+--- !u!136 &3922513343799244647
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -821,8 +810,9 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8833452435930719326
 GameObject:

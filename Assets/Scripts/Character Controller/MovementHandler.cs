@@ -54,25 +54,24 @@ namespace Lionheart.Player.Movement {
                 {
                     Movement += M.Value;
                 }
-                Movement += _AdditionalVelocity;
+                //Movement += _AdditionalVelocity;
 
-                //Rb.MovePosition(transform.position + Movement * Time.deltaTime);
                 Rb.velocity = Movement;
-            
             }
 
-            _AdditionalVelocity = Vector3.zero;  // reset the additional velocity
+            //_AdditionalVelocity = Vector3.zero;  // reset the additional velocity
         }
 
         /// <summary>
         /// Author: Ziqi Li
         /// Function for adding velocity to current additional velocity of this player (will be called by other objects
         /// or player ex: moving platform)
+        /// TODO: Integrate in addditional script in interface
         /// </summary>
         /// <param name="velocity"></param>
         public void AddVelocity(Vector3 velocity)
         {
-            _AdditionalVelocity += velocity;
+            //_AdditionalVelocity += velocity;
         }
 
         /// <summary>

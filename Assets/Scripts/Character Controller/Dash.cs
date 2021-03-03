@@ -88,6 +88,7 @@ namespace Lionheart.Player.Movement
         IEnumerator DashCooldown()
         {
             yield return new WaitForSecondsRealtime(DashCooldownTime);
+            yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             DashOnCooldown = false;
         }
 

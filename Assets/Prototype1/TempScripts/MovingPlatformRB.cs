@@ -4,7 +4,7 @@ using Photon.Pun;
 using System.Collections.Generic;
 using Lionheart.Player.Movement;
 
-public class MovingPlatformRB : MonoBehaviour
+public class MovingPlatformRB : MonoBehaviour, MovementModifier
 {
     public bool isOffLine;
     public List<GameObject> PathPointObjects = new List<GameObject>();
@@ -41,6 +41,10 @@ public class MovingPlatformRB : MonoBehaviour
     private Vector3 RemotePosition;
     private Quaternion RemoteRotation;
 
+    [SerializeField] MovementHandler PlayerMovementHandler;
+    public Vector3 Value { get; private set; }
+    public MovementModifier.MovementType Type { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +69,9 @@ public class MovingPlatformRB : MonoBehaviour
         {
             CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
         }
-            
+
+        Type = MovementModifier.MovementType.Contraption;
+        PlayerMovementHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementHandler>();
     }
 
     private void FixedUpdate()
@@ -169,6 +175,7 @@ public class MovingPlatformRB : MonoBehaviour
     void RPC_SetCurrentVelocity(Vector3 velocity)
     {
         _CurrentVelocity = velocity;
+        Value = velocity;
     }
 
     /// <summary>
@@ -188,6 +195,9 @@ public class MovingPlatformRB : MonoBehaviour
             }
             // update player list
             PlayersList.Add(other.gameObject.GetComponent<MovementHandler>());
+
+            Debug.Log("Entering at " + Time.time);
+            PlayerMovementHandler.AddModifier(this);
         }
     }
 
@@ -201,6 +211,9 @@ public class MovingPlatformRB : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayersList.Remove(other.gameObject.GetComponent<MovementHandler>());
+
+            Debug.Log("Exiting at " + Time.time);
+            PlayerMovementHandler.RemoveModifier(this);
         }
     }
 }

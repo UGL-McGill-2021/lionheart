@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[0].transform.position,
                 PathPoints[0].transform.rotation, 0);
+            platform.layer = LayerMask.NameToLayer("Ground");
             //platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[0]);
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[1]);
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour {
             platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[2].transform.position,
                 PathPoints[2].transform.rotation, 0);
+            platform.layer = LayerMask.NameToLayer("Ground");
             //platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[2]);
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[3]);
