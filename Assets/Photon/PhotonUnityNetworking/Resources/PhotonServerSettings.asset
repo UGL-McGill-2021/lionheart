@@ -47,6 +47,10 @@ MonoBehaviour:
   - RPC_SetCurrentVelocity
   - Shoot
   - RPC_Shoot
+  - PRC_StartDisappearing
+  - PRC_DisableThisObject
+  - PRC_EnableThisObject
+  - RPC_SetIsOneWay
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
