@@ -65,6 +65,11 @@ public class Shooter : Enemy
         CurrentTarget = Transform;
     }
 
+    public Transform GetTarget()
+    {
+        return CurrentTarget;
+    }
+
     /// <summary>
     /// Author: Ziqi Li
     /// RPC function for shooting bullet
@@ -83,7 +88,7 @@ public class Shooter : Enemy
     /// </summary>
     private void ConstructBehaviourTree()
     {
-        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(CurrentTarget, NearnessToPlayer, NavMeshAgent);
+        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
         ShootNode ShootNode = new ShootNode(Projectile, CurrentTarget, ProjectileSpeed, ShootCooldown, this.gameObject);

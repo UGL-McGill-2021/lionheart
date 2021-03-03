@@ -23,7 +23,7 @@ public class Grunt : Enemy
     private NavMeshAgent NavMeshAgent;
 
     // Photon:
-    private List<GameObject> PlayerList;
+    public List<GameObject> PlayerList;
 
     void Awake() {
         NavMeshAgent = this.GetComponent<NavMeshAgent>();
@@ -33,7 +33,7 @@ public class Grunt : Enemy
     void Start() {
         // get the player list from game manager
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        CurrentTarget = PlayerList[0].transform;
+        //CurrentTarget = PlayerList[0].transform;
 
         ConstructBehaviourTree();
     }
@@ -57,12 +57,17 @@ public class Grunt : Enemy
         CurrentTarget = Transform;
     }
 
+    public Transform GetTarget()
+    {
+        return CurrentTarget;
+    }
+
     /// <summary>
     /// Author: Daniel Holker
     /// Constructs nodes and puts them together into a behaviour tree that determines its actions
     /// </summary>
     private void ConstructBehaviourTree() {
-        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(CurrentTarget, NearnessToPlayer ,NavMeshAgent);
+        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer ,NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
         MeleeAttackNode MeleeAttackNode = new MeleeAttackNode(AttackCooldown, GetComponent<MonoBehaviour>());

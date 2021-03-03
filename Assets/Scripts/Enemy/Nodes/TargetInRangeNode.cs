@@ -30,7 +30,7 @@ public class TargetInRangeNode : Node
         {
             if (Vector3.Distance(Target.transform.position, Origin.position) <= Range)
             {
-                SetTarget?.Invoke(Target.transform);
+                SetTarget(Target.transform);
                 return NodeState.SUCCESS;
             }
         }

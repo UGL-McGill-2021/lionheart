@@ -240,6 +240,7 @@ MonoBehaviour:
   WanderTarget: {fileID: 0}
   WanderRange: 6
   AttackCooldown: 5
+  PlayerList: []
 --- !u!114 &8533827599389645243
 MonoBehaviour:
   m_ObjectHideFlags: 0
