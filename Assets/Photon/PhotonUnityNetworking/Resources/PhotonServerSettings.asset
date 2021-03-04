@@ -47,6 +47,7 @@ MonoBehaviour:
   - RPC_SetCurrentVelocity
   - Shoot
   - RPC_Shoot
+  - RPC_addPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

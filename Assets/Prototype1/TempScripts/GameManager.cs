@@ -15,6 +15,13 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> PlayerList = new List<GameObject>();
 
+    private PhotonView PhotonView;
+
+    private void Awake()
+    {
+        PhotonView = GetComponent<PhotonView>();
+    }
+
     // Start is called before the first frame update
     void Start() {
 
@@ -23,6 +30,8 @@ public class GameManager : MonoBehaviour {
         if (PhotonNetwork.IsMasterClient) // 2
         {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
+            int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
+            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
 
             // Generate moving platforms
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
@@ -61,11 +70,25 @@ public class GameManager : MonoBehaviour {
 
         } else {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
+            int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
+            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
         }
 
-        // Add players to the player list for both clients
-        PlayerList.Add(player);
+    }
 
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// RPC function for adding player to player list using the player PhotonViewID
+    /// since we cannot pass gameobject directly using Photon
+    /// </summary>
+    /// <param name="playerViewID">The PhotonViewID of the gameobject</param>
+    [PunRPC]
+    void RPC_addPlayer(int playerViewID)
+    {
+        GameObject player = PhotonView.Find(playerViewID).gameObject;
+        PlayerList.Add(player);
+        TurretTargets.Add(player);
     }
 
 }
