@@ -110,7 +110,6 @@ public class MovingPlatformRB : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
         }
-        
     }
 
     /// <summary>
@@ -181,7 +180,7 @@ public class MovingPlatformRB : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // trigger the platform motion once a player standing on it
-            if (!isAutomatic && !isTriggered)
+            if (!isAutomatic && !isTriggered && PhotonView.IsMine)
             {
                 isTriggered = true;
                 CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));

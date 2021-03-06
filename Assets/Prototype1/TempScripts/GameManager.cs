@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
         if (PhotonNetwork.IsMasterClient) // 2
         {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
-
+            PlayerList.Add(player);
             // Generate moving platforms
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[0].transform.position,
@@ -56,13 +56,35 @@ public class GameManager : MonoBehaviour {
                  EnemySpawningPoints[2].transform.position,
                 Quaternion.identity);
 
+            // Generate objects
+            GameObject obj;
+            obj = PhotonNetwork.Instantiate("TempPlatform",
+                 PathPoints[4].transform.position,
+                Quaternion.identity);
+            obj.GetComponent<TempPlatform>().isReusable = false;
 
-        } else {
+            obj = PhotonNetwork.Instantiate("TempPlatform",
+                 PathPoints[5].transform.position,
+                Quaternion.identity);
+
+            obj = PhotonNetwork.Instantiate("SpiritWall",
+                 PathPoints[6].transform.position,
+                Quaternion.identity);
+
+            obj = PhotonNetwork.Instantiate("SpiritWall",
+                 PathPoints[7].transform.position,
+                Quaternion.identity);
+            obj.GetComponent<SpiritWall>().SetIsOneWay(false);
+
+
+
+        }
+        else {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
+            PlayerList.Add(player);
         }
 
-        // Add players to the player list for both clients
-        PlayerList.Add(player);
+
 
     }
 

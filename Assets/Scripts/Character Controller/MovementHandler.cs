@@ -54,12 +54,19 @@ namespace Lionheart.Player.Movement {
                 {
                     Movement += M.Value;
                 }
-                Movement += _AdditionalVelocity;
+                //Movement.x += _AdditionalVelocity.x;
+                //Movement.z += _AdditionalVelocity.z;
 
-                Rb.MovePosition(transform.position + Movement * Time.deltaTime);
+                //Rb.MovePosition(transform.position + Movement * Time.deltaTime);
+                //Vector3 rbVelocoty = Rb.velocity;
+                //rbVelocoty.x = Movement.x;
+                //rbVelocoty.z = Movement.z;
+                //rbVelocoty.y += Movement.y;
+                //Rb.velocity = rbVelocoty;
+                Rb.velocity = Movement;
             }
 
-            _AdditionalVelocity = Vector3.zero;  // reset the additional velocity
+            //_AdditionalVelocity = Vector3.zero;  // reset the additional velocity
         }
 
         /// <summary>
