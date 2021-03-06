@@ -19,6 +19,7 @@ namespace Lionheart.Player.Movement {
 
         private float CurrentSpeed = 1f;
 
+        [Header("Input")]
         public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
 
         public Vector3 Value { get; private set; }

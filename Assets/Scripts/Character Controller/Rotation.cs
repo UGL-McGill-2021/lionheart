@@ -12,7 +12,7 @@ namespace Lionheart.Player.Movement {
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
 
-        //The following is a polling approache
+        //The following is a polling approach
         public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
         public Vector2 MoveDirection = new Vector2();
 
