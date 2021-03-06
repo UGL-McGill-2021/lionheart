@@ -4,27 +4,19 @@ using Photon.Pun;
 using System.Collections.Generic;
 using Lionheart.Player.Movement;
 
+/// <summary>
+/// Author: Ziqi Li
+/// This script moves a platform through target points and
+/// manages its interaction with player
+/// </summary>
 public class MovingPlatformRB : MonoBehaviour, MovementModifier
 {
-    public bool isOffLine;
-    public List<GameObject> PathPointObjects = new List<GameObject>();
-    public float StopTime = 2f;  // the time of stopping when reaching ends
-    public float speed = 3f;
-    public float epsilon = 0.2f;
-    public bool isAutomatic = true;  // whether this platform will move automatically
+    [Header("Path")]
+    [SerializeField] private List<Vector3> PathPoints = new List<Vector3>();
+    [SerializeField] private Vector3 _CurrentTarget;
 
-    [SerializeField]
-    private List<Vector3> PathPoints = new List<Vector3>();
-    // list to store players standing on this platform
-    [SerializeField]
-    private List<MovementHandler> PlayersList = new List<MovementHandler>();
-    [SerializeField]
-    private Vector3 _CurrentTarget;
-    private Vector3 _RealVelocity;
-
-    // Motion:
-    [SerializeField]
-    private Vector3 _CurrentVelocity;
+    [Header("Motion")]
+    [SerializeField] private Vector3 _CurrentVelocity;
     private int _CurrentTargetIndex;
     private bool isMovingToward = true; // for determining when to stop
     private bool isTriggered = false;  // motion of platform have to be triggered by player if !isAutomatic
@@ -33,19 +25,26 @@ public class MovingPlatformRB : MonoBehaviour, MovementModifier
     private PhotonView PhotonView;
     private Rigidbody RigidBody;
 
-    //Lag compensation
-    //float _CurrentTime = 0;
-    //double _CurrentPacketTime = 0;
-    //double _LastPacketTime = 0;
-
     private Vector3 RemotePosition;
     private Quaternion RemoteRotation;
 
-    [SerializeField] MovementHandler PlayerMovementHandler;
+    public List<GameObject> PathPointObjects = new List<GameObject>();
+    public float StopTime = 2f;  // the time of stopping when reaching ends
+    public float speed = 3f;
+    public float epsilon = 0.2f;
+    public bool isAutomatic = true;  // whether this platform will move automatically
+
+    [Header("Photon")]
+    public bool isOffLine;
+
+    [Header("Player")]
+    [SerializeField] List<MovementHandler> PlayerMovementHandlerList;
     public Vector3 Value { get; private set; }
     public MovementModifier.MovementType Type { get; private set; }
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Author: Ziqi Li
+    /// </summary>
     void Start()
     {
         // initialization
@@ -70,22 +69,14 @@ public class MovingPlatformRB : MonoBehaviour, MovementModifier
             CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
         }
 
+        //Setting up elevator efffect on players
         Type = MovementModifier.MovementType.Contraption;
-        PlayerMovementHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementHandler>();
-    }
+        PlayerMovementHandlerList = new List<MovementHandler>();
+        GameObject[] _Players = GameObject.FindGameObjectsWithTag("Player");
 
-    private void FixedUpdate()
-    {
-        if(!isOffLine && !PhotonView.IsMine)
+        for (int i=0; i<_Players.Length; i++)
         {
-            // Only add additional velocity for non master clients (Platforms are belong to the master client)
-            if (PlayersList.Count > 0)
-            {
-                foreach (MovementHandler player in PlayersList)
-                {
-                    if (player.gameObject.GetComponent<PhotonView>().IsMine) player.AddVelocity(_CurrentVelocity);
-                }
-            }
+            PlayerMovementHandlerList.Add(_Players[i].GetComponent<MovementHandler>());
         }
     }
 
@@ -179,13 +170,13 @@ public class MovingPlatformRB : MonoBehaviour, MovementModifier
     }
 
     /// <summary>
-    /// Author: Ziqi Li
-    /// Callback function of isTrigger collider
+    /// Author: Ziqi Li, Denis
+    /// Callback function of platform collider
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.collider.CompareTag("Player"))
         {
             // trigger the platform motion once a player standing on it
             if (!isAutomatic && !isTriggered)
@@ -193,27 +184,35 @@ public class MovingPlatformRB : MonoBehaviour, MovementModifier
                 isTriggered = true;
                 CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
             }
-            // update player list
-            PlayersList.Add(other.gameObject.GetComponent<MovementHandler>());
 
-            Debug.Log("Entering at " + Time.time);
-            PlayerMovementHandler.AddModifier(this);
+            //subscribe the player to the platform position transformation
+            foreach (MovementHandler p in PlayerMovementHandlerList)
+            {
+                if (p.Equals(other.gameObject.GetComponent<MovementHandler>()))
+                {
+                    p.AddModifier(this);
+                }
+            }
         }
     }
 
     /// <summary>
-    /// Author: Ziqi Li
-    /// Callback function of isTrigger collider
+    /// Author: Ziqi Li, Denis
+    /// Callback function of platform collider
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.collider.CompareTag("Player"))
         {
-            PlayersList.Remove(other.gameObject.GetComponent<MovementHandler>());
-
-            Debug.Log("Exiting at " + Time.time);
-            PlayerMovementHandler.RemoveModifier(this);
+            //unsubscribe the player to the platform position transformation
+            foreach (MovementHandler p in PlayerMovementHandlerList)
+            {
+                if (p.Equals(other.gameObject.GetComponent<MovementHandler>()))
+                {
+                    p.RemoveModifier(this);
+                }
+            }
         }
     }
 }

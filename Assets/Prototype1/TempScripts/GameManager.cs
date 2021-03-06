@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> PathPoints = new List<GameObject>();
     public List<GameObject> EnemySpawningPoints = new List<GameObject>();
-
     public List<GameObject> PlayerList = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -27,7 +26,7 @@ public class GameManager : MonoBehaviour {
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[0].transform.position,
                 PathPoints[0].transform.rotation, 0);
-            platform.layer = LayerMask.NameToLayer("Ground");
+
             //platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[0]);
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[1]);
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour {
             platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[2].transform.position,
                 PathPoints[2].transform.rotation, 0);
-            platform.layer = LayerMask.NameToLayer("Ground");
+
             //platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[2]);
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[3]);
@@ -59,13 +58,13 @@ public class GameManager : MonoBehaviour {
                 Quaternion.identity);
 
 
-        } else {
+        } 
+        else {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
         }
 
         // Add players to the player list for both clients
         PlayerList.Add(player);
-
     }
 
 }

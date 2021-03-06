@@ -54,12 +54,12 @@
                     "interactions": ""
                 },
                 {
-                    "name": "PowerUpJump",
+                    "name": "PullDash",
                     "type": "Button",
-                    "id": "76c14986-03c3-444e-aab0-2ee9f27977c6",
+                    "id": "b322acc4-7152-4c7a-b1d6-a0207455d09b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -219,23 +219,23 @@
                 },
                 {
                     "name": "",
-                    "id": "63957db2-7f05-43dc-9791-b5e99cc29eb4",
-                    "path": "<XInputController>/buttonSouth",
+                    "id": "d226948b-bc86-4c40-a998-bf2c587eec5e",
+                    "path": "<XInputController>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PowerUpJump",
+                    "action": "PullDash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "051b92c9-8f2e-4bbd-9aab-6449c018aa12",
-                    "path": "<DualShockGamepad>/buttonSouth",
+                    "id": "c4ee849f-aeb2-45c1-a505-923442952db4",
+                    "path": "<DualShockGamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PowerUpJump",
+                    "action": "PullDash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

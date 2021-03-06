@@ -15,11 +15,13 @@ namespace Lionheart.Player.Movement {
         [SerializeField] GameObject Player;
 
         private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
-        private Vector3 _AdditionalVelocity;
 
-        // Photon:
+        [Header("Photon")]
         public PhotonView PhotonView;
 
+        /// <summary>
+        /// Author: Ziqi
+        /// </summary>
         private void Start() {
             PhotonView = GetComponent<PhotonView>();
         }
@@ -54,36 +56,9 @@ namespace Lionheart.Player.Movement {
                 {
                     Movement += M.Value;
                 }
-                //Movement += _AdditionalVelocity;
 
                 Rb.velocity = Movement;
             }
-
-            //_AdditionalVelocity = Vector3.zero;  // reset the additional velocity
-        }
-
-        /// <summary>
-        /// Author: Ziqi Li
-        /// Function for adding velocity to current additional velocity of this player (will be called by other objects
-        /// or player ex: moving platform)
-        /// TODO: Integrate in addditional script in interface
-        /// </summary>
-        /// <param name="velocity"></param>
-        public void AddVelocity(Vector3 velocity)
-        {
-            //_AdditionalVelocity += velocity;
-        }
-
-        /// <summary>
-        /// Author: Denis
-        /// Stops Drift after clipping through a wall. 
-        /// TODO: Prevent wall clipping
-        /// </summary>
-        /// <param name="collision"></param>
-        private void OnCollisionEnter(Collision collision)
-        {
-            Rb.velocity = new Vector3(0f, Rb.velocity.y, 0f);
-            //Debug.Log("Colliding at " + Time.time);
         }
     }
 }
