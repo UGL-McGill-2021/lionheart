@@ -56,9 +56,48 @@ namespace Lionheart.Player.Movement {
                 {
                     Movement += M.Value;
                 }
+<<<<<<< HEAD
 
                 Rb.velocity = Movement;
             }
+=======
+                //Movement.x += _AdditionalVelocity.x;
+                //Movement.z += _AdditionalVelocity.z;
+
+                //Rb.MovePosition(transform.position + Movement * Time.deltaTime);
+                //Vector3 rbVelocoty = Rb.velocity;
+                //rbVelocoty.x = Movement.x;
+                //rbVelocoty.z = Movement.z;
+                //rbVelocoty.y += Movement.y;
+                //Rb.velocity = rbVelocoty;
+                Rb.velocity = Movement;
+            }
+
+            //_AdditionalVelocity = Vector3.zero;  // reset the additional velocity
+        }
+
+        /// <summary>
+        /// Author: Ziqi Li
+        /// Function for adding velocity to current additional velocity of this player (will be called by other objects
+        /// or player ex: moving platform)
+        /// </summary>
+        /// <param name="velocity"></param>
+        public void AddVelocity(Vector3 velocity)
+        {
+            _AdditionalVelocity += velocity;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Stops Drift after clipping through a wall. 
+        /// TODO: Prevent wall clipping
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            Rb.velocity = new Vector3(0f, Rb.velocity.y, 0f);
+            //Debug.Log("Colliding at " + Time.time);
+>>>>>>> main
         }
     }
 }

@@ -107,7 +107,6 @@ public class MovingPlatformRB : MonoBehaviour, MovementModifier
                 yield return new WaitForFixedUpdate();
             }
         }
-        
     }
 
     /// <summary>
@@ -179,7 +178,7 @@ public class MovingPlatformRB : MonoBehaviour, MovementModifier
         if (other.collider.CompareTag("Player"))
         {
             // trigger the platform motion once a player standing on it
-            if (!isAutomatic && !isTriggered)
+            if (!isAutomatic && !isTriggered && PhotonView.IsMine)
             {
                 isTriggered = true;
                 CurrentCoroutine = StartCoroutine(StartMotion(isTriggered));
