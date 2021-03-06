@@ -88,16 +88,18 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterPullDash(InputAction.CallbackContext Ctx)
         {
-            if (IsSlingshot==false && IsProjectile == false)
+            if (IsSlingshot == false && IsProjectile == false)
             {
                 if (OtherPlayer.IsSlingshot)
                 {
                     IsProjectile = true;
+                    Debug.Log("IsProjectile");
                     //TODO charge launch
                 }
                 else
                 {
                     IsSlingshot = true;
+                    Debug.Log("IsSlingshot");
                     //trigger UI element
                 }
             }
