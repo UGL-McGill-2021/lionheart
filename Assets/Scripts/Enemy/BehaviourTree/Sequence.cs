@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//a sequence node waits for a node to fail or for all nodes to complete in order
+/// <summary>
+/// In the order they're listed, waits for each node in Nodes to return SUCCESS before returning SUCCESS itself
+/// </summary>
 
 public class Sequence : Node
 {

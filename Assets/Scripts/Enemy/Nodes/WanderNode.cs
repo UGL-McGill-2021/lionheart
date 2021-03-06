@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// move randomly around a given target
+/// <summary>
+/// Author: Daniel Holker
+/// move randomly on a navmesh around a given target and radius
+/// </summary>
 
 public class WanderNode : Node
 {
@@ -20,6 +23,7 @@ public class WanderNode : Node
 
     void Awake()
     {
+        //set initial point to nearest position on navmesh to given target
         Target.position = RandomNavSphere(Target.position, 0, -1);
     }
 
@@ -46,6 +50,7 @@ public class WanderNode : Node
         }
     }
 
+    //find a random point on the navmesh within the given radius 
     private Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask) {
         Vector3 randDirection = UnityEngine.Random.insideUnitSphere * dist;
         randDirection += origin;

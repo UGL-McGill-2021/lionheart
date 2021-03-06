@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//inverts the result of its node
+/// <summary>
+/// Returns the opposite state of its assigned node
+/// </summary>
 
 public class Inverter : Node
 {

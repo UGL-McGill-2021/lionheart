@@ -15,7 +15,7 @@ namespace Lionheart.Player.Movement
         public enum MovementType
         {
             Walk,
-            Vertical,
+            Jump,
             Dash
         }
     }
