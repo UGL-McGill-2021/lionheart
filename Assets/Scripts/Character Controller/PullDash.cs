@@ -15,7 +15,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Vector3 Direction;
-        [SerializeField] PullDash OtherPlayer;
+        [SerializeField] GameObject OtherPlayer;
+        [SerializeField] PullDash OtherPlayerPullDashScript;
 
         [Header("State")]
         [SerializeField] public bool IsSlingshot;
@@ -23,11 +24,16 @@ namespace Lionheart.Player.Movement
         [SerializeField] public bool IsPullDashing;
 
         [Header("Launcher")]
-        [SerializeField] public readonly float MaxLaunchPower = 18f;
-        [SerializeField] public readonly float MinLaunchPower = 12f;
+        [SerializeField] public readonly float MaxLaunchPower = 35f;
+        [SerializeField] public readonly float MinLaunchPower = 25f;
         [SerializeField] public float PowerStep = 0.5f;
-        [SerializeField] public float CurrentPower = 12f;
-        [SerializeField] private Vector3 Vec;
+        [SerializeField] public float CurrentPower;
+        [SerializeField] private readonly float JumpPower = 3f;
+
+
+        private Vector3 Dir;
+        private float GravityForce = Physics.gravity.y;
+        private bool canCharge;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -42,23 +48,11 @@ namespace Lionheart.Player.Movement
             IsSlingshot = false;
             IsProjectile = false;
             IsPullDashing = false;
-            Vec = new Vector3();
+            canCharge = false;
+
+            CurrentPower = MinLaunchPower;
 
             Type = MovementModifier.MovementType.PullDash;
-        }
-
-        private void Start()
-        {
-            //get a reference to the other player
-            GameObject[] _Players = GameObject.FindGameObjectsWithTag("Player");
-            for (int i = 0; i < _Players.Length; i++)
-            {
-                if (_Players[i].Equals(gameObject) == false)
-                {
-                    OtherPlayer = _Players[i].GetComponent<PullDash>();
-                }
-            }
-            Debug.Log("--------------------------Players length " + _Players.Length);
         }
 
         /// <summary>
@@ -92,18 +86,31 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterPullDash(InputAction.CallbackContext Ctx)
         {
-            if (IsSlingshot == false && IsProjectile == false)
+            if (OtherPlayerPullDashScript == null)
             {
-                if (OtherPlayer.IsSlingshot)
+                //get a reference to the other player
+                GameObject[] _Players = GameObject.FindGameObjectsWithTag("Player");
+                for (int i = 0; i < _Players.Length; i++)
+                {
+                    if (_Players[i].Equals(gameObject) == false)
+                    {
+                        OtherPlayer = _Players[i];
+                        OtherPlayerPullDashScript = _Players[i].GetComponent<PullDash>();
+                    }
+                }
+            }
+
+            if (IsSlingshot == false && IsProjectile == false && IsPullDashing == false)
+            {
+                if (OtherPlayerPullDashScript.IsSlingshot)
                 {
                     IsProjectile = true;
-                    Debug.Log("---------------------------IsProjectile");
-                    //TODO charge launch
+                    canCharge = true;
+                    Dir = (OtherPlayer.transform.position - transform.position).normalized;
                 }
                 else
                 {
                     IsSlingshot = true;
-                    Debug.Log("------------------------------IsSlingshot");
                     //trigger UI element
                 }
             }
@@ -113,7 +120,7 @@ namespace Lionheart.Player.Movement
         {
             if (IsProjectile == true)
             {
-                if (OtherPlayer.IsSlingshot == false)
+                if (OtherPlayerPullDashScript.IsSlingshot == false)
                 {
                     IsProjectile = false;
                 }
@@ -122,25 +129,10 @@ namespace Lionheart.Player.Movement
                     Launcher();
                 }
             }
-        }
-
-        private void Launcher()
-        {
-            if (Gamepad.current.buttonNorth.isPressed == true)
-            {
-                CurrentPower += PowerStep * Time.deltaTime;
-            }
-            else
-            {
-                IsPullDashing = true;
-                OtherPlayer.IsSlingshot = false;
-                IsProjectile = false;
-                StartCoroutine(PullDashExecution());
-            }
 
             if (IsPullDashing == true)
             {
-                Value = gameObject.transform.forward * CurrentPower;
+                Value = Dir * CurrentPower;
             }
             else
             {
@@ -148,10 +140,39 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        private void Launcher()
+        {
+            if (Gamepad.current.buttonNorth.isPressed == true)
+            {
+                if (CurrentPower < MaxLaunchPower && canCharge == true)
+                {
+                    CurrentPower += PowerStep;
+                    canCharge = false;
+                    StartCoroutine(ChargePullDash());
+                }
+            }
+            else
+            {
+                Debug.Log("Launch force " + CurrentPower);
+                IsPullDashing = true;
+                OtherPlayerPullDashScript.IsSlingshot = false;
+                IsProjectile = false;
+                StartCoroutine(PullDashExecution());
+            }
+        }
+
+        IEnumerator ChargePullDash()
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            canCharge = true;
+        }
+
         IEnumerator PullDashExecution()
         {
+            yield return new WaitForSecondsRealtime(0.1f);
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsPullDashing = false;
+            CurrentPower = MinLaunchPower;
         }
     }
 }

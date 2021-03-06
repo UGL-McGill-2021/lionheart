@@ -142,17 +142,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a678b132a0be44ff4bb65d16b4efd168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOffLine: 0
+  PathPoints: []
+  _CurrentTarget: {x: 0, y: 0, z: 0}
+  _CurrentVelocity: {x: 0, y: 0, z: 0}
   PathPointObjects: []
   StopTime: 2
   speed: 3
   epsilon: 0.2
   isAutomatic: 1
-  PathPoints: []
-  PlayersList: []
-  _CurrentTarget: {x: 0, y: 0, z: 0}
-  _CurrentVelocity: {x: 0, y: 0, z: 0}
-  PlayerMovementHandler: {fileID: 0}
+  isOffLine: 0
+  PlayerMovementHandlerList: []
 --- !u!54 &5719563716120733999
 Rigidbody:
   m_ObjectHideFlags: 0

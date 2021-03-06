@@ -785,12 +785,12 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   Direction: {x: 0, y: 0, z: 0}
   OtherPlayer: {fileID: 0}
+  OtherPlayerPullDashScript: {fileID: 0}
   IsSlingshot: 0
   IsProjectile: 0
   IsPullDashing: 0
   PowerStep: 0.5
   CurrentPower: 12
-  Vec: {x: 0, y: 0, z: 0}
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0
