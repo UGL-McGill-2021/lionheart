@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Networking/Invitation/InvitationCodeInputAction.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputActions/InvitationCodeInputAction.inputactions'
 
 using System;
 using System.Collections;
