@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 8962104049189637306}
   - component: {fileID: 8654789910141434568}
   - component: {fileID: 5566292478228044567}
+  - component: {fileID: 6742636947217563593}
   - component: {fileID: 3535366763632785127}
   - component: {fileID: 3327485241153220109}
   - component: {fileID: 3922513343799244647}
@@ -653,6 +654,7 @@ MonoBehaviour:
   script3: {fileID: 8962104049189637306}
   script4: {fileID: 5566292478228044567}
   script5: {fileID: 9057546429446380302}
+  script6: {fileID: 6742636947217563593}
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,6 +770,27 @@ MonoBehaviour:
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
+--- !u!114 &6742636947217563593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401703996827886909}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524dc971a62ec46479d37a959b92d9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerMovementHandler: {fileID: 9057546429446380302}
+  Direction: {x: 0, y: 0, z: 0}
+  OtherPlayer: {fileID: 0}
+  IsSlingshot: 0
+  IsProjectile: 0
+  IsPullDashing: 0
+  PowerStep: 0.5
+  CurrentPower: 12
+  Vec: {x: 0, y: 0, z: 0}
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -791,7 +814,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8401703996827886909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 

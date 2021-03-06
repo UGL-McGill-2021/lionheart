@@ -88,6 +88,7 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterPullDash(InputAction.CallbackContext Ctx)
         {
+            Debug.Log("Pressing Y---------------------------------------------------------------");
             if (IsSlingshot == false && IsProjectile == false)
             {
                 if (OtherPlayer.IsSlingshot)
