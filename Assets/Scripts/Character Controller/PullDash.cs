@@ -64,7 +64,7 @@ namespace Lionheart.Player.Movement
         private void OnEnable()
         {
             ControllerActions.Player.PullDash.performed += RegisterPullDash;
-            ControllerActions.Player.Dash.Enable();
+            ControllerActions.Player.PullDash.Enable();
 
             PlayerMovementHandler.AddModifier(this);
         }
@@ -76,7 +76,7 @@ namespace Lionheart.Player.Movement
         private void OnDisable()
         {
             ControllerActions.Player.PullDash.performed -= RegisterPullDash;
-            ControllerActions.Player.Dash.Disable();
+            ControllerActions.Player.PullDash.Disable();
 
             PlayerMovementHandler.RemoveModifier(this);
         }
@@ -88,7 +88,7 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterPullDash(InputAction.CallbackContext Ctx)
         {
-            Debug.Log("Pressing Y---------------------------------------------------------------");
+            Debug.Log("----------------------Pressing Y------------------------------------");
             if (IsSlingshot == false && IsProjectile == false)
             {
                 if (OtherPlayer.IsSlingshot)
