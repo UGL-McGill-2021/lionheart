@@ -45,7 +45,10 @@ namespace Lionheart.Player.Movement
             Vec = new Vector3();
 
             Type = MovementModifier.MovementType.PullDash;
+        }
 
+        private void Start()
+        {
             //get a reference to the other player
             GameObject[] _Players = GameObject.FindGameObjectsWithTag("Player");
             for (int i = 0; i < _Players.Length; i++)
