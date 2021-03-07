@@ -78,24 +78,13 @@ public class GameManager : MonoBehaviour {
             obj.GetComponent<SpiritWall>().SetIsOneWay(false);
 
 
-<<<<<<< HEAD
-        } 
-=======
 
-        }
->>>>>>> main
-        else {
+        } 
+        else 
+        {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
             PlayerList.Add(player);
         }
-
-<<<<<<< HEAD
-        // Add players to the player list for both clients
-        PlayerList.Add(player);
-=======
-
-
->>>>>>> main
     }
 
 }
