@@ -870,6 +870,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Playerv2Puppet
       objectReference: {fileID: 0}
+    - target: {fileID: 8401703996827886909, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6449621252990841457, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1306aed5e3ce104faabc462c6947f87, type: 3}
