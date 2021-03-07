@@ -20,8 +20,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] Rigidbody Rb;
 
         [Header("Parameters")]
-        [SerializeField] private readonly float JumpPower = 15f;
-        [SerializeField] private float CounterJumpForce = 0.5f;
+        [SerializeField] private readonly float JumpPower = 12f;
+        [SerializeField] private float CounterJumpForce = 0.75f;
         [SerializeField] private float GroundDistance = 0.6f;
         [SerializeField] private LayerMask GroundMask;
 
@@ -91,7 +91,7 @@ namespace Lionheart.Player.Movement
             }
         }
 
-        private void Update() => VerticalForces();
+        private void FixedUpdate() => VerticalForces();
 
         /// <summary>
         /// Author: Denis

@@ -116,7 +116,7 @@ namespace Lionheart.Player.Movement
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsProjectile == true)
             {
