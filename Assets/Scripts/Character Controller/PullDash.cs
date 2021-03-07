@@ -112,13 +112,12 @@ namespace Lionheart.Player.Movement
                     //IsProjectile = true;
                     canCharge = true;
                     Dir = (OtherPlayer.transform.position - transform.position).normalized;
-                    gameObject.GetComponentInChildren<GameObject>().GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                    gameObject.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                 }
                 else
                 {
                     if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsSlingshot", RpcTarget.All, true);
-                    gameObject.GetComponentInChildren<GameObject>().GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-                    //IsSlingshot = true;
+                    gameObject.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.gree);                    //IsSlingshot = true;
                     //trigger UI element
                 }
             }
@@ -162,7 +161,7 @@ namespace Lionheart.Player.Movement
             }
             else
             {
-                gameObject.GetComponentInChildren<GameObject>().GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                gameObject.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                 Debug.Log("Launch force " + CurrentPower);
                 if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, true);
                 //IsPullDashing = true;
