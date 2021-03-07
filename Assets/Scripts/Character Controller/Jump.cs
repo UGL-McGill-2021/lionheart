@@ -28,11 +28,7 @@ namespace Lionheart.Player.Movement
         public bool IsGrounded;
         public Vector3 Vec2 = Vector3.zero;
         private float DistanceToGround;
-<<<<<<< HEAD
         private float GravityForce = Physics.gravity.y;
-=======
-        private float GravityMagnitude = Physics.gravity.y;
->>>>>>> main
         private bool HasJumped;
         private int JumpedFrameCounter = 10;
 
@@ -83,10 +79,6 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// Processes the A(XB)/X(PS4) button press and executes the jump
-<<<<<<< HEAD
-=======
-        /// TODO: Variable height jumps depending on press time
->>>>>>> main
         /// </summary>
         /// <param name="Ctx"></param>
         private void RegisterJump(InputAction.CallbackContext Ctx)
@@ -117,17 +109,10 @@ namespace Lionheart.Player.Movement
             }
             else
             {
-<<<<<<< HEAD
-                Vec2=Vector3.zero;
-            }
-
-            if (IsGrounded == false && JumpedFrameCounter==0)
-=======
                 Vec2 = Vector3.zero;
             }
 
             if (IsGrounded == false && JumpedFrameCounter == 0)
->>>>>>> main
             {
                 Vec = new Vector3(0f, 3f * GravityForce * Time.deltaTime, 0f);
             }
@@ -136,11 +121,7 @@ namespace Lionheart.Player.Movement
             {
                 Value = Vector3.zero;
                 Vec2 = Vector3.zero;
-<<<<<<< HEAD
                 GravityForce = Physics.gravity.y;
-=======
-                GravityMagnitude = Physics.gravity.y;
->>>>>>> main
                 if (HasJumped == true)
                 {
                     StartCoroutine(PlayHaptics());
@@ -181,4 +162,6 @@ namespace Lionheart.Player.Movement
         }
     }
 }
+
+
 

@@ -772,6 +772,7 @@ MonoBehaviour:
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
+  IsDashing: 0
 --- !u!114 &6742636947217563593
 MonoBehaviour:
   m_ObjectHideFlags: 0
