@@ -7,7 +7,6 @@ using Cinemachine;
 /// Author: Daniel Holker
 /// Sets up camera to keep two targets in frame
 /// </summary>
-
 public class FollowGroupCamera : MonoBehaviour
 {
     public bool IsOnline;   //Set true for online play, set false if you wish to set the targets manually
