@@ -106,26 +106,26 @@ namespace Lionheart.Player.Movement
 
             if (IsSlingshot == false && IsProjectile == false && IsPullDashing == false)
             {
-                if (OtherPlayerPullDashScript.IsSlingshot)
-                {
+                //if (OtherPlayerPullDashScript.IsSlingshot)
+                //{
                     if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, true);
                     //IsProjectile = true;
                     canCharge = true;
                     Dir = (OtherPlayer.transform.position - transform.position).normalized;
-                    gameObject.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
-                }
-                else
+                    //gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_Color", Color.yellow);
+                //}
+                /*else
                 {
                     if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsSlingshot", RpcTarget.All, true);
-                    gameObject.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.gree);                    //IsSlingshot = true;
+                    gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_Color", Color.green);                    //IsSlingshot = true;
                     //trigger UI element
-                }
+                }*/
             }
         }
 
         private void FixedUpdate()
         {
-            if (IsProjectile == true)
+            /*if (IsProjectile == true)
             {
                 if (OtherPlayerPullDashScript.IsSlingshot == false)
                 {
@@ -136,7 +136,9 @@ namespace Lionheart.Player.Movement
                 {
                     Launcher();
                 }
-            }
+            }*/
+
+            Launcher();
 
             if (IsPullDashing == true)
             {
@@ -161,7 +163,7 @@ namespace Lionheart.Player.Movement
             }
             else
             {
-                gameObject.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                //gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
                 Debug.Log("Launch force " + CurrentPower);
                 if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, true);
                 //IsPullDashing = true;
