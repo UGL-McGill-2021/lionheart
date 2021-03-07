@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Lionheart.Player.Movement
 {
@@ -38,12 +39,15 @@ namespace Lionheart.Player.Movement
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
 
+        private PhotonView PhotonView;
+
         /// <summary>
         /// Author: Denis
         /// Initial setup
         /// </summary>
         private void Awake()
         {
+            PhotonView = GetComponent<PhotonView>();
             ControllerActions = new ControllerInput();
             IsSlingshot = false;
             IsProjectile = false;
@@ -104,13 +108,15 @@ namespace Lionheart.Player.Movement
             {
                 if (OtherPlayerPullDashScript.IsSlingshot)
                 {
-                    IsProjectile = true;
+                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, true);
+                    //IsProjectile = true;
                     canCharge = true;
                     Dir = (OtherPlayer.transform.position - transform.position).normalized;
                 }
                 else
                 {
-                    IsSlingshot = true;
+                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsSlingshot", RpcTarget.All, true);
+                    //IsSlingshot = true;
                     //trigger UI element
                 }
             }
@@ -122,7 +128,8 @@ namespace Lionheart.Player.Movement
             {
                 if (OtherPlayerPullDashScript.IsSlingshot == false)
                 {
-                    IsProjectile = false;
+                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, false);
+                    // IsProjectile = false;
                 }
                 else
                 {
@@ -154,9 +161,12 @@ namespace Lionheart.Player.Movement
             else
             {
                 Debug.Log("Launch force " + CurrentPower);
-                IsPullDashing = true;
-                OtherPlayerPullDashScript.IsSlingshot = false;
-                IsProjectile = false;
+                if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, true);
+                //IsPullDashing = true;
+                // OtherPlayerPullDashScript.IsSlingshot = false;
+                if (PhotonView.IsMine) OtherPlayerPullDashScript.GetComponent<PullDash>().PhotonView.RPC("RPC_SetIsSlingshot", RpcTarget.All, false);
+                if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, false);
+                // IsProjectile = false;
                 StartCoroutine(PullDashExecution());
             }
         }
@@ -171,8 +181,42 @@ namespace Lionheart.Player.Movement
         {
             yield return new WaitForSecondsRealtime(0.1f);
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
-            IsPullDashing = false;
+            if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, false);
+            //IsPullDashing = false;
             CurrentPower = MinLaunchPower;
+        }
+
+        /// <summary>
+        /// Author: Ziqi
+        /// RPC setter
+        /// </summary>
+        /// <param name="status"></param>
+        [PunRPC]
+        void RPC_SetIsSlingshot(bool status)
+        {
+            IsSlingshot = status;
+        }
+
+        /// <summary>
+        /// Author: Ziqi
+        /// RPC setter
+        /// </summary>
+        /// <param name="status"></param>
+        [PunRPC]
+        void RPC_SetIsProjectile(bool status)
+        {
+            IsProjectile = status;
+        }
+
+        /// <summary>
+        /// Author: Ziqi
+        /// RPC setter
+        /// </summary>
+        /// <param name="status"></param>
+        [PunRPC]
+        void RPC_SetIsPullDashing(bool status)
+        {
+            IsPullDashing = status;
         }
     }
 }

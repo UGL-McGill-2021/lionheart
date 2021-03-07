@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5172013550738591426}
   - component: {fileID: 82819093034989001}
   - component: {fileID: 5673160541564435391}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Left Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4549069522882706186}
   - component: {fileID: 3681983124607863458}
   - component: {fileID: 3998553078210085965}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TempCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 5710571572077885630}
   - component: {fileID: 7995986432324481028}
   - component: {fileID: 6931294730839491557}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6521482152261015541}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 4136796878653810071}
   - component: {fileID: 5791439315611248438}
   - component: {fileID: 8537886616238280609}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Right Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 9036160769017361850}
   - component: {fileID: 999449373465562442}
   - component: {fileID: 2767656285700879784}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 3327485241153220109}
   - component: {fileID: 3922513343799244647}
   - component: {fileID: 996414870726799083}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Playerv2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -842,7 +842,7 @@ GameObject:
   - component: {fileID: 5363238593179202478}
   - component: {fileID: 8616751300727100511}
   - component: {fileID: 3964828314393748181}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
