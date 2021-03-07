@@ -20,7 +20,6 @@ namespace Lionheart.Player.Movement
         [SerializeField] PullDash OtherPlayerPullDashScript;
 
         [Header("State")]
-        [SerializeField] public bool IsSlingshot;
         [SerializeField] public bool IsProjectile;
         [SerializeField] public bool IsPullDashing;
 
@@ -49,7 +48,6 @@ namespace Lionheart.Player.Movement
         {
             PhotonView = GetComponent<PhotonView>();
             ControllerActions = new ControllerInput();
-            IsSlingshot = false;
             IsProjectile = false;
             IsPullDashing = false;
             canCharge = false;
@@ -104,41 +102,20 @@ namespace Lionheart.Player.Movement
                 }
             }
 
-            if (IsSlingshot == false && IsProjectile == false && IsPullDashing == false)
+            if (IsProjectile == false && IsPullDashing == false)
             {
-                //if (OtherPlayerPullDashScript.IsSlingshot)
-                //{
-                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, true);
-                    //IsProjectile = true;
-                    canCharge = true;
-                    Dir = (OtherPlayer.transform.position - transform.position).normalized;
-                    //gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_Color", Color.yellow);
-                //}
-                /*else
-                {
-                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsSlingshot", RpcTarget.All, true);
-                    gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_Color", Color.green);                    //IsSlingshot = true;
-                    //trigger UI element
-                }*/
+                if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, true);
+                canCharge = true;
+                Dir = (OtherPlayer.transform.position - transform.position).normalized;
             }
         }
 
         private void FixedUpdate()
         {
-            /*if (IsProjectile == true)
+            if (IsProjectile == true)
             {
-                if (OtherPlayerPullDashScript.IsSlingshot == false)
-                {
-                    if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, false);
-                    // IsProjectile = false;
-                }
-                else
-                {
-                    Launcher();
-                }
-            }*/
-
-            Launcher();
+                Launcher();
+            }
 
             if (IsPullDashing == true)
             {
@@ -163,14 +140,8 @@ namespace Lionheart.Player.Movement
             }
             else
             {
-                //gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
-                Debug.Log("Launch force " + CurrentPower);
                 if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, true);
-                //IsPullDashing = true;
-                // OtherPlayerPullDashScript.IsSlingshot = false;
-                if (PhotonView.IsMine) OtherPlayerPullDashScript.GetComponent<PullDash>().PhotonView.RPC("RPC_SetIsSlingshot", RpcTarget.All, false);
                 if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, false);
-                // IsProjectile = false;
                 StartCoroutine(PullDashExecution());
             }
         }
@@ -186,7 +157,6 @@ namespace Lionheart.Player.Movement
             yield return new WaitForSecondsRealtime(0.1f);
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, false);
-            //IsPullDashing = false;
             CurrentPower = MinLaunchPower;
         }
 
@@ -198,7 +168,7 @@ namespace Lionheart.Player.Movement
         [PunRPC]
         void RPC_SetIsSlingshot(bool status)
         {
-            IsSlingshot = status;
+            //IsSlingshot = status;
         }
 
         /// <summary>
