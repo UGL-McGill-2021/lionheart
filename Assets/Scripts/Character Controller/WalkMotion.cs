@@ -53,7 +53,7 @@ namespace Lionheart.Player.Movement {
             PlayerMovementHandler.RemoveModifier(this);
         }
 
-        private void Update() => Move();
+        private void FixedUpdate() => Move();
 
         /// <summary>
         /// Author: Denis
