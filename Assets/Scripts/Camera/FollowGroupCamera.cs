@@ -13,17 +13,22 @@ public class FollowGroupCamera : MonoBehaviour
     public float Radius;      //Radius to add to targets in target group
     public CinemachineTargetGroup TargetGroup;
     private List<GameObject> PlayerList;
+	private bool ready = false;
+	
+	
+	
+	void Update() {
+		if (!ready) {
+			PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
+			
+			if (PlayerList.Count > 0) {
+				ready = true;
+				foreach (GameObject G in PlayerList)
+				{
+					TargetGroup.AddMember(G.transform, 1, Radius);
+				}
+			}
+		}
+	}
 
-
-    void Awake()
-    {
-        if (IsOnline)
-        {
-            PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-            foreach (GameObject G in PlayerList)
-            {
-                TargetGroup.AddMember(G.transform, 1, Radius);
-            }
-        }
-    }
 }
