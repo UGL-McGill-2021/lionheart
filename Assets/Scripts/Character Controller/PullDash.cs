@@ -106,7 +106,9 @@ namespace Lionheart.Player.Movement
             {
                 if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, true);
                 canCharge = true;
-                Dir = (OtherPlayer.transform.position - transform.position).normalized;
+                Dir = (OtherPlayer.transform.position - transform.position);
+                Dir += new Vector3(0f, JumpPower, 0f);
+                Dir = Dir.normalized;
             }
         }
 
