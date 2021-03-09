@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Lionheart.Player.Movement
 {
@@ -19,7 +20,6 @@ namespace Lionheart.Player.Movement
         [SerializeField] PullDash OtherPlayerPullDashScript;
 
         [Header("State")]
-        [SerializeField] public bool IsSlingshot;
         [SerializeField] public bool IsProjectile;
         [SerializeField] public bool IsPullDashing;
 
@@ -38,14 +38,16 @@ namespace Lionheart.Player.Movement
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
 
+        private PhotonView PhotonView;
+
         /// <summary>
         /// Author: Denis
         /// Initial setup
         /// </summary>
         private void Awake()
         {
+            PhotonView = GetComponent<PhotonView>();
             ControllerActions = new ControllerInput();
-            IsSlingshot = false;
             IsProjectile = false;
             IsPullDashing = false;
             canCharge = false;
@@ -100,34 +102,21 @@ namespace Lionheart.Player.Movement
                 }
             }
 
-            if (IsSlingshot == false && IsProjectile == false && IsPullDashing == false)
+            if (IsProjectile == false && IsPullDashing == false)
             {
-                if (OtherPlayerPullDashScript.IsSlingshot)
-                {
-                    IsProjectile = true;
-                    canCharge = true;
-                    Dir = (OtherPlayer.transform.position - transform.position).normalized;
-                }
-                else
-                {
-                    IsSlingshot = true;
-                    //trigger UI element
-                }
+                if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, true);
+                canCharge = true;
+                Dir = (OtherPlayer.transform.position - transform.position);
+                Dir += new Vector3(0f, JumpPower, 0f);
+                Dir = Dir.normalized;
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (IsProjectile == true)
             {
-                if (OtherPlayerPullDashScript.IsSlingshot == false)
-                {
-                    IsProjectile = false;
-                }
-                else
-                {
-                    Launcher();
-                }
+                Launcher();
             }
 
             if (IsPullDashing == true)
@@ -153,10 +142,8 @@ namespace Lionheart.Player.Movement
             }
             else
             {
-                Debug.Log("Launch force " + CurrentPower);
-                IsPullDashing = true;
-                OtherPlayerPullDashScript.IsSlingshot = false;
-                IsProjectile = false;
+                if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, true);
+                if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsProjectile", RpcTarget.All, false);
                 StartCoroutine(PullDashExecution());
             }
         }
@@ -171,8 +158,41 @@ namespace Lionheart.Player.Movement
         {
             yield return new WaitForSecondsRealtime(0.1f);
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
-            IsPullDashing = false;
+            if (PhotonView.IsMine) PhotonView.RPC("RPC_SetIsPullDashing", RpcTarget.All, false);
             CurrentPower = MinLaunchPower;
+        }
+
+        /// <summary>
+        /// Author: Ziqi
+        /// RPC setter
+        /// </summary>
+        /// <param name="status"></param>
+        [PunRPC]
+        void RPC_SetIsSlingshot(bool status)
+        {
+            //IsSlingshot = status;
+        }
+
+        /// <summary>
+        /// Author: Ziqi
+        /// RPC setter
+        /// </summary>
+        /// <param name="status"></param>
+        [PunRPC]
+        void RPC_SetIsProjectile(bool status)
+        {
+            IsProjectile = status;
+        }
+
+        /// <summary>
+        /// Author: Ziqi
+        /// RPC setter
+        /// </summary>
+        /// <param name="status"></param>
+        [PunRPC]
+        void RPC_SetIsPullDashing(bool status)
+        {
+            IsPullDashing = status;
         }
     }
 }

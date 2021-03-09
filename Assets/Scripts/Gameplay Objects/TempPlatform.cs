@@ -68,10 +68,10 @@ public class TempPlatform : MonoBehaviour
     /// Call back function of collider
     /// </summary>
     /// <param name="collision"></param>
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         // only the master client will start the coroutine using an RPC call
-        if (other.gameObject.tag == "Player" && CurrentCoroutine == null && PhotonView.IsMine)
+        if (collision.gameObject.tag == "Player" && CurrentCoroutine == null && PhotonView.IsMine)
         {
             CurrentCoroutine = StartCoroutine(StartDisappearing(isReusable));
         }

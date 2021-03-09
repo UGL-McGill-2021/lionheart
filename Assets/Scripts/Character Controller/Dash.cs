@@ -106,7 +106,7 @@ namespace Lionheart.Player.Movement
             Gamepad.current.ResetHaptics();
         }
 
-        private void Update() => DashMove();
+        private void FixedUpdate() => DashMove();
 
         /// <summary>
         /// Author: Denis
