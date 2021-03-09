@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +11,24 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public Animator Animator;  // the crossfade transition animator
-    public float TransitionTime = 2f;  // the transition animation length
+    public PhotonView PhotonView;
 
+    private void Start()
+    {
+        PhotonView = GetComponent<PhotonView>();
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function for loading Photon scene with transition effect
+    /// The scene to be loaded has to be in build setting
+    /// </summary>
+    /// <param name="sceneName"></param>
+    public void LoadPhotonSceneWithName(string sceneName)
+    {
+        // call the RPC loading function
+        PhotonView.RPC("RPC_LoadSceneWithName", RpcTarget.All, sceneName);
+    }
 
     /// <summary>
     /// Author: Ziqi Li
@@ -38,6 +55,18 @@ public class SceneLoader : MonoBehaviour
 
     /// <summary>
     /// Author: Ziqi Li
+    /// RPC function for loading Photon scene with transition effect
+    /// The scene to be loaded has to be in build setting
+    /// </summary>
+    /// <param name="sceneName"></param>
+    [PunRPC]
+    private void RPC_LoadSceneWithName(string sceneName)
+    {
+        StartCoroutine(LoadPhotonSceneWithTransition(sceneName));
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
     /// Coroutine function to load the level (scene) with transition animation 
     /// </summary>
     /// <param name="sceneIndexToLoad"></param>
@@ -46,9 +75,11 @@ public class SceneLoader : MonoBehaviour
     {
         // trigger the exit transition animation
         Animator.SetTrigger("IsExit");
+        // get the current animation duration time
+        float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
 
-        // wait for a delay before loading the next level (2 seconds to play the animation)
-        yield return new WaitForSeconds(TransitionTime);
+        // wait for a delay before loading the next level 
+        yield return new WaitForSeconds(animDuration);
 
         // load the scene 
         SceneManager.LoadScene(sceneIndexToLoad);
@@ -58,17 +89,37 @@ public class SceneLoader : MonoBehaviour
     /// Author: Ziqi Li
     /// Coroutine function to load the level (scene) with transition animation 
     /// </summary>
-    /// <param name="sceneIndexToLoad"></param>
+    /// <param name="sceneNameToLoad"></param>
     /// <returns></returns>
-    IEnumerator LoadSceneWithTransition(string sceneName)
+    IEnumerator LoadSceneWithTransition(string sceneNameToLoad)
     {
         // trigger the exit transition animation
         Animator.SetTrigger("IsExit");
+        float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
 
-        // wait for a delay before loading the next level (2 seconds to play the animation)
-        yield return new WaitForSeconds(TransitionTime);
+        // wait for a delay before loading the next level 
+        yield return new WaitForSeconds(animDuration);
 
         // load the scene 
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneNameToLoad);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Coroutine function to load the Photon level (scene) with transition animation 
+    /// </summary>
+    /// <param name="sceneIndexToLoad"></param>
+    /// <returns></returns>
+    IEnumerator LoadPhotonSceneWithTransition(string sceneNameToLoad)
+    {
+        // trigger the exit transition animation
+        Animator.SetTrigger("IsExit");
+        float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // wait for a delay before loading the next level 
+        yield return new WaitForSeconds(animDuration);
+
+        // Let the master client to load the scene
+        if (PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel(sceneNameToLoad);
     }
 }

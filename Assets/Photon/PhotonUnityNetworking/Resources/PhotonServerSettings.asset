@@ -54,6 +54,7 @@ MonoBehaviour:
   - RPC_SetIsProjectile
   - RPC_SetIsPullDashing
   - RPC_SetIsSlingshot
+  - RPC_LoadSceneWithName
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
