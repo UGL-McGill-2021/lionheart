@@ -55,6 +55,8 @@ MonoBehaviour:
   - RPC_SetIsPullDashing
   - RPC_SetIsSlingshot
   - RPC_LoadSceneWithName
+  - RPC_SetMuteIcon
+  - RPC_SetTalkIcon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
