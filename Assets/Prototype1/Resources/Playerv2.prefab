@@ -606,7 +606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d94a80e4e69844e4b980592b503ca87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOffLine: 0
   cam: {fileID: 4549069522882706186}
   aud: {fileID: 3681983124607863458}
   script1: {fileID: 5368698313015805028}

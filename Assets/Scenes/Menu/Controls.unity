@@ -325,6 +325,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4328892844156303952, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4658896975843952362, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
       propertyPath: Animator
       value: 
@@ -900,8 +904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86ddd49ac6464c6f91b2a3c0a1adb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackButton: {fileID: 1361838490}
   SceneLoader: {fileID: 504702927}
+  BackButton: {fileID: 1361838490}
 --- !u!114 &1718166711
 MonoBehaviour:
   m_ObjectHideFlags: 0

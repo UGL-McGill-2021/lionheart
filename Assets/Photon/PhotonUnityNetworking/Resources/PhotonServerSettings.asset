@@ -57,6 +57,7 @@ MonoBehaviour:
   - RPC_LoadSceneWithName
   - RPC_SetMuteIcon
   - RPC_SetTalkIcon
+  - RPC_Quit
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

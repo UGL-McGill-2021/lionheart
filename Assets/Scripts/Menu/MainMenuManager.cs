@@ -14,6 +14,7 @@ public class MainMenuManager : MenuManager
 
     [Header("UI elements")]
     public Button StartButton;
+    public bool cursor;
 
     private void Awake()
     {
@@ -23,9 +24,13 @@ public class MainMenuManager : MenuManager
             StartButton.Select();
         }
 
-        // hide the cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (!cursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+            Cursor.visible = true;
     }
 
     /// <summary>

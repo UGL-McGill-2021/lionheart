@@ -12,7 +12,6 @@ namespace Lionheart.Player.Movement
     /// </summary>
     public class MultiplayerActivator : MonoBehaviour, IPunInstantiateMagicCallback
     {
-        public bool isOffLine;
         public Camera cam;
         public AudioListener aud;
         public WalkMotion script1;
@@ -22,21 +21,34 @@ namespace Lionheart.Player.Movement
         public MovementHandler script5;
         public PullDash script6;
         
-
-
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            if (!isOffLine && this.gameObject.GetComponent<PhotonView>().IsMine)
+            if (this.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 //cam.enabled = true;
                 aud.enabled = true;
-                script1.enabled = true;
-                script2.enabled = true;
-                script3.enabled = true;
-                script4.enabled = true;
-                script5.enabled = true;
-                script6.enabled = true;
+                EnableControls();
             }
+        }
+
+        public void DisableControls()
+        {
+            script1.enabled = false;
+            script2.enabled = false;
+            script3.enabled = false;
+            script4.enabled = false;
+            script5.enabled = false;
+            script6.enabled = false;
+        }
+
+        public void EnableControls()
+        {
+            script1.enabled = true;
+            script2.enabled = true;
+            script3.enabled = true;
+            script4.enabled = true;
+            script5.enabled = true;
+            script6.enabled = true;
         }
     }
 }

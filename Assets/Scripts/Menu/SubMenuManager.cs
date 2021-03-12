@@ -13,7 +13,7 @@ public class SubMenuManager : MenuManager
 {
     [Header("UI elements")]
     public Button BackButton;
-    //public SceneLoader SceneLoader;  // scene transition loader
+
     // Start is called before the first frame update
     void Start()
     {
