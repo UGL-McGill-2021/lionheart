@@ -188,28 +188,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""59aaf197-5716-4cf7-9640-f59ad21c806c"",
-                    ""path"": ""<XInputController>/leftShoulder"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Talk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""99ec56dd-a766-46d9-b2e3-b7dfa8eeaacf"",
-                    ""path"": ""<XInputController>/leftShoulder"",
-                    ""interactions"": ""Press(behavior=1)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Mute"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""caaea154-0f4d-4392-8ff7-21b948a5037d"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": ""Press"",
@@ -570,19 +548,8 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b300d573-146e-40a5-b1e0-2e1c6c9378a7"",
-                    ""path"": ""<XInputController>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""04f3b58c-6495-495b-af40-1e245e3d71b0"",
-                    ""path"": ""<DualShockGamepad>/start"",
+                    ""id"": ""8882e2d8-7739-477a-9aec-2aeacedf5447"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
