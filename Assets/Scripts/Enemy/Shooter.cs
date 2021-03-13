@@ -10,8 +10,7 @@ using UnityEngine.AI;
 /// </summary>
 public class Shooter : Enemy
 {
-    //TODO: find a better way to access player transform
-    public Transform PlayerTransform;
+    
 
     public float ChasingRange;      // How far the player must be for the shooter to take notice
     public float NearnessToPlayer;  // How close the shooter will get to the player when approaching
@@ -24,6 +23,8 @@ public class Shooter : Enemy
 
     public GameObject Projectile;
 
+
+    public Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
 
@@ -40,7 +41,7 @@ public class Shooter : Enemy
     {
         // get the player list from game manager
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        PlayerTransform = PlayerList[0].transform;
+        CurrentTarget = PlayerList[0].transform;
 
         ConstructBehaviourTree();
     }
@@ -57,6 +58,16 @@ public class Shooter : Enemy
     public override void Attacked()
     {
         print("Shooter has been attacked!");
+    }
+
+    public void SetTarget(Transform Transform)
+    {
+        CurrentTarget = Transform;
+    }
+
+    public Transform GetTarget()
+    {
+        return CurrentTarget;
     }
 
     /// <summary>
@@ -77,10 +88,10 @@ public class Shooter : Enemy
     /// </summary>
     private void ConstructBehaviourTree()
     {
-        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(PlayerTransform, NearnessToPlayer, NavMeshAgent);
+        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
-        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerTransform, this.transform);
-        ShootNode ShootNode = new ShootNode(Projectile, PlayerTransform, ProjectileSpeed, ShootCooldown, this.gameObject);
+        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
+        ShootNode ShootNode = new ShootNode(Projectile, CurrentTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 

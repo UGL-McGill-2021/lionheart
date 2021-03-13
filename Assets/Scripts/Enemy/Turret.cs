@@ -4,17 +4,20 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Author: Daniel Holker
+/// Constantly shoots at a given target
+/// </summary>
+
+
 public class Turret : Enemy
 {
-    //TODO: find a better way to access player transform
-    public Transform PlayerTransform;
+    public Transform Target;        //target to shoot at
 
-    public float Range;
+    public float ProjectileSpeed;   //how fast projectiles travel
+    public float ShootCooldown;     //how long to wait before next shot
 
-    public float ProjectileSpeed;
-    public float ShootCooldown;
-
-    public GameObject Projectile;
+    public GameObject Projectile;   //gameobject to instantiate and shoot
 
     private Node RootNode;
 
@@ -28,10 +31,6 @@ public class Turret : Enemy
 
     void Start()
     {
-        // get the player list from game manager
-        PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        PlayerTransform = PlayerList[0].transform;
-
         ConstructBehaviourTree();
     }
 
@@ -59,12 +58,8 @@ public class Turret : Enemy
 
     private void ConstructBehaviourTree()
     {
-        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(Range, PlayerTransform, this.transform);
-        ShootNode ShootNode = new ShootNode(Projectile, PlayerTransform, ProjectileSpeed, ShootCooldown, this.gameObject);
-
-        Sequence ShootSequence = new Sequence(new List<Node> { TargetInRangeNode, ShootNode});
-
-        RootNode = new Selector(new List<Node> { ShootSequence});
+        ShootNode ShootNode = new ShootNode(Projectile, Target, ProjectileSpeed, ShootCooldown, this.gameObject);
+        RootNode = ShootNode;
     }
 
 }

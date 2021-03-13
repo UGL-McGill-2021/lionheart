@@ -11,7 +11,16 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> PathPoints = new List<GameObject>();
     public List<GameObject> EnemySpawningPoints = new List<GameObject>();
+    public List<GameObject> TurretTargets = new List<GameObject>();
+
     public List<GameObject> PlayerList = new List<GameObject>();
+
+    private PhotonView PhotonView;
+
+    private void Awake()
+    {
+        PhotonView = GetComponent<PhotonView>();
+    }
 
     // Start is called before the first frame update
     void Start() {
@@ -21,12 +30,13 @@ public class GameManager : MonoBehaviour {
         if (PhotonNetwork.IsMasterClient) // 2
         {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
-            PlayerList.Add(player);
+            int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
+            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
+
             // Generate moving platforms
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[0].transform.position,
                 PathPoints[0].transform.rotation, 0);
-
             //platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[0]);
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[1]);
@@ -34,7 +44,6 @@ public class GameManager : MonoBehaviour {
             platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[2].transform.position,
                 PathPoints[2].transform.rotation, 0);
-
             //platform.GetComponent<MovingPlatform>().enabled = true;
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[2]);
             platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[3]);
@@ -56,35 +65,30 @@ public class GameManager : MonoBehaviour {
             enemy = PhotonNetwork.Instantiate("Turret",
                  EnemySpawningPoints[2].transform.position,
                 Quaternion.identity);
-
-            // Generate objects
-            GameObject obj;
-            obj = PhotonNetwork.Instantiate("TempPlatform",
-                 PathPoints[4].transform.position,
-                Quaternion.identity);
-            obj.GetComponent<TempPlatform>().isReusable = false;
-
-            obj = PhotonNetwork.Instantiate("TempPlatform",
-                 PathPoints[5].transform.position,
-                Quaternion.identity);
-
-            obj = PhotonNetwork.Instantiate("SpiritWall",
-                 PathPoints[6].transform.position,
-                Quaternion.identity);
-
-            obj = PhotonNetwork.Instantiate("SpiritWall",
-                 PathPoints[7].transform.position,
-                Quaternion.identity);
-            obj.GetComponent<SpiritWall>().SetIsOneWay(false);
+            enemy.GetComponent<Turret>().Target = TurretTargets[0].transform;
 
 
-
-        } 
-        else 
-        {
+        } else {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
-            PlayerList.Add(player);
+            int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
+            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
         }
+
+    }
+
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// RPC function for adding player to player list using the player PhotonViewID
+    /// since we cannot pass gameobject directly using Photon
+    /// </summary>
+    /// <param name="playerViewID">The PhotonViewID of the gameobject</param>
+    [PunRPC]
+    void RPC_addPlayer(int playerViewID)
+    {
+        GameObject player = PhotonView.Find(playerViewID).gameObject;
+        PlayerList.Add(player);
+        TurretTargets.Add(player);
     }
 
 }
