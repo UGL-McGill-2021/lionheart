@@ -16,9 +16,7 @@ namespace Lionheart.Player.Movement
         {
             Walk,
             Jump,
-            Dash,
-            PullDash,
-            Contraption
+            Dash
         }
     }
 }

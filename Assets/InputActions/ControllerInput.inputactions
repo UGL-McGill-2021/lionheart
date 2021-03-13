@@ -52,14 +52,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "PullDash",
-                    "type": "Button",
-                    "id": "b322acc4-7152-4c7a-b1d6-a0207455d09b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -111,7 +103,7 @@
                     "name": "",
                     "id": "9b2c3ce2-9772-4e4c-9d90-18cb9112ff5e",
                     "path": "<XInputController>/buttonSouth",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
@@ -122,17 +114,6 @@
                     "name": "",
                     "id": "d07ceea1-2aec-4b60-a97a-c2079e68415c",
                     "path": "<DualShockGamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "90ab8fa6-bbc9-4dc4-9119-0ef95b09788c",
-                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -155,17 +136,6 @@
                     "name": "",
                     "id": "cd66e68f-deaf-452f-acf4-f63806c1f500",
                     "path": "<DualShockGamepad>/buttonWest",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "93614520-00f9-4c38-a1da-08e0559e5111",
-                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -236,39 +206,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mute",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d226948b-bc86-4c40-a998-bf2c587eec5e",
-                    "path": "<XInputController>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PullDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c4ee849f-aeb2-45c1-a505-923442952db4",
-                    "path": "<DualShockGamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PullDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cfe038e1-1a43-4df2-9b6f-085ef74be658",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PullDash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
