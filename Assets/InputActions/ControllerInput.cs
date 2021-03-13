@@ -188,34 +188,12 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2395440c-9ab2-4b87-a6db-17ad569d5209"",
-                    ""path"": ""<XInputController>/leftShoulder"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Talk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""59aaf197-5716-4cf7-9640-f59ad21c806c"",
                     ""path"": ""<XInputController>/leftShoulder"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Talk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5ad270d5-ecd9-4d4f-a7ff-fd234dab1939"",
-                    ""path"": ""<XInputController>/leftShoulder"",
-                    ""interactions"": ""Press(behavior=1)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Mute"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -592,8 +570,8 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9d09c076-1f87-4c24-8e2f-2022cdbcec92"",
-                    ""path"": ""<Gamepad>/start"",
+                    ""id"": ""b300d573-146e-40a5-b1e0-2e1c6c9378a7"",
+                    ""path"": ""<XInputController>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -603,8 +581,8 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b300d573-146e-40a5-b1e0-2e1c6c9378a7"",
-                    ""path"": ""<XInputController>/start"",
+                    ""id"": ""04f3b58c-6495-495b-af40-1e245e3d71b0"",
+                    ""path"": ""<DualShockGamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

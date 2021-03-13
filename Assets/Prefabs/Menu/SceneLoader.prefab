@@ -330,7 +330,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 4658896975701887395}
-  PhotonView: {fileID: 0}
 --- !u!114 &4328892844156303952
 MonoBehaviour:
   m_ObjectHideFlags: 0

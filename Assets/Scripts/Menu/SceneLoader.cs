@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public Animator Animator;  // the crossfade transition animator
-    public PhotonView PhotonView;
+    private PhotonView PhotonView;
 
     private void Start()
     {

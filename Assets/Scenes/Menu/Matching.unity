@@ -217,17 +217,9 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4658896975843952362, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
-      propertyPath: Animator
-      value: 
-      objectReference: {fileID: 207225315}
     - target: {fileID: 4658896975843952363, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
       propertyPath: m_Name
       value: SceneLoader
-      objectReference: {fileID: 0}
-    - target: {fileID: 4658896975843952363, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4658896975843952373, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
       propertyPath: m_RootOrder
@@ -286,11 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1291007112494077a2219dcd20afd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &207225315 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4658896975701887395, guid: 500754d19262543fabb89cf3681d0bfc, type: 3}
-  m_PrefabInstance: {fileID: 207225313}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &420393109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -855,8 +842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86ddd49ac6464c6f91b2a3c0a1adb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackButton: {fileID: 0}
   SceneLoader: {fileID: 207225314}
+  BackButton: {fileID: 0}
 --- !u!4 &2138724127
 Transform:
   m_ObjectHideFlags: 0
