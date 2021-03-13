@@ -21,7 +21,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float DashExecutionTime = 0.2f;
         [SerializeField] private float DashCooldownTime = 0.3f;
 
-        private bool IsDashing;
+        public bool IsDashing;
         private bool DashOnCooldown;
 
         public Vector3 Value { get; private set; }
@@ -88,6 +88,7 @@ namespace Lionheart.Player.Movement
         IEnumerator DashCooldown()
         {
             yield return new WaitForSecondsRealtime(DashCooldownTime);
+            yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             DashOnCooldown = false;
         }
 
@@ -105,7 +106,7 @@ namespace Lionheart.Player.Movement
             Gamepad.current.ResetHaptics();
         }
 
-        private void Update() => DashMove();
+        private void FixedUpdate() => DashMove();
 
         /// <summary>
         /// Author: Denis

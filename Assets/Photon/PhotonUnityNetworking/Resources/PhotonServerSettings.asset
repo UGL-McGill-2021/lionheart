@@ -47,7 +47,13 @@ MonoBehaviour:
   - RPC_SetCurrentVelocity
   - Shoot
   - RPC_Shoot
-  - RPC_addPlayer
+  - PRC_StartDisappearing
+  - PRC_DisableThisObject
+  - PRC_EnableThisObject
+  - RPC_SetIsOneWay
+  - RPC_SetIsProjectile
+  - RPC_SetIsPullDashing
+  - RPC_SetIsSlingshot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
