@@ -24,7 +24,7 @@ public class Shooter : Enemy
     public GameObject Projectile;
 
 
-    private Transform CurrentTarget;
+    public Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
 

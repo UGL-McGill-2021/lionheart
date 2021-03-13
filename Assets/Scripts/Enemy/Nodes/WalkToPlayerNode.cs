@@ -26,10 +26,7 @@ public class WalkToPlayerNode : Node
 
     public override NodeState Evaluate()
     {
-        if (!Target)
-        {
-            Target = GetTarget();
-        }
+        Target = GetTarget();
 
         float distance = Vector3.Distance(Target.position, Agent.transform.position);
         if(distance > Range)
