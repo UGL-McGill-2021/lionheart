@@ -20,7 +20,6 @@ namespace Lionheart.Player.Movement
         public Jump script3;
         public Dash script4;
         public MovementHandler script5;
-        public PullDash script6;
         
 
 
@@ -35,7 +34,6 @@ namespace Lionheart.Player.Movement
                 script3.enabled = true;
                 script4.enabled = true;
                 script5.enabled = true;
-                script6.enabled = true;
             }
         }
     }

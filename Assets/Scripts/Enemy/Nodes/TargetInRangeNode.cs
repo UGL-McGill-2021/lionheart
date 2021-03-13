@@ -4,24 +4,36 @@ using UnityEngine;
 
 /// <summary>
 /// Author: Daniel Holker
-/// Check if target is within a given range
+/// Given a list of targets, returns if one of them is within range
+/// If so, uses a delegate to set the new target
 /// </summary>
 public class TargetInRangeNode : Node
 {
     private float Range;
-    private Transform Target;
+    private List<GameObject> TargetList;
     private Transform Origin;
 
-    public TargetInRangeNode(float Range, Transform Target, Transform Origin)
+    public delegate void SetTargetDelegate(Transform Transform);
+    private SetTargetDelegate SetTarget;
+
+    public TargetInRangeNode(float Range, List<GameObject> TargetList, Transform Origin, SetTargetDelegate SetTargetDelegate)
     {
         this.Range = Range;
-        this.Target = Target;
+        this.TargetList = TargetList;
         this.Origin = Origin;
+        this.SetTarget = SetTargetDelegate;
     }
 
     public override NodeState Evaluate()
     {
-        float distance = Vector3.Distance(Target.position, Origin.position);
-        return distance <= Range ? NodeState.SUCCESS : NodeState.FAILURE;
+        foreach (GameObject Target in TargetList)
+        {
+            if (Vector3.Distance(Target.transform.position, Origin.position) <= Range)
+            {
+                SetTarget(Target.transform);
+                return NodeState.SUCCESS;
+            }
+        }
+        return  NodeState.FAILURE;
     }
 }
