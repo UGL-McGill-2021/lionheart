@@ -9,21 +9,28 @@ using UnityEngine.UI;
 /// Author: Ziqi Li
 /// Script for sub menu
 /// </summary>
-public class SubMenuManager : MonoBehaviour
+public class SubMenuManager : MenuManager
 {
     [Header("UI elements")]
     public Button BackButton;
-    public SceneLoader SceneLoader;  // scene transition loader
+
     // Start is called before the first frame update
     void Start()
     {
-        if(BackButton != null) BackButton.Select();
+        if (BackButton != null)
+        {
+            base.DefaultButton = BackButton;  // set the defaultButton in the parent class
+            BackButton.Select();
+        }
     }
 
-    private void Update()
+    /// <summary>
+    /// Author: Ziqi
+    /// An Update function that override (extend) the parent class's Update function
+    /// </summary>
+    protected override void Update()
     {
-        // make sure the button is always selected despite to mouse input
-        if (BackButton != null && !EventSystem.current.IsPointerOverGameObject()) BackButton.Select();
+        base.Update();
     }
 
     /// <summary>

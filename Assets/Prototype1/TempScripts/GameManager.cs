@@ -13,8 +13,11 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> EnemySpawningPoints = new List<GameObject>();
     public List<GameObject> PlayerList = new List<GameObject>();
 
+    public bool Loading = false;
+    public SceneLoader SceneLoader;
+
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
 
         GameObject player;
 
@@ -84,6 +87,16 @@ public class GameManager : MonoBehaviour {
         {
             player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
             PlayerList.Add(player);
+        }
+    }
+
+    private void Update()
+    {
+        // for testing level loader
+        if (Loading && PhotonNetwork.IsMasterClient)
+        {
+            SceneLoader.LoadPhotonSceneWithName("SampleScene");
+            Loading = false;
         }
     }
 

@@ -9,17 +9,20 @@ using UnityEngine.UI;
 /// Author: Ziqi, Kaya
 /// Script for main menu
 /// </summary>
-public class MainMenuManager : MonoBehaviour
+public class MainMenuManager : MenuManager
 {
 
     [Header("UI elements")]
     public Button StartButton;
-    public SceneLoader SceneLoader;  // scene transition loader
     public bool cursor;
 
     private void Awake()
     {
-        if (StartButton != null) StartButton.Select();
+        if (StartButton != null)
+        {
+            base.DefaultButton = StartButton;  // set the defaultButton in the parent class
+            StartButton.Select();
+        }
 
         if (!cursor)
         {
@@ -30,10 +33,13 @@ public class MainMenuManager : MonoBehaviour
             Cursor.visible = true;
     }
 
-    private void Update()
+    /// <summary>
+    /// Author: Ziqi
+    /// An Update function that override (extend) the parent class's Update function
+    /// </summary>
+    protected override void Update()
     {
-        // make sure the button is always selected despite having mouse interference
-        if (StartButton != null && !EventSystem.current.currentSelectedGameObject) StartButton.Select();
+        base.Update();
     }
 
     /// <summary>
