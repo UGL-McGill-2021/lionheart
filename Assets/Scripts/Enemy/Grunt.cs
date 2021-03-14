@@ -48,10 +48,6 @@ public class Grunt : Enemy
         {
             PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
         }
-        else
-        {
-            Debug.Log("SUCESS----------------------------");
-        }
 
         //DEBUGGING: show where the grunt will go next
         //Debug.DrawLine(NavMeshAgent.destination, new Vector3(NavMeshAgent.destination.x, NavMeshAgent.destination.y + 1f, NavMeshAgent.destination.z), Color.red);
