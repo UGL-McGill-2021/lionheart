@@ -20,7 +20,9 @@ namespace Lionheart.Player.Movement
         public Dash script4;
         public MovementHandler script5;
         public PullDash script6;
-        
+        public CombatManager script7;
+
+
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
             if (this.gameObject.GetComponent<PhotonView>().IsMine)
@@ -39,6 +41,7 @@ namespace Lionheart.Player.Movement
             script4.enabled = false;
             script5.enabled = false;
             script6.enabled = false;
+            script7.enabled = false;
         }
 
         public void EnableControls()
@@ -49,6 +52,7 @@ namespace Lionheart.Player.Movement
             script4.enabled = true;
             script5.enabled = true;
             script6.enabled = true;
+            script7.enabled = true;
         }
     }
 }

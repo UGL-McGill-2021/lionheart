@@ -73,6 +73,14 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Kick"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb8374c4-9494-4bc9-9eba-e3e4c2556be9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -238,6 +246,39 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PullDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d7798f4-906c-4625-99c5-3812dc2eabf2"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fd285d7-1bb5-4e6d-8bb4-e9e1a99d7f66"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a974a7c-573a-4f23-9564-25e9b3a735dc"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Kick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -571,6 +612,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Mute = m_Player.FindAction("Mute", throwIfNotFound: true);
         m_Player_PullDash = m_Player.FindAction("PullDash", throwIfNotFound: true);
+        m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -640,6 +682,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Mute;
     private readonly InputAction m_Player_PullDash;
+    private readonly InputAction m_Player_Kick;
     public struct PlayerActions
     {
         private @ControllerInput m_Wrapper;
@@ -651,6 +694,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Mute => m_Wrapper.m_Player_Mute;
         public InputAction @PullDash => m_Wrapper.m_Player_PullDash;
+        public InputAction @Kick => m_Wrapper.m_Player_Kick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -681,6 +725,9 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @PullDash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPullDash;
                 @PullDash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPullDash;
                 @PullDash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPullDash;
+                @Kick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
+                @Kick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
+                @Kick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -706,6 +753,9 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @PullDash.started += instance.OnPullDash;
                 @PullDash.performed += instance.OnPullDash;
                 @PullDash.canceled += instance.OnPullDash;
+                @Kick.started += instance.OnKick;
+                @Kick.performed += instance.OnKick;
+                @Kick.canceled += instance.OnKick;
             }
         }
     }
@@ -832,6 +882,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         void OnTalk(InputAction.CallbackContext context);
         void OnMute(InputAction.CallbackContext context);
         void OnPullDash(InputAction.CallbackContext context);
+        void OnKick(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
