@@ -52,17 +52,60 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void Move()
         {
+            bool Restrict = AirControlCompensation();
+
             if (PhotonView.IsMine)
             {
                 Vector3 Movement = Vector3.zero;
 
                 foreach (MovementModifier M in Modifiers)
                 {
+                    if (M.Type == MovementModifier.MovementType.Walk)
+                    {
+                        if (Restrict == true)
+                        {
+                            continue;
+                        }
+                    }
                     Movement += M.Value;
                 }
 
                 Rb.velocity = Movement;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool AirControlCompensation()
+        {
+            bool IsPullDashing = gameObject.GetComponent<PullDash>().IsPullDashing;
+            Vector3 V1 = Vector3.one, V2 = Vector3.one;
+
+            if (IsPullDashing == true)
+            {
+                foreach (MovementModifier M in Modifiers)
+                {
+                    if (M.Type == MovementModifier.MovementType.Walk)
+                    {
+                        V1 = M.Value;
+                    }
+                    else if (M.Type == MovementModifier.MovementType.PullDash)
+                    {
+                        V2 = M.Value;
+                    }
+                }
+
+                float teta = Vector3.Angle(V2, V1);
+
+                if (teta > 60)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
