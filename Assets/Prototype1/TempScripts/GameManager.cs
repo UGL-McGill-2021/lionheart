@@ -7,24 +7,24 @@ using UnityEngine;
 /// Author: Ziqi Li
 /// Game manager for demo scene
 /// </summary>
-public static class GameManager {
+public class GameManager : MonoBehaviour {
 
-    public static List<GameObject> PathPoints = new List<GameObject>();
-    public static List<GameObject> EnemySpawningPoints = new List<GameObject>();
-    public static List<GameObject> PlayerList = new List<GameObject>();
+    public List<GameObject> PathPoints = new List<GameObject>();
+    public List<GameObject> EnemySpawningPoints = new List<GameObject>();
+    public List<GameObject> PlayerList = new List<GameObject>();
 
-    public static bool Loading = false;
-    public static SceneLoader SceneLoader;
+    public bool Loading = false;
+    public SceneLoader SceneLoader;
 
     // Start is called before the first frame update
-    static void Awake() {
+    void Awake() {
 
-        GameObject player;
+        GameObject Player, Player2;
 
         if (PhotonNetwork.IsMasterClient) // 2
         {
-            player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
-            PlayerList.Add(player);
+            Player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
+            PlayerList.Add(Player);
             // Generate moving platforms
             GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
                 PathPoints[0].transform.position,
@@ -85,12 +85,12 @@ public static class GameManager {
         } 
         else 
         {
-            player = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
-            PlayerList.Add(player);
+            Player2 = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
+            PlayerList.Add(Player2);
         }
     }
 
-    /*private void Update()
+    private void Update()
     {
         // for testing level loader
         if (Loading && PhotonNetwork.IsMasterClient)
@@ -98,6 +98,6 @@ public static class GameManager {
             SceneLoader.LoadPhotonSceneWithName("SampleScene");
             Loading = false;
         }
-    }*/
+    }
 
 }
