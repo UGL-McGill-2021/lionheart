@@ -142,7 +142,7 @@ namespace Lionheart.Player.Movement
 
         IEnumerator PullDashExecution()
         {
-            //yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(0.5f);
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsPullDashing = false;
             CurrentPower = LaunchPower;
