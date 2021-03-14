@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
         else 
         {
             // generate player2
-            Player2 = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 1.25f, 0), Quaternion.identity);
+            Player2 = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 4f, 0), Quaternion.identity);
             int ViewId = Player2.gameObject.GetComponent<PhotonView>().ViewID;
             PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
         }
