@@ -9,18 +9,20 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3478691057646437103}
+  - component: {fileID: 7464551696153525361}
   - component: {fileID: 3478691057646437102}
   - component: {fileID: 3478691057646437089}
-  - component: {fileID: 3478691057646437088}
   - component: {fileID: 3478691057646437091}
   - component: {fileID: 3478691057646437100}
   - component: {fileID: 3478691057646437101}
   - component: {fileID: 3412056999185290779}
   - component: {fileID: 8121948580583231574}
   - component: {fileID: 823641230052553687}
+  - component: {fileID: 3639267405870476290}
+  - component: {fileID: 4506531858679642705}
   m_Layer: 0
   m_Name: Shooter
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +42,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7464551696153525361
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478691057646437090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &3478691057646437102
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -89,20 +105,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3478691057646437088
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478691057646437090}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3478691057646437091
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -218,6 +220,35 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &3639267405870476290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478691057646437090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9580ce6005232b048a20af42071f5a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3478691057646437091}
+  isAttackMove: 0
+  finalLocation: {x: 0, y: 0, z: 0}
+--- !u!136 &4506531858679642705
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478691057646437090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.9167824
+  m_Height: 3.8335648
+  m_Direction: 1
+  m_Center: {x: 0.014461517, y: 0, z: -0.038253784}
 --- !u!1 &3478691058208104835
 GameObject:
   m_ObjectHideFlags: 0

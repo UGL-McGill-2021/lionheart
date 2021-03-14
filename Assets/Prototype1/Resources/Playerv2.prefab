@@ -497,6 +497,8 @@ GameObject:
   - component: {fileID: 3327485241153220109}
   - component: {fileID: 3922513343799244647}
   - component: {fileID: 996414870726799083}
+  - component: {fileID: 7158537297210349565}
+  - component: {fileID: 1197355403299462303}
   m_Layer: 7
   m_Name: Playerv2
   m_TagString: Player
@@ -614,6 +616,7 @@ MonoBehaviour:
   script4: {fileID: 5566292478228044567}
   script5: {fileID: 9057546429446380302}
   script6: {fileID: 6742636947217563593}
+  script7: {fileID: 7158537297210349565}
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +832,35 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &7158537297210349565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401703996827886909}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5c8a1ec046fcd4ab45467d3dc84639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3535366763632785127}
+  isAttackMove: 0
+  finalLocation: {x: 0, y: 0, z: 0}
+--- !u!136 &1197355403299462303
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401703996827886909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.293428
+  m_Height: 2.586856
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: -0.79342794}
 --- !u!1 &8833452435930719326
 GameObject:
   m_ObjectHideFlags: 0
