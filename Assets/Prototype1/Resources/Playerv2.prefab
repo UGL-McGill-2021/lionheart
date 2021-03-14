@@ -780,6 +780,7 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 0}
   OtherPlayer: {fileID: 0}
   OtherPlayerPullDashScript: {fileID: 0}
+  OwnPullDashTarget: {fileID: 0}
   IsProjectile: 0
   IsPullDashing: 0
   PowerStep: 0.5
