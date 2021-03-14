@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour {
             enemy = PhotonNetwork.Instantiate("Turret",
                  EnemySpawningPoints[2].transform.position,
                 Quaternion.identity);
+            enemy.GetComponent<Turret>().Target = EnemySpawningPoints[3].transform;
 
             // Generate objects
             GameObject obj;
