@@ -11,31 +11,31 @@ using UnityEngine.AI;
 
 public class Grunt : Enemy
 {
-    //TODO: find a better way to access player transform
-    public Transform PlayerTransform;
-
     public float ChasingRange;      // How far the player must be for the grunt to take notice
     public float NearnessToPlayer;  // How close the grunt will get to the player when approaching
 
     public Transform WanderTarget;  // the area the grunt will wander around
     public float WanderRange;       // how far to wander around the wander target
     public float AttackCooldown;    // how long to wait in between attacks
-    
+
+    private Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
 
     // Photon:
-    private List<GameObject> PlayerList;
+    public List<GameObject> PlayerList;
 
-    void Awake() {
+    void Awake()
+    {
         NavMeshAgent = this.GetComponent<NavMeshAgent>();
         PhotonView = this.GetComponent<PhotonView>();
     }
 
-    void Start() {
+    void Start()
+    {
         // get the player list from game manager
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        PlayerTransform = PlayerList[0].transform;
+        //CurrentTarget = PlayerList[0].transform;
 
         ConstructBehaviourTree();
     }
@@ -54,24 +54,35 @@ public class Grunt : Enemy
         print("Grunt has been attacked!");
     }
 
+    public void SetTarget(Transform Transform)
+    {
+        CurrentTarget = Transform;
+    }
+
+    public Transform GetTarget()
+    {
+        return CurrentTarget;
+    }
+
     /// <summary>
     /// Author: Daniel Holker
     /// Constructs nodes and puts them together into a behaviour tree that determines its actions
     /// </summary>
-    private void ConstructBehaviourTree() {
-        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(PlayerTransform, NearnessToPlayer ,NavMeshAgent);
+    private void ConstructBehaviourTree()
+    {
+        WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
-        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerTransform, this.transform);
+        TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
         MeleeAttackNode MeleeAttackNode = new MeleeAttackNode(AttackCooldown, GetComponent<MonoBehaviour>());
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 
 
-        Sequence AttackSequence = new Sequence(new List<Node> { WalkToPlayerNode, MeleeAttackNode});
-        Sequence ChaseSequence = new Sequence(new List<Node>{TargetInRangeNode, AttackSequence});
-        Sequence ReturnToWander = new Sequence(new List<Node>{TargetNotInRange, WanderNode});
-        
-        RootNode = new Selector(new List<Node>{ChaseSequence, ReturnToWander});
+        Sequence AttackSequence = new Sequence(new List<Node> { WalkToPlayerNode, MeleeAttackNode });
+        Sequence ChaseSequence = new Sequence(new List<Node> { TargetInRangeNode, AttackSequence });
+        Sequence ReturnToWander = new Sequence(new List<Node> { TargetNotInRange, WanderNode });
+
+        RootNode = new Selector(new List<Node> { ChaseSequence, ReturnToWander });
     }
 
 

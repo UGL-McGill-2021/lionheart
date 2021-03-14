@@ -11,20 +11,26 @@ using UnityEngine.AI;
 
 public class WalkToPlayerNode : Node
 {
-    private Transform Target;       //target to walk towards
+    private Transform Target;
     private NavMeshAgent Agent;     //navmesh agent to move
     private float Range;            //how close to get to target
 
-    public WalkToPlayerNode(Transform Target, float Range, NavMeshAgent Agent) {
-        this.Target = Target;
+    public delegate Transform GetTargetDelegate();
+    private GetTargetDelegate GetTarget;
+
+    public WalkToPlayerNode(GetTargetDelegate GetTarget, float Range, NavMeshAgent Agent)
+    {
+        this.GetTarget = GetTarget;
         this.Agent = Agent;
         this.Range = Range;
     }
 
     public override NodeState Evaluate()
     {
+        Target = GetTarget();
+
         float distance = Vector3.Distance(Target.position, Agent.transform.position);
-        if(distance > Range)
+        if (distance > Range)
         {
             Agent.isStopped = false;
             Agent.isStopped = false;
