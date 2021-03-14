@@ -7,17 +7,17 @@ using UnityEngine;
 /// Author: Ziqi Li
 /// Game manager for demo scene
 /// </summary>
-public class GameManager : MonoBehaviour {
+public static class GameManager {
 
-    public List<GameObject> PathPoints = new List<GameObject>();
-    public List<GameObject> EnemySpawningPoints = new List<GameObject>();
-    public List<GameObject> PlayerList = new List<GameObject>();
+    public static List<GameObject> PathPoints = new List<GameObject>();
+    public static List<GameObject> EnemySpawningPoints = new List<GameObject>();
+    public static List<GameObject> PlayerList = new List<GameObject>();
 
-    public bool Loading = false;
-    public SceneLoader SceneLoader;
+    public static bool Loading = false;
+    public static SceneLoader SceneLoader;
 
     // Start is called before the first frame update
-    void Awake() {
+    static void Awake() {
 
         GameObject player;
 
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void Update()
+    /*private void Update()
     {
         // for testing level loader
         if (Loading && PhotonNetwork.IsMasterClient)
@@ -98,6 +98,6 @@ public class GameManager : MonoBehaviour {
             SceneLoader.LoadPhotonSceneWithName("SampleScene");
             Loading = false;
         }
-    }
+    }*/
 
 }
