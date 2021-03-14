@@ -13,7 +13,8 @@ public class QuitMenuManager : MenuManager
     public Button ContinueButton;
     public Button QuitButton;
 
-    private MultiplayerActivator CurrentPlayerActivator;  // the current client's playerActivator
+    private MultiplayerActivator CurrentPlayerActivator = null;  // the current client's playerActivator
+    private bool HasGotCurrentPlayer = false;
     private PhotonView PhotonView;
 
     // Use this for initialization
@@ -26,12 +27,6 @@ public class QuitMenuManager : MenuManager
         {
             base.DefaultButton = ContinueButton;  // set the defaultButton in the parent class
         }
-
-        // get the current player activator from game manager
-        foreach(GameObject player in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList)
-        {
-            if (player.GetComponent<PhotonView>().IsMine) CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
-        }
     }
 
     /// <summary>
@@ -43,6 +38,18 @@ public class QuitMenuManager : MenuManager
         // handle the default selection of button
         if (QuitMenuUI.activeSelf) base.Update();
         else if(EventSystem.current.currentSelectedGameObject) EventSystem.current.SetSelectedGameObject(null);
+
+        Debug.Log(CurrentPlayerActivator);
+
+        // get the current player activator from game manager
+        if(!HasGotCurrentPlayer)
+        {
+            HasGotCurrentPlayer = true;
+            foreach (GameObject player in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList)
+            {
+                if (player.GetComponent<PhotonView>().IsMine) CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
+            }
+        }
     }
 
     /// <summary>
