@@ -88,6 +88,22 @@ public class GameManager : MonoBehaviour {
                  PathPoints[7].transform.position,
                 Quaternion.identity);
             obj.GetComponent<SpiritWall>().SetIsOneWay(false);
+
+
+            obj = PhotonNetwork.Instantiate("Checkpoint",
+                 new Vector3(-11.5f,0f,-13.6f),
+                Quaternion.identity);
+
+            GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>().FirstCheckPoint = obj.GetComponent<Checkpoint>();
+
+            obj = PhotonNetwork.Instantiate("Checkpoint",
+                 new Vector3(13f, 0f, -15f),
+                Quaternion.identity);
+
+            GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>().FirstCheckPoint = obj.GetComponent<Checkpoint>();
+
+
+
         } 
         else 
         {
