@@ -134,7 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
-  PlayerTransform: {fileID: 0}
   ChasingRange: 25
   NearnessToPlayer: 20
   WanderTarget: {fileID: 0}
@@ -142,6 +141,7 @@ MonoBehaviour:
   ProjectileSpeed: 5
   ShootCooldown: 4
   Projectile: {fileID: 2049853414566648947, guid: 264eac3b10c46d7419632e5c7c4d16a6, type: 3}
+  CurrentTarget: {fileID: 0}
 --- !u!195 &3478691057646437101
 NavMeshAgent:
   m_ObjectHideFlags: 0
