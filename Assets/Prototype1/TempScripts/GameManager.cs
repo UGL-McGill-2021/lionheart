@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour {
                  new Vector3(13f, 0f, -15f),
                 Quaternion.identity);
 
-            GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>().FirstCheckPoint = obj.GetComponent<Checkpoint>();
+            GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>().FinalCheckPoint = obj.GetComponent<Checkpoint>();
 
 
 

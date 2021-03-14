@@ -22,11 +22,6 @@ public class CheckpointManager : MonoBehaviour
     void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-
-        foreach (GameObject O in PlayerList)
-        {
-            CheckpointDict.Add(O, FirstCheckPoint);
-        }
     }
 
     void Update()
@@ -37,6 +32,9 @@ public class CheckpointManager : MonoBehaviour
         {
             if (O.transform.position.y <= RespawnHeight)
             {
+
+                if (!CheckpointDict.ContainsKey(O)) { CheckpointDict.Add(O, FirstCheckPoint); }
+
                 if (O.GetComponent<PhotonView>().IsMine) {
                     O.transform.position = CheckpointDict[O].GetSpawnPoint().position;
                 } else
