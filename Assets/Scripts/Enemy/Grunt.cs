@@ -50,7 +50,7 @@ public class Grunt : Enemy
         }
         else
         {
-            Debug.Log("SUCESS----------------------------")
+            Debug.Log("SUCESS----------------------------");
         }
 
         //DEBUGGING: show where the grunt will go next

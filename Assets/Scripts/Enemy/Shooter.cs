@@ -56,7 +56,7 @@ public class Shooter : Enemy
         }
         else
         {
-            Debug.Log("SUCESS----------------------------")
+            Debug.Log("SUCESS----------------------------");
         }
 
         //DEBUGGING: show where the shooter will go next
