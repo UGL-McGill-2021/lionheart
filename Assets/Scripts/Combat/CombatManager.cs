@@ -11,31 +11,31 @@ using Photon.Realtime;
 /// All types of CombatManager must inherit this base class
 /// </summary>
 public abstract class CombatManager : MonoBehaviour {
-    public Rigidbody body;
+    public Rigidbody Body;
 
     // potential target is the CombatManager whom this is colliding with.
-    private CombatManager mPotentialTarget;
+    private CombatManager PotentialTarget;
 
-    public Dictionary<string, AttackMotion> mPossibleAttacks = new Dictionary<string, AttackMotion>();
+    public Dictionary<string, AttackMotion> PossibleAttacks = new Dictionary<string, AttackMotion>();
 
     [HideInInspector]
-    public bool isAttackMove = false;
+    public bool IsAttackMove = false;
     [HideInInspector]
-    public Vector3 finalLocation = Vector3.zero;
+    public Vector3 FinalLocation = Vector3.zero;
 
     public void OnTriggerEnter(Collider other) {
         Debug.Log(this.gameObject + ":CombatManager: Trigger entered with " + other.gameObject);
-        CombatManager targetCM = other.gameObject.GetComponent<CombatManager>();
-        if (targetCM != null) {
+        CombatManager _targetCM = other.gameObject.GetComponent<CombatManager>();
+        if (_targetCM != null) {
             Debug.Log(this.gameObject + ":CombatManager: Found valid CombatManager");
-            mPotentialTarget = targetCM;
+            PotentialTarget = _targetCM;
         }
     }
 
     public void OnTriggerExit(Collider other) {
-        if (mPotentialTarget != null) {
+        if (PotentialTarget != null) {
             Debug.Log(this.gameObject + ":CombatManager target reset to null");
-            mPotentialTarget = null;
+            PotentialTarget = null;
         }
     }
 
@@ -45,7 +45,7 @@ public abstract class CombatManager : MonoBehaviour {
     /// </summary>
     /// <param name="AttackName"></param>
     public void Attack(string AttackName) {
-        Attack(AttackName, mPotentialTarget);
+        Attack(AttackName, PotentialTarget);
     }
 
     /// <summary>
@@ -60,18 +60,18 @@ public abstract class CombatManager : MonoBehaviour {
             return;
         }
 
-        if (mPotentialTarget.CompareTag(this.tag)) {
+        if (PotentialTarget.CompareTag(this.tag)) {
             Debug.Log(this.gameObject + "CombatManager: Target is friendly");
             return;
         }
 
         // ensure AttackName is valid
-        if (!mPossibleAttacks.ContainsKey(AttackName)) {
+        if (!PossibleAttacks.ContainsKey(AttackName)) {
             Debug.LogWarning("CombatManager: AttackName invalid");
             return;
         }
 
-        AttackMotion motion = mPossibleAttacks[AttackName];
+        AttackMotion motion = PossibleAttacks[AttackName];
         if (motion == null) {
             Debug.LogWarning("CombatManager: Chosen attack motion is NULL");
             return;
@@ -90,25 +90,14 @@ public abstract class CombatManager : MonoBehaviour {
     /// 
     /// </summary>
     /// <param name="movement"></param>
-    public void StartAttackMovement(Vector3 movement) {
+    public void InvokeAttackedMovement(Vector3 movement) {
         PhotonView view = PhotonView.Get(this);
-        view.RPC("ApplyAttackMovement", RpcTarget.MasterClient, movement.x, movement.y, movement.z);
+        view.RPC("ApplyAttackedMovement", RpcTarget.MasterClient, movement.x, movement.y, movement.z);
     }
 
     [PunRPC]
-    public void ApplyAttackMovement(float x, float y, float z) {
-        this.finalLocation = this.transform.position + new Vector3(x, y, z);
-        this.isAttackMove = true;
-    }
-
-    private void Update() {
-        if (isAttackMove && finalLocation != Vector3.zero) {
-            this.gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, finalLocation, Time.deltaTime);
-            if (this.gameObject.transform.position == finalLocation) {
-                isAttackMove = false;
-                finalLocation = Vector3.zero;
-            }
-        }
+    public void ApplyAttackedMovement(float x, float y, float z) {
+        this.Body.MovePosition(new Vector3(x, y, z));
     }
 
     public abstract IEnumerator Knockback(int KnockBackTimeSpan);

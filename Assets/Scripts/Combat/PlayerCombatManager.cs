@@ -11,7 +11,7 @@ public class PlayerCombatManager : CombatManager {
     ControllerInput input;
 
     public void Awake() {
-        this.body = GetComponent<Rigidbody>();
+        this.Body = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public class PlayerCombatManager : CombatManager {
     /// </summary>
     public void Start() {
         Kick kickMotion = new Kick(10, 5);
-        this.mPossibleAttacks.Add("Kick", kickMotion);
+        this.PossibleAttacks.Add("Kick", kickMotion);
         input = new ControllerInput();
         input.Player.Kick.performed += _ => Attack("Kick");
         input.Enable();

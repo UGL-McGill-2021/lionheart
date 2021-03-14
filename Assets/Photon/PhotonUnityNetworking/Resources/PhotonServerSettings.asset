@@ -59,6 +59,7 @@ MonoBehaviour:
   - RPC_SetTalkIcon
   - RPC_Quit
   - ApplyAttackMovement
+  - ApplyAttackedMovement
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

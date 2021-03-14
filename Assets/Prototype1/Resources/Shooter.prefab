@@ -232,9 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9580ce6005232b048a20af42071f5a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 3478691057646437091}
-  isAttackMove: 0
-  finalLocation: {x: 0, y: 0, z: 0}
+  Body: {fileID: 0}
+  IsAttackMove: 0
+  FinalLocation: {x: 0, y: 0, z: 0}
 --- !u!136 &4506531858679642705
 CapsuleCollider:
   m_ObjectHideFlags: 0

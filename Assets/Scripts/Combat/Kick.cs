@@ -27,6 +27,6 @@ public class Kick : AttackMotion {
         Vector3 direction = (target.transform.position - instigator.transform.position).normalized;
         Debug.Log("KickMotion: " + instigator.gameObject + " attacks " + target.gameObject + " with vector " + direction * this.mForce);
 
-        target.StartAttackMovement(direction * mForce);
+        target.InvokeAttackedMovement(direction * mForce);
     }
 }

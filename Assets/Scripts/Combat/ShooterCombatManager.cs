@@ -7,14 +7,14 @@ public class ShooterCombatManager : CombatManager {
     NavMeshAgent navMeshAgent;
 
     private void Start() {
-        this.body = GetComponent<Rigidbody>();
+        this.Body = GetComponent<Rigidbody>();
         this.navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     public override IEnumerator Knockback(int KnockBackTimeSpan) {
         // temporarily disable NavMeshAgent component
         navMeshAgent.enabled = false;
-        body.isKinematic = false;
+        Body.isKinematic = false;
 
         // TODO: trigger animation here
 
@@ -23,6 +23,6 @@ public class ShooterCombatManager : CombatManager {
 
         // re-enable NavMesh and Rigidbody
         navMeshAgent.enabled = true;
-        body.isKinematic = true;
+        Body.isKinematic = true;
     }
 }
