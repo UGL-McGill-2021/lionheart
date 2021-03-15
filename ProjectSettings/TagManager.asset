@@ -9,6 +9,7 @@ TagManager:
   - GameManager
   - VoiceChatManager
   - Enemy
+  - CheckpointManager
   layers:
   - Default
   - TransparentFX
