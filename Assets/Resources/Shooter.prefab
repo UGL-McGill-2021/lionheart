@@ -118,7 +118,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &3478691057646437100
@@ -141,7 +141,6 @@ MonoBehaviour:
   ProjectileSpeed: 5
   ShootCooldown: 4
   Projectile: {fileID: 2049853414566648947, guid: 264eac3b10c46d7419632e5c7c4d16a6, type: 3}
-  CurrentTarget: {fileID: 0}
 --- !u!195 &3478691057646437101
 NavMeshAgent:
   m_ObjectHideFlags: 0
