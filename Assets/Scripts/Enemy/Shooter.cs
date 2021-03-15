@@ -46,7 +46,7 @@ public class Shooter : Enemy
         ConstructBehaviourTree();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (PhotonView.IsMine) RootNode.Evaluate();
 
@@ -85,7 +85,7 @@ public class Shooter : Enemy
     [PunRPC]
     public void RPC_Shoot()
     {
-        GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 1.5f, Quaternion.identity);
+        GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 2.4f, Quaternion.identity);
         Debug.Log(bullet.transform);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * (ProjectileSpeed * 100));
     }

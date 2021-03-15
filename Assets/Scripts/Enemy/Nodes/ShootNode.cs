@@ -38,7 +38,7 @@ public class ShootNode : Node
     {
         // Use rigidbody to rotate (Ziqi)
         Quaternion rotation = Quaternion.LookRotation(Target.position - Shooter.transform.position);
-        rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 50 * Time.deltaTime);
+        rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 25 * Time.deltaTime);
         RigidBody.MoveRotation(rotation);
 
         if (!AttackRunning)
