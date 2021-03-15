@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Author: Daniel
@@ -15,7 +16,7 @@ public class CheckpointManager : MonoBehaviour
     public float RespawnHeight;             //height which will cause players to respawn
 
     public List<GameObject> PlayerList;
-    
+    public SceneLoader SceneLoader;  // used to load next scene
 
     public Dictionary<GameObject, Checkpoint> CheckpointDict = new Dictionary<GameObject, Checkpoint>();
 
@@ -60,7 +61,26 @@ public class CheckpointManager : MonoBehaviour
 
     private void FinalCheckpointComplete()
     {
-        //TODO: have this call whatever's needed to load the next level
         print("Final Chekpoint collected by both players!");
+
+        // load the next level if we are not in the last level
+        if(PhotonNetwork.IsMasterClient)
+        {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case LevelName.Level1:
+                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level2);
+                    break;
+                case LevelName.Level2:
+                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level3);
+                    break;
+                case LevelName.Level3:
+                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level4);
+                    break;
+                default:
+                    print("All levels are completed!");
+                    break;
+            }
+        }
     }
 }
