@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class TeleportRPC : MonoBehaviour
+public class CheckpointTeleport : MonoBehaviour
 {
     [PunRPC]
     public void Teleport(Vector3 Target)
