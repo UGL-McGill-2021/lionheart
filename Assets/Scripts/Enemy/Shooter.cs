@@ -24,7 +24,7 @@ public class Shooter : Enemy
     public GameObject Projectile;
 
 
-    public Transform CurrentTarget;
+    private Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
 
@@ -41,7 +41,7 @@ public class Shooter : Enemy
     {
         // get the player list from game manager
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        CurrentTarget = PlayerList[0].transform;
+        //CurrentTarget = PlayerList[0].transform;
 
         ConstructBehaviourTree();
     }
@@ -99,7 +99,7 @@ public class Shooter : Enemy
         WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
-        ShootNode ShootNode = new ShootNode(Projectile, CurrentTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 

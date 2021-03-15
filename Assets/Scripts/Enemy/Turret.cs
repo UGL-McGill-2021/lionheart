@@ -39,6 +39,11 @@ public class Turret : Enemy
         if (PhotonView.IsMine) RootNode.Evaluate();
     }
 
+    public Transform GetTarget()
+    {
+        return Target;
+    }
+
     public override void Attacked()
     {
         print("Turret has been attacked!");
@@ -58,7 +63,7 @@ public class Turret : Enemy
 
     private void ConstructBehaviourTree()
     {
-        ShootNode ShootNode = new ShootNode(Projectile, Target, ProjectileSpeed, ShootCooldown, this.gameObject);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
         RootNode = ShootNode;
     }
 
