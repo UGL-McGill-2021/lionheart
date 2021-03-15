@@ -10,14 +10,14 @@ public class Checkpoint : MonoBehaviour
 {
     public List<Transform> SpawnPoints;
 
-    private CheckpointManager CheckpointMan;
+    public CheckpointManager CheckpointMan;
     private GameObject LastPlayerEntered;
     private bool SpawnSwitch = false;   //used to help prevent players from being spawned in the same position 
 
 
     void Awake()
     {
-        CheckpointMan = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
+        CheckpointMan = GameObject.FindGameObjectWithTag("CheckpointManager").GetComponent<CheckpointManager>();
     }
 
     private void OnTriggerEnter(Collider Other)
