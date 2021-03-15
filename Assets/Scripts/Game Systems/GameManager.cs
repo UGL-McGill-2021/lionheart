@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 /// <summary>
@@ -9,15 +10,34 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour {
 
-    public List<GameObject> PathPoints = new List<GameObject>();
-    public List<GameObject> EnemySpawningPoints = new List<GameObject>();
+    // for spawning players
+    public List<GameObject> PlayerSpawningPoints = new List<GameObject>();  // index 0 for master client, index1 for client
+
+    // for spawning platforms
+    public List<GameObject> Respawnable_TempPlatformPoints = new List<GameObject>();
+    public List<GameObject> NonRespawnable_TempPlatformPoints = new List<GameObject>();
+    public List<GameObject> OneTime_SpiritWallPoints = new List<GameObject>();
+    public List<GameObject> Normal_SpiritWallPoints = new List<GameObject>();
+    [System.Serializable]
+    public struct PathPointsList
+    {
+        public List<GameObject> PathPoints;  // the path points of a single moving platform
+    }
+    public List<PathPointsList> MovingPlatformPathList = new List<PathPointsList>(); // list of point list for the moving platforms
+
+    // for spawning enemies
+    public List<GameObject> GruntSpawningPoints = new List<GameObject>();
+    public List<GameObject> ShooterSpawningPoints = new List<GameObject>();
+    public List<GameObject> TurretSpawningPoints = new List<GameObject>();  // make sure the size is the same as TurretTargetsPoints
+    public List<GameObject> TurretTargetsPoints = new List<GameObject>();  // target points for the turrets
 
     // for targeting by enemies
+    [HideInInspector]
     public List<GameObject> PlayerList = new List<GameObject>();
-    public List<GameObject> TurretTargets = new List<GameObject>();
 
-    public bool Loading = false;
-    public SceneLoader SceneLoader;
+    // List of platfroms (used for change speed, stop time... etc)
+    private List<MovingPlatformRB> MovingPlatformScriptList = new List<MovingPlatformRB>();
+    private List<TempPlatform> TempPlatformScriptList = new List<TempPlatform>();
 
     private PhotonView PhotonView;
 
@@ -25,105 +45,177 @@ public class GameManager : MonoBehaviour {
     void Start() {
 
         PhotonView = GetComponent<PhotonView>();
-        GameObject Player, Player2;
 
-        if (PhotonNetwork.IsMasterClient) // 2
+        // generate players
+        Instantiate_Players();
+
+        // the master client will instantiate all game objects that need photon network to update to other clients
+        if (PhotonNetwork.IsMasterClient) 
         {
-            // generate player1
-            Player = PhotonNetwork.Instantiate("Playerv2", new Vector3(0, 4f, 0), Quaternion.identity);
-            int ViewId = Player.gameObject.GetComponent<PhotonView>().ViewID;
-            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
+            Instantiate_Enemies();
+            Instantiate_MovingPlatforms();  // will be generate with default speed, stop time...
+            Instantiate_SpiritWalls();
+            Instantiate_TempPlatforms();  // will be generate with default respawning time
 
-            // Generate moving platforms
-            GameObject platform = PhotonNetwork.Instantiate("MPlatformRB",
-                PathPoints[0].transform.position,
-                PathPoints[0].transform.rotation, 0);
+            // Since all networking objects has to be generated using photon, if we want to change the properties of a specific platform
+            // we cannot change their script fields through their prefab
+            // If we want to change some specific properties of platform (ex: speed, stop time... etc)
+            // we have to get the platform from the lists and change manually its property fields in their script accordingly
+            // This kind of changes will be level dependent
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case LevelName.Level1:
+                    // for example, change the speed of the first moving platform in the list to 5 and stop time to 1
+                    MovingPlatformScriptList[0].speed = 5f;
+                    MovingPlatformScriptList[0].StopTime = 1f;
+                    // MovingPlatformScriptList[0].isAutomatic = false;
 
-            //platform.GetComponent<MovingPlatform>().enabled = true;
-            platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[0]);
-            platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[1]);
+                    // for example, change the disappear time of the second temp platform in the list to 1.5
+                    TempPlatformScriptList[1].DisappearDelay = 1.5f;
 
-            platform = PhotonNetwork.Instantiate("MPlatformRB",
-                PathPoints[2].transform.position,
-                PathPoints[2].transform.rotation, 0);
+                    break;
+                case LevelName.Level2:
+                    
+                    break;
+                case LevelName.Level3:
+                    
+                    break;
+                case LevelName.Level4:
 
-            //platform.GetComponent<MovingPlatform>().enabled = true;
-            platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[2]);
-            platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPoints[3]);
-
-            PhotonNetwork.Instantiate("Ball", new Vector3(7, 1.25f, 0), Quaternion.identity);
-
-            //Generate enemies
-            GameObject enemy;
-            enemy = PhotonNetwork.Instantiate("Grunt",
-                 EnemySpawningPoints[0].transform.position,
-                Quaternion.identity);
-            enemy.GetComponent<Grunt>().WanderTarget = EnemySpawningPoints[0].transform;
-
-            enemy = PhotonNetwork.Instantiate("Shooter",
-                 EnemySpawningPoints[1].transform.position,
-                Quaternion.identity);
-            enemy.GetComponent<Shooter>().WanderTarget = EnemySpawningPoints[1].transform;
-
-            enemy = PhotonNetwork.Instantiate("Turret",
-                 EnemySpawningPoints[2].transform.position,
-                Quaternion.identity);
-            enemy.GetComponent<Turret>().Target = EnemySpawningPoints[3].transform;
-
-            // Generate objects
-            GameObject obj;
-            obj = PhotonNetwork.Instantiate("TempPlatform",
-                 PathPoints[4].transform.position,
-                Quaternion.identity);
-            obj.GetComponent<TempPlatform>().isReusable = false;
-
-            obj = PhotonNetwork.Instantiate("TempPlatform",
-                 PathPoints[5].transform.position,
-                Quaternion.identity);
-
-            obj = PhotonNetwork.Instantiate("SpiritWall",
-                 PathPoints[6].transform.position,
-                Quaternion.identity);
-
-            obj = PhotonNetwork.Instantiate("SpiritWall",
-                 PathPoints[7].transform.position,
-                Quaternion.identity);
-            obj.GetComponent<SpiritWall>().SetIsOneWay(false);
-
-
-
-            //instantiate checkpoint manager
-            CheckpointManager CPMan = PhotonNetwork.Instantiate("CheckpointManager",
-                 new Vector3(0f, 0f, 0f),
-                Quaternion.identity).GetComponent<CheckpointManager>();
-
-            //instantiate checkpoint and set it as first in checkpoint manager
-            obj = PhotonNetwork.Instantiate("Checkpoint",
-                 new Vector3(10.5f, 3.8f, -9.2f),
-                Quaternion.identity);
-            CPMan.FirstCheckPoint = obj.GetComponent<Checkpoint>();
-
-            //instantiate checkpoint and set it as last in checkpoint manager
-            obj = PhotonNetwork.Instantiate("Checkpoint",
-                 new Vector3(155.6f, 44.6f, -18.62f),
-                Quaternion.identity);
+                    break;
+                default:
+                    break;
+            }
         } 
-        else 
-        {
-            // generate player2
-            Player2 = PhotonNetwork.Instantiate("Playerv2", new Vector3(4, 4f, 0), Quaternion.identity);
-            int ViewId = Player2.gameObject.GetComponent<PhotonView>().ViewID;
-            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player
-        }
     }
 
     private void Update()
     {
-        // for testing level loader
-        if (Loading && PhotonNetwork.IsMasterClient)
+
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// function to generate players using the points lists
+    /// </summary>
+    void Instantiate_Players()
+    {
+        GameObject player;
+        if (PhotonNetwork.IsMasterClient)
         {
-            SceneLoader.LoadPhotonSceneWithName("SampleScene");
-            Loading = false;
+            // generate master player
+            player = PhotonNetwork.Instantiate("Playerv2", PlayerSpawningPoints[0].transform.position, PlayerSpawningPoints[0].transform.rotation);
+            int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
+            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player to the player list
+        }
+        else
+        {
+            // generate client player
+            player = PhotonNetwork.Instantiate("Playerv2", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
+            int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
+            PhotonView.RPC("RPC_addPlayer", RpcTarget.All, ViewId);  // use RPC call to add player to the player list
+        }
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// function to generate enemies using the points lists
+    /// </summary>
+    void Instantiate_Enemies()
+    {
+        // generate grunts
+        foreach (GameObject spawningPoint in GruntSpawningPoints)
+        {
+            GameObject obj = PhotonNetwork.Instantiate("Grunt", spawningPoint.transform.position, spawningPoint.transform.rotation);
+            obj.GetComponent<Grunt>().WanderTarget = spawningPoint.transform;
+        }
+
+        // generate shooters
+        foreach (GameObject spawningPoint in ShooterSpawningPoints)
+        {
+            GameObject obj = PhotonNetwork.Instantiate("Shooter", spawningPoint.transform.position, spawningPoint.transform.rotation);
+            obj.GetComponent<Shooter>().WanderTarget = spawningPoint.transform;
+        }
+
+        // generate turrets (make sure the turretList elements are corresponding to their targets in targetList)
+        if(TurretSpawningPoints.Count == TurretTargetsPoints.Count)
+        {
+            for (int i = 0; i < TurretSpawningPoints.Count; i++)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("Turret", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
+                obj.GetComponent<Turret>().Target = TurretTargetsPoints[i].transform;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// function to generate moving platforms using the path points lists
+    /// Note: each pathPointsList elememt containing all the path points for a single moving platform
+    /// </summary>
+    void Instantiate_MovingPlatforms()
+    {
+        GameObject platform = null;
+        // for each list in the MovingPlatformPathList, generate a moving platform accordingly
+        foreach (PathPointsList PathPointsList in MovingPlatformPathList)
+        {
+            for (int i = 0; i < PathPointsList.PathPoints.Count; i++)
+            {
+                // take the first point in the path as the spawning point
+                if(i == 0)
+                {
+                    platform = PhotonNetwork.Instantiate("MPlatformRB",
+                        PathPointsList.PathPoints[i].transform.position,
+                        PathPointsList.PathPoints[i].transform.rotation);
+                    MovingPlatformScriptList.Add(platform.GetComponent<MovingPlatformRB>());
+                }
+                // add path point to the path of this moving platform
+                platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPointsList.PathPoints[i]);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// function to generate spirit walls (2 types) using the points lists
+    /// </summary>
+    void Instantiate_SpiritWalls()
+    {
+        // generate one-time spirit walls
+        foreach (GameObject spawningPoint in OneTime_SpiritWallPoints)
+        {
+            GameObject obj = PhotonNetwork.Instantiate("SpiritWall", spawningPoint.transform.position, spawningPoint.transform.rotation);
+            obj.GetComponent<SpiritWall>().SetIsOneWay(true);
+        }
+        // generate normal spirit walls
+        foreach (GameObject spawningPoint in Normal_SpiritWallPoints)
+        {
+            GameObject obj = PhotonNetwork.Instantiate("SpiritWall", spawningPoint.transform.position, spawningPoint.transform.rotation);
+            obj.GetComponent<SpiritWall>().SetIsOneWay(false);
+        }
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// function to generate temp platforms (2 types) using the points lists
+    /// </summary>
+    void Instantiate_TempPlatforms()
+    {
+        // generate respawnable temp platform
+        foreach (GameObject spawningPoint in Respawnable_TempPlatformPoints)
+        {
+            GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
+            obj.GetComponent<TempPlatform>().isReusable = true;
+
+            TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
+        }
+        // generate non-respawnable temp platform
+        foreach (GameObject spawningPoint in NonRespawnable_TempPlatformPoints)
+        {
+            GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
+            obj.GetComponent<TempPlatform>().isReusable = false;
+
+            TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
         }
     }
 
@@ -138,7 +230,6 @@ public class GameManager : MonoBehaviour {
     {
         GameObject player = PhotonView.Find(playerViewID).gameObject;
         PlayerList.Add(player);
-        TurretTargets.Add(player);
     }
 
 }

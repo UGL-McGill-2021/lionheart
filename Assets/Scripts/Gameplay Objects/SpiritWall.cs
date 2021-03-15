@@ -22,7 +22,6 @@ public class SpiritWall : MonoBehaviour
         PhotonView = this.GetComponent<PhotonView>();
     }
 
-
     /// <summary>
     /// Author: Ziqi Li
     /// setter exposed to game manager
@@ -87,16 +86,15 @@ public class SpiritWall : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Call back function of collider
     /// </summary>
     /// <param name="collision"></param>
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionStay(Collision collision)
     {
-        if (other.gameObject.tag == "Player"/*PhotonView.IsMine*/) 
+        if (collision.gameObject.tag == "Player"/*PhotonView.IsMine*/)
         {
-            if(other.gameObject.GetComponent<Dash>().IsDashing) DisableCollision(other, ThisCollider);
+            if (collision.gameObject.GetComponent<Dash>().IsDashing) DisableCollision(collision.gameObject.GetComponent<Collider>(), ThisCollider);
         }
     }
 
@@ -104,13 +102,11 @@ public class SpiritWall : MonoBehaviour
     /// Call back function of collider
     /// </summary>
     /// <param name="collision"></param>
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player"/*PhotonView.IsMine*/)
         {
-            EnableCollision(other, ThisCollider);
-            //object[] args = { other, ThisCollider };
-            //PhotonView.RPC("RPC_EnableCollision", RpcTarget.All, args);
+            EnableCollision(collision.gameObject.GetComponent<Collider>(), ThisCollider);
         }
     }
 
