@@ -61,6 +61,7 @@ MonoBehaviour:
   - ApplyAttackMovement
   - ApplyAttackedMovement
   - RPC_addPlayer
+  - OnAttacked
   - Teleport
   DisableAutoOpenWizard: 1
   ShowSettings: 1

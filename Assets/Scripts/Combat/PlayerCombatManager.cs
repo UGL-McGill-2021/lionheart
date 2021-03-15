@@ -1,35 +1,51 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
+using Photon.Pun;
+using Photon.Realtime;
 
 /// <summary>
 /// Author: Feiyang Li
 /// CombatManager for player
 /// </summary>
-public class PlayerCombatManager : CombatManager {
+public class PlayerCombatManager : MonoBehaviour {
 
-    ControllerInput input;
+    ControllerInput Input;
+    Rigidbody Body;
 
-    public void Awake() {
+    public Collider AttackBox;
+
+    private AttackMotion CurrentAttackMotion;
+
+    private void Awake() {
         this.Body = GetComponent<Rigidbody>();
     }
 
-    /// <summary>
-    /// Author: Feiyang Li
-    /// Add a basic kick motion
-    /// </summary>
-    public void Start() {
-        Kick kickMotion = new Kick(10, 5);
-        this.PossibleAttacks.Add("Kick", kickMotion);
-        input = new ControllerInput();
-        input.Player.Kick.performed += _ => Attack("Kick");
-        input.Enable();
+    private void Start() {
+        Input = new ControllerInput();
+        Input.Player.Kick.performed += _ => Attack(new Kick(1000, 3));
+        Input.Enable();
     }
 
-    public override IEnumerator Knockback(int KnockBackTimeSpan) {
-        Debug.Log("CombatManager: Knockback invoked on player " + gameObject);
-        return null;
+    public void Attack(AttackMotion _attackMotion) {
+        AttackBox.enabled = true;
+        CurrentAttackMotion = _attackMotion;
     }
 
+    public void StopAttack() {
+        AttackBox.enabled = false;
+        CurrentAttackMotion = null;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
+        if (_enemyCombatManager != null && CurrentAttackMotion != null) {
+            // calculate attack
+            Vector3 _AttackVector = (other.transform.position - this.transform.position).normalized * CurrentAttackMotion.Force;
+            _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
+            StopAttack();
+        }
+    }
 
 }
