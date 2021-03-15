@@ -95,11 +95,11 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// </summary>
     public override void OnJoinedRoom() {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    InputAction.Player.Disable();
-        //    PhotonNetwork.LoadLevel("DemoScene");
-        //}
+        /*if (PhotonNetwork.IsMasterClient)
+        {
+            InputAction.Player.Disable();
+            PhotonNetwork.LoadLevel("Level 1");
+        }*/
 
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
     }
@@ -115,7 +115,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InputAction.Player.Disable();
             
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("DemoScene");
+                PhotonNetwork.LoadLevel("Level 1");
         }
     }
 
