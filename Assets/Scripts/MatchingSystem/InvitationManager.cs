@@ -115,7 +115,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InputAction.Player.Disable();
             
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("Level 1");
+                PhotonNetwork.LoadLevel("Level 2");
         }
     }
 
