@@ -6,8 +6,8 @@ using UnityEngine;
 public class TeleportRPC : MonoBehaviour
 {
     [PunRPC]
-    public void Teleport(Transform Target)
+    public void Teleport(Vector3 Target)
     {
-        this.gameObject.transform.position = Target.position;
+        this.gameObject.transform.position = Target;
     }
 }

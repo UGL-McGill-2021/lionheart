@@ -17,7 +17,7 @@ public class CheckpointManager : MonoBehaviour
     public List<GameObject> PlayerList;
     
 
-    Dictionary<GameObject, Checkpoint> CheckpointDict = new Dictionary<GameObject, Checkpoint>();
+    public Dictionary<GameObject, Checkpoint> CheckpointDict = new Dictionary<GameObject, Checkpoint>();
 
     void Awake()
     {
@@ -26,20 +26,20 @@ public class CheckpointManager : MonoBehaviour
 
     void Update()
     {
-
         //move player to its corresponding checkpoint spawn if it falls bellow RespawnHeight
-        foreach (GameObject O in PlayerList)
-        {
-            if (O.transform.position.y <= RespawnHeight)
+        if (PhotonNetwork.IsMasterClient) {
+            foreach (GameObject O in PlayerList)
             {
-
-                if (!CheckpointDict.ContainsKey(O)) { CheckpointDict.Add(O, FirstCheckPoint); }
-
-                if (O.GetComponent<PhotonView>().IsMine) {
-                    O.transform.position = CheckpointDict[O].GetSpawnPoint().position;
-                } else
+                if (O.transform.position.y <= RespawnHeight)
                 {
-                    O.GetComponent<PhotonView>().RPC("Teleport", RpcTarget.All, CheckpointDict[O].GetSpawnPoint());
+                    if (!CheckpointDict.ContainsKey(O)) { CheckpointDict.Add(O, FirstCheckPoint); }
+
+                    if (O.GetComponent<PhotonView>().IsMine) {
+                        O.transform.position = CheckpointDict[O].GetSpawnPoint().position;
+                    } else
+                    {
+                        O.GetComponent<PhotonView>().RPC("Teleport", RpcTarget.All, CheckpointDict[O].GetSpawnPoint().position);
+                    }
                 }
             }
         }

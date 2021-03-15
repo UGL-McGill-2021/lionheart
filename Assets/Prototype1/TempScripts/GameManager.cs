@@ -65,9 +65,9 @@ public class GameManager : MonoBehaviour {
                 Quaternion.identity);
             enemy.GetComponent<Shooter>().WanderTarget = EnemySpawningPoints[1].transform;
 
-            enemy = PhotonNetwork.Instantiate("Turret",
+            /*enemy = PhotonNetwork.Instantiate("Turret",
                  EnemySpawningPoints[2].transform.position,
-                Quaternion.identity);
+                Quaternion.identity);*/
 
             // Generate objects
             GameObject obj;
