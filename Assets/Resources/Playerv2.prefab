@@ -729,6 +729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  NormalRotationSpeed: 15
+  PullDashRotationSpeed: 5
+  CurrentRotationSpeed: 0
   MoveAction:
     m_Name: move
     m_Type: 0
@@ -785,6 +788,12 @@ MonoBehaviour:
   ChargingPullDash: 0
   IsPullDashing: 0
   DisableGravity: 0
+  LaunchVectorMultiplier: 1
+  MinVectorMagnitude: 15
+  MaxVectorMagnitude: 40
+  CompletionDistance: 2
+  ExpiryTimer: 0.8
+  AirControlAngleRange: 60
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0
