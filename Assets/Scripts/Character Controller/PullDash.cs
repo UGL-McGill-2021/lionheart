@@ -31,8 +31,10 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float MaxVectorMagnitude = 40f;
         [SerializeField] private float CompletionDistance = 2f;
         [SerializeField] private float ExpiryTimer = 0.8f;
+        [SerializeField] private float AirControlAngleRange = 60;
 
         private Vector3 T;
+        private Vector3 OgDir;
         private Vector3 Dir;
 
         public Vector3 Value { get; private set; }
@@ -115,19 +117,25 @@ namespace Lionheart.Player.Movement
 
             if (IsPullDashing == true)
             {
-                Vector3 _V = Dir * LaunchVectorMultiplier;
-
-                if (_V.magnitude > MaxVectorMagnitude)
+                if (DisableGravity == false && Vector3.Angle(OgDir, transform.forward) <= AirControlAngleRange)
                 {
-                    Value = _V.normalized * MaxVectorMagnitude;
+                    float M = Value.magnitude;
+                    Dir = transform.forward * M;
                 }
-                else if (_V.magnitude < MinVectorMagnitude)
+
+                Vector3 V = Dir * LaunchVectorMultiplier;
+
+                if (V.magnitude > MaxVectorMagnitude)
                 {
-                    Value = _V.normalized * MinVectorMagnitude;
+                    Value = V.normalized * MaxVectorMagnitude;
+                }
+                else if (V.magnitude < MinVectorMagnitude)
+                {
+                    Value = V.normalized * MinVectorMagnitude;
                 }
                 else
                 {
-                    Value = _V;
+                    Value = V;
                 }
 
                 CheckDistance();
@@ -144,9 +152,8 @@ namespace Lionheart.Player.Movement
             {
                 T = OtherPlayerTarget.transform.position;
                 Dir = (OtherPlayerTarget.transform.position - transform.position);
+                OgDir = Dir;
 
-                //Debug.Log("Vector " + Dir.magnitude + "Time stamp: " + Time.deltaTime);
-               
                 ChargingPullDash = false;
                 IsPullDashing = true;
                 DisableGravity = true;
@@ -159,6 +166,7 @@ namespace Lionheart.Player.Movement
         {
             if (Vector3.Distance(gameObject.transform.position, T)< CompletionDistance)
             {
+                gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
                 DisableGravity = false;
                 StartCoroutine(PullDashFall());
             }
@@ -167,12 +175,14 @@ namespace Lionheart.Player.Movement
         IEnumerator PullDashFall()
         {
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
+            gameObject.GetComponent<Rotation>().ResetRotationSpeed();
             IsPullDashing = false;
         }
 
         IEnumerator PullDashTimer()
         {
             yield return new WaitForSecondsRealtime(ExpiryTimer);
+            gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
             StartCoroutine(PullDashFall());
         }
