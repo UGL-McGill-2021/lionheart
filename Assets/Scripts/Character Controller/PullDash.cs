@@ -26,11 +26,11 @@ namespace Lionheart.Player.Movement
         [SerializeField] public bool DisableGravity;
 
         [Header("Parameters")]
-        [SerializeField] public readonly float LaunchVectorMultiplier = 1f;
-        [SerializeField] public readonly float MinVectorMagnitude = 15f;
-        [SerializeField] public readonly float MaxVectorMagnitude = 40f;
-        [SerializeField] public readonly float CompletionDistance = 2f;
-        [SerializeField] public readonly float ExpiryTimer = 0.8f;
+        [SerializeField] private float LaunchVectorMultiplier = 1f;
+        [SerializeField] private float MinVectorMagnitude = 15f;
+        [SerializeField] private float MaxVectorMagnitude = 40f;
+        [SerializeField] private float CompletionDistance = 2f;
+        [SerializeField] private float ExpiryTimer = 0.8f;
 
         private Vector3 T;
         private Vector3 Dir;
@@ -145,7 +145,7 @@ namespace Lionheart.Player.Movement
                 T = OtherPlayerTarget.transform.position;
                 Dir = (OtherPlayerTarget.transform.position - transform.position);
 
-                Debug.Log("Vector " + Dir.magnitude + "Time stamp: " + Time.deltaTime);
+                //Debug.Log("Vector " + Dir.magnitude + "Time stamp: " + Time.deltaTime);
                
                 ChargingPullDash = false;
                 IsPullDashing = true;

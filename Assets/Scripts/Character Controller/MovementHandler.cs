@@ -22,6 +22,7 @@ namespace Lionheart.Player.Movement
         public PhotonView PhotonView;
 
         private bool IsPullDashing;
+        private bool DisableGravity;
 
         /// <summary>
         /// Author: Ziqi
@@ -55,6 +56,7 @@ namespace Lionheart.Player.Movement
         private void Move()
         {
             IsPullDashing = gameObject.GetComponent<PullDash>().IsPullDashing;
+            DisableGravity = gameObject.GetComponent<PullDash>().DisableGravity;
             bool Restrict = AirControlCompensation();
 
             if (PhotonView.IsMine)
@@ -63,13 +65,13 @@ namespace Lionheart.Player.Movement
 
                 foreach (MovementModifier M in Modifiers)
                 {
-                    /*if (M.Type == MovementModifier.MovementType.Jump)
+                    if (M.Type == MovementModifier.MovementType.Jump)
                     {
-                        if (IsPullDashing == true)
+                        if (DisableGravity == true)
                         {
                             continue;
                         }
-                    }*/
+                    }
 
                     if (M.Type == MovementModifier.MovementType.Walk)
                     {
