@@ -24,7 +24,7 @@ public class Shooter : Enemy
     public GameObject Projectile;
 
 
-    public Transform CurrentTarget;
+    private Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
 
@@ -41,12 +41,12 @@ public class Shooter : Enemy
     {
         // get the player list from game manager
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        CurrentTarget = PlayerList[0].transform;
+        //CurrentTarget = PlayerList[0].transform;
 
         ConstructBehaviourTree();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (PhotonView.IsMine) RootNode.Evaluate();
 
@@ -85,7 +85,7 @@ public class Shooter : Enemy
     [PunRPC]
     public void RPC_Shoot()
     {
-        GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 1.5f, Quaternion.identity);
+        GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 2.4f, Quaternion.identity);
         Debug.Log(bullet.transform);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * (ProjectileSpeed * 100));
     }
@@ -99,7 +99,7 @@ public class Shooter : Enemy
         WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
-        ShootNode ShootNode = new ShootNode(Projectile, CurrentTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 

@@ -18,15 +18,17 @@ public class ShootNode : Node
     private bool AttackRunning = false;
     private bool AttackComplete = false;
     private Transform Transform;
-    private Transform Target;
     private Rigidbody RigidBody;
 
-    public ShootNode(GameObject Projectile, Transform Target, float Speed, float CooldownTime, GameObject Shooter)
+    public delegate Transform GetTargetDelegate();
+    private GetTargetDelegate GetTarget;
+
+    public ShootNode(GameObject Projectile, GetTargetDelegate GetTarget, float Speed, float CooldownTime, GameObject Shooter)
     {
         this.Projectile = Projectile;
         this.CooldownTime = CooldownTime;
         this.Shooter = Shooter;
-        this.Target = Target;
+        this.GetTarget = GetTarget;
         this.Speed = Speed;
 
         Transform = Shooter.GetComponent<Transform>();
@@ -37,8 +39,8 @@ public class ShootNode : Node
     public override NodeState Evaluate()
     {
         // Use rigidbody to rotate (Ziqi)
-        Quaternion rotation = Quaternion.LookRotation(Target.position - Shooter.transform.position);
-        rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 50 * Time.deltaTime);
+        Quaternion rotation = Quaternion.LookRotation(GetTarget().position - Shooter.transform.position);
+        rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 25 * Time.deltaTime);
         RigidBody.MoveRotation(rotation);
 
         if (!AttackRunning)
