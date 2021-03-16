@@ -71,7 +71,7 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterDash(InputAction.CallbackContext Ctx)
         {
-            if (DashOnCooldown == false)
+            if (DashOnCooldown == false && gameObject.GetComponent<PullDash>().DisableGravity == false)
             {
                 IsDashing = true;
                 DashOnCooldown = true;

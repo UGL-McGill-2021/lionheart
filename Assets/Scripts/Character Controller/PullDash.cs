@@ -16,23 +16,24 @@ namespace Lionheart.Player.Movement
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Vector3 Direction;
-        [SerializeField] GameObject OtherPlayer;
-        [SerializeField] PullDash OtherPlayerPullDashScript;
         [SerializeField] GameObject OwnPullDashTarget;
+        [SerializeField] GameObject OtherPlayerTarget;
+        [SerializeField] PullDash OtherPlayerPullDashScript;
 
         [Header("State")]
-        [SerializeField] public bool IsProjectile;
+        [SerializeField] public bool ChargingPullDash;
         [SerializeField] public bool IsPullDashing;
+        [SerializeField] public bool DisableGravity;
 
-        [Header("Launcher")]
-        [SerializeField] public readonly float LaunchPower = 25f;
-        [SerializeField] public float PowerStep = 0.5f;
-        [SerializeField] public float CurrentPower;
+        [Header("Parameters")]
+        [SerializeField] public readonly float LaunchVectorMultiplier = 1f;
+        [SerializeField] public readonly float MinVectorMagnitude = 15f;
+        [SerializeField] public readonly float MaxVectorMagnitude = 40f;
+        [SerializeField] public readonly float CompletionDistance = 2f;
+        [SerializeField] public readonly float ExpiryTimer = 0.8f;
 
-
+        private Vector3 T;
         private Vector3 Dir;
-        private float GravityForce = Physics.gravity.y;
-        private bool canCharge;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -47,11 +48,9 @@ namespace Lionheart.Player.Movement
         {
             PhotonView = GetComponent<PhotonView>();
             ControllerActions = new ControllerInput();
-            IsProjectile = false;
+            ChargingPullDash = false;
             IsPullDashing = false;
-            canCharge = false;
-
-            CurrentPower = LaunchPower;
+            DisableGravity = false;
 
             Type = MovementModifier.MovementType.PullDash;
         }
@@ -96,28 +95,42 @@ namespace Lionheart.Player.Movement
                     if (_Players[i].Equals(gameObject) == false)
                     {
                         OtherPlayerPullDashScript = _Players[i].GetComponent<PullDash>();
-                        OtherPlayer = OtherPlayerPullDashScript.OwnPullDashTarget;
+                        OtherPlayerTarget = OtherPlayerPullDashScript.OwnPullDashTarget;
                     }
                 }
             }
 
-            if (IsProjectile == false && IsPullDashing == false && OtherPlayerPullDashScript != null)
+            if (ChargingPullDash == false && IsPullDashing == false && OtherPlayerPullDashScript != null)
             {
-                IsProjectile = true;
-                canCharge = true;
+                ChargingPullDash = true;
             }
         }
 
         private void FixedUpdate()
         {
-            if (IsProjectile == true)
+            if (ChargingPullDash == true)
             {
                 Launcher();
             }
 
             if (IsPullDashing == true)
             {
-                Value = Dir * CurrentPower;
+                Vector3 _V = Dir * LaunchVectorMultiplier;
+
+                if (_V.magnitude > MaxVectorMagnitude)
+                {
+                    Value = _V.normalized * MaxVectorMagnitude;
+                }
+                else if (_V.magnitude < MinVectorMagnitude)
+                {
+                    Value = _V.normalized * MinVectorMagnitude;
+                }
+                else
+                {
+                    Value = _V;
+                }
+
+                CheckDistance();
             }
             else
             {
@@ -129,23 +142,48 @@ namespace Lionheart.Player.Movement
         {
             if (Gamepad.current.buttonNorth.isPressed == false)
             {
-                Dir = (OtherPlayer.transform.position - transform.position);
+                T = OtherPlayerTarget.transform.position;
+                Dir = (OtherPlayerTarget.transform.position - transform.position);
+
                 Debug.Log("Vector " + Dir.magnitude + "Time stamp: " + Time.deltaTime);
-                Dir = Dir.normalized;
                
-                IsProjectile = false;
-                canCharge = false;
+                ChargingPullDash = false;
                 IsPullDashing = true;
-                StartCoroutine(PullDashExecution());
+                DisableGravity = true;
+
+                StartCoroutine(PullDashTimer());
             }
         }
 
-        IEnumerator PullDashExecution()
+        private void CheckDistance()
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            if (Vector3.Distance(gameObject.transform.position, T)< CompletionDistance)
+            {
+                DisableGravity = false;
+                StartCoroutine(PullDashFall());
+            }
+        }
+
+        IEnumerator PullDashFall()
+        {
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsPullDashing = false;
-            CurrentPower = LaunchPower;
+        }
+
+        IEnumerator PullDashTimer()
+        {
+            yield return new WaitForSecondsRealtime(ExpiryTimer);
+            DisableGravity = false;
+            StartCoroutine(PullDashFall());
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.gameObject.layer == 3)
+            {
+                DisableGravity = false;
+                IsPullDashing = false;
+            }
         }
     }
 }
