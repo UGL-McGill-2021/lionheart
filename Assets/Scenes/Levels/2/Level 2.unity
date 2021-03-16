@@ -184,19 +184,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 865364766500290329, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4977756
+      value: -3.498132
       objectReference: {fileID: 0}
     - target: {fileID: 865364766500290329, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4145.359
+      value: 8.440389
       objectReference: {fileID: 0}
     - target: {fileID: 865364766500290329, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5987.995
+      value: -9.788534
+      objectReference: {fileID: 0}
+    - target: {fileID: 865364766500290330, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 865364766500290335, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: field of view
-      value: 3
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 865364766938060917, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_Targets.Array.size
@@ -212,15 +216,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 865364767007427047, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4977756
+      value: -3.498132
       objectReference: {fileID: 0}
     - target: {fileID: 865364767007427047, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4145.359
+      value: 8.440389
       objectReference: {fileID: 0}
     - target: {fileID: 865364767007427047, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5987.995
+      value: -9.788534
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e6574c163ae2304f89d0c36c76b2485, type: 3}
@@ -306,12 +310,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6169593494034404757, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
   m_PrefabInstance: {fileID: 393491433}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 393491436}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a549d2677be88534c96e13d25c58b218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &393491436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6169593494034404756, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+  m_PrefabInstance: {fileID: 393491433}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &402563411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d096fb3858b7440bc519bd92f6be14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpawningPoints: []
+  PlayerSpawningPoints:
+  - {fileID: 393491436}
+  - {fileID: 393491436}
   Respawnable_TempPlatformPoints: []
   NonRespawnable_TempPlatformPoints: []
   OneTime_SpiritWallPoints: []

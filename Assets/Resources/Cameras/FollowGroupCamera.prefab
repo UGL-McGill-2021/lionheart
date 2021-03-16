@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 865364766500290333}
   m_Layer: 0
   m_Name: CinemachineBrain
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865364766500290330}
   m_LocalRotation: {x: 0.29806826, y: -0.000000028447648, z: 0.000000008883127, w: 0.95454454}
-  m_LocalPosition: {x: -3.4981275, y: 59.653885, z: -83.79649}
+  m_LocalPosition: {x: -3.4981194, y: 156.39044, z: -223.58923}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 865364766498911164}
@@ -375,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865364767007427040}
   m_LocalRotation: {x: 0.29806826, y: -0.000000028447648, z: 0.000000008883127, w: 0.95454454}
-  m_LocalPosition: {x: -3.4981275, y: 59.653885, z: -83.79649}
+  m_LocalPosition: {x: -3.4981194, y: 156.39044, z: -223.58923}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 865364767538505377}

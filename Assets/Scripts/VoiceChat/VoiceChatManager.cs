@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Voice.PUN;
 using Photon.Voice.Unity;
@@ -17,15 +18,47 @@ public class VoiceChatManager : MonoBehaviour {
 
     public Sprite TalkIcon;
     public Sprite MuteIcon;
-    public Image MasterImage;
-    public Image ClientImage;
 
     private PhotonVoiceNetwork punVoiceNetwork;
     private PhotonView PhotonView;
 
+    private List<GameObject> PlayerList;
+    [SerializeField]
+    private List<Image> PlayerIconList = new List<Image>();
+
     private void Awake() {
         punVoiceNetwork = PhotonVoiceNetwork.Instance;
         PhotonView = GetComponent<PhotonView>();
+
+        PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
+    }
+
+    private void Update()
+    {
+        // Get the players' MicIcon components from game manager
+        // (in Update instead of Start since the Player list may be not initialized due to Start() execution order)
+        GetPlayerMicIcons(2);
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// Function to get all players' MicIcon component and add them to the list
+    /// </summary>
+    /// <param name="numPlayers">Number of players we have</param>
+    void GetPlayerMicIcons(int numPlayers)
+    {
+        // if the PlayerList is fully initialized
+        if (PlayerList.Count == numPlayers)
+        {
+            PlayerIconList = new List<Image>();
+            foreach (GameObject player in PlayerList)
+            {
+                foreach (Canvas canvas in player.GetComponentsInChildren<Canvas>())
+                {
+                    if (canvas.tag == "VoiceChatCanvas") PlayerIconList.Add(canvas.GetComponentInChildren<Image>());
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -37,9 +70,16 @@ public class VoiceChatManager : MonoBehaviour {
         Debug.Log("Talk");
         this.recorder.TransmitEnabled = true;
 
-        // set the mic icon using RPC (don't need PhotonView.isMine since both clients have only one VC manager)
-        if (PhotonNetwork.IsMasterClient) PhotonView.RPC("RPC_SetTalkIcon", RpcTarget.All, true);
-        else PhotonView.RPC("RPC_SetTalkIcon", RpcTarget.All, false);
+        // find the current player and call RPC to update the icon state
+        foreach (Image icon in PlayerIconList)
+        {
+            if(icon.GetComponentInParent<PhotonView>().IsMine)
+            {
+                int ViewId = icon.GetComponentInParent<PhotonView>().ViewID;
+                PhotonView.RPC("RPC_SetTalkIcon", RpcTarget.AllViaServer, ViewId);
+            }
+        }
+
     }
 
     /// <summary>
@@ -51,8 +91,15 @@ public class VoiceChatManager : MonoBehaviour {
         Debug.Log("Mute");
         this.recorder.TransmitEnabled = false;
 
-        if (PhotonNetwork.IsMasterClient) PhotonView.RPC("RPC_SetMuteIcon", RpcTarget.All, true);
-        else PhotonView.RPC("RPC_SetMuteIcon", RpcTarget.All, false);
+        // find the current player and call RPC to update the icon state
+        foreach (Image icon in PlayerIconList)
+        {
+            if (icon.GetComponentInParent<PhotonView>().IsMine)
+            {
+                int ViewId = icon.GetComponentInParent<PhotonView>().ViewID;
+                PhotonView.RPC("RPC_SetMuteIcon", RpcTarget.AllViaServer, ViewId);
+            }
+        }
     }
 
     /// <summary>
@@ -61,10 +108,19 @@ public class VoiceChatManager : MonoBehaviour {
     /// </summary>
     /// <param name="isMaster"></param>
     [PunRPC]
-    private void RPC_SetTalkIcon(bool isMaster)
+    private void RPC_SetTalkIcon(int playerViewID)
     {
-        if (isMaster) MasterImage.sprite = TalkIcon;
-        else ClientImage.sprite = TalkIcon;
+        foreach (Image icon in PlayerIconList)
+        {
+            if (playerViewID == icon.GetComponentInParent<PhotonView>().ViewID)
+            {
+                icon.sprite = TalkIcon;
+                // set icon to opaque
+                var tempColor = icon.color;
+                tempColor.a = 1f;
+                icon.color = tempColor;
+            }
+        }
     }
 
     /// <summary>
@@ -73,9 +129,18 @@ public class VoiceChatManager : MonoBehaviour {
     /// </summary>
     /// <param name="isMaster"></param>
     [PunRPC]
-    private void RPC_SetMuteIcon(bool isMaster)
+    private void RPC_SetMuteIcon(int playerViewID)
     {
-        if (isMaster) MasterImage.sprite = MuteIcon;
-        else ClientImage.sprite = MuteIcon;
+        foreach (Image icon in PlayerIconList)
+        {
+            if (playerViewID == icon.GetComponentInParent<PhotonView>().ViewID)
+            {
+                icon.sprite = MuteIcon;
+                // set icon to transparent
+                var tempColor = icon.color;
+                tempColor.a = 0f;
+                icon.color = tempColor;
+            }
+        }
     }
 }
