@@ -9,6 +9,7 @@ namespace Lionheart.Player.Movement
     /// <summary>
     /// Author: Denis
     /// This class handles gravity and jumps.
+    /// TODO: coyote hop
     /// </summary>
     public class Jump : MonoBehaviour, MovementModifier
     {
@@ -96,13 +97,13 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// Solves the jump and gravity vectors to produce a final y axis vector.
-        /// Also checks for ground collision.
         /// </summary>
         private void VerticalForces()
         {
             Vector3 Vec = Vector3.zero;
             CheckIfGrounded();
 
+            //allows for the varying jump sizes
             if (IsGrounded == false && !Gamepad.current.buttonSouth.isPressed && Vector3.Dot(Value, Vector3.up) > 0)
             {
                 Vec2 += new Vector3(0f, (-CounterJumpForce) * Time.deltaTime, 0f);
@@ -112,6 +113,7 @@ namespace Lionheart.Player.Movement
                 Vec2 = Vector3.zero;
             }
 
+            //calculates gravity
             if (IsGrounded == false && JumpedFrameCounter == 0 && gameObject.GetComponent<PullDash>().DisableGravity == false)
             {
                 Vec = new Vector3(0f, 3f * GravityForce * Time.deltaTime, 0f);
@@ -135,17 +137,13 @@ namespace Lionheart.Player.Movement
             Value += Vec + Vec2;
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Detect collision with the ground
+        /// </summary>
         private void CheckIfGrounded()
         {
             IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
-            /*if (!Physics.Raycast(transform.position, -Vector3.up, DistanceToGround + 0.1f))
-            {
-                IsGrounded = false;
-            }
-            else
-            {
-                IsGrounded = true;
-            }*/
         }
 
         /// <summary>
