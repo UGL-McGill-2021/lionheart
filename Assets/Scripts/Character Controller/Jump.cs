@@ -20,25 +20,28 @@ namespace Lionheart.Player.Movement
         [SerializeField] Rigidbody Rb;
 
         [Header("Parameters")]
-        [SerializeField] private readonly float JumpPower = 12f;
+        [SerializeField] private float JumpPower = 12f;
         [SerializeField] private float CounterJumpForce = 0.75f;
         [SerializeField] private float GroundDistance = 0.6f;
+        [SerializeField] private float CoyoteHopTimer = 1f;
+        [SerializeField] private float FallTimer = 0.3f;
         [SerializeField] private LayerMask GroundMask;
 
+        [Header("State")]
         public bool IsGrounded;
-        public Vector3 Vec2 = Vector3.zero;
-        private float DistanceToGround;
+        public bool IsFalling;
+
         private float GravityForce = Physics.gravity.y;
         private bool HasJumped;
+        private bool CanCoyoteHop;
+        private bool WasGroundedLastFrame;
+        private Vector3 Vec2 = Vector3.zero;
+
+        //soon to be deprecated
         private int JumpedFrameCounter = 10;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
-
-        void Start()
-        {
-            DistanceToGround = GetComponent<Collider>().bounds.extents.y;
-        }
 
         /// <summary>
         /// Author: Denis
@@ -48,7 +51,11 @@ namespace Lionheart.Player.Movement
         {
             ControllerActions = new ControllerInput();
             IsGrounded = true;
+            IsFalling = false;
             HasJumped = false;
+            CanCoyoteHop = false;
+            WasGroundedLastFrame = false;
+
             Type = MovementModifier.MovementType.Jump;
         }
 
@@ -83,10 +90,11 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterJump(InputAction.CallbackContext Ctx)
         {
-            if (IsGrounded == true && HasJumped == false)
+            if ((IsGrounded == true || CanCoyoteHop == true) && HasJumped == false)
             {
                 Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
                 HasJumped = true;
+                CanCoyoteHop = false;
                 JumpedFrameCounter = 10;
             }
         }
@@ -102,6 +110,13 @@ namespace Lionheart.Player.Movement
         {
             Vector3 Vec = Vector3.zero;
             CheckIfGrounded();
+
+            if (IsGrounded == false && WasGroundedLastFrame == true)
+            {
+                CanCoyoteHop = true;
+                StartCoroutine(CoyoteHopTimeWindow());
+                StartCoroutine(MinFallTimeWindow());
+            }
 
             if (IsGrounded == false && !Gamepad.current.buttonSouth.isPressed && Vector3.Dot(Value, Vector3.up) > 0)
             {
@@ -126,6 +141,12 @@ namespace Lionheart.Player.Movement
                 {
                     StartCoroutine(PlayHaptics());
                     HasJumped = false;
+                    IsFalling = false;
+                }
+                else if (IsFalling == true)
+                {
+                    StartCoroutine(PlayHaptics());
+                    IsFalling = false;
                 }
             }
             if (JumpedFrameCounter > 0)
@@ -133,6 +154,25 @@ namespace Lionheart.Player.Movement
                 JumpedFrameCounter--;
             }
             Value += Vec + Vec2;
+
+            WasGroundedLastFrame = IsGrounded;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Time window after leaving the ground where the player can still jump if he hasn't already.
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator CoyoteHopTimeWindow()
+        {
+            yield return new WaitForSecondsRealtime(CoyoteHopTimer);
+            CanCoyoteHop = false;
+        }
+
+        private IEnumerator MinFallTimeWindow()
+        {
+            yield return new WaitForSecondsRealtime(FallTimer);
+            IsFalling = true;
         }
 
         private void CheckIfGrounded()
