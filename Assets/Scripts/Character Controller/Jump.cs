@@ -37,7 +37,7 @@ namespace Lionheart.Player.Movement
         private bool WasGroundedLastFrame;
         private Vector3 Vec2 = Vector3.zero;
 
-        //soon to be deprecated
+        //TODO: Replace by Coroutine is found to be unstable
         private int JumpedFrameCounter = 10;
 
         public Vector3 Value { get; private set; }
