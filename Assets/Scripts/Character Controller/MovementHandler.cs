@@ -26,6 +26,7 @@ namespace Lionheart.Player.Movement
 
         private bool IsPullDashing;
         private bool DisableGravity;
+        private bool IsGroundPound;
 
         /// <summary>
         /// Author: Ziqi
@@ -60,6 +61,7 @@ namespace Lionheart.Player.Movement
         {
             IsPullDashing = gameObject.GetComponent<PullDash>().IsPullDashing;
             DisableGravity = gameObject.GetComponent<PullDash>().DisableGravity;
+            IsGroundPound = gameObject.GetComponent<GroundPound>().IsGroundPound;
             bool Restrict = AirControlCompensation();
 
             if (PhotonView.IsMine)
@@ -68,7 +70,16 @@ namespace Lionheart.Player.Movement
 
                 foreach (MovementModifier M in Modifiers)
                 {
-                    //some movement vectors get ignnored depending on the player state
+                    //ground pound state overrides other movement vectors
+                    if (IsGroundPound == true)
+                    {
+                        if (M.Type != MovementModifier.MovementType.GroundPound)
+                        {
+                            continue;
+                        }
+                    }
+
+                    //gravity is disabled by the pull dash don't apply the gravity vector
                     if (M.Type == MovementModifier.MovementType.Jump)
                     {
                         if (DisableGravity == true)
@@ -77,6 +88,7 @@ namespace Lionheart.Player.Movement
                         }
                     }
 
+                    //while pull dashing ignore the walk vector if it is outside of the angle tolerance range
                     if (M.Type == MovementModifier.MovementType.Walk)
                     {
                         if (Restrict == true)

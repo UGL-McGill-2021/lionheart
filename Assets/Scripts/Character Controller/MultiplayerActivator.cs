@@ -21,7 +21,7 @@ namespace Lionheart.Player.Movement
         public MovementHandler script5;
         public PullDash script6;
         public CombatManager script7;
-
+        public GroundPound script8;
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
@@ -41,7 +41,8 @@ namespace Lionheart.Player.Movement
             script4.enabled = false;
             script5.enabled = false;
             script6.enabled = false;
-            script7.enabled = false;
+            script7.enabled = false; 
+            script8.enabled = false;
         }
 
         public void EnableControls()
@@ -53,6 +54,7 @@ namespace Lionheart.Player.Movement
             script5.enabled = true;
             script6.enabled = true;
             script7.enabled = true;
+            script8.enabled = true;
         }
     }
 }
