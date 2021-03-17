@@ -93,9 +93,9 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterPullDash(InputAction.CallbackContext Ctx)
         {
+            //get a reference to the other player if null
             if (OtherPlayerPullDashScript == null)
             {
-                //get a reference to the other player
                 GameObject[] _Players = GameObject.FindGameObjectsWithTag("Player");
                 for (int i = 0; i < _Players.Length; i++)
                 {
@@ -107,6 +107,8 @@ namespace Lionheart.Player.Movement
                     }
                 }
             }
+
+            //the pull dash activation can only be validated if within distance
             Vector3 V = (OtherPlayer.transform.position - transform.position);
             
             if (ChargingPullDash == false && IsPullDashing == false 
@@ -118,6 +120,12 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Enables the pull dash after a hold timer period.
+        /// Triggers rumble if action activated
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator PullDashCharge()
         {
             yield return new WaitForSecondsRealtime(TriggerTime);
@@ -129,13 +137,19 @@ namespace Lionheart.Player.Movement
             Gamepad.current.ResetHaptics();
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Manages pull dash action logic
+        /// </summary>
         private void FixedUpdate()
         {
+            //pull dash is in pre-motion state
             if (ChargingPullDash == true)
             {
-                Launcher();
+                Charger();
             }
 
+            //if pull dash was successfully activated execute the motion
             if (IsPullDashing == true)
             {
                 if (DisableGravity == false && Vector3.Angle(OgDir, transform.forward) <= AirControlAngleRange)
@@ -167,7 +181,11 @@ namespace Lionheart.Player.Movement
             }
         }
 
-        private void Launcher()
+        /// <summary>
+        /// Author: Denis
+        /// Checks for button press, if the button is released pre-emptively the action is cancelled.
+        /// </summary>
+        private void Charger()
         {
             if (Gamepad.current.buttonNorth.isPressed == false)
             {
@@ -187,21 +205,34 @@ namespace Lionheart.Player.Movement
                     IsPullDashing = true;
                     DisableGravity = true;
 
+                    //Time limit on the pull dash execution
                     StartCoroutine(PullDashTimer());
                 }
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Pull dash first part of the motion ends when the player gets within range of the target.
+        /// Gravity is enabled.
+        /// </summary>
         private void CheckDistance()
         {
             if (Vector3.Distance(gameObject.transform.position, T)< CompletionDistance)
             {
                 gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
                 DisableGravity = false;
+
                 StartCoroutine(PullDashFall());
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// The second part of the pull dash motion is affected by gravity. 
+        /// The move terminates on ground collision.
+        /// </summary>
+        /// <returns></returns>
         IEnumerator PullDashFall()
         {
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
@@ -209,14 +240,27 @@ namespace Lionheart.Player.Movement
             IsPullDashing = false;
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// The first part of pull dash move has a timer upper bound after which it is interrupted
+        /// if it is still executing no matter what. Gravity is enabled to ensure fall to graound and termination.
+        /// </summary>
+        /// <returns></returns>
         IEnumerator PullDashTimer()
         {
             yield return new WaitForSecondsRealtime(ExpiryTimer);
             gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
+
             StartCoroutine(PullDashFall());
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// The whole pull dash move is interruptible upon ground collision at any stage
+        /// TODO: Add more interruptible source layers or tags. 
+        /// </summary>
+        /// <param name="collision"></param>
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.collider.gameObject.layer == 3)

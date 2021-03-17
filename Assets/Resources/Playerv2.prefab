@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 8654789910141434568}
   - component: {fileID: 5566292478228044567}
   - component: {fileID: 6742636947217563593}
+  - component: {fileID: 2974436586057799471}
   - component: {fileID: 3535366763632785127}
   - component: {fileID: 3327485241153220109}
   - component: {fileID: 3922513343799244647}
@@ -649,6 +650,7 @@ MonoBehaviour:
   script5: {fileID: 9057546429446380302}
   script6: {fileID: 6742636947217563593}
   script7: {fileID: 7158537297210349565}
+  script8: {fileID: 2974436586057799471}
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +666,7 @@ MonoBehaviour:
   Rb: {fileID: 3535366763632785127}
   PlayerCamera: {fileID: 0}
   Player: {fileID: 0}
+  AirRestrictAngle: 60
   PhotonView: {fileID: 5480352261030030601}
 --- !u!114 &5368698313015805028
 MonoBehaviour:
@@ -709,13 +712,16 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   GroundCheck: {fileID: 5590533885952136207}
   Rb: {fileID: 3535366763632785127}
+  JumpPower: 12
   CounterJumpForce: 2
   GroundDistance: 0.15
+  CoyoteHopTimer: 1
+  FallTimer: 0.8
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
-  Vec2: {x: 0, y: 0, z: 0}
+  IsFalling: 0
 --- !u!114 &8654789910141434568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,6 +804,22 @@ MonoBehaviour:
   ExpiryTimer: 0.8
   AirControlAngleRange: 60
   TriggerTime: 0.5
+--- !u!114 &2974436586057799471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401703996827886909}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4360c18422d878349a78830c6cd9c633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerMovementHandler: {fileID: 9057546429446380302}
+  IsGroundPound: 0
+  FreezeTimer: 0.2
+  GroundPoundForce: 40
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -67,11 +67,19 @@ namespace Lionheart.Player.Movement {
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Reduces Rotation Speed
+        /// </summary>
         public void EnablePullDashRotationSpeed()
         {
             CurrentRotationSpeed = PullDashRotationSpeed;
         }
 
+        /// <summary>
+        /// Author: Denis 
+        /// Resets rotation speed back to normal
+        /// </summary>
         public void ResetRotationSpeed()
         {
             CurrentRotationSpeed = NormalRotationSpeed;
