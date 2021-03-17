@@ -5,6 +5,12 @@ using UnityEngine.InputSystem;
 
 namespace Lionheart.Player.Movement
 {
+    /// <summary>
+    /// Author: Denis
+    /// This class handles the ground pound movement. A move that propulses the 
+    /// player down to the ground if in the air.
+    /// TODO: Consider making Ground Pound force dependend on height OR damage dependent on height
+    /// </summary>
     public class GroundPound : MonoBehaviour, MovementModifier
     {
         [Header("References")]

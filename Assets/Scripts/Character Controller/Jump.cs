@@ -9,6 +9,7 @@ namespace Lionheart.Player.Movement
     /// <summary>
     /// Author: Denis
     /// This class handles gravity and jumps.
+    /// TODO: coyote hop
     /// </summary>
     public class Jump : MonoBehaviour, MovementModifier
     {
