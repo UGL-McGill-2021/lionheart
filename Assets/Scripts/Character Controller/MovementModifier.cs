@@ -18,6 +18,7 @@ namespace Lionheart.Player.Movement
             Jump,
             Dash,
             PullDash,
+            GroundPound,
             Contraption
         }
     }
