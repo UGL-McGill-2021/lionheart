@@ -16,10 +16,13 @@ namespace Lionheart.Player.Movement
         [SerializeField] Camera PlayerCamera;
         [SerializeField] GameObject Player;
 
-        private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
+        [Header("Parameters")]
+        [SerializeField] public float AirRestrictAngle = 60f;
 
         [Header("Photon")]
         public PhotonView PhotonView;
+
+        private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
 
         private bool IsPullDashing;
         private bool DisableGravity;
@@ -65,6 +68,7 @@ namespace Lionheart.Player.Movement
 
                 foreach (MovementModifier M in Modifiers)
                 {
+                    //some movement vectors get ignnored depending on the player state
                     if (M.Type == MovementModifier.MovementType.Jump)
                     {
                         if (DisableGravity == true)
@@ -89,7 +93,8 @@ namespace Lionheart.Player.Movement
         }
 
         /// <summary>
-        /// 
+        /// Author: Denis
+        /// While pull dashing air control is restricted to an angle range
         /// </summary>
         /// <returns></returns>
         private bool AirControlCompensation()
@@ -112,7 +117,7 @@ namespace Lionheart.Player.Movement
 
                 float teta = Vector3.Angle(V2, V1);
 
-                if (teta > 60)
+                if (teta > AirRestrictAngle)
                 {
                     return true;
                 }
