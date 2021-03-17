@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4559522712707332172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3959614731839605070}
@@ -729,6 +729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  NormalRotationSpeed: 15
+  PullDashRotationSpeed: 5
+  CurrentRotationSpeed: 0
   MoveAction:
     m_Name: move
     m_Type: 0
@@ -779,13 +782,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
   Direction: {x: 0, y: 0, z: 0}
-  OtherPlayer: {fileID: 0}
-  OtherPlayerPullDashScript: {fileID: 0}
   OwnPullDashTarget: {fileID: 4559522712707332172}
-  IsProjectile: 0
+  OtherPlayer: {fileID: 0}
+  OtherPlayerTarget: {fileID: 0}
+  OtherPlayerPullDashScript: {fileID: 0}
+  ChargingPullDash: 0
+  PullDashCharged: 0
   IsPullDashing: 0
-  PowerStep: 0.5
-  CurrentPower: 12
+  DisableGravity: 0
+  MaxTriggerDistance: 60
+  LaunchVectorMultiplier: 1
+  MinVectorMagnitude: 15
+  MaxVectorMagnitude: 40
+  CompletionDistance: 2
+  ExpiryTimer: 0.8
+  AirControlAngleRange: 60
+  TriggerTime: 0.5
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0

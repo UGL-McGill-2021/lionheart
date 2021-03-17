@@ -12,6 +12,12 @@ namespace Lionheart.Player.Movement {
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
 
+        [Header("Parameters")]
+        [SerializeField] private float NormalRotationSpeed = 15f;
+        [SerializeField] private float PullDashRotationSpeed = 1f;
+        [SerializeField] private float CurrentRotationSpeed;
+
+
         //The following is a polling approach
         public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
         public Vector2 MoveDirection = new Vector2();
@@ -22,6 +28,7 @@ namespace Lionheart.Player.Movement {
         private void Start()
         {
             PhotonView = GetComponent<PhotonView>();
+            CurrentRotationSpeed = NormalRotationSpeed;
         }
 
         /// <summary>
@@ -53,9 +60,21 @@ namespace Lionheart.Player.Movement {
 
                 if (MoveDirection != Vector2.zero)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(MoveDirection.x, 0f, MoveDirection.y)), 15 * Time.deltaTime);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, 
+                        Quaternion.LookRotation(new Vector3(MoveDirection.x, 0f, MoveDirection.y)), 
+                        CurrentRotationSpeed * Time.deltaTime);
                 }
             }
+        }
+
+        public void EnablePullDashRotationSpeed()
+        {
+            CurrentRotationSpeed = PullDashRotationSpeed;
+        }
+
+        public void ResetRotationSpeed()
+        {
+            CurrentRotationSpeed = NormalRotationSpeed;
         }
     }
 }
