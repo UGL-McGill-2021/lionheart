@@ -1,9 +1,7 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
+using Lionheart.Player.Movement;
 using System.Collections;
-using Photon.Pun;
-using Photon.Realtime;
+using System.Collections.Generic;
 
 /// <summary>
 /// Author: Feiyang Li
@@ -18,34 +16,55 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private AttackMotion CurrentAttackMotion;
 
+    private bool IsAttacking;
+
+    public float DefaultAttackForce = 10000;
+
+    [Header("Dash Attack")]
+    public float DashAttackAngleOfViewDegree;
+
+    [Header("Smash")]
+    public float SmashRadius = 1000;
+
     private void Awake() {
         this.Body = GetComponent<Rigidbody>();
     }
 
     private void Start() {
         Input = new ControllerInput();
-        Input.Player.Kick.performed += _ => Attack(new Kick(1000, 3));
+        Input.Player.Kick.performed += _ => Attack(new Kick(DefaultAttackForce, 1));
+        Input.Player.Smash.performed += _ => Smash(SmashRadius);
         Input.Enable();
     }
 
     public void Attack(AttackMotion _attackMotion) {
         AttackBox.enabled = true;
         CurrentAttackMotion = _attackMotion;
+        IsAttacking = true;
     }
 
     public void StopAttack() {
         AttackBox.enabled = false;
         CurrentAttackMotion = null;
+        IsAttacking = false;
     }
 
-    private void OnTriggerEnter(Collider other) {
-        EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
-        if (_enemyCombatManager != null && CurrentAttackMotion != null) {
-            // calculate attack
-            Vector3 _AttackVector = (other.transform.position - this.transform.position).normalized * CurrentAttackMotion.Force;
-            _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
-            StopAttack();
+    private void OnTriggerStay(Collider other) {
+        if (IsAttacking) {
+            EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
+            if (_enemyCombatManager != null && CurrentAttackMotion != null) {
+                // calculate regular attack
+                Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
+                Debug.Log("Attacked with " + _AttackVector);
+                _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
+                StopAttack();
+            }
         }
+    }
+
+    public void Smash(float _radius) {
+        Debug.Log("ExplosionForceApplied");
+        this.Body.AddExplosionForce(DefaultAttackForce, this.transform.position, _radius);
     }
 
 }
