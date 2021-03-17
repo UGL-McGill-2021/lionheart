@@ -712,13 +712,16 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   GroundCheck: {fileID: 5590533885952136207}
   Rb: {fileID: 3535366763632785127}
+  JumpPower: 12
   CounterJumpForce: 2
   GroundDistance: 0.15
+  CoyoteHopTimer: 1
+  FallTimer: 0.8
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
-  Vec2: {x: 0, y: 0, z: 0}
+  IsFalling: 0
 --- !u!114 &8654789910141434568
 MonoBehaviour:
   m_ObjectHideFlags: 0

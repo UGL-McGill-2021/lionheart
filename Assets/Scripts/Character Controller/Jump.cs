@@ -9,7 +9,6 @@ namespace Lionheart.Player.Movement
     /// <summary>
     /// Author: Denis
     /// This class handles gravity and jumps.
-    /// TODO: coyote hop
     /// </summary>
     public class Jump : MonoBehaviour, MovementModifier
     {
@@ -25,7 +24,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float CounterJumpForce = 0.75f;
         [SerializeField] private float GroundDistance = 0.6f;
         [SerializeField] private float CoyoteHopTimer = 1f;
-        [SerializeField] private float FallTimer = 0.3f;
+        [SerializeField] private float FallTimer = 0.8f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
@@ -111,7 +110,6 @@ namespace Lionheart.Player.Movement
             Vector3 Vec = Vector3.zero;
             CheckIfGrounded();
 
-<<<<<<< HEAD
             if (IsGrounded == false && WasGroundedLastFrame == true)
             {
                 CanCoyoteHop = true;
@@ -119,9 +117,7 @@ namespace Lionheart.Player.Movement
                 StartCoroutine(MinFallTimeWindow());
             }
 
-=======
             //allows for the varying jump sizes
->>>>>>> main
             if (IsGrounded == false && !Gamepad.current.buttonSouth.isPressed && Vector3.Dot(Value, Vector3.up) > 0)
             {
                 Vec2 += new Vector3(0f, (-CounterJumpForce) * Time.deltaTime, 0f);
