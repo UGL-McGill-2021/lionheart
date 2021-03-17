@@ -126,15 +126,21 @@ public class GameManager : MonoBehaviour {
         // generate grunts
         foreach (GameObject spawningPoint in GruntSpawningPoints)
         {
-            GameObject obj = PhotonNetwork.Instantiate("Grunt", spawningPoint.transform.position, spawningPoint.transform.rotation);
-            obj.GetComponent<Grunt>().WanderTarget = spawningPoint.transform;
+            if (spawningPoint != null)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("Grunt", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<Grunt>().WanderTarget = spawningPoint.transform;
+            }
         }
 
         // generate shooters
         foreach (GameObject spawningPoint in ShooterSpawningPoints)
         {
-            GameObject obj = PhotonNetwork.Instantiate("Shooter", spawningPoint.transform.position, spawningPoint.transform.rotation);
-            obj.GetComponent<Shooter>().WanderTarget = spawningPoint.transform;
+            if(spawningPoint != null)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("Shooter", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<Shooter>().WanderTarget = spawningPoint.transform;
+            }
         }
 
         // generate turrets (make sure the turretList elements are corresponding to their targets in targetList)
@@ -142,8 +148,11 @@ public class GameManager : MonoBehaviour {
         {
             for (int i = 0; i < TurretSpawningPoints.Count; i++)
             {
-                GameObject obj = PhotonNetwork.Instantiate("Turret", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
-                obj.GetComponent<Turret>().Target = TurretTargetsPoints[i].transform;
+                if (TurretSpawningPoints[i] != null && TurretTargetsPoints[i] != null)
+                {
+                    GameObject obj = PhotonNetwork.Instantiate("Turret", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
+                    obj.GetComponent<Turret>().Target = TurretTargetsPoints[i].transform;
+                }
             }
         }
     }
@@ -157,22 +166,26 @@ public class GameManager : MonoBehaviour {
     {
         GameObject platform = null;
         // for each list in the MovingPlatformPathList, generate a moving platform accordingly
-        foreach (PathPointsList PathPointsList in MovingPlatformPathList)
-        {
-            for (int i = 0; i < PathPointsList.PathPoints.Count; i++)
+        if (MovingPlatformPathList.Count != 0)
+            foreach (PathPointsList PathPointsList in MovingPlatformPathList)
             {
-                // take the first point in the path as the spawning point
-                if(i == 0)
+                for (int i = 0; i < PathPointsList.PathPoints.Count; i++)
                 {
-                    platform = PhotonNetwork.Instantiate("MPlatformRB",
-                        PathPointsList.PathPoints[i].transform.position,
-                        PathPointsList.PathPoints[i].transform.rotation);
-                    MovingPlatformScriptList.Add(platform.GetComponent<MovingPlatformRB>());
+                    if(PathPointsList.PathPoints[i] != null)
+                    {
+                        // take the first point in the path as the spawning point
+                        if (i == 0)
+                        {
+                            platform = PhotonNetwork.Instantiate("MPlatformRB",
+                                PathPointsList.PathPoints[i].transform.position,
+                                PathPointsList.PathPoints[i].transform.rotation);
+                            MovingPlatformScriptList.Add(platform.GetComponent<MovingPlatformRB>());
+                        }
+                        // add path point to the path of this moving platform
+                        platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPointsList.PathPoints[i]);
+                    }
                 }
-                // add path point to the path of this moving platform
-                platform.GetComponent<MovingPlatformRB>().PathPointObjects.Add(PathPointsList.PathPoints[i]);
             }
-        }
     }
 
     /// <summary>
@@ -184,14 +197,21 @@ public class GameManager : MonoBehaviour {
         // generate one-time spirit walls
         foreach (GameObject spawningPoint in OneTime_SpiritWallPoints)
         {
-            GameObject obj = PhotonNetwork.Instantiate("SpiritWall", spawningPoint.transform.position, spawningPoint.transform.rotation);
-            obj.GetComponent<SpiritWall>().SetIsOneWay(true);
+            if (spawningPoint != null)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("SpiritWall", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<SpiritWall>().SetIsOneWay(true);
+            }
         }
         // generate normal spirit walls
+        
         foreach (GameObject spawningPoint in Normal_SpiritWallPoints)
         {
-            GameObject obj = PhotonNetwork.Instantiate("SpiritWall", spawningPoint.transform.position, spawningPoint.transform.rotation);
-            obj.GetComponent<SpiritWall>().SetIsOneWay(false);
+            if (spawningPoint != null)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("SpiritWall", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<SpiritWall>().SetIsOneWay(false);
+            }
         }
     }
 
@@ -204,18 +224,25 @@ public class GameManager : MonoBehaviour {
         // generate respawnable temp platform
         foreach (GameObject spawningPoint in Respawnable_TempPlatformPoints)
         {
-            GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
-            obj.GetComponent<TempPlatform>().isReusable = true;
+            if(spawningPoint != null)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<TempPlatform>().isReusable = true;
 
-            TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
+                TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
+            }
         }
+
         // generate non-respawnable temp platform
         foreach (GameObject spawningPoint in NonRespawnable_TempPlatformPoints)
         {
-            GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
-            obj.GetComponent<TempPlatform>().isReusable = false;
+            if (spawningPoint != null)
+            {
+                GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<TempPlatform>().isReusable = false;
 
-            TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
+                TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
+            }
         }
     }
 

@@ -36,8 +36,9 @@ public class VoiceChatManager : MonoBehaviour {
     private void Update()
     {
         // Get the players' MicIcon components from game manager
-        // (in Update instead of Start since the Player list may be not initialized due to Start() execution order)
-        GetPlayerMicIcons(2);
+        // (in Update instead of Start since the Player list may be not initialized due to Start() execution order
+        // so we may habe to keep trying to get the players)
+        GetPlayerMicIcons();
     }
 
     /// <summary>
@@ -45,10 +46,10 @@ public class VoiceChatManager : MonoBehaviour {
     /// Function to get all players' MicIcon component and add them to the list
     /// </summary>
     /// <param name="numPlayers">Number of players we have</param>
-    void GetPlayerMicIcons(int numPlayers)
+    void GetPlayerMicIcons()
     {
-        // if the PlayerList is fully initialized
-        if (PlayerList.Count == numPlayers)
+        // if we didn't get all players in the list
+        if (PlayerList.Count != PlayerIconList.Count)
         {
             PlayerIconList = new List<Image>();
             foreach (GameObject player in PlayerList)

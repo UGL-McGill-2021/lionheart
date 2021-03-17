@@ -16,7 +16,6 @@ public class QuitMenuManager : MenuManager
     private List<GameObject> PlayerList;
     [SerializeField]
     private MultiplayerActivator CurrentPlayerActivator = null;  // the current client's playerActivator
-    private bool HasGotCurrentPlayer = false;
     private PhotonView PhotonView;
 
     // Use this for initialization
@@ -42,8 +41,9 @@ public class QuitMenuManager : MenuManager
         else if(EventSystem.current.currentSelectedGameObject) EventSystem.current.SetSelectedGameObject(null);
 
         // Get the current player activator from game manager
-        // (in Update instead of Start since the Player list may be not initialized due to Start() execution order)
-        if (!HasGotCurrentPlayer) GetPlayerActivator(2);
+        // (in Update instead of Start since the Player list may be not initialized due to Start() execution order
+        // so we may have to keep trying to find current player)
+        GetPlayerActivator();
     }
 
     /// <summary>
@@ -51,16 +51,15 @@ public class QuitMenuManager : MenuManager
     /// Function to get current player activator
     /// </summary>
     /// <param name="numPlayers">Number of players we have</param>
-    void GetPlayerActivator(int numPlayers)
+    void GetPlayerActivator()
     {
-        // if the PlayerList is fully initialized
-        if (PlayerList.Count == numPlayers)
+        // we have to keep trying to find current player from the player list
+        if (CurrentPlayerActivator == null)
         {
             foreach (GameObject player in PlayerList)
             {
-                if (player.GetComponent<PhotonView>().IsMine) CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
+                if (player != null && player.GetComponent<PhotonView>().IsMine) CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
             }
-            HasGotCurrentPlayer = true;
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -40,5 +41,15 @@ public class SubMenuManager : MenuManager
     public void Back()
     {
         SceneLoader.LoadSceneWithName("MainMenu");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Call back function from input action
+    /// </summary>
+    public void OnBack()
+    {
+        PhotonNetwork.Disconnect();  // disconnect from Photon
+        Back();
     }
 }
