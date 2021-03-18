@@ -152,11 +152,11 @@ namespace Lionheart.Player.Movement
             //if pull dash was successfully activated execute the motion
             if (IsPullDashing == true)
             {
-                if (DisableGravity == false && Vector3.Angle(OgDir, transform.forward) <= AirControlAngleRange)
+                /*if (DisableGravity == false && Vector3.Angle(OgDir, transform.forward) <= AirControlAngleRange)
                 {
                     float M = Value.magnitude;
                     Dir = transform.forward * M;
-                }
+                }*/
 
                 Vector3 V = Dir * LaunchVectorMultiplier;
 
