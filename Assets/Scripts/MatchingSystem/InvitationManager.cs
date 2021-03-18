@@ -2,6 +2,7 @@ using AssemblyCSharp.Assets;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 enum ControllerButton {
     X = 0,
@@ -38,6 +39,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         InputAction.Player.AddX.performed += _ => AddCodeCharacter('X');
         InputAction.Player.AddY.performed += _ => AddCodeCharacter('Y');
         InputAction.Player.Enable();
+        
 
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -66,22 +68,12 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     }
 
     /// <summary>
-    /// Author: Feiyang Li
+    /// Author: Feiyang Li, Ziqi
     /// Create an invitation and display the invitation code on UI
     /// </summary>
     public void CreateInvitation() {
         // Generate and display invitation code
-        string InvitationCode = "";
-        for (int i = 0; i < CodeLength; i++) {
-            InvitationCode += (ControllerButton)Random.Range(0, 3);
-        }
-
-        RoomOptions options = new RoomOptions();
-        options.IsVisible = false;
-        options.MaxPlayers = 2;
-        options.IsOpen = true;
-        options.EmptyRoomTtl = 100000;
-        PhotonNetwork.CreateRoom(InvitationCode, options);
+        string InvitationCode = CreateRoom();
 
         Debug.Log("Network(INFO): Invitation Code " + InvitationCode);
 
@@ -128,11 +120,12 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// <param name="message"></param>
     public override void OnCreateRoomFailed(short returnCode, string message) {
         Debug.Log("Network(WARNING): Failed to create room: " + returnCode + " " + message);
+        CreateInvitation();  // retry when failing to create a room
     }
 
     private void AddCodeCharacter(char character) {
-        if (GeneratedCodePresenter.gameObject.activeSelf)
-            GeneratedCodePresenter.gameObject.SetActive(false);
+        //if (GeneratedCodePresenter.gameObject.activeSelf)
+        //    GeneratedCodePresenter.gameObject.SetActive(false);
 
         if (!InputCodePresenter.gameObject.activeSelf)
             InputCodePresenter.gameObject.SetActive(true);
@@ -156,5 +149,56 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     public override void OnJoinRoomFailed(short returnCode, string message) {
         Debug.Log("Failed to join room " + message);
         InputCodePresenter.Present("");
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// Call back function for leaving room
+    /// </summary>
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// Function to create room with a random room code
+    /// </summary>
+    /// <returns></returns>
+    private string CreateRoom()
+    {
+        string InvitationCode = "";
+
+        for (int i = 0; i < CodeLength; i++)
+        {
+            InvitationCode += (ControllerButton)Random.Range(0, 3);
+        }
+
+        RoomOptions options = new RoomOptions();
+        options.IsVisible = false;
+        options.MaxPlayers = 2;
+        options.IsOpen = true;
+        options.EmptyRoomTtl = 100000;
+        PhotonNetwork.CreateRoom(InvitationCode, options);
+
+        return InvitationCode;
+    }
+
+    /// <summary>
+    /// Author: Ziqi
+    /// Call back function when this object is destroyed
+    /// </summary>
+    private void OnDestroy()
+    {
+        // unregister the keys bindings
+        System.Action<InputAction.CallbackContext> handler = _ => AddCodeCharacter('A');
+        InputAction.Player.AddA.performed -= handler;
+        handler = _ => AddCodeCharacter('B');
+        InputAction.Player.AddB.performed -= handler;
+        handler = _ => AddCodeCharacter('X');
+        InputAction.Player.AddX.performed -= handler;
+        handler = _ => AddCodeCharacter('Y');
+        InputAction.Player.AddY.performed -= handler;
+        InputAction.Player.Disable();
     }
 }

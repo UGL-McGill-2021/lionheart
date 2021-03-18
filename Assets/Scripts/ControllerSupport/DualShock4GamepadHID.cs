@@ -32,7 +32,6 @@ namespace AssemblyCSharp.Assets
                     .WithInterface("HID")
                     .WithCapability("vendorId", 0x54C) // Sony Entertainment.
                     .WithCapability("productId", 0x5C4)); // Wireless controller.
-
         }
 
         // In the Player, to trigger the calling of the static constructor,
