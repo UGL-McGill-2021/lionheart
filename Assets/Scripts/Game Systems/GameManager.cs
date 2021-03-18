@@ -66,12 +66,12 @@ public class GameManager : MonoBehaviour {
             {
                 case LevelName.Level1:
                     // for example, change the speed of the first moving platform in the list to 5 and stop time to 1
-                    MovingPlatformScriptList[0].speed = 5f;
-                    MovingPlatformScriptList[0].StopTime = 1f;
+                    //MovingPlatformScriptList[0].speed = 5f;
+                    //MovingPlatformScriptList[0].StopTime = 1f;
                     // MovingPlatformScriptList[0].isAutomatic = false;
 
                     // for example, change the disappear time of the second temp platform in the list to 1.5
-                    TempPlatformScriptList[1].DisappearDelay = 1.5f;
+                    //TempPlatformScriptList[1].DisappearDelay = 1.5f;
 
                     break;
                 case LevelName.Level2:
