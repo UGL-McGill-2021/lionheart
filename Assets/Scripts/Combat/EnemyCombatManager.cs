@@ -32,4 +32,37 @@ public class EnemyCombatManager : MonoBehaviour {
         this.Body.isKinematic = true;
         this.NavAgent.enabled = true;
     }
+
+    public void ReceiveSmash(float _smashTime, 
+        float _ExplosionForce, 
+        Vector3 _ExplosionPos, 
+        float _SmashRadius) {
+
+        PhotonView _view = PhotonView.Get(this);
+        _view.RPC("OnSmashed", RpcTarget.All,
+            _smashTime,
+            _ExplosionForce,
+            _ExplosionPos.x,
+            _ExplosionPos.y,
+            _ExplosionPos.z,
+            _SmashRadius);
+    }
+
+    [PunRPC]
+    public IEnumerator OnSmashed(float _time, 
+        float _explosionForce, 
+        float _ExplosionX, 
+        float _ExplosionY, 
+        float _ExplosionZ, 
+        float _smashRadius) {
+
+        this.NavAgent.enabled = false;
+        this.Body.isKinematic = false;
+        this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
+
+        yield return new WaitForSeconds(_time);
+
+        this.Body.isKinematic = true;
+        this.NavAgent.enabled = true;
+    }
 }

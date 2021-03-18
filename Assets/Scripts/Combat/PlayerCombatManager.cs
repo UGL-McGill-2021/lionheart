@@ -2,6 +2,8 @@ using UnityEngine;
 using Lionheart.Player.Movement;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 
 /// <summary>
 /// Author: Feiyang Li
@@ -18,13 +20,15 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private bool IsAttacking;
 
-    public float DefaultAttackForce = 10000;
+    public float DefaultAttackForce = 1000;
 
     [Header("Dash Attack")]
     public float DashAttackAngleOfViewDegree;
 
     [Header("Smash")]
-    public float SmashRadius = 1000;
+    public float SmashRadius = 500;
+    public float DefaultSmashTime = 1;
+    public float DefaultSmashForce = 500;
 
     private void Awake() {
         this.Body = GetComponent<Rigidbody>();
@@ -64,7 +68,19 @@ public class PlayerCombatManager : MonoBehaviour {
 
     public void Smash(float _radius) {
         Debug.Log("ExplosionForceApplied");
-        this.Body.AddExplosionForce(DefaultAttackForce, this.transform.position, _radius);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
+
+        foreach (Collider _nearby in colliders) {
+            GameObject _nearbyObjects = _nearby.gameObject;
+            EnemyCombatManager _enemyCombatManager = _nearbyObjects.GetComponent<EnemyCombatManager>();
+            if (_enemyCombatManager != null) {
+                _enemyCombatManager.ReceiveSmash(DefaultSmashTime,
+                DefaultSmashForce,
+                this.transform.position,
+                SmashRadius);
+            }
+        }
     }
 
 }
