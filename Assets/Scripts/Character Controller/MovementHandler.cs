@@ -16,10 +16,17 @@ namespace Lionheart.Player.Movement
         [SerializeField] Camera PlayerCamera;
         [SerializeField] GameObject Player;
 
-        private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
+        [Header("Parameters")]
+        [SerializeField] public float AirRestrictAngle = 60f;
 
         [Header("Photon")]
         public PhotonView PhotonView;
+
+        private readonly List<MovementModifier> Modifiers = new List<MovementModifier>();
+
+        private bool IsPullDashing;
+        private bool DisableGravity;
+        private bool IsGroundPound;
 
         /// <summary>
         /// Author: Ziqi
@@ -52,6 +59,9 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void Move()
         {
+            IsPullDashing = gameObject.GetComponent<PullDash>().IsPullDashing;
+            DisableGravity = gameObject.GetComponent<PullDash>().DisableGravity;
+            IsGroundPound = gameObject.GetComponent<GroundPound>().IsGroundPound;
             bool Restrict = AirControlCompensation();
 
             if (PhotonView.IsMine)
@@ -60,6 +70,25 @@ namespace Lionheart.Player.Movement
 
                 foreach (MovementModifier M in Modifiers)
                 {
+                    //ground pound state overrides other movement vectors
+                    if (IsGroundPound == true)
+                    {
+                        if (M.Type != MovementModifier.MovementType.GroundPound)
+                        {
+                            continue;
+                        }
+                    }
+
+                    //gravity is disabled by the pull dash don't apply the gravity vector
+                    if (M.Type == MovementModifier.MovementType.Jump)
+                    {
+                        if (DisableGravity == true)
+                        {
+                            continue;
+                        }
+                    }
+
+                    //while pull dashing ignore the walk vector if it is outside of the angle tolerance range
                     if (M.Type == MovementModifier.MovementType.Walk)
                     {
                         if (Restrict == true)
@@ -67,6 +96,7 @@ namespace Lionheart.Player.Movement
                             continue;
                         }
                     }
+
                     Movement += M.Value;
                 }
 
@@ -75,12 +105,12 @@ namespace Lionheart.Player.Movement
         }
 
         /// <summary>
-        /// 
+        /// Author: Denis
+        /// While pull dashing air control is restricted to an angle range
         /// </summary>
         /// <returns></returns>
         private bool AirControlCompensation()
         {
-            bool IsPullDashing = gameObject.GetComponent<PullDash>().IsPullDashing;
             Vector3 V1 = Vector3.one, V2 = Vector3.one;
 
             if (IsPullDashing == true)
@@ -99,7 +129,7 @@ namespace Lionheart.Player.Movement
 
                 float teta = Vector3.Angle(V2, V1);
 
-                if (teta > 60)
+                if (teta > AirRestrictAngle)
                 {
                     return true;
                 }

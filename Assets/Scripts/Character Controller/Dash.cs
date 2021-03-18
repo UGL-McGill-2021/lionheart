@@ -23,6 +23,7 @@ namespace Lionheart.Player.Movement
 
         public bool IsDashing;
         private bool DashOnCooldown;
+        private bool ButtonReleased;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -36,6 +37,7 @@ namespace Lionheart.Player.Movement
             ControllerActions = new ControllerInput();
             IsDashing = false;
             DashOnCooldown = false;
+            ButtonReleased = true;
 
             Type = MovementModifier.MovementType.Dash;
         }
@@ -71,11 +73,10 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterDash(InputAction.CallbackContext Ctx)
         {
-            if (DashOnCooldown == false)
+            if (DashOnCooldown == false && gameObject.GetComponent<PullDash>().DisableGravity == false)
             {
                 IsDashing = true;
                 DashOnCooldown = true;
-                StartCoroutine(DashCooldown());
                 StartCoroutine(DashExecution());
             }
         }
@@ -104,6 +105,8 @@ namespace Lionheart.Player.Movement
             yield return new WaitForSecondsRealtime(DashExecutionTime);
             IsDashing = false;
             Gamepad.current.ResetHaptics();
+
+            StartCoroutine(DashCooldown());
         }
 
         private void FixedUpdate() => DashMove();

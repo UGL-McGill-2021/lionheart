@@ -81,6 +81,14 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""GroundPound"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a9b5aaf-8a6f-4eab-8cc7-de1766ab1474"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -279,6 +287,28 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a2ced8f-6595-4c33-98ef-b8a3884e5264"",
+                    ""path"": ""<XInputController>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GroundPound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62f75f33-9c50-411c-97bd-af811b95253f"",
+                    ""path"": ""<DualShock4GamepadHID>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GroundPound"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -613,6 +643,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         m_Player_Mute = m_Player.FindAction("Mute", throwIfNotFound: true);
         m_Player_PullDash = m_Player.FindAction("PullDash", throwIfNotFound: true);
         m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
+        m_Player_GroundPound = m_Player.FindAction("GroundPound", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -683,6 +714,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Mute;
     private readonly InputAction m_Player_PullDash;
     private readonly InputAction m_Player_Kick;
+    private readonly InputAction m_Player_GroundPound;
     public struct PlayerActions
     {
         private @ControllerInput m_Wrapper;
@@ -695,6 +727,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         public InputAction @Mute => m_Wrapper.m_Player_Mute;
         public InputAction @PullDash => m_Wrapper.m_Player_PullDash;
         public InputAction @Kick => m_Wrapper.m_Player_Kick;
+        public InputAction @GroundPound => m_Wrapper.m_Player_GroundPound;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -728,6 +761,9 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @Kick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
                 @Kick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
                 @Kick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
+                @GroundPound.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
+                @GroundPound.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
+                @GroundPound.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -756,6 +792,9 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @Kick.started += instance.OnKick;
                 @Kick.performed += instance.OnKick;
                 @Kick.canceled += instance.OnKick;
+                @GroundPound.started += instance.OnGroundPound;
+                @GroundPound.performed += instance.OnGroundPound;
+                @GroundPound.canceled += instance.OnGroundPound;
             }
         }
     }
@@ -883,6 +922,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         void OnMute(InputAction.CallbackContext context);
         void OnPullDash(InputAction.CallbackContext context);
         void OnKick(InputAction.CallbackContext context);
+        void OnGroundPound(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
