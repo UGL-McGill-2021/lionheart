@@ -86,7 +86,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// Invoked when successfully handled the invitation
     /// </summary>
     public override void OnJoinedRoom() {
-        // Debug.Log("Network (INFO): joined room " + PhotonNetwork.CurrentRoom.Name);
+        // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
         //if (PhotonNetwork.IsMasterClient)
         //{
         //    InputAction.Player.Disable();
