@@ -13,7 +13,6 @@ using UnityEngine;
 public class CameraActivate : MonoBehaviour
 {
     public CinemachineVirtualCamera Camera;
-    public bool IgnoreThisArea; // for testing purposes
     private int PlayersInArea;
 
     
