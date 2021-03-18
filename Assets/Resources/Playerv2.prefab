@@ -802,7 +802,7 @@ MonoBehaviour:
   MaxVectorMagnitude: 40
   CompletionDistance: 2
   ExpiryTimer: 0.8
-  AirControlAngleRange: 60
+  AirControlAngleRange: 0
   TriggerTime: 0.5
 --- !u!114 &2974436586057799471
 MonoBehaviour:

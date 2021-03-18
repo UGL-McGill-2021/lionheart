@@ -128,7 +128,11 @@ namespace Lionheart.Player.Movement
             }
 
             //calculates gravity
-            if (IsGrounded == false && JumpedFrameCounter == 0 && gameObject.GetComponent<PullDash>().DisableGravity == false)
+            if (gameObject.GetComponent<PullDash>().DisableGravity == true)
+            {
+                Vec = Vector3.zero;
+            }
+            else if (IsGrounded == false && JumpedFrameCounter == 0)
             {
                 Vec = new Vector3(0f, 3f * GravityForce * Time.deltaTime, 0f);
             }
