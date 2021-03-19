@@ -61,7 +61,11 @@ MonoBehaviour:
   - ApplyAttackMovement
   - ApplyAttackedMovement
   - RPC_addPlayer
+  - OnAttacked
+  - OnSmashed
   - Teleport
+  - OnPlayerAttacked
+  - OnPlayerSmashed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

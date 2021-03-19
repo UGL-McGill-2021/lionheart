@@ -24,6 +24,13 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float FreezeTimer = 0.2f;
         [SerializeField] private float GroundPoundForce = 40f;
 
+        /// <summary>
+        /// Author: Feiyang
+        /// Combat integration
+        /// </summary>
+        [Header("Combat")]
+        public PlayerCombatManager CombatManager;
+
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
 
@@ -90,6 +97,11 @@ namespace Lionheart.Player.Movement
 
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsGroundPound = false;
+
+            if (CombatManager != null) {
+                CombatManager.Smash();
+            }
+
             if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(1f, 5f);
             else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(1f, 5f);
             else Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);

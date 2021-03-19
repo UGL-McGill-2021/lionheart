@@ -78,6 +78,10 @@ namespace Lionheart.Player.Movement
                 IsDashing = true;
                 DashOnCooldown = true;
                 StartCoroutine(DashExecution());
+
+                // Modification by Feiyang: Integrate with Combat System
+                GetComponent<PlayerCombatManager>().Attack(new Kick(1000, 1));
+                Debug.Log("Dash kick");
             }
         }
 

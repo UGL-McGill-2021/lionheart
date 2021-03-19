@@ -5,10 +5,8 @@ using UnityEngine;
 /// Base class for all attack activity
 /// </summary>
 public abstract class AttackMotion {
-    public float mForce { get; set; }
+    public float Force { get; set; }
 
-    public int mKnockBackTime { get; set; }
-
-    public abstract void OnApplyAttack(CombatManager instigator, CombatManager target);
+    public int KnockBackTime { get; set; }
 
 }

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 
@@ -129,6 +130,8 @@ public class GameManager : MonoBehaviour {
             if (spawningPoint != null)
             {
                 GameObject obj = PhotonNetwork.Instantiate("Grunt", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<Grunt>().enabled = true;
+                obj.GetComponent<NavMeshAgent>().enabled = true;
                 obj.GetComponent<Grunt>().WanderTarget = spawningPoint.transform;
             }
         }
@@ -139,6 +142,8 @@ public class GameManager : MonoBehaviour {
             if(spawningPoint != null)
             {
                 GameObject obj = PhotonNetwork.Instantiate("Shooter", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                obj.GetComponent<Shooter>().enabled = true;
+                obj.GetComponent<NavMeshAgent>().enabled = true;
                 obj.GetComponent<Shooter>().WanderTarget = spawningPoint.transform;
             }
         }

@@ -20,7 +20,7 @@ namespace Lionheart.Player.Movement
         public Dash script4;
         public MovementHandler script5;
         public PullDash script6;
-        public CombatManager script7;
+        public PlayerCombatManager script7;
         public GroundPound script8;
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
