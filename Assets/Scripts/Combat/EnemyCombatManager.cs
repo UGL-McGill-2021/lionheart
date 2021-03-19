@@ -35,7 +35,7 @@ public class EnemyCombatManager : MonoBehaviour {
         float _SmashRadius) {
 
         PhotonView _view = PhotonView.Get(this);
-        _view.RPC("OnSmashed", RpcTarget.All,
+        _view.RPC("OnSmashed", RpcTarget.MasterClient,
             _smashTime,
             _ExplosionForce,
             _ExplosionPos.x,
