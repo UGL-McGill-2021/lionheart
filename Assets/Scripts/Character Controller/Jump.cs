@@ -197,7 +197,8 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         IEnumerator PlayHaptics()
         {
-            Gamepad.current.SetMotorSpeeds(0.05f, 0f);
+            if(Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(0.05f, 0f);
+            else Gamepad.current.SetMotorSpeeds(0.05f, 0f);
             yield return new WaitForSecondsRealtime(0.1f);
             Gamepad.current.ResetHaptics();
         }

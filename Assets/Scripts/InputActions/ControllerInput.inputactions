@@ -103,6 +103,17 @@
                 },
                 {
                     "name": "",
+                    "id": "724767e2-9faf-434f-aa74-e9d6be7a594c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "115a182e-036f-4aa2-94b0-c8119428fd0b",
                     "path": "<XInputController>/rightStick",
                     "interactions": "",
