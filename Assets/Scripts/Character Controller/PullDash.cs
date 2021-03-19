@@ -132,7 +132,10 @@ namespace Lionheart.Player.Movement
 
             PullDashCharged = true;
 
-            Gamepad.current.SetMotorSpeeds(0.05f, 0.3f);
+            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(4f, 4f);
+            else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(4f, 4f);
+            else Gamepad.current.SetMotorSpeeds(0.05f, 0.3f);
+
             yield return new WaitForSecondsRealtime(0.2f);
             Gamepad.current.ResetHaptics();
         }
