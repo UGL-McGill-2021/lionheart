@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
-  ChasingRange: 25
-  NearnessToPlayer: 20
+  ChasingRange: 501
+  NearnessToPlayer: 500
   WanderTarget: {fileID: 0}
   WanderRange: 6
   ProjectileSpeed: 5
