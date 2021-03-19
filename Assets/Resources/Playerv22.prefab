@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 182331204493443372}
   - component: {fileID: 5949393889879185399}
   m_Layer: 7
-  m_Name: Playerv2 2
+  m_Name: Playerv22
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -994,8 +994,8 @@ MonoBehaviour:
   DisableGravity: 0
   MaxTriggerDistance: 60
   LaunchVectorMultiplier: 1
-  MinVectorMagnitude: 15
-  MaxVectorMagnitude: 40
+  MinVectorMagnitude: 25
+  MaxVectorMagnitude: 50
   CompletionDistance: 2
   ExpiryTimer: 0.8
   AirControlAngleRange: 60
