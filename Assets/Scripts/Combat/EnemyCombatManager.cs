@@ -36,7 +36,7 @@ public class EnemyCombatManager : MonoBehaviour {
                 // calculate regular attack
                 Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
                 Debug.Log("Attacked with " + _AttackVector);
-                _playerCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
+                _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
             }
         }
@@ -68,7 +68,7 @@ public class EnemyCombatManager : MonoBehaviour {
             GameObject _nearbyObjects = _nearby.gameObject;
             PlayerCombatManager _playerCombatManager = _nearbyObjects.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
-                _playerCombatManager.ReceiveSmash(DefaultSmashTime,
+                _playerCombatManager.ReceivePlayerSmash(DefaultSmashTime,
                 DefaultSmashForce,
                 this.transform.position,
                 SmashRadius);

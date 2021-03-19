@@ -327,3 +327,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 2501426362866264069}
   AttackBox: {fileID: 0}
+  SmashRadius: 500
+  DefaultSmashTime: 1
+  DefaultSmashForce: 1000

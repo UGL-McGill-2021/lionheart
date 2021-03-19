@@ -14,6 +14,9 @@ public class PlayerCombatManager : MonoBehaviour {
     ControllerInput Input;
     Rigidbody Body;
 
+    MovementHandler Handler;
+    PhotonTransformViewClassic PhotonTransformView;
+
     public Collider AttackBox;
 
     private AttackMotion CurrentAttackMotion;
@@ -32,6 +35,8 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private void Awake() {
         this.Body = GetComponent<Rigidbody>();
+        this.Handler = GetComponent<MovementHandler>();
+        this.PhotonTransformView = GetComponent<PhotonTransformViewClassic>();
     }
 
     private void Start() {
@@ -82,27 +87,34 @@ public class PlayerCombatManager : MonoBehaviour {
         }
     }
 
-    public void ReceiveAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
+    public void ReceivePlayerAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
-        _view.RPC("OnAttacked", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+        _view.RPC("OnPlayerAttacked", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
-    public IEnumerator OnAttacked(float _x, float _y, float _z, int _time) {
+    public IEnumerator OnPlayerAttacked(float _x, float _y, float _z, int _time) {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
+
+        Handler.enabled = false;
+        PhotonTransformView.enabled = false;
+
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
         yield return new WaitForSeconds(_time);
+
+        Handler.enabled = true;
+        PhotonTransformView.enabled = true;
     }
 
-    public void ReceiveSmash(float _smashTime,
+    public void ReceivePlayerSmash(float _smashTime,
         float _ExplosionForce,
         Vector3 _ExplosionPos,
         float _SmashRadius) {
 
         PhotonView _view = PhotonView.Get(this);
-        _view.RPC("OnSmashed", RpcTarget.MasterClient,
+        _view.RPC("OnPlayerSmashed", RpcTarget.MasterClient,
             _smashTime,
             _ExplosionForce,
             _ExplosionPos.x,
@@ -112,7 +124,7 @@ public class PlayerCombatManager : MonoBehaviour {
     }
 
     [PunRPC]
-    public IEnumerator OnSmashed(float _time,
+    public IEnumerator OnPlayerSmashed(float _time,
         float _explosionForce,
         float _ExplosionX,
         float _ExplosionY,
@@ -121,7 +133,13 @@ public class PlayerCombatManager : MonoBehaviour {
 
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
+        Handler.enabled = false;
+        PhotonTransformView.enabled = false;
+
         yield return new WaitForSeconds(_time);
+
+        Handler.enabled = true;
+        PhotonTransformView.enabled = true;
 
     }
 

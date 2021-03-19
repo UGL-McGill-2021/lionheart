@@ -233,6 +233,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 3478691057646437091}
   AttackBox: {fileID: 4506531858679642705}
+  SmashRadius: 500
+  DefaultSmashTime: 1
+  DefaultSmashForce: 500
 --- !u!136 &4506531858679642705
 CapsuleCollider:
   m_ObjectHideFlags: 0
