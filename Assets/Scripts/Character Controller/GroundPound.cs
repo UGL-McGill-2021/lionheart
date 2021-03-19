@@ -24,6 +24,13 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float FreezeTimer = 0.2f;
         [SerializeField] private float GroundPoundForce = 40f;
 
+        /// <summary>
+        /// Author: Feiyang
+        /// Combat integration
+        /// </summary>
+        [Header("Combat")]
+        public PlayerCombatManager CombatManager;
+
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
 
@@ -87,6 +94,11 @@ namespace Lionheart.Player.Movement
             Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsGroundPound = false;
+
+            if (CombatManager != null) {
+                CombatManager.Smash();
+            }
+
             Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);
             yield return new WaitForSecondsRealtime(0.1f);
             Gamepad.current.ResetHaptics();

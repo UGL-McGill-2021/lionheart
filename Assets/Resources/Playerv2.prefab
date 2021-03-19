@@ -1095,6 +1095,7 @@ MonoBehaviour:
   IsGroundPound: 0
   FreezeTimer: 0.2
   GroundPoundForce: 40
+  CombatManager: {fileID: 7158537297210349565}
 --- !u!114 &7158537297210349565
 MonoBehaviour:
   m_ObjectHideFlags: 0

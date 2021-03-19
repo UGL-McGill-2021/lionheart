@@ -37,7 +37,6 @@ public class PlayerCombatManager : MonoBehaviour {
     private void Start() {
         Input = new ControllerInput();
         Input.Player.Kick.performed += _ => Attack(new Kick(DefaultAttackForce, 1));
-        Input.Player.Smash.performed += _ => Smash(SmashRadius);
         Input.Enable();
     }
 
@@ -66,10 +65,10 @@ public class PlayerCombatManager : MonoBehaviour {
         }
     }
 
-    public void Smash(float _radius) {
+    public void Smash() {
         Debug.Log("ExplosionForceApplied");
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, SmashRadius);
 
         foreach (Collider _nearby in colliders) {
             GameObject _nearbyObjects = _nearby.gameObject;
