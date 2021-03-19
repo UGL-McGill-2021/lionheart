@@ -91,12 +91,9 @@ public class PlayerCombatManager : MonoBehaviour {
     [PunRPC]
     public IEnumerator OnAttacked(float _x, float _y, float _z, int _time) {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
-        this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
         yield return new WaitForSeconds(_time);
-
-        this.Body.isKinematic = true;
     }
 
     public void ReceiveSmash(float _smashTime,
@@ -122,12 +119,10 @@ public class PlayerCombatManager : MonoBehaviour {
         float _ExplosionZ,
         float _smashRadius) {
 
-        this.Body.isKinematic = false;
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
         yield return new WaitForSeconds(_time);
 
-        this.Body.isKinematic = true;
     }
 
 }
