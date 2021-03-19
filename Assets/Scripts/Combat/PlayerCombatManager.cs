@@ -98,14 +98,14 @@ public class PlayerCombatManager : MonoBehaviour {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
 
         Handler.enabled = false;
-        PhotonTransformView.enabled = false;
+        //PhotonTransformView.enabled = false;
 
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
         yield return new WaitForSeconds(_time);
 
         Handler.enabled = true;
-        PhotonTransformView.enabled = true;
+        //PhotonTransformView.enabled = true;
     }
 
     public void ReceivePlayerSmash(float _smashTime,
@@ -134,12 +134,12 @@ public class PlayerCombatManager : MonoBehaviour {
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
         Handler.enabled = false;
-        PhotonTransformView.enabled = false;
+        //PhotonTransformView.enabled = false;
 
         yield return new WaitForSeconds(_time);
 
         Handler.enabled = true;
-        PhotonTransformView.enabled = true;
+        //PhotonTransformView.enabled = true;
 
     }
 
