@@ -90,7 +90,7 @@ public class PlayerCombatManager : MonoBehaviour {
     public void ReceivePlayerAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
-        _view.RPC("OnPlayerAttacked", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+        _view.RPC("OnPlayerAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
@@ -114,7 +114,7 @@ public class PlayerCombatManager : MonoBehaviour {
         float _SmashRadius) {
 
         PhotonView _view = PhotonView.Get(this);
-        _view.RPC("OnPlayerSmashed", RpcTarget.MasterClient,
+        _view.RPC("OnPlayerSmashed", RpcTarget.All,
             _smashTime,
             _ExplosionForce,
             _ExplosionPos.x,
