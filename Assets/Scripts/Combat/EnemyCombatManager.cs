@@ -36,8 +36,8 @@ public class EnemyCombatManager : MonoBehaviour {
                 // calculate regular attack
                 Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
                 Debug.Log("Attacked with " + _AttackVector);
+                StopAttack();
                 _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
-                
             }
         }
     }
