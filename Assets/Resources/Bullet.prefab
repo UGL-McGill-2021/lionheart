@@ -109,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851bbc0ca33dc4e46af561e8167262f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BulletAttackTimeSpan: 0.4
+  Force: 4000
 --- !u!54 &5878663970160552205
 Rigidbody:
   m_ObjectHideFlags: 0

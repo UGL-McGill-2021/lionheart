@@ -1111,7 +1111,7 @@ MonoBehaviour:
   AttackBox: {fileID: 182331204493443372}
   DefaultAttackForce: 1000
   DashAttackAngleOfViewDegree: 5
-  SmashRadius: 30
+  SmashRadius: 15
   DefaultSmashTime: 1
   DefaultSmashForce: 500
 --- !u!136 &1197355403299462303
