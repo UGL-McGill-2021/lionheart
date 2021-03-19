@@ -101,7 +101,7 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         IEnumerator DashExecution()
         {
-            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(0f, 0.3f);
+            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(2f, 2f);
             else Gamepad.current.SetMotorSpeeds(0f, 0.3f);
             yield return new WaitForSecondsRealtime(DashExecutionTime);
             IsDashing = false;

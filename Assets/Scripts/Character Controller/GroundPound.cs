@@ -84,12 +84,12 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         IEnumerator GroundPoundRumble()
         {
-            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
+            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(6f, 1f);
             else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
 
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsGroundPound = false;
-            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);
+            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(1f, 5f);
             else Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);
             yield return new WaitForSecondsRealtime(0.1f);
             Gamepad.current.ResetHaptics();
