@@ -91,6 +91,7 @@ public class PlayerCombatManager : MonoBehaviour {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnPlayerAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+        StopAttack();
     }
 
     [PunRPC]
