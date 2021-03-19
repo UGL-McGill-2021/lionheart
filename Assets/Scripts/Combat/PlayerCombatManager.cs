@@ -14,6 +14,9 @@ public class PlayerCombatManager : MonoBehaviour {
     ControllerInput Input;
     Rigidbody Body;
 
+    MovementHandler Handler;
+    PhotonTransformViewClassic PhotonTransformView;
+
     public Collider AttackBox;
 
     private AttackMotion CurrentAttackMotion;
@@ -32,6 +35,8 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private void Awake() {
         this.Body = GetComponent<Rigidbody>();
+        this.Handler = GetComponent<MovementHandler>();
+        this.PhotonTransformView = GetComponent<PhotonTransformViewClassic>();
     }
 
     private void Start() {
@@ -80,6 +85,62 @@ public class PlayerCombatManager : MonoBehaviour {
                 SmashRadius);
             }
         }
+    }
+
+    public void ReceivePlayerAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
+        PhotonView _view = PhotonView.Get(this);
+        Debug.Log("Invoking OnAttacked on MasterClient");
+        _view.RPC("OnPlayerAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+    }
+
+    [PunRPC]
+    public IEnumerator OnPlayerAttacked(float _x, float _y, float _z, int _time) {
+        Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
+
+        Handler.enabled = false;
+        //PhotonTransformView.enabled = false;
+
+        this.Body.AddForce(new Vector3(_x, _y, _z));
+
+        yield return new WaitForSeconds(_time);
+
+        Handler.enabled = true;
+        //PhotonTransformView.enabled = true;
+    }
+
+    public void ReceivePlayerSmash(float _smashTime,
+        float _ExplosionForce,
+        Vector3 _ExplosionPos,
+        float _SmashRadius) {
+
+        PhotonView _view = PhotonView.Get(this);
+        _view.RPC("OnPlayerSmashed", RpcTarget.All,
+            _smashTime,
+            _ExplosionForce,
+            _ExplosionPos.x,
+            _ExplosionPos.y,
+            _ExplosionPos.z,
+            _SmashRadius);
+    }
+
+    [PunRPC]
+    public IEnumerator OnPlayerSmashed(float _time,
+        float _explosionForce,
+        float _ExplosionX,
+        float _ExplosionY,
+        float _ExplosionZ,
+        float _smashRadius) {
+
+        this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
+
+        Handler.enabled = false;
+        //PhotonTransformView.enabled = false;
+
+        yield return new WaitForSeconds(_time);
+
+        Handler.enabled = true;
+        //PhotonTransformView.enabled = true;
+
     }
 
 }

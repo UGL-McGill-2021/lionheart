@@ -8,8 +8,38 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
 
-    private void Awake() {
-        this.Body = GetComponent<Rigidbody>();
+    private bool IsAttacking;
+    private AttackMotion CurrentAttackMotion;
+    public Collider AttackBox;
+
+    [Header("Smash")]
+    public float SmashRadius = 500;
+    public float DefaultSmashTime = 1;
+    public float DefaultSmashForce = 500;
+
+    public void Attack(AttackMotion _attackMotion) {
+        AttackBox.enabled = true;
+        CurrentAttackMotion = _attackMotion;
+        IsAttacking = true;
+    }
+
+    public void StopAttack() {
+        AttackBox.enabled = false;
+        CurrentAttackMotion = null;
+        IsAttacking = false;
+    }
+
+    private void OnTriggerStay(Collider other) {
+        if (IsAttacking) {
+            PlayerCombatManager _playerCombatManager = other.gameObject.GetComponent<PlayerCombatManager>();
+            if (_playerCombatManager != null && CurrentAttackMotion != null) {
+                // calculate regular attack
+                Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
+                Debug.Log("Attacked with " + _AttackVector);
+                _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
+                StopAttack();
+            }
+        }
     }
 
     public void ReceiveAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
@@ -27,6 +57,23 @@ public class EnemyCombatManager : MonoBehaviour {
         yield return new WaitForSeconds(_time);
 
         this.Body.isKinematic = true;
+    }
+
+    public void Smash() {
+        Debug.Log("ExplosionForceApplied");
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, SmashRadius);
+
+        foreach (Collider _nearby in colliders) {
+            GameObject _nearbyObjects = _nearby.gameObject;
+            PlayerCombatManager _playerCombatManager = _nearbyObjects.GetComponent<PlayerCombatManager>();
+            if (_playerCombatManager != null) {
+                _playerCombatManager.ReceivePlayerSmash(DefaultSmashTime,
+                DefaultSmashForce,
+                this.transform.position,
+                SmashRadius);
+            }
+        }
     }
 
     public void ReceiveSmash(float _smashTime, 
