@@ -116,17 +116,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""724767e2-9faf-434f-aa74-e9d6be7a594c"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""115a182e-036f-4aa2-94b0-c8119428fd0b"",
                     ""path"": ""<XInputController>/rightStick"",
                     ""interactions"": """",
@@ -160,17 +149,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d07ceea1-2aec-4b60-a97a-c2079e68415c"",
-                    ""path"": ""<DualShockGamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""90ab8fa6-bbc9-4dc4-9119-0ef95b09788c"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -185,17 +163,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""id"": ""6f04366a-8894-4627-affe-ce332ee0df47"",
                     ""path"": ""<XInputController>/buttonWest"",
                     ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cd66e68f-deaf-452f-acf4-f63806c1f500"",
-                    ""path"": ""<DualShockGamepad>/buttonWest"",
-                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
@@ -248,17 +215,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c4ee849f-aeb2-45c1-a505-923442952db4"",
-                    ""path"": ""<DualShockGamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PullDash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""cfe038e1-1a43-4df2-9b6f-085ef74be658"",
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
@@ -272,17 +228,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""7d7798f4-906c-4625-99c5-3812dc2eabf2"",
                     ""path"": ""<XInputController>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Kick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0fd285d7-1bb5-4e6d-8bb4-e9e1a99d7f66"",
-                    ""path"": ""<DualShockGamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
