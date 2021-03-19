@@ -120,7 +120,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &3478691057646437100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 3478691057646437091}
+  AttackBox: {fileID: 4506531858679642705}
 --- !u!136 &4506531858679642705
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -8,8 +8,33 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
 
-    private void Awake() {
-        this.Body = GetComponent<Rigidbody>();
+    private bool IsAttacking;
+    private AttackMotion CurrentAttackMotion;
+    public Collider AttackBox;
+
+    public void Attack(AttackMotion _attackMotion) {
+        AttackBox.enabled = true;
+        CurrentAttackMotion = _attackMotion;
+        IsAttacking = true;
+    }
+
+    public void StopAttack() {
+        AttackBox.enabled = false;
+        CurrentAttackMotion = null;
+        IsAttacking = false;
+    }
+
+    private void OnTriggerStay(Collider other) {
+        if (IsAttacking) {
+            EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
+            if (_enemyCombatManager != null && CurrentAttackMotion != null) {
+                // calculate regular attack
+                Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
+                Debug.Log("Attacked with " + _AttackVector);
+                _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
+                StopAttack();
+            }
+        }
     }
 
     public void ReceiveAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
