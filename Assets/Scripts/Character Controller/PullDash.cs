@@ -196,6 +196,7 @@ namespace Lionheart.Player.Movement
                 if (PullDashCharged == false || V.magnitude > MaxTriggerDistance)
                 {
                     StopAllCoroutines();
+                    Gamepad.current.ResetHaptics();
                     ChargingPullDash = false;
                 }
                 else

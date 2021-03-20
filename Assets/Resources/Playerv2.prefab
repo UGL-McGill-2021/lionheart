@@ -912,7 +912,7 @@ MonoBehaviour:
   CounterJumpForce: 2
   GroundDistance: 0.15
   CoyoteHopTimer: 1
-  FallTimer: 0.8
+  FallTimer: 2
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
