@@ -24,7 +24,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float CounterJumpForce = 0.75f;
         [SerializeField] private float GroundDistance = 0.6f;
         [SerializeField] private float CoyoteHopTimer = 1f;
-        [SerializeField] private float FallTimer = 0.8f;
+        [SerializeField] private float FallTimer = 2f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
@@ -110,11 +110,16 @@ namespace Lionheart.Player.Movement
             Vector3 Vec = Vector3.zero;
             CheckIfGrounded();
 
+            /*if (IsGrounded == true)
+            {
+                StopCoroutine(MinFallTimeWindow());
+            }*/
+
             if (IsGrounded == false && WasGroundedLastFrame == true)
             {
                 CanCoyoteHop = true;
                 StartCoroutine(CoyoteHopTimeWindow());
-                StartCoroutine(MinFallTimeWindow());
+                //StartCoroutine(MinFallTimeWindow());
             }
 
             //allows for the varying jump sizes
