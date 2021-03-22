@@ -15,6 +15,7 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
         [SerializeField] GameObject GroundCheck;
         [SerializeField] Gamepad Controller;
         [SerializeField] Rigidbody Rb;
@@ -25,11 +26,13 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float GroundDistance = 0.6f;
         [SerializeField] private float CoyoteHopTimer = 1f;
         [SerializeField] private float FallTimer = 2f;
+        [SerializeField] private float LandingAnimTriggerDistance = 0.5f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
         public bool IsGrounded;
         public bool IsFalling;
+        public bool PlayedLandingAnim;
 
         private float GravityForce = Physics.gravity.y;
         private bool HasJumped;
@@ -55,6 +58,7 @@ namespace Lionheart.Player.Movement
             HasJumped = false;
             CanCoyoteHop = false;
             WasGroundedLastFrame = false;
+            PlayedLandingAnim = false;
 
             Type = MovementModifier.MovementType.Jump;
         }
@@ -96,6 +100,9 @@ namespace Lionheart.Player.Movement
                 HasJumped = true;
                 CanCoyoteHop = false;
                 JumpedFrameCounter = 10;
+
+                AnimatorController.SetTrigger("IsJumping");
+                PlayedLandingAnim = false;
             }
         }
 
@@ -165,6 +172,11 @@ namespace Lionheart.Player.Movement
             }
             Value += Vec + Vec2;
 
+            if (PlayedLandingAnim == false)
+            {
+                PlayLandAnim();
+            }
+
             WasGroundedLastFrame = IsGrounded;
         }
 
@@ -192,6 +204,20 @@ namespace Lionheart.Player.Movement
         private void CheckIfGrounded()
         {
             IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Play Landing animation when about to hit the ground
+        /// </summary>
+        private void PlayLandAnim()
+        {
+            if (Physics.CheckSphere(GroundCheck.transform.position, LandingAnimTriggerDistance, GroundMask) &&
+                PlayedLandingAnim == false && Value.y < 0f && HasJumped == true)
+            {
+                AnimatorController.SetTrigger("IsLanding");
+                PlayedLandingAnim = true;
+            }
         }
 
         /// <summary>
