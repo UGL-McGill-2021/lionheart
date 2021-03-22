@@ -212,6 +212,8 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void PlayLandAnim()
         {
+            //TODO: Play landing when speed is still going up, ie jump on top of a new platorm
+            //Integrate with photon
             if (Physics.CheckSphere(GroundCheck.transform.position, LandingAnimTriggerDistance, GroundMask) &&
                 PlayedLandingAnim == false && Value.y < 0f && HasJumped == true)
             {
