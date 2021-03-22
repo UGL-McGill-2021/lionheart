@@ -355,7 +355,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -780,7 +780,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4480450124058534182}
+        m_TargetAssemblyTypeName: QuitMenuManager, Assembly-CSharp
+        m_MethodName: TurnVibration
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1875113448
 GameObject:
@@ -1240,6 +1252,7 @@ MonoBehaviour:
   QuitMenuUI: {fileID: 4480450124257965023}
   ContinueButton: {fileID: 4480450123532578463}
   QuitButton: {fileID: 4480450124850893654}
+  VibToggle: {fileID: 1821903995}
   CurrentPlayerActivator: {fileID: 0}
 --- !u!114 &4480450123633251657
 MonoBehaviour:

@@ -12,6 +12,7 @@ public class QuitMenuManager : MenuManager
     public GameObject QuitMenuUI;
     public Button ContinueButton;
     public Button QuitButton;
+    public Toggle VibToggle;
 
     private List<GameObject> PlayerList;
     [SerializeField]
@@ -99,6 +100,18 @@ public class QuitMenuManager : MenuManager
     {
         // use AllViaServer option to make sure that the RPC can be executed on both client before the client disconnects
         PhotonView.RPC("RPC_Quit", RpcTarget.AllViaServer);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Toggle callback function for vibration toggle
+    /// </summary>
+    public void TurnVibration()
+    {
+        foreach(GameObject player in PlayerList)
+        {
+            if (player.GetComponent<PhotonView>().IsMine) player.GetComponent<MultiplayerActivator>().hasVibration = VibToggle.isOn;
+        }
     }
 
     /// <summary>
