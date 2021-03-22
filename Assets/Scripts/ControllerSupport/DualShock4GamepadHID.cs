@@ -27,11 +27,11 @@ namespace AssemblyCSharp.Assets
             // Alternatively, you can also match by PID and VID, which is generally
             // more reliable for HIDs.
             // (PID and VID can be seen in the input debugger)
-            InputSystem.RegisterLayout<DualShock4GamepadHID>(
-                matches: new InputDeviceMatcher()
-                    .WithInterface("HID")
-                    .WithCapability("vendorId", 0x54C) // Sony Entertainment.
-                    .WithCapability("productId", 0x5C4)); // Wireless controller.
+            //InputSystem.RegisterLayout<DualShock4GamepadHID>(
+            //    matches: new InputDeviceMatcher()
+            //        .WithInterface("HID")
+            //        .WithCapability("vendorId", 0x54C) // Sony Entertainment.
+            //        .WithCapability("productId", 0x5C4)); // Wireless controller.
         }
 
         // In the Player, to trigger the calling of the static constructor,
