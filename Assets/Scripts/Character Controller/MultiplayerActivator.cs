@@ -28,6 +28,10 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Ziqi
+        /// Function to disable all attached scripts
+        /// </summary>
         public void DisableControls()
         {
             foreach (MonoBehaviour script in scripts)
@@ -36,6 +40,10 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Ziqi
+        /// Function to enable all attached scripts
+        /// </summary>
         public void EnableControls()
         {
             foreach(MonoBehaviour script in scripts)
