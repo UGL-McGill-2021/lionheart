@@ -839,14 +839,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 4549069522882706186}
   aud: {fileID: 3681983124607863458}
-  script1: {fileID: 5368698313015805028}
-  script2: {fileID: 8654789910141434568}
-  script3: {fileID: 8962104049189637306}
-  script4: {fileID: 5566292478228044567}
-  script5: {fileID: 9057546429446380302}
-  script6: {fileID: 6742636947217563593}
-  script7: {fileID: 7158537297210349565}
-  script8: {fileID: 291058629658783102}
+  scripts:
+  - {fileID: 9057546429446380302}
+  - {fileID: 5368698313015805028}
+  - {fileID: 8962104049189637306}
+  - {fileID: 8654789910141434568}
+  - {fileID: 5566292478228044567}
+  - {fileID: 6742636947217563593}
+  - {fileID: 291058629658783102}
+  - {fileID: 7158537297210349565}
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,7 +913,7 @@ MonoBehaviour:
   CounterJumpForce: 2
   GroundDistance: 0.15
   CoyoteHopTimer: 1
-  FallTimer: 2
+  FallTimer: 0.8
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1086,7 +1087,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8401703996827886909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4360c18422d878349a78830c6cd9c633, type: 3}
   m_Name: 

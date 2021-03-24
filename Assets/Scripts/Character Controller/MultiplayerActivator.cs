@@ -14,14 +14,9 @@ namespace Lionheart.Player.Movement
     {
         public Camera cam;
         public AudioListener aud;
-        public WalkMotion script1;
-        public Rotation script2;
-        public Jump script3;
-        public Dash script4;
-        public MovementHandler script5;
-        public PullDash script6;
-        public PlayerCombatManager script7;
-        public GroundPound script8;
+        public List<MonoBehaviour> scripts = new List<MonoBehaviour>();
+
+        public bool hasVibration { get; set; } = true;
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
@@ -33,28 +28,28 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Ziqi
+        /// Function to disable all attached scripts
+        /// </summary>
         public void DisableControls()
         {
-            script1.enabled = false;
-            script2.enabled = false;
-            script3.enabled = false;
-            script4.enabled = false;
-            script5.enabled = false;
-            script6.enabled = false;
-            script7.enabled = false; 
-            script8.enabled = false;
+            foreach (MonoBehaviour script in scripts)
+            {
+                script.enabled = false;
+            }
         }
 
+        /// <summary>
+        /// Author: Ziqi
+        /// Function to enable all attached scripts
+        /// </summary>
         public void EnableControls()
         {
-            script1.enabled = true;
-            script2.enabled = true;
-            script3.enabled = true;
-            script4.enabled = true;
-            script5.enabled = true;
-            script6.enabled = true;
-            script7.enabled = true;
-            script8.enabled = true;
+            foreach(MonoBehaviour script in scripts)
+            {
+                script.enabled = true;
+            }
         }
     }
 }
