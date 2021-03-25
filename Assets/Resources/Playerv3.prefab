@@ -583,6 +583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 0}
+  PlayerGroundPound: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   GroundCheck: {fileID: 6675483342905746456}
   Rb: {fileID: 3535366763632785127}
@@ -645,10 +647,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 0}
+  PlayerJump: {fileID: 0}
+  PlayerCombat: {fileID: 0}
+  AnimatorController: {fileID: 3717460445037045334}
   Direction: {x: 0, y: 0, z: 0}
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
+  KnockbackForce: 1000
+  KnockbackTime: 1
   IsDashing: 0
 --- !u!114 &6742636947217563593
 MonoBehaviour:
@@ -868,12 +876,6 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 0
-    Name: IsWalking
-  - Type: 4
-    SynchronizeType: 0
-    Name: IsIdle
   - Type: 9
     SynchronizeType: 2
     Name: IsJumping
@@ -883,6 +885,12 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: MoveMagnitude
+  - Type: 9
+    SynchronizeType: 0
+    Name: IsFalling
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsDashing
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

@@ -13,17 +13,25 @@ namespace Lionheart.Player.Movement
     {
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
+        [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] Jump PlayerJump;
+        [SerializeField] PlayerCombatManager PlayerCombat;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
         [SerializeField] Vector3 Direction;
 
         [Header("Parameters")]
         [SerializeField] private float DashForce = 10f;
         [SerializeField] private float DashExecutionTime = 0.2f;
         [SerializeField] private float DashCooldownTime = 0.3f;
+        [SerializeField] private float KnockbackForce = 1000f;
+        [SerializeField] private int KnockbackTime = 1;
 
+        [Header("State")]
         public bool IsDashing;
+        public bool IsAirDashing;
+
         private bool DashOnCooldown;
-        private bool ButtonReleased;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -37,9 +45,19 @@ namespace Lionheart.Player.Movement
             ControllerActions = new ControllerInput();
             IsDashing = false;
             DashOnCooldown = false;
-            ButtonReleased = true;
 
             Type = MovementModifier.MovementType.Dash;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Caching components
+        /// </summary>
+        private void Start()
+        {
+            PlayerPullDash = gameObject.GetComponent<PullDash>();
+            PlayerJump = gameObject.GetComponent<Jump>();
+            PlayerCombat = gameObject.GetComponent<PlayerCombatManager>();
         }
 
         /// <summary>
@@ -67,21 +85,25 @@ namespace Lionheart.Player.Movement
         }
 
         /// <summary>
-        /// Author: Denis
-        /// Processes the X(XB) button press and starts the dash execution and cooldown timers
+        /// Author: Denis, Feiyang
+        /// Processes the X(XB) button press and starts the dash execution, cooldown timers and combat action
         /// </summary>
         /// <param name="Ctx"></param>
         private void RegisterDash(InputAction.CallbackContext Ctx)
         {
-            if (DashOnCooldown == false && gameObject.GetComponent<PullDash>().DisableGravity == false)
+            if (DashOnCooldown == false && PlayerPullDash.DisableGravity == false)
             {
                 IsDashing = true;
                 DashOnCooldown = true;
                 StartCoroutine(DashExecution());
 
-                // Modification by Feiyang: Integrate with Combat System
-                GetComponent<PlayerCombatManager>().Attack(new Kick(1000, 1));
-                Debug.Log("Dash kick");
+                AnimatorStateInfo St = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                if (St.IsName("Jump") == true || St.IsName("Airborne") == true) 
+                {
+                    IsAirDashing = true;
+                }
+
+                PlayerCombat.Attack(new Kick(KnockbackForce, KnockbackTime));
             }
         }
 
@@ -93,23 +115,31 @@ namespace Lionheart.Player.Movement
         IEnumerator DashCooldown()
         {
             yield return new WaitForSecondsRealtime(DashCooldownTime);
-            yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
+            yield return new WaitWhile(() => !PlayerJump.IsGrounded);
             DashOnCooldown = false;
         }
 
         /// <summary>
-        /// Author: Denis
+        /// Author: Denis, Ziqi
         /// Dash execution timer (how long the dash takes)
         /// Also triggers rumble.
         /// </summary>
         /// <returns></returns>
         IEnumerator DashExecution()
         {
+            AnimatorController.SetBool("IsDashing", true);
             if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(2f, 2f);
             else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(2f, 2f);
             else Gamepad.current.SetMotorSpeeds(0f, 0.3f);
             yield return new WaitForSecondsRealtime(DashExecutionTime);
             IsDashing = false;
+            if (IsAirDashing == true)
+            {
+                AnimatorController.SetTrigger("IsAirDashing");
+                IsAirDashing = false;
+            }
+
+            AnimatorController.SetBool("IsDashing", false);
             Gamepad.current.ResetHaptics();
 
             StartCoroutine(DashCooldown());

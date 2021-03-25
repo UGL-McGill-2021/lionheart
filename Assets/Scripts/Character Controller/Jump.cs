@@ -66,6 +66,10 @@ namespace Lionheart.Player.Movement
             Type = MovementModifier.MovementType.Jump;
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Caching components
+        /// </summary>
         private void Start()
         {
             PlayerPullDash = gameObject.GetComponent<PullDash>();
@@ -153,8 +157,8 @@ namespace Lionheart.Player.Movement
 
             if (IsGrounded == true)
             {
-                AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
-                if (st.IsName("Airborne"))
+                AnimatorStateInfo St = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                if (St.IsName("Airborne"))
                 {
                     AnimatorController.SetTrigger("IsLanding");
                     PlayedLandingAnim = true;
@@ -270,7 +274,7 @@ namespace Lionheart.Player.Movement
         }
 
         /// <summary>
-        /// Author: Denis
+        /// Author: Denis, Ziqi
         /// Simple Rumble feedback on landing
         /// TODO: PS4 vs XB rumble
         /// </summary>
