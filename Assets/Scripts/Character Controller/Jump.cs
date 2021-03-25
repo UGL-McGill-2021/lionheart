@@ -117,10 +117,16 @@ namespace Lionheart.Player.Movement
             Vector3 Vec = Vector3.zero;
             CheckIfGrounded();
 
-            /*if (IsGrounded == true)
+            if (IsGrounded == true)
             {
-                StopCoroutine(MinFallTimeWindow());
-            }*/
+                AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                if (st.IsName("Airborne"))
+                {
+                    AnimatorController.SetTrigger("IsLanding");
+                    PlayedLandingAnim = true;
+                }
+                //StopCoroutine(MinFallTimeWindow());
+            }
 
             if (IsGrounded == false && WasGroundedLastFrame == true)
             {
@@ -212,9 +218,7 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void PlayLandAnim()
         {
-            //TODO: Play landing when speed is still going up, ie jump on top of a new platorm
-            //TODO: try using the isgrounded and last frame grounded value + playedlandingAnim?
-            //Integrate with photon
+            //TODO Integrate with photon
             if (Physics.CheckSphere(GroundCheck.transform.position, LandingAnimTriggerDistance, GroundMask) &&
                 HasJumped == true)
             {
@@ -225,6 +229,7 @@ namespace Lionheart.Player.Movement
                 }
                 else
                 {
+                    //TODO: there is a rare airborne lock bug
                     AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
                     if (st.IsName("Airborne"))
                     {

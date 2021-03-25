@@ -79,25 +79,9 @@ namespace Lionheart.Player.Movement {
                 Value = Value.normalized * CurrentSpeed;
             }
 
-            if (Value.magnitude <= 0.2)
-            {
-                AnimatorController.SetBool("isIdle", true);
-                AnimatorController.SetBool("isWalking", false);
-                AnimatorController.SetBool("isRunning", false);
-            }
-            else if (Value.magnitude <= 3)
-            {
-                AnimatorController.SetBool("isIdle", false);
-                AnimatorController.SetBool("isWalking", true);
-                AnimatorController.SetBool("isRunning", false);
-            }
-            else
-            {
-                AnimatorController.SetBool("isIdle", false);
-                AnimatorController.SetBool("isWalking", false);
-                AnimatorController.SetBool("isRunning", true);
-            }
             AnimatorController.SetFloat("MoveMagnitude", Value.magnitude);
+
+            
         }
     }
 }
