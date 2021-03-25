@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour {
                     //MovingPlatformScriptList[0].speed = 5f;
                     //MovingPlatformScriptList[0].StopTime = 1f;
                     // MovingPlatformScriptList[0].isAutomatic = false;
+                    GameObject obj = PhotonNetwork.Instantiate("Grunt_v2", new Vector3(100, 8, -90), Quaternion.identity);
+                    obj.GetComponent<Grunt>().enabled = true;
+                    obj.GetComponent<NavMeshAgent>().enabled = true;
+                    obj.GetComponent<Grunt>().WanderTarget = obj.transform;
+                    obj.GetComponent<Grunt>().WanderRange = 20;
 
                     // for example, change the disappear time of the second temp platform in the list to 1.5
                     //TempPlatformScriptList[1].DisappearDelay = 1.5f;

@@ -21,14 +21,17 @@ public class Grunt : Enemy
     private Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
+    public GruntAnimationManager AnimManager { get; set; }
 
     // Photon:
     public List<GameObject> PlayerList;
+
 
     void Awake()
     {
         NavMeshAgent = this.GetComponent<NavMeshAgent>();
         PhotonView = this.GetComponent<PhotonView>();
+        AnimManager = this.GetComponent<GruntAnimationManager>();
     }
 
     void Start()
@@ -42,7 +45,11 @@ public class Grunt : Enemy
 
     private void Update()
     {
-        if (PhotonView.IsMine) RootNode.Evaluate();
+        if (PhotonView.IsMine)
+        {
+            AnimManager.IsMoving(this.NavMeshAgent.velocity.magnitude);
+            RootNode.Evaluate();
+        }
 
         if (PlayerList.Count < 2)
         {
@@ -78,7 +85,7 @@ public class Grunt : Enemy
         WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
-        MeleeAttackNode MeleeAttackNode = new MeleeAttackNode(AttackCooldown, GetComponent<MonoBehaviour>());
+        MeleeAttackNode MeleeAttackNode = new MeleeAttackNode(AttackCooldown, this, AnimManager);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 

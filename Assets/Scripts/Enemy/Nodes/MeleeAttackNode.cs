@@ -8,11 +8,13 @@ public class MeleeAttackNode : Node
     private MonoBehaviour MonoBehaviour;
     private bool AttackRunning = false;
     private bool AttackComplete = false;
+    private AnimationManager AnimManager;
 
-    public MeleeAttackNode (float CooldownTime, MonoBehaviour MonoBehaviour)
+    public MeleeAttackNode (float CooldownTime, MonoBehaviour MonoBehaviour, AnimationManager AnimationManager)
     {
         this.CooldownTime = CooldownTime;
         this.MonoBehaviour = MonoBehaviour;
+        this.AnimManager = AnimationManager;
     }
     public override NodeState Evaluate()
     {
@@ -36,6 +38,7 @@ public class MeleeAttackNode : Node
     {
         Debug.Log("Melee attack executed!");
         MonoBehaviour.gameObject.GetComponent<EnemyCombatManager>().Smash();
+        AnimManager.TriggerAttack();
     }
 
     IEnumerator AttackAndCooldown()
