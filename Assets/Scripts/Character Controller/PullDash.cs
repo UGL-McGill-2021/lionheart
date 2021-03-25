@@ -15,6 +15,7 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
         [SerializeField] Vector3 Direction;
         [SerializeField] GameObject OwnPullDashTarget;
         [SerializeField] GameObject OtherPlayer;
@@ -209,6 +210,8 @@ namespace Lionheart.Player.Movement
                     IsPullDashing = true;
                     DisableGravity = true;
 
+                    AnimatorController.SetTrigger("IsPullDashing");
+
                     //Time limit on the pull dash execution
                     StartCoroutine(PullDashTimer());
                 }
@@ -255,6 +258,8 @@ namespace Lionheart.Player.Movement
             yield return new WaitForSecondsRealtime(ExpiryTimer);
             gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
+
+            AnimatorController.SetTrigger("IsFalling");
 
             StartCoroutine(PullDashFall());
         }
