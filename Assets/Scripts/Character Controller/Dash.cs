@@ -135,7 +135,7 @@ namespace Lionheart.Player.Movement
             IsDashing = false;
             if (IsAirDashing == true)
             {
-                AnimatorController.SetTrigger("IsAirDashing");
+                AnimatorController.SetBool("IsAirDashing", true);
                 IsAirDashing = false;
             }
 

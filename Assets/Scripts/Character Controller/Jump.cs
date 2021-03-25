@@ -163,6 +163,11 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetTrigger("IsLanding");
                     PlayedLandingAnim = true;
                 }
+                
+                if (AnimatorController.GetBool("IsAirDashing") == true)
+                {
+                    AnimatorController.SetBool("IsAirDashing", false);
+                }
             }
         }
 
