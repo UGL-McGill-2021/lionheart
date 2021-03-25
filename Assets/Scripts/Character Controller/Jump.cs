@@ -213,12 +213,25 @@ namespace Lionheart.Player.Movement
         private void PlayLandAnim()
         {
             //TODO: Play landing when speed is still going up, ie jump on top of a new platorm
+            //TODO: try using the isgrounded and last frame grounded value + playedlandingAnim?
             //Integrate with photon
             if (Physics.CheckSphere(GroundCheck.transform.position, LandingAnimTriggerDistance, GroundMask) &&
-                PlayedLandingAnim == false && Value.y < 0f && HasJumped == true)
+                HasJumped == true)
             {
-                AnimatorController.SetTrigger("IsLanding");
-                PlayedLandingAnim = true;
+                if (Value.y < 0f)
+                {
+                    AnimatorController.SetTrigger("IsLanding");
+                    PlayedLandingAnim = true;
+                }
+                else
+                {
+                    AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                    if (st.IsName("Airborne"))
+                    {
+                        AnimatorController.SetTrigger("IsLanding");
+                        PlayedLandingAnim = true;
+                    }
+                }
             }
         }
 
