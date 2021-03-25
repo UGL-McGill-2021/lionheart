@@ -40,6 +40,7 @@ namespace Lionheart.Player.Movement
         private bool HasJumped;
         private bool CanCoyoteHop;
         private bool WasGroundedLastFrame;
+        private Vector3 Vec;
         private Vector3 Vec2 = Vector3.zero;
 
         //TODO: Replace by Coroutine is found to be unstable
@@ -114,19 +115,36 @@ namespace Lionheart.Player.Movement
             }
         }
 
-        private void FixedUpdate() => VerticalForces();
+        /// <summary>
+        /// Author: Denis
+        /// Jump vectors and animation logic
+        /// </summary>
+        private void FixedUpdate()
+        {
+            Vec = Vector3.zero;
+
+            CheckIfGrounded();
+
+            EarlyPlayAnimations();
+
+            VerticalForces();
+
+            if (PlayedLandingAnim == false)
+            {
+                LatePlayAnimations();
+            }
+
+            WasGroundedLastFrame = IsGrounded;
+        }
 
         /// <summary>
         /// Author: Denis
-        /// Solves the jump and gravity vectors to produce a final y axis vector.
+        /// Manages the fall animation and a counter airborne softlock state landing animation 
         /// </summary>
-        private void VerticalForces()
+        private void EarlyPlayAnimations()
         {
-            Vector3 Vec = Vector3.zero;
-            CheckIfGrounded();
-
             if (IsGrounded == false && HasJumped == false && PlayerPullDash.IsPullDashing == false &&
-                PlayerGroundPound.IsGroundPound == false && Value.y < -8f) 
+                PlayerGroundPound.IsGroundPound == false && Value.y < -8f)
             {
                 AnimatorController.SetTrigger("IsFalling");
                 IsFalling = true;
@@ -142,7 +160,15 @@ namespace Lionheart.Player.Movement
                     PlayedLandingAnim = true;
                 }
             }
+        }
 
+        /// <summary>
+        /// Author: Denis
+        /// Solves the jump, jump counterforce and gravity vectors to produce a final y axis vector. Also triggers rumble
+        /// </summary>
+        private void VerticalForces()
+        {
+            //coyote time for the jump
             if (IsGrounded == false && WasGroundedLastFrame == true)
             {
                 CanCoyoteHop = true;
@@ -169,6 +195,7 @@ namespace Lionheart.Player.Movement
                 Vec = new Vector3(0f, 3f * GravityForce * Time.deltaTime, 0f);
             }
 
+            //checks landing after a jump or fall
             if (IsGrounded == true && JumpedFrameCounter == 0)
             {
                 Value = Vector3.zero;
@@ -186,18 +213,13 @@ namespace Lionheart.Player.Movement
                     IsFalling = false;
                 }
             }
+            //reduces jump collision ignore time
             if (JumpedFrameCounter > 0)
             {
                 JumpedFrameCounter--;
             }
+
             Value += Vec + Vec2;
-
-            if (PlayedLandingAnim == false)
-            {
-                PlayLandAnim();
-            }
-
-            WasGroundedLastFrame = IsGrounded;
         }
 
         /// <summary>
@@ -223,10 +245,10 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// Play Landing animation when about to hit the ground
+        /// TODO Integrate with photon
         /// </summary>
-        private void PlayLandAnim()
+        private void LatePlayAnimations()
         {
-            //TODO Integrate with photon
             if (Physics.CheckSphere(GroundCheck.transform.position, LandingAnimTriggerDistance, GroundMask) &&
                 HasJumped == true)
             {
@@ -250,7 +272,7 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// Simple Rumble feedback on landing
-        /// TODO: rumble doesn't trigger if fell off an edge
+        /// TODO: PS4 vs XB rumble
         /// </summary>
         /// <returns></returns>
         IEnumerator PlayHaptics()
