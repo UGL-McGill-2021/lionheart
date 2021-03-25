@@ -14,6 +14,8 @@ namespace Lionheart.Player.Movement
     {
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
+        [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] GroundPound PlayerGroundPound;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
         [SerializeField] GameObject GroundCheck;
@@ -61,6 +63,12 @@ namespace Lionheart.Player.Movement
             PlayedLandingAnim = false;
 
             Type = MovementModifier.MovementType.Jump;
+        }
+
+        private void Start()
+        {
+            PlayerPullDash = gameObject.GetComponent<PullDash>();
+            PlayerGroundPound = gameObject.GetComponent<GroundPound>();
         }
 
         /// <summary>
@@ -117,6 +125,14 @@ namespace Lionheart.Player.Movement
             Vector3 Vec = Vector3.zero;
             CheckIfGrounded();
 
+            if (IsGrounded == false && HasJumped == false && PlayerPullDash.IsPullDashing == false &&
+                PlayerGroundPound.IsGroundPound == false && Value.y < -8f) 
+            {
+                AnimatorController.SetTrigger("IsFalling");
+                IsFalling = true;
+                PlayedLandingAnim = false;
+            }
+
             if (IsGrounded == true)
             {
                 AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
@@ -125,14 +141,12 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetTrigger("IsLanding");
                     PlayedLandingAnim = true;
                 }
-                //StopCoroutine(MinFallTimeWindow());
             }
 
             if (IsGrounded == false && WasGroundedLastFrame == true)
             {
                 CanCoyoteHop = true;
                 StartCoroutine(CoyoteHopTimeWindow());
-                //StartCoroutine(MinFallTimeWindow());
             }
 
             //allows for the varying jump sizes
@@ -146,7 +160,7 @@ namespace Lionheart.Player.Movement
             }
 
             //calculates gravity
-            if (gameObject.GetComponent<PullDash>().DisableGravity == true)
+            if (PlayerPullDash.DisableGravity == true)
             {
                 Vec = Vector3.zero;
             }
@@ -197,12 +211,6 @@ namespace Lionheart.Player.Movement
             CanCoyoteHop = false;
         }
 
-        private IEnumerator MinFallTimeWindow()
-        {
-            yield return new WaitForSecondsRealtime(FallTimer);
-            IsFalling = true;
-        }
-
         /// <summary>
         /// Author: Denis
         /// Detect collision with the ground
@@ -229,7 +237,6 @@ namespace Lionheart.Player.Movement
                 }
                 else
                 {
-                    //TODO: there is a rare airborne lock bug
                     AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
                     if (st.IsName("Airborne"))
                     {
