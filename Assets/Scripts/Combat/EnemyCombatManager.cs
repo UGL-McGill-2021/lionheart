@@ -7,7 +7,6 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
     public NavMeshAgent agent;
-    public Grunt GruntScript;
 
     public LayerMask GroundLayerMask;
     public float GroundDistance;

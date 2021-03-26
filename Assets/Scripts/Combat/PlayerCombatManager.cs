@@ -23,6 +23,8 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private bool IsAttacking;
 
+    private bool IsInvicible;
+
     public float DefaultAttackForce = 1000;
 
     [Header("Dash Attack")]
@@ -86,8 +88,6 @@ public class PlayerCombatManager : MonoBehaviour {
                 StopAttack();
             }
         }
-
-        
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -146,6 +146,11 @@ public class PlayerCombatManager : MonoBehaviour {
     /// <returns></returns>
     [PunRPC]
     public IEnumerator OnPlayerAttacked(float _x, float _y, float _z, float _time) {
+        if (this.IsInvicible) {
+            Debug.Log(gameObject + " is invincible");
+            yield break;
+        }
+
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
 
         Handler.enabled = false;
@@ -193,13 +198,27 @@ public class PlayerCombatManager : MonoBehaviour {
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
         Handler.enabled = false;
-        //PhotonTransformView.enabled = false;
 
         yield return new WaitForSeconds(_time);
 
         Handler.enabled = true;
-        //PhotonTransformView.enabled = true;
 
+    }
+
+    /// <summary>
+    /// Author: Feiyang
+    /// Update Invicibility on all clients 
+    /// ** NOTE ** THIS IS THE ONLY WAY TO CHANGE INVICIBILITY !!! 
+    /// </summary>
+    /// <param name="_Invincible"></param>
+    public void SetInvincibleOnAll(bool _Invincible) {
+        PhotonView view = PhotonView.Get(this);
+        view.RPC("SetInvincible", RpcTarget.All, _Invincible);
+    }
+
+    [PunRPC]
+    public void SetInvincible(bool _Invincible) {
+        IsInvicible = _Invincible;
     }
 
 }
