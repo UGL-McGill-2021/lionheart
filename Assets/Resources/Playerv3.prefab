@@ -594,12 +594,14 @@ MonoBehaviour:
   CoyoteHopTimer: 1
   FallTimer: 2
   LandingAnimTriggerDistance: 0.5
+  SmashingAnimTriggerDistance: 1
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
   IsFalling: 0
   PlayedLandingAnim: 0
+  WithinSmashDistance: 0
 --- !u!114 &8654789910141434568
 MonoBehaviour:
   m_ObjectHideFlags: 0
