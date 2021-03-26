@@ -39,7 +39,7 @@ public class PrototypeCharacterMovementControls : MonoBehaviour//, IPunObservabl
         rb = GetComponent<Rigidbody>();
         _AdditionalVelocity = Vector3.zero;
 
-        DualShock4GamepadHID controller = new AssemblyCSharp.Assets.DualShock4GamepadHID();
+        //DualShock4GamepadHID controller = new AssemblyCSharp.Assets.DualShock4GamepadHID();
     }
 
     private void FixedUpdate() {
