@@ -54,7 +54,7 @@ public class EnemyCombatManager : MonoBehaviour {
     [PunRPC]
     public IEnumerator OnAttacked(float _x, float _y, float _z, float _time) {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
-        this.agent.enabled = false;
+        
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
@@ -63,6 +63,7 @@ public class EnemyCombatManager : MonoBehaviour {
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
             Debug.Log("Attacked: On Ground");
             this.Body.isKinematic = true;
+
         } else {
             StartCoroutine(WaitAndDestroy(this.gameObject, 5));
         }

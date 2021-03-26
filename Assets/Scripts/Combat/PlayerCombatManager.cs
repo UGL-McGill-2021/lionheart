@@ -87,10 +87,17 @@ public class PlayerCombatManager : MonoBehaviour {
             }
         }
 
-        if (other.transform.position.z < this.transform.position.z && Vector3.Distance(this.transform.position, other.transform.position) < StompDistance) {
+        
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        // stomp
+        if (other.transform.position.y < this.transform.position.y && Vector3.Distance(this.transform.GetChild(0).GetChild(3).transform.position, other.transform.position) < StompDistance) {
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null) {
+                
                 _enemyCombatManager.ReceiveAttack(this.transform.forward.normalized * -1 * StompForce, 0.5f);
+                Debug.Log("Stomped " + gameObject + " with " + this.transform.forward.normalized * -1 * StompForce);
             }
         }
     }
