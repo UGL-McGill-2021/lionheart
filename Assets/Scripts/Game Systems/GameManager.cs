@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour {
             // This kind of changes will be level dependent
             switch (SceneManager.GetActiveScene().name)
             {
+                case LevelName.Level0:
+                    break;
                 case LevelName.Level1:
                     // for example, change the speed of the first moving platform in the list to 5 and stop time to 1
                     //MovingPlatformScriptList[0].speed = 5f;
