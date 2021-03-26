@@ -104,11 +104,13 @@ namespace Lionheart.Player.Movement
             else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(6f, 1f);
             else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
 
-            yield return new WaitWhile(() => !PlayerJump.WithinSmashDistance);
+            /*yield return new WaitWhile(() => !PlayerJump.WithinSmashDistance);
             AnimatorController.SetBool("IsSmashing", true);
-            StartCoroutine(AnimationTrigger("IsSmashing"));
+            StartCoroutine(AnimationTrigger("IsSmashing"));*/
 
             yield return new WaitWhile(() => !PlayerJump.IsGrounded);
+            AnimatorController.SetBool("IsSmashing", true);
+            StartCoroutine(AnimationTrigger("IsSmashing"));
             IsGroundPound = false;
 
             if (CombatManager != null) {
@@ -140,6 +142,12 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Simulates animation trigger for bools
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         IEnumerator AnimationTrigger(string Name)
         {
             yield return new WaitForSecondsRealtime(0.5f);

@@ -538,6 +538,8 @@ MonoBehaviour:
   Rb: {fileID: 3535366763632785127}
   PlayerCamera: {fileID: 0}
   Player: {fileID: 0}
+  PlayerPullDash: {fileID: 0}
+  PlayerGroundPound: {fileID: 0}
   AirRestrictAngle: 60
   PhotonView: {fileID: 5480352261030030601}
 --- !u!114 &5368698313015805028
@@ -857,8 +859,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8401703996827886909}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: cbf44df43f493bc4186e273a6ff1bb90, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8360fd2187b2ccf4e910cb292f55710e, type: 2}
+  m_Avatar: {fileID: 9000000, guid: c4c4974444632f845b518423e9e29aed, type: 3}
+  m_Controller: {fileID: 9100000, guid: f7da1300faf8b8347b5a967affd62477, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1077,7 +1079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4c4974444632f845b518423e9e29aed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4c4974444632f845b518423e9e29aed, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1115,7 +1117,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: smooth_character
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5074512353664290214, guid: c4c4974444632f845b518423e9e29aed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 804686c7ba0eaa74e8d527f60fec3c18, type: 2}
+    - target: {fileID: 5866666021909216657, guid: c4c4974444632f845b518423e9e29aed, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: c4c4974444632f845b518423e9e29aed, type: 3}
+    - target: {fileID: 5866666021909216657, guid: c4c4974444632f845b518423e9e29aed, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8360fd2187b2ccf4e910cb292f55710e, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: c4c4974444632f845b518423e9e29aed, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c4c4974444632f845b518423e9e29aed, type: 3}
 --- !u!4 &969032118028331451 stripped
 Transform:

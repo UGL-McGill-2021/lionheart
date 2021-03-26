@@ -80,8 +80,6 @@ namespace Lionheart.Player.Movement {
             }
 
             AnimatorController.SetFloat("MoveMagnitude", Value.magnitude);
-
-            
         }
     }
 }

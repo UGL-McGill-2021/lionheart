@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour {
         else
         {
             // generate client player
-            player = PhotonNetwork.Instantiate("Playerv4", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
+            player = PhotonNetwork.Instantiate("Playerv4-1", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
             int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
             PhotonView.RPC("RPC_addPlayer", RpcTarget.AllViaServer, ViewId);  // use RPC call to add player to the player list
         }

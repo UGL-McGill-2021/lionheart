@@ -255,7 +255,7 @@ namespace Lionheart.Player.Movement
         private void CheckIfGrounded()
         {
             IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
-            WithinSmashDistance = Physics.CheckSphere(GroundCheck.transform.position, SmashingAnimTriggerDistance, GroundMask);
+            //WithinSmashDistance = Physics.CheckSphere(GroundCheck.transform.position, SmashingAnimTriggerDistance, GroundMask);
         }
 
         /// <summary>
@@ -302,6 +302,12 @@ namespace Lionheart.Player.Movement
             Gamepad.current.ResetHaptics();
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Simulates animation trigger for bools
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         IEnumerator AnimationTrigger(string Name)
         {
             yield return new WaitForSecondsRealtime(0.5f);

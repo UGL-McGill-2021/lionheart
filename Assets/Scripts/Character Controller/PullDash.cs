@@ -281,6 +281,12 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Simulates animation trigger for bools
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
         IEnumerator AnimationTrigger(string Name)
         {
             yield return new WaitForSecondsRealtime(0.1f);
