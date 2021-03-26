@@ -78,7 +78,7 @@ public class PlayerCombatManager : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other) {
-        if (IsAttacking) {
+        if (IsAttacking || IsInvicible) {
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null && CurrentAttackMotion != null) {
                 // calculate regular attack
