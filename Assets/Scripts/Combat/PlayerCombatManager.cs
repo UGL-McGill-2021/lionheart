@@ -33,6 +33,10 @@ public class PlayerCombatManager : MonoBehaviour {
     public float DefaultSmashTime = 1;
     public float DefaultSmashForce = 500;
 
+    [Header("Stomp")]
+    public float StompDistance = 10;
+    public float StompForce = 5;
+
     private void Awake() {
         this.Body = GetComponent<Rigidbody>();
         this.Handler = GetComponent<MovementHandler>();
@@ -41,22 +45,36 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private void Start() {
         Input = new ControllerInput();
-        Input.Player.Kick.performed += _ => Attack(new Kick(DefaultAttackForce, 1));
+        //Input.Player.Kick.performed += _ => Attack(new Kick(DefaultAttackForce, 1));
         Input.Enable();
     }
 
+    /// <summary>
+    /// Author: Feiyang
+    /// Initiate an Attack
+    /// </summary>
+    /// <param name="_attackMotion"></param>
     public void Attack(AttackMotion _attackMotion) {
         AttackBox.enabled = true;
         CurrentAttackMotion = _attackMotion;
         IsAttacking = true;
     }
 
+    /// <summary>
+    /// Author: Feiyang
+    /// Stop an attack
+    /// </summary>
     public void StopAttack() {
         AttackBox.enabled = false;
         CurrentAttackMotion = null;
         IsAttacking = false;
     }
 
+    /// <summary>
+    /// Author: Feiyang
+    /// Attack Logic
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerStay(Collider other) {
         if (IsAttacking) {
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
@@ -68,10 +86,21 @@ public class PlayerCombatManager : MonoBehaviour {
                 StopAttack();
             }
         }
+
+        if (other.transform.position.z < this.transform.position.z && Vector3.Distance(this.transform.position, other.transform.position) < StompDistance) {
+            EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
+            if (_enemyCombatManager != null) {
+                _enemyCombatManager.ReceiveAttack(this.transform.forward.normalized * -1 * StompForce, 0.5f);
+            }
+        }
     }
 
+
+    /// <summary>
+    /// Author: Feiyang
+    /// Initiate Smash
+    /// </summary>
     public void Smash() {
-        Debug.Log("ExplosionForceApplied");
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, SmashRadius);
 
@@ -87,12 +116,27 @@ public class PlayerCombatManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Author: Feiyang
+    /// Invoke logic that handles the attack initiated by enemies
+    /// </summary>
+    /// <param name="_AttackVelocity"></param>
+    /// <param name="_AttackTimeSpan"></param>
     public void ReceivePlayerAttack(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnPlayerAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
+    /// <summary>
+    /// Author: Feiyang
+    /// Attack handling logic
+    /// </summary>
+    /// <param name="_x"></param>
+    /// <param name="_y"></param>
+    /// <param name="_z"></param>
+    /// <param name="_time"></param>
+    /// <returns></returns>
     [PunRPC]
     public IEnumerator OnPlayerAttacked(float _x, float _y, float _z, float _time) {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
@@ -108,6 +152,14 @@ public class PlayerCombatManager : MonoBehaviour {
         //PhotonTransformView.enabled = true;
     }
 
+    /// <summary>
+    /// Author: Feiyang
+    /// 
+    /// </summary>
+    /// <param name="_smashTime"></param>
+    /// <param name="_ExplosionForce"></param>
+    /// <param name="_ExplosionPos"></param>
+    /// <param name="_SmashRadius"></param>
     public void ReceivePlayerSmash(float _smashTime,
         float _ExplosionForce,
         Vector3 _ExplosionPos,

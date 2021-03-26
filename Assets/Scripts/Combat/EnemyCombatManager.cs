@@ -1,12 +1,15 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using Photon.Pun;
-using Photon.Realtime;
 
 public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
+    public NavMeshAgent agent;
+
+    public LayerMask GroundLayerMask;
+    public float GroundDistance;
 
     private bool IsAttacking;
     private AttackMotion CurrentAttackMotion;
@@ -42,21 +45,27 @@ public class EnemyCombatManager : MonoBehaviour {
         }
     }
 
-    public void ReceiveAttack(Vector3 _AttackVelocity, int _AttackTimeSpan) {
+    public void ReceiveAttack(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnAttacked", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
-    public IEnumerator OnAttacked(float _x, float _y, float _z, int _time) {
+    public IEnumerator OnAttacked(float _x, float _y, float _z, float _time) {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
+        this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
         yield return new WaitForSeconds(_time);
 
-        this.Body.isKinematic = true;
+        if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
+            Debug.Log("Attacked: On Ground");
+            this.Body.isKinematic = true;
+        } else {
+            StartCoroutine(WaitAndDestroy(this.gameObject, 5));
+        }
     }
 
     public void Smash() {
@@ -104,6 +113,19 @@ public class EnemyCombatManager : MonoBehaviour {
 
         yield return new WaitForSeconds(_time);
 
-        this.Body.isKinematic = true;
+        if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
+            Debug.Log("Smashed: On Ground");
+            this.Body.isKinematic = true;
+        } else {
+            StartCoroutine(WaitAndDestroy(this.gameObject, 5));
+        }
+        
+    }
+
+    public IEnumerator WaitAndDestroy(GameObject _gameObject, float _time) {
+
+        yield return new WaitForSeconds(_time);
+
+        PhotonNetwork.Destroy(_gameObject);
     }
 }
