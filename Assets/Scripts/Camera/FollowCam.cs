@@ -13,6 +13,8 @@ public class FollowCam : MonoBehaviour
     public float SmoothTime = .5f;
     public float PullbackSpeed = 1.5f;
 
+    public float RespawnOffset;               //Distance the player must be from the respawn point to make the camera stop following it
+
     public List<GameObject> PlayerList;
     public Camera Cam;
 
@@ -20,9 +22,12 @@ public class FollowCam : MonoBehaviour
     private Vector3 OffSet;
     private Vector3 Velocity;
 
+    private CheckpointManager CheckpointMan;
+
     private void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
+        CheckpointMan = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
     }
 
     void LateUpdate()
@@ -39,6 +44,9 @@ public class FollowCam : MonoBehaviour
 
         if (PlayerList.Count < 2) return;
 
+        //Stop tracking if a player falls too low
+
+
         //Pull camera back if players are too far apart
         float _Distance = Vector3.Distance(PlayerList[0].transform.position, PlayerList[1].transform.position);
         if (_Distance > MaxDistance)
@@ -53,6 +61,7 @@ public class FollowCam : MonoBehaviour
 
     }
 
+    //check if player is in frame
     private bool Visible(GameObject Object)
     {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Cam);
@@ -74,7 +83,12 @@ public class FollowCam : MonoBehaviour
         Bounds Bounds = new Bounds(PlayerList[0].transform.position, Vector3.zero);
         foreach(GameObject G in PlayerList)
         {
-            Bounds.Encapsulate(G.transform.position);
+            if (G.transform.position.y < CheckpointMan.RespawnHeight + RespawnOffset) {
+                Bounds.Encapsulate(new Vector3(G.transform.position.x, CheckpointMan.RespawnHeight + RespawnOffset, G.transform.position.z));
+            } else
+            {
+                Bounds.Encapsulate(G.transform.position);
+            }
         }
 
         return Bounds.center;

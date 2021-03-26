@@ -86,11 +86,11 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// </summary>
     public override void OnJoinedRoom() {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
-        /*if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             InputAction.Player.Disable();
             PhotonNetwork.LoadLevel("Level 1");
-        }*/
+        }
 
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
     }
