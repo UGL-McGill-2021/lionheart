@@ -1,4 +1,5 @@
 using AssemblyCSharp.Assets;
+using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -106,7 +107,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InputAction.Player.Disable();
             
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("Level 1");
+                PhotonNetwork.LoadLevel("Level 0");
         }
     }
 

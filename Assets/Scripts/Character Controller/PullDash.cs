@@ -15,6 +15,7 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
         [SerializeField] Vector3 Direction;
         [SerializeField] GameObject OwnPullDashTarget;
         [SerializeField] GameObject OtherPlayer;
@@ -209,6 +210,9 @@ namespace Lionheart.Player.Movement
                     IsPullDashing = true;
                     DisableGravity = true;
 
+                    AnimatorController.SetBool("IsPullDashing", true);
+                    StartCoroutine(AnimationTrigger("IsPullDashing"));
+
                     //Time limit on the pull dash execution
                     StartCoroutine(PullDashTimer());
                 }
@@ -256,6 +260,9 @@ namespace Lionheart.Player.Movement
             gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
 
+            AnimatorController.SetBool("IsFalling", true);
+            StartCoroutine(AnimationTrigger("IsFalling"));
+
             StartCoroutine(PullDashFall());
         }
 
@@ -271,6 +278,27 @@ namespace Lionheart.Player.Movement
             {
                 DisableGravity = false;
                 IsPullDashing = false;
+            }
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Simulates animation trigger for bools
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        IEnumerator AnimationTrigger(string Name)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+
+            switch (Name)
+            {
+                case "IsFalling":
+                    AnimatorController.SetBool("IsFalling", false);
+                    break;
+                case "IsPullDashing":
+                    AnimatorController.SetBool("IsPullDashing", false);
+                    break;
             }
         }
     }
