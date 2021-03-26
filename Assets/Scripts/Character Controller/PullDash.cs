@@ -210,7 +210,8 @@ namespace Lionheart.Player.Movement
                     IsPullDashing = true;
                     DisableGravity = true;
 
-                    AnimatorController.SetTrigger("IsPullDashing");
+                    AnimatorController.SetBool("IsPullDashing", true);
+                    StartCoroutine(AnimationTrigger("IsPullDashing"));
 
                     //Time limit on the pull dash execution
                     StartCoroutine(PullDashTimer());
@@ -259,7 +260,8 @@ namespace Lionheart.Player.Movement
             gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
 
-            AnimatorController.SetTrigger("IsFalling");
+            AnimatorController.SetBool("IsFalling", true);
+            StartCoroutine(AnimationTrigger("IsFalling"));
 
             StartCoroutine(PullDashFall());
         }
@@ -276,6 +278,21 @@ namespace Lionheart.Player.Movement
             {
                 DisableGravity = false;
                 IsPullDashing = false;
+            }
+        }
+
+        IEnumerator AnimationTrigger(string Name)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+
+            switch (Name)
+            {
+                case "IsFalling":
+                    AnimatorController.SetBool("IsFalling", false);
+                    break;
+                case "IsPullDashing":
+                    AnimatorController.SetBool("IsPullDashing", false);
+                    break;
             }
         }
     }

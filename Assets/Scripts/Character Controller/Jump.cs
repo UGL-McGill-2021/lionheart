@@ -114,7 +114,8 @@ namespace Lionheart.Player.Movement
                 CanCoyoteHop = false;
                 JumpedFrameCounter = 10;
 
-                AnimatorController.SetTrigger("IsJumping");
+                AnimatorController.SetBool("IsJumping", true);
+                StartCoroutine(AnimationTrigger("IsJumping"));
                 PlayedLandingAnim = false;
             }
         }
@@ -150,7 +151,8 @@ namespace Lionheart.Player.Movement
             if (IsGrounded == false && HasJumped == false && PlayerPullDash.IsPullDashing == false &&
                 PlayerGroundPound.IsGroundPound == false && Value.y < -8f)
             {
-                AnimatorController.SetTrigger("IsFalling");
+                AnimatorController.SetBool("IsFalling", true);
+                StartCoroutine(AnimationTrigger("IsFalling"));
                 IsFalling = true;
                 PlayedLandingAnim = false;
             }
@@ -160,7 +162,8 @@ namespace Lionheart.Player.Movement
                 AnimatorStateInfo St = AnimatorController.GetCurrentAnimatorStateInfo(0);
                 if (St.IsName("Airborne"))
                 {
-                    AnimatorController.SetTrigger("IsLanding");
+                    AnimatorController.SetBool("IsLanding", true);
+                    StartCoroutine(AnimationTrigger("IsLanding"));
                     PlayedLandingAnim = true;
                 }
                 
@@ -263,7 +266,8 @@ namespace Lionheart.Player.Movement
             {
                 if (Value.y < 0f)
                 {
-                    AnimatorController.SetTrigger("IsLanding");
+                    AnimatorController.SetBool("IsLanding", true);
+                    StartCoroutine(AnimationTrigger("IsLanding"));
                     PlayedLandingAnim = true;
                 }
                 else
@@ -271,7 +275,8 @@ namespace Lionheart.Player.Movement
                     AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
                     if (st.IsName("Airborne"))
                     {
-                        AnimatorController.SetTrigger("IsLanding");
+                        AnimatorController.SetBool("IsLanding", true);
+                        StartCoroutine(AnimationTrigger("IsLanding"));
                         PlayedLandingAnim = true;
                     }
                 }
@@ -291,6 +296,24 @@ namespace Lionheart.Player.Movement
             else Gamepad.current.SetMotorSpeeds(0.05f, 0f);
             yield return new WaitForSecondsRealtime(0.1f);
             Gamepad.current.ResetHaptics();
+        }
+
+        IEnumerator AnimationTrigger(string Name)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+
+            switch (Name)
+            {
+                case "IsJumping":
+                    AnimatorController.SetBool("IsJumping", false);
+                    break;
+                case "IsFalling":
+                    AnimatorController.SetBool("IsFalling", false);
+                    break;
+                case "IsLanding":
+                    AnimatorController.SetBool("IsLanding", false);
+                    break;
+            }
         }
     }
 }

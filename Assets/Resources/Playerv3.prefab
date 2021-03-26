@@ -901,7 +901,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: IsPullDashing
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 0
 --- !u!1 &8833452435930719326
 GameObject:
