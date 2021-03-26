@@ -38,7 +38,7 @@ public class MeleeAttackNode : Node
     {
         Debug.Log("Melee attack executed!");
         MonoBehaviour.gameObject.GetComponent<EnemyCombatManager>().Smash();
-        AnimManager.TriggerAttack();
+        if (AnimManager != null) AnimManager.TriggerAttack();
     }
 
     IEnumerator AttackAndCooldown()

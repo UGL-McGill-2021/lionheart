@@ -16,13 +16,17 @@ public class Bullet : MonoBehaviour {
     /// integrating with combat system
     /// </summary>
     private void OnTriggerStay(Collider Other) {
-        PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
-        if (_playerCombatManager != null) {
-            Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
-            _playerCombatManager.ReceivePlayerAttack(_AttackVector, BulletAttackTimeSpan);
-        }
+        if(Other.gameObject.tag == "Player")
+        {
+            PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
+            if (_playerCombatManager != null)
+            {
+                Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
+                _playerCombatManager.ReceivePlayerAttack(_AttackVector, BulletAttackTimeSpan);
+            }
 
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator DestroyDelay() {

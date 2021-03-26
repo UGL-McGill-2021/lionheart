@@ -76,6 +76,16 @@ public class GameManager : MonoBehaviour {
                     obj.GetComponent<Grunt>().WanderTarget = obj.transform;
                     obj.GetComponent<Grunt>().WanderRange = 20;
 
+                    obj = PhotonNetwork.Instantiate("Shooter_v2", new Vector3(119, 8, -90), Quaternion.identity);
+                    obj.GetComponent<Shooter>().enabled = true;
+                    obj.GetComponent<NavMeshAgent>().enabled = true;
+                    obj.GetComponent<Shooter>().WanderTarget = obj.transform;
+                    obj.GetComponent<Shooter>().WanderRange = 20;
+                    Transform t = obj.transform;
+
+                    obj = PhotonNetwork.Instantiate("Turret_v2", new Vector3(119, 14, -85), Quaternion.identity);
+                    obj.GetComponent<Turret>().Target = t;
+
                     // for example, change the disappear time of the second temp platform in the list to 1.5
                     //TempPlatformScriptList[1].DisappearDelay = 1.5f;
 

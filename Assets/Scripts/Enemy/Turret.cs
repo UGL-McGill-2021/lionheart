@@ -20,6 +20,7 @@ public class Turret : Enemy
     public GameObject Projectile;   //gameobject to instantiate and shoot
 
     private Node RootNode;
+    public TurretAnimationManager AnimManager { get; set; }
 
     // Photon:
     private List<GameObject> PlayerList;
@@ -27,6 +28,7 @@ public class Turret : Enemy
     void Awake()
     {
         PhotonView = this.GetComponent<PhotonView>();
+        AnimManager = this.GetComponent<TurretAnimationManager>();
     }
 
     void Start()
@@ -63,7 +65,7 @@ public class Turret : Enemy
 
     private void ConstructBehaviourTree()
     {
-        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject, AnimManager);
         RootNode = ShootNode;
     }
 

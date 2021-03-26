@@ -47,7 +47,7 @@ public class Grunt : Enemy
     {
         if (PhotonView.IsMine)
         {
-            AnimManager.IsMoving(this.NavMeshAgent.velocity.magnitude);
+            if (AnimManager != null) AnimManager.IsMoving(this.NavMeshAgent.velocity.magnitude);
             RootNode.Evaluate();
         }
 

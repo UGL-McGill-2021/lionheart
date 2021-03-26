@@ -1555,8 +1555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9580ce6005232b048a20af42071f5a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Body: {fileID: 0}
-  AttackBox: {fileID: 0}
+  Body: {fileID: 7328338531983162803}
+  AttackBox: {fileID: 7328338531983162812}
   SmashRadius: 5
   DefaultSmashTime: 0.3
   DefaultSmashForce: 5000

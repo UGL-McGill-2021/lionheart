@@ -22,14 +22,16 @@ public class ShootNode : Node
 
     public delegate Transform GetTargetDelegate();
     private GetTargetDelegate GetTarget;
+    private AnimationManager AnimManager;
 
-    public ShootNode(GameObject Projectile, GetTargetDelegate GetTarget, float Speed, float CooldownTime, GameObject Shooter)
+    public ShootNode(GameObject Projectile, GetTargetDelegate GetTarget, float Speed, float CooldownTime, GameObject Shooter, AnimationManager AnimationManager)
     {
         this.Projectile = Projectile;
         this.CooldownTime = CooldownTime;
         this.Shooter = Shooter;
         this.GetTarget = GetTarget;
         this.Speed = Speed;
+        this.AnimManager = AnimationManager;
 
         Transform = Shooter.GetComponent<Transform>();
         ShooterScript = Shooter.GetComponent<Enemy>();
@@ -70,7 +72,11 @@ public class ShootNode : Node
     IEnumerator AttackAndCooldown()
     {
         // call the RPC function to fire bullet if this enemy belong to the current client
-        if (ShooterScript.PhotonView.IsMine) ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
+        if (ShooterScript.PhotonView.IsMine)
+        {
+            ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
+            if (AnimManager != null) AnimManager.TriggerAttack();
+        }
         yield return new WaitForSeconds(CooldownTime);
         AttackRunning = false;
     }

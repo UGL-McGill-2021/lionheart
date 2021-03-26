@@ -1,11 +1,10 @@
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// Author: Ziqi Li
 /// </summary>
-public class GruntAnimationManager : AnimationManager
+public class ShooterAnimationManager : AnimationManager
 {
     public string ParamName_Moving = "MovingSpeed";  // the parameter name in animator for moving
     public string ParamName_Attack = "isAttack";  // the parameter name in animator for attack
@@ -27,5 +26,4 @@ public class GruntAnimationManager : AnimationManager
     {
         ThisAnimator.SetFloat(ParamName_Moving, Mathf.Abs(speed));
     }
-
 }

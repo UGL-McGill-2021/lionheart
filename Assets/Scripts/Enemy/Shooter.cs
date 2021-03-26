@@ -27,6 +27,7 @@ public class Shooter : Enemy
     private Transform CurrentTarget;
     private Node RootNode;
     private NavMeshAgent NavMeshAgent;
+    public ShooterAnimationManager AnimManager { get; set; }
 
     // Photon:
     private List<GameObject> PlayerList;
@@ -35,6 +36,7 @@ public class Shooter : Enemy
     {
         NavMeshAgent = this.GetComponent<NavMeshAgent>();
         PhotonView = this.GetComponent<PhotonView>();
+        AnimManager = this.GetComponent<ShooterAnimationManager>();
     }
 
     void Start()
@@ -48,7 +50,11 @@ public class Shooter : Enemy
 
     private void FixedUpdate()
     {
-        if (PhotonView.IsMine) RootNode.Evaluate();
+        if (PhotonView.IsMine)
+        {
+            if(AnimManager != null) AnimManager.IsMoving(this.NavMeshAgent.velocity.magnitude);
+            RootNode.Evaluate();
+        }
 
         if (PlayerList.Count < 2)
         {
@@ -99,7 +105,7 @@ public class Shooter : Enemy
         WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
-        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject, this.AnimManager);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 
