@@ -144,11 +144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 91.6
+      value: 109.2
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 114128051}
   - component: {fileID: 114128050}
   - component: {fileID: 114128049}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 148725129}
   - component: {fileID: 148725128}
   - component: {fileID: 148725127}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,11 +523,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 124.7
+      value: 152.6
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -909,7 +909,7 @@ GameObject:
   - component: {fileID: 627400161}
   - component: {fileID: 627400160}
   - component: {fileID: 627400159}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1004,7 +1004,7 @@ GameObject:
   - component: {fileID: 660931395}
   - component: {fileID: 660931394}
   - component: {fileID: 660931393}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 689305565}
   - component: {fileID: 689305564}
   - component: {fileID: 689305563}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 1032945918}
   - component: {fileID: 1032945917}
   - component: {fileID: 1032945916}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1535,7 +1535,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1141385228}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1551,7 +1551,7 @@ Transform:
   m_GameObject: {fileID: 1141385227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.3, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 689305566}
   - {fileID: 1830559117}
@@ -1648,7 +1648,7 @@ GameObject:
   - component: {fileID: 1168280739}
   - component: {fileID: 1168280738}
   - component: {fileID: 1168280737}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1784,7 +1784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1177719808}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: triple (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1820,7 +1820,7 @@ GameObject:
   - component: {fileID: 1207697799}
   - component: {fileID: 1207697798}
   - component: {fileID: 1207697797}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1924,11 +1924,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 53.5
+      value: 58.6
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1997,7 +1997,7 @@ GameObject:
   - component: {fileID: 1237008796}
   - component: {fileID: 1237008795}
   - component: {fileID: 1237008794}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2177,7 +2177,7 @@ GameObject:
   - component: {fileID: 1318177375}
   - component: {fileID: 1318177374}
   - component: {fileID: 1318177373}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2355,8 +2355,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500123958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.6, y: 0, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 982392852}
   - {fileID: 1892449434}
@@ -2378,7 +2378,7 @@ GameObject:
   - component: {fileID: 1565032776}
   - component: {fileID: 1565032775}
   - component: {fileID: 1565032774}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2566,7 +2566,7 @@ GameObject:
   - component: {fileID: 1665381450}
   - component: {fileID: 1665381449}
   - component: {fileID: 1665381448}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2696,30 +2696,15 @@ MonoBehaviour:
   PlayerSpawningPoints:
   - {fileID: 1169373745}
   - {fileID: 1829564404}
-  Respawnable_TempPlatformPoints:
-  - {fileID: 0}
-  NonRespawnable_TempPlatformPoints:
-  - {fileID: 1119221278}
-  OneTime_SpiritWallPoints:
-  - {fileID: 1796841974}
-  Normal_SpiritWallPoints:
-  - {fileID: 0}
-  MovingPlatformPathList:
-  - PathPoints:
-    - {fileID: 0}
-    - {fileID: 0}
-  - PathPoints:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-  GruntSpawningPoints:
-  - {fileID: 0}
-  ShooterSpawningPoints:
-  - {fileID: 0}
-  TurretSpawningPoints:
-  - {fileID: 0}
-  TurretTargetsPoints:
-  - {fileID: 0}
+  Respawnable_TempPlatformPoints: []
+  NonRespawnable_TempPlatformPoints: []
+  OneTime_SpiritWallPoints: []
+  Normal_SpiritWallPoints: []
+  MovingPlatformPathList: []
+  GruntSpawningPoints: []
+  ShooterSpawningPoints: []
+  TurretSpawningPoints: []
+  TurretTargetsPoints: []
   PlayerList: []
 --- !u!4 &1787155884
 Transform:
@@ -2860,7 +2845,7 @@ GameObject:
   - component: {fileID: 1830559116}
   - component: {fileID: 1830559115}
   - component: {fileID: 1830559114}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3057,11 +3042,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20
+      value: 26.4
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.5
+      value: -10.8
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3348,6 +3333,10 @@ PrefabInstance:
     - target: {fileID: 6462715871437185255, guid: c66f7309d1af7204d8fb944bb897b90a, type: 3}
       propertyPath: m_Name
       value: AreaCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 6462715871437185255, guid: c66f7309d1af7204d8fb944bb897b90a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6462715872262844246, guid: c66f7309d1af7204d8fb944bb897b90a, type: 3}
       propertyPath: m_LocalScale.x
