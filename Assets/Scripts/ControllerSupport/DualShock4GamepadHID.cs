@@ -7,9 +7,9 @@ using UnityEngine.InputSystem.Layouts;
 namespace AssemblyCSharp.Assets
 {
     [InputControlLayout(stateType = typeof(DualShock4HIDInputReport))]
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [InitializeOnLoad] // Make sure static constructor is called during startup.
-    #endif
+#endif
 
     public class DualShock4GamepadHID : Gamepad
     {

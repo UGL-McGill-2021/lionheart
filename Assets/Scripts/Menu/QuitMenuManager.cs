@@ -12,6 +12,7 @@ public class QuitMenuManager : MenuManager
     public GameObject QuitMenuUI;
     public Button ContinueButton;
     public Button QuitButton;
+    public Toggle VibToggle;
 
     private List<GameObject> PlayerList;
     [SerializeField]
@@ -22,8 +23,14 @@ public class QuitMenuManager : MenuManager
     void Start()
     {
         PhotonView = GetComponent<PhotonView>();
+
+        // initialize the vibration setting using static PlayerGameSettings class
+        // so the setting will be keept when loading new scene
+        VibToggle.isOn = PlayerGameSettings.isVibrationOn;  
         QuitMenuUI.SetActive(false);  // hide the menu UI
+
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
+
         if (ContinueButton != null)
         {
             base.DefaultButton = ContinueButton;  // set the defaultButton in the parent class
@@ -58,7 +65,12 @@ public class QuitMenuManager : MenuManager
         {
             foreach (GameObject player in PlayerList)
             {
-                if (player != null && player.GetComponent<PhotonView>().IsMine) CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
+                if (player != null && player.GetComponent<PhotonView>().IsMine)
+                {
+                    CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
+                    // initialize the player setting using static class field, so the setting will be keept when loading new scene
+                    CurrentPlayerActivator.hasVibration = PlayerGameSettings.isVibrationOn;  
+                }
             }
         }
     }
@@ -99,6 +111,19 @@ public class QuitMenuManager : MenuManager
     {
         // use AllViaServer option to make sure that the RPC can be executed on both client before the client disconnects
         PhotonView.RPC("RPC_Quit", RpcTarget.AllViaServer);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Toggle callback function for vibration toggle
+    /// </summary>
+    public void TurnVibration()
+    {
+        if(CurrentPlayerActivator != null)
+        {
+            PlayerGameSettings.isVibrationOn = VibToggle.isOn;
+            CurrentPlayerActivator.hasVibration = PlayerGameSettings.isVibrationOn;
+        }
     }
 
     /// <summary>
