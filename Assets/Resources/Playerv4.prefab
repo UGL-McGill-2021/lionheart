@@ -515,14 +515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 4549069522882706186}
   aud: {fileID: 3681983124607863458}
-  script1: {fileID: 5368698313015805028}
-  script2: {fileID: 8654789910141434568}
-  script3: {fileID: 8962104049189637306}
-  script4: {fileID: 5566292478228044567}
-  script5: {fileID: 9057546429446380302}
-  script6: {fileID: 6742636947217563593}
-  script7: {fileID: 7158537297210349565}
-  script8: {fileID: 291058629658783102}
+  scripts: []
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
