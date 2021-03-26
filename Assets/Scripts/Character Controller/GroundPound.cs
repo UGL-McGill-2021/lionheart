@@ -16,6 +16,7 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] Jump PlayerJump;
 
@@ -84,6 +85,10 @@ namespace Lionheart.Player.Movement
             if (IsGroundPound == false && PlayerJump.IsGrounded == false) 
             {
                 IsGroundPound = true;
+
+                AnimatorController.SetBool("IsGroundPound", true);
+                StartCoroutine(AnimationTrigger("IsGroundPound"));
+
                 StartCoroutine(GroundPoundRumble());
             }
         }
@@ -98,6 +103,10 @@ namespace Lionheart.Player.Movement
             if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(6f, 1f);
             else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(6f, 1f);
             else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
+
+            yield return new WaitWhile(() => !PlayerJump.WithinSmashDistance);
+            AnimatorController.SetBool("IsSmashing", true);
+            StartCoroutine(AnimationTrigger("IsSmashing"));
 
             yield return new WaitWhile(() => !PlayerJump.IsGrounded);
             IsGroundPound = false;
@@ -131,6 +140,20 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        IEnumerator AnimationTrigger(string Name)
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            switch (Name)
+            {
+                case "IsGroundPound":
+                    AnimatorController.SetBool("IsGroundPound", false);
+                    break;
+                case "IsSmashing":
+                    AnimatorController.SetBool("IsSmashing", false);
+                    break;
+            }
+        }
     }
 }
 

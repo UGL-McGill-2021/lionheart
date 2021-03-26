@@ -29,12 +29,14 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float CoyoteHopTimer = 1f;
         [SerializeField] private float FallTimer = 2f;
         [SerializeField] private float LandingAnimTriggerDistance = 0.5f;
+        [SerializeField] private float SmashingAnimTriggerDistance = 1f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
         public bool IsGrounded;
         public bool IsFalling;
         public bool PlayedLandingAnim;
+        public bool WithinSmashDistance;
 
         private float GravityForce = Physics.gravity.y;
         private bool HasJumped;
@@ -62,6 +64,7 @@ namespace Lionheart.Player.Movement
             CanCoyoteHop = false;
             WasGroundedLastFrame = false;
             PlayedLandingAnim = false;
+            WithinSmashDistance = false;
 
             Type = MovementModifier.MovementType.Jump;
         }
@@ -252,6 +255,7 @@ namespace Lionheart.Player.Movement
         private void CheckIfGrounded()
         {
             IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
+            WithinSmashDistance = Physics.CheckSphere(GroundCheck.transform.position, SmashingAnimTriggerDistance, GroundMask);
         }
 
         /// <summary>
@@ -301,7 +305,7 @@ namespace Lionheart.Player.Movement
         IEnumerator AnimationTrigger(string Name)
         {
             yield return new WaitForSecondsRealtime(0.5f);
-            //he
+           
             switch (Name)
             {
                 case "IsJumping":

@@ -782,6 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  AnimatorController: {fileID: 3717460445037045334}
   CombatManager: {fileID: 7158537297210349565}
   PlayerJump: {fileID: 0}
   IsGroundPound: 0
@@ -900,6 +901,12 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 2
     Name: IsPullDashing
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsGroundPound
+  - Type: 4
+    SynchronizeType: 0
+    Name: IsSmashing
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
