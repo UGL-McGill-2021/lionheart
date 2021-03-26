@@ -327,6 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 2501426362866264069}
   agent: {fileID: 2501426362866264072}
+  GruntScript: {fileID: 0}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8

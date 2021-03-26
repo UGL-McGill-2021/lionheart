@@ -7,6 +7,7 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
     public NavMeshAgent agent;
+    public Grunt GruntScript;
 
     public LayerMask GroundLayerMask;
     public float GroundDistance;
@@ -54,7 +55,7 @@ public class EnemyCombatManager : MonoBehaviour {
     [PunRPC]
     public IEnumerator OnAttacked(float _x, float _y, float _z, float _time) {
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
-        
+        this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
@@ -63,8 +64,10 @@ public class EnemyCombatManager : MonoBehaviour {
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
             Debug.Log("Attacked: On Ground");
             this.Body.isKinematic = true;
-
+            this.agent.enabled = true;
         } else {
+            this.Body.isKinematic = false;
+            this.agent.enabled = false;
             StartCoroutine(WaitAndDestroy(this.gameObject, 5));
         }
     }
@@ -109,6 +112,7 @@ public class EnemyCombatManager : MonoBehaviour {
         float _ExplosionZ, 
         float _smashRadius) {
 
+        this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
@@ -117,7 +121,10 @@ public class EnemyCombatManager : MonoBehaviour {
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
             Debug.Log("Smashed: On Ground");
             this.Body.isKinematic = true;
+            this.agent.enabled = true;
         } else {
+            this.Body.isKinematic = false;
+            this.agent.enabled = false;
             StartCoroutine(WaitAndDestroy(this.gameObject, 5));
         }
         
