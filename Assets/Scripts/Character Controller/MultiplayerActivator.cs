@@ -37,20 +37,16 @@ namespace Lionheart.Player.Movement
         /// </summary>
         public void DisableControls()
         {
-            if (CoroutineRunning == false)
-            {
-                CoroutineRunning = true;
+            gameObject.GetComponent<Rotation>().enabled = false;
+            gameObject.GetComponent<WalkMotion>().enabled = false;
+            gameObject.GetComponent<Dash>().enabled = false;
 
-                gameObject.GetComponent<Rotation>().enabled = false;
-                gameObject.GetComponent<WalkMotion>().enabled = false;
-                gameObject.GetComponent<Dash>().enabled = false;
+            gameObject.GetComponent<GroundPound>().BlockInput = true;
+            gameObject.GetComponent<PullDash>().BlockInput = true;
+            gameObject.GetComponent<Jump>().BlockInput = true;
 
-                gameObject.GetComponent<GroundPound>().BlockInput = true;
-                gameObject.GetComponent<PullDash>().BlockInput = true;
-                gameObject.GetComponent<Jump>().BlockInput = true;
-
-                StartCoroutine(WaitToDisableControls());
-            }
+            StopAllCoroutines();
+            StartCoroutine(WaitToDisableControls());
         }
 
         /// <summary>
@@ -70,9 +66,7 @@ namespace Lionheart.Player.Movement
             }
 
             gameObject.GetComponent<MovementHandler>().enabled = true;
-            gameObject.GetComponent<Jump>().enabled = true;
-
-            CoroutineRunning = false;
+            //gameObject.GetComponent<Jump>().enabled = true;
         }
 
         /// <summary>
@@ -81,15 +75,18 @@ namespace Lionheart.Player.Movement
         /// </summary>
         public void EnableControls()
         {
-            gameObject.GetComponent<GroundPound>().BlockInput = false;
-            gameObject.GetComponent<PullDash>().BlockInput = false;
-            gameObject.GetComponent<Jump>().BlockInput = false;
+            StopAllCoroutines();
 
             foreach (MonoBehaviour script in scripts)
             {
                 script.enabled = true;
             }
+
             IgnoreControlInput = false;
+
+            gameObject.GetComponent<GroundPound>().BlockInput = false;
+            gameObject.GetComponent<PullDash>().BlockInput = false;
+            gameObject.GetComponent<Jump>().BlockInput = false;
         }
     }
 }
