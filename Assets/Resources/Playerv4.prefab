@@ -609,6 +609,7 @@ MonoBehaviour:
   IsFalling: 0
   PlayedLandingAnim: 0
   WithinSmashDistance: 0
+  BlockInput: 0
 --- !u!114 &8654789910141434568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,6 +696,7 @@ MonoBehaviour:
   PullDashCharged: 0
   IsPullDashing: 0
   DisableGravity: 0
+  BlockInput: 0
   MaxTriggerDistance: 60
   LaunchVectorMultiplier: 1
   MinVectorMagnitude: 25
@@ -799,6 +801,7 @@ MonoBehaviour:
   CombatManager: {fileID: 7158537297210349565}
   PlayerJump: {fileID: 0}
   PlayerMultiplayer: {fileID: 0}
+  BlockInput: 0
   IsGroundPound: 0
   FreezeTimer: 0.2
   GroundPoundForce: 40
