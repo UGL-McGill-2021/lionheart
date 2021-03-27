@@ -78,6 +78,7 @@ public class PlayerCombatManager : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other) {
+        // when invicible, attack every enemy that is colliding with the player
         if (IsAttacking || IsInvicible) {
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null && CurrentAttackMotion != null) {
@@ -194,6 +195,11 @@ public class PlayerCombatManager : MonoBehaviour {
         float _ExplosionY,
         float _ExplosionZ,
         float _smashRadius) {
+
+        if (this.IsInvicible) {
+            Debug.Log(gameObject + " is invincible");
+            yield break;
+        }
 
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
