@@ -227,6 +227,10 @@ PrefabInstance:
       value: lvl2-BloqueCentral (3)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3a944c8208592324bba4f59d5a984c78, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3a944c8208592324bba4f59d5a984c78, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -474,6 +478,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3a944c8208592324bba4f59d5a984c78, type: 3}
       propertyPath: m_Name
       value: lvl2-BloqueCentral (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3a944c8208592324bba4f59d5a984c78, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3a944c8208592324bba4f59d5a984c78, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -766,6 +774,10 @@ PrefabInstance:
       value: lvl2-primerBloqie
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -873,6 +885,10 @@ PrefabInstance:
     - target: {fileID: 8401703996827886909, guid: 8f1fc21fb0f3712439d6e5f8bafd999a, type: 3}
       propertyPath: m_Name
       value: Test Puppet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8401703996827886909, guid: 8f1fc21fb0f3712439d6e5f8bafd999a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9057546429446380302, guid: 8f1fc21fb0f3712439d6e5f8bafd999a, type: 3}
       propertyPath: m_Enabled
@@ -1482,6 +1498,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
       propertyPath: m_Name
       value: lvl2-primerBloqie (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2167,6 +2187,10 @@ PrefabInstance:
       value: lvl2-miniBloqueCentral
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3617e84c51d81c74d9580aed39997db2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3617e84c51d81c74d9580aed39997db2, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -2317,7 +2341,7 @@ GameObject:
   - component: {fileID: 1375633238}
   - component: {fileID: 1375633237}
   - component: {fileID: 1375633236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2593,6 +2617,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
       propertyPath: m_Name
       value: lvl2-primerBloqie (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c21b93b5f36ad2f4a894ba3258d16074, type: 3}
       propertyPath: m_StaticEditorFlags
