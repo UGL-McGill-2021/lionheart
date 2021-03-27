@@ -66,11 +66,10 @@ namespace Lionheart.Player.Movement
             }
 
             gameObject.GetComponent<MovementHandler>().enabled = true;
-            //gameObject.GetComponent<Jump>().enabled = true;
         }
 
         /// <summary>
-        /// Author: Ziqi
+        /// Author: Ziqi, Denis
         /// Function to enable all attached scripts
         /// </summary>
         public void EnableControls()
