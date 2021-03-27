@@ -18,6 +18,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] PlayerCombatManager PlayerCombat;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
+        [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] Vector3 Direction;
 
         [Header("Parameters")]
@@ -128,11 +129,17 @@ namespace Lionheart.Player.Movement
         IEnumerator DashExecution()
         {
             AnimatorController.SetBool("IsDashing", true);
+            CombatManager.SetInvincible(true);
+
             if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(2f, 2f);
             else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(2f, 2f);
             else Gamepad.current.SetMotorSpeeds(0f, 0.3f);
+
             yield return new WaitForSecondsRealtime(DashExecutionTime);
+
             IsDashing = false;
+            CombatManager.SetInvincible(false);
+
             if (IsAirDashing == true)
             {
                 AnimatorController.SetBool("IsAirDashing", true);

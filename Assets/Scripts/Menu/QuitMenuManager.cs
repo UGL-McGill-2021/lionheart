@@ -26,7 +26,7 @@ public class QuitMenuManager : MenuManager
 
         // initialize the vibration setting using static PlayerGameSettings class
         // so the setting will be keept when loading new scene
-        VibToggle.isOn = PlayerGameSettings.isVibrationOn;  
+        VibToggle.isOn = PlayerGameSettings.IsVibrationOn;  
         QuitMenuUI.SetActive(false);  // hide the menu UI
 
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
@@ -69,7 +69,7 @@ public class QuitMenuManager : MenuManager
                 {
                     CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
                     // initialize the player setting using static class field, so the setting will be keept when loading new scene
-                    CurrentPlayerActivator.hasVibration = PlayerGameSettings.isVibrationOn;  
+                    CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;  
                 }
             }
         }
@@ -121,8 +121,8 @@ public class QuitMenuManager : MenuManager
     {
         if(CurrentPlayerActivator != null)
         {
-            PlayerGameSettings.isVibrationOn = VibToggle.isOn;
-            CurrentPlayerActivator.hasVibration = PlayerGameSettings.isVibrationOn;
+            PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
+            CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;
         }
     }
 

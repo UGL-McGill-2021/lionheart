@@ -6,6 +6,6 @@
 /// </summary>
 public static class PlayerGameSettings
 {
-    public static bool isVibrationOn = true;
+    public static bool IsVibrationOn = true;
     public static int AudioVolume;
 }

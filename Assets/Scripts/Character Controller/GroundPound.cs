@@ -86,6 +86,8 @@ namespace Lionheart.Player.Movement
             {
                 IsGroundPound = true;
 
+                CombatManager.SetInvincible(true);
+
                 AnimatorController.SetBool("IsGroundPound", true);
                 StartCoroutine(AnimationTrigger("IsGroundPound"));
 
@@ -109,8 +111,11 @@ namespace Lionheart.Player.Movement
             StartCoroutine(AnimationTrigger("IsSmashing"));*/
 
             yield return new WaitWhile(() => !PlayerJump.IsGrounded);
+
             AnimatorController.SetBool("IsSmashing", true);
             StartCoroutine(AnimationTrigger("IsSmashing"));
+
+            CombatManager.SetInvincible(false);
             IsGroundPound = false;
 
             if (CombatManager != null) {

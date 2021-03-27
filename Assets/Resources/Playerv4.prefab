@@ -656,6 +656,7 @@ MonoBehaviour:
   PlayerJump: {fileID: 0}
   PlayerCombat: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
+  CombatManager: {fileID: 7158537297210349565}
   Direction: {x: 0, y: 0, z: 0}
   DashForce: 20
   DashExecutionTime: 0.2
@@ -683,6 +684,7 @@ MonoBehaviour:
   OtherPlayer: {fileID: 0}
   OtherPlayerTarget: {fileID: 0}
   OtherPlayerPullDashScript: {fileID: 0}
+  CombatManager: {fileID: 7158537297210349565}
   ChargingPullDash: 0
   PullDashCharged: 0
   IsPullDashing: 0

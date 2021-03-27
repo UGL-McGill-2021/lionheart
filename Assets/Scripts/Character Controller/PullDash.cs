@@ -21,6 +21,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] GameObject OtherPlayer;
         [SerializeField] GameObject OtherPlayerTarget;
         [SerializeField] PullDash OtherPlayerPullDashScript;
+        [SerializeField] PlayerCombatManager CombatManager;
 
         [Header("State")]
         [SerializeField] public bool ChargingPullDash;
@@ -213,6 +214,8 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetBool("IsPullDashing", true);
                     StartCoroutine(AnimationTrigger("IsPullDashing"));
 
+                    CombatManager.SetInvincible(true);
+
                     //Time limit on the pull dash execution
                     StartCoroutine(PullDashTimer());
                 }
@@ -259,6 +262,8 @@ namespace Lionheart.Player.Movement
             yield return new WaitForSecondsRealtime(ExpiryTimer);
             gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
+
+            CombatManager.SetInvincible(false);
 
             AnimatorController.SetBool("IsFalling", true);
             StartCoroutine(AnimationTrigger("IsFalling"));
