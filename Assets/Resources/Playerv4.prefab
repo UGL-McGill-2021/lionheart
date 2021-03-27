@@ -588,6 +588,7 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   PlayerPullDash: {fileID: 0}
   PlayerGroundPound: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   GroundCheck: {fileID: 6675483342905746456}
   Rb: {fileID: 3535366763632785127}
@@ -657,6 +658,7 @@ MonoBehaviour:
   PlayerCombat: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   CombatManager: {fileID: 7158537297210349565}
+  PlayerMultiplayer: {fileID: 0}
   Direction: {x: 0, y: 0, z: 0}
   DashForce: 20
   DashExecutionTime: 0.2
@@ -685,6 +687,7 @@ MonoBehaviour:
   OtherPlayerTarget: {fileID: 0}
   OtherPlayerPullDashScript: {fileID: 0}
   CombatManager: {fileID: 7158537297210349565}
+  PlayerMultiplayer: {fileID: 0}
   ChargingPullDash: 0
   PullDashCharged: 0
   IsPullDashing: 0
@@ -792,6 +795,7 @@ MonoBehaviour:
   AnimatorController: {fileID: 3717460445037045334}
   CombatManager: {fileID: 7158537297210349565}
   PlayerJump: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
   IsGroundPound: 0
   FreezeTimer: 0.2
   GroundPoundForce: 40
