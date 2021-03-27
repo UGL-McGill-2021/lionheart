@@ -68,6 +68,9 @@ public class CheckpointManager : MonoBehaviour
         {
             switch (SceneManager.GetActiveScene().name)
             {
+                case LevelName.Level0:
+                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level1);
+                    break;
                 case LevelName.Level1:
                     SceneLoader.LoadPhotonSceneWithName(LevelName.Level2);
                     break;
