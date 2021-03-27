@@ -128,7 +128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3478691057646437090}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 198deb8e18b5ce34dbbb8f4521ce7be7, type: 3}
   m_Name: 
@@ -148,7 +148,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3478691057646437090}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -232,6 +232,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 3478691057646437091}
+  agent: {fileID: 3478691057646437101}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  GroundDistance: 3
   AttackBox: {fileID: 4506531858679642705}
   SmashRadius: 500
   DefaultSmashTime: 1

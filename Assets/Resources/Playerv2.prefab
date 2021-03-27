@@ -6211,6 +6211,8 @@ MonoBehaviour:
   SmashRadius: 15
   DefaultSmashTime: 1
   DefaultSmashForce: 500
+  StompDistance: 40
+  StompForce: 10
 --- !u!136 &1197355403299462303
 CapsuleCollider:
   m_ObjectHideFlags: 0
