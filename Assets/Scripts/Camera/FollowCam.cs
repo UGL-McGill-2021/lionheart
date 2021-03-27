@@ -14,7 +14,7 @@ public class FollowCam : MonoBehaviour
     public float SmoothTime = .5f;
     public float PullbackSpeed = 1.5f;
 
-    public float StopFollowHeight;               //Distance the player must be from the respawn point to make the camera stop following it
+    public float StopFollowHeight;               //Height at which the camera stops following the player
 
     public List<GameObject> PlayerList;
     public Camera Cam;
@@ -52,9 +52,9 @@ public class FollowCam : MonoBehaviour
 
         //Pull camera back if players are too far apart
         float _Distance = Vector3.Distance(PlayerList[0].transform.position, PlayerList[1].transform.position);
-        if (_Distance > MaxDistance && 
+        if (_Distance > MaxDistance/* && 
             PlayerList[0].transform.position.y >= StopFollowHeight && 
-            PlayerList[1].transform.position.y >= StopFollowHeight)
+            PlayerList[1].transform.position.y >= StopFollowHeight*/)
         {
             float _OffSetFactor = (_Distance - MaxDistance) / PullbackSpeed;
             OffSet = new Vector3(0f, _OffSetFactor/5, -(_OffSetFactor));
@@ -88,12 +88,13 @@ public class FollowCam : MonoBehaviour
         Bounds Bounds = new Bounds(PlayerList[0].transform.position, Vector3.zero);
         foreach(GameObject G in PlayerList)
         {
-            if (G.transform.position.y < StopFollowHeight) {
-                Bounds.Encapsulate(new Vector3(G.transform.position.x, StopFollowHeight, G.transform.position.y));
-            } else
-            {
-                Bounds.Encapsulate(G.transform.position);
-            }
+            Bounds.Encapsulate(G.transform.position);
+            //if (G.transform.position.y < StopFollowHeight) {
+            //    Bounds.Encapsulate(new Vector3(G.transform.position.x, StopFollowHeight, G.transform.position.y));
+            //} else
+            //{
+            //    Bounds.Encapsulate(G.transform.position);
+            //}
         }
 
         LastCenter = Bounds.center;
