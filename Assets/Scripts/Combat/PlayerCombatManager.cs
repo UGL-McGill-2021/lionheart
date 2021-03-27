@@ -13,6 +13,7 @@ public class PlayerCombatManager : MonoBehaviour {
 
     ControllerInput Input;
     Rigidbody Body;
+    
 
     MovementHandler Handler;
     PhotonTransformViewClassic PhotonTransformView;
@@ -36,6 +37,7 @@ public class PlayerCombatManager : MonoBehaviour {
     public float DefaultSmashForce = 500;
 
     [Header("Stomp")]
+    public GameObject GroundCheck;
     public float StompDistance = 10;
     public float StompForce = 5;
 
@@ -93,7 +95,7 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         // stomp
-        if (other.transform.position.y < this.transform.position.y && Vector3.Distance(this.transform.GetChild(0).GetChild(3).transform.position, other.transform.position) < StompDistance) {
+        if (other.transform.position.y < this.transform.position.y && Vector3.Distance(GroundCheck.transform.position, other.transform.position) < StompDistance) {
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null) {
                 
