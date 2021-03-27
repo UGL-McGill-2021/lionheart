@@ -279,7 +279,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4d8e60fa-468d-4333-a0f7-a191141ccf5a"",
-                    ""path"": ""<DualShockGamepad>/rightStickPress"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -290,7 +290,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""da879836-ef98-41b5-970d-55c0be51a6d7"",
-                    ""path"": ""<XInputController>/rightStickPress"",
+                    ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
