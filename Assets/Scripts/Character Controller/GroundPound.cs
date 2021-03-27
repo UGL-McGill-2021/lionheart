@@ -22,6 +22,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
 
         [Header("State")]
+        [SerializeField] public bool BlockInput;
         [SerializeField] public bool IsGroundPound;
 
         [Header("Parameters")]
@@ -39,6 +40,7 @@ namespace Lionheart.Player.Movement
         {
             ControllerActions = new ControllerInput();
             IsGroundPound = false;
+            BlockInput = false;
 
             Type = MovementModifier.MovementType.GroundPound;
         }
@@ -84,7 +86,7 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterGroundPound(InputAction.CallbackContext Ctx)
         {
-            if (IsGroundPound == false && PlayerJump.IsGrounded == false) 
+            if (IsGroundPound == false && PlayerJump.IsGrounded == false && BlockInput == false) 
             {
                 IsGroundPound = true;
 

@@ -29,6 +29,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] public bool PullDashCharged;
         [SerializeField] public bool IsPullDashing;
         [SerializeField] public bool DisableGravity;
+        [SerializeField] public bool BlockInput;
 
         [Header("Parameters")]
         [SerializeField] private float MaxTriggerDistance = 60f;
@@ -61,6 +62,7 @@ namespace Lionheart.Player.Movement
             PullDashCharged = false;
             IsPullDashing = false;
             DisableGravity = false;
+            BlockInput = false;
 
             Type = MovementModifier.MovementType.PullDash;
         }
@@ -122,9 +124,9 @@ namespace Lionheart.Player.Movement
 
             //the pull dash activation can only be validated if within distance
             Vector3 V = (OtherPlayer.transform.position - transform.position);
-            
-            if (ChargingPullDash == false && IsPullDashing == false 
-                && OtherPlayerPullDashScript != null && V.magnitude <= MaxTriggerDistance)
+
+            if (ChargingPullDash == false && IsPullDashing == false && OtherPlayerPullDashScript != null
+                && V.magnitude <= MaxTriggerDistance && BlockInput == false)
             {
                 ChargingPullDash = true;
                 PullDashCharged = false;

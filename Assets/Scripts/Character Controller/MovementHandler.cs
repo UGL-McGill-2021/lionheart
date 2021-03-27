@@ -17,6 +17,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] GameObject Player;
         [SerializeField] PullDash PlayerPullDash;
         [SerializeField] GroundPound PlayerGroundPound;
+        [SerializeField] MultiplayerActivator PlayerMultiplayer;
+        [SerializeField] Animator AnimatorController;
 
         [Header("Parameters")]
         [SerializeField] public float AirRestrictAngle = 60f;
@@ -38,9 +40,24 @@ namespace Lionheart.Player.Movement
             PhotonView = GetComponent<PhotonView>();
             PlayerPullDash = gameObject.GetComponent<PullDash>();
             PlayerGroundPound = gameObject.GetComponent<GroundPound>();
+            PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
-        private void FixedUpdate() => Move();
+        /// <summary>
+        /// Author: Denis
+        /// </summary>
+        private void FixedUpdate()
+        {
+            if (PlayerMultiplayer.IgnoreControlInput == false)
+            {
+                Move();
+            }
+            else
+            {
+                AnimatorController.SetFloat("MoveMagnitude", 0.0f);
+                Rb.velocity = Vector3.zero;
+            }
+        }
 
         /// <summary>
         /// Author: Denis
