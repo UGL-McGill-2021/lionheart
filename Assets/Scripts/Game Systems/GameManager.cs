@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour {
             // This kind of changes will be level dependent
             switch (SceneManager.GetActiveScene().name)
             {
+                case LevelName.Level0:
+                    break;
                 case LevelName.Level1:
                     // for example, change the speed of the first moving platform in the list to 5 and stop time to 1
                     //MovingPlatformScriptList[0].speed = 5f;
@@ -105,14 +107,14 @@ public class GameManager : MonoBehaviour {
         if (PhotonNetwork.IsMasterClient)
         {
             // generate master player
-            player = PhotonNetwork.Instantiate("Playerv2", PlayerSpawningPoints[0].transform.position, PlayerSpawningPoints[0].transform.rotation);
+            player = PhotonNetwork.Instantiate("Playerv4", PlayerSpawningPoints[0].transform.position, PlayerSpawningPoints[0].transform.rotation);
             int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
             PhotonView.RPC("RPC_addPlayer", RpcTarget.AllViaServer, ViewId);  // use RPC call to add player to the player list
         }
         else
         {
             // generate client player
-            player = PhotonNetwork.Instantiate("Playerv22", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
+            player = PhotonNetwork.Instantiate("Playerv4-1", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
             int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
             PhotonView.RPC("RPC_addPlayer", RpcTarget.AllViaServer, ViewId);  // use RPC call to add player to the player list
         }

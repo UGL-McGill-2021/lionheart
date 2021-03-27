@@ -1,4 +1,5 @@
 using AssemblyCSharp.Assets;
+using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -86,11 +87,11 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// </summary>
     public override void OnJoinedRoom() {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
-        /*if (PhotonNetwork.IsMasterClient)
-        {
-            InputAction.Player.Disable();
-            PhotonNetwork.LoadLevel("Level 1");
-        }*/
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    InputAction.Player.Disable();
+        //    PhotonNetwork.LoadLevel("CombatTest");
+        //}
 
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
     }
@@ -106,7 +107,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InputAction.Player.Disable();
             
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("Level 1");
+                PhotonNetwork.LoadLevel("CombatTest");
         }
     }
 

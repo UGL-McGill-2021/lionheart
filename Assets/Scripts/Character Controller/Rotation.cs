@@ -70,6 +70,7 @@ namespace Lionheart.Player.Movement {
         /// <summary>
         /// Author: Denis
         /// Reduces Rotation Speed
+        /// TODO xDeprecated
         /// </summary>
         public void EnablePullDashRotationSpeed()
         {
@@ -79,6 +80,7 @@ namespace Lionheart.Player.Movement {
         /// <summary>
         /// Author: Denis 
         /// Resets rotation speed back to normal
+        /// TODO xDeprecated
         /// </summary>
         public void ResetRotationSpeed()
         {

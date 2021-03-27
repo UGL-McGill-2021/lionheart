@@ -75,14 +75,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Kick"",
-                    ""type"": ""Button"",
-                    ""id"": ""fb8374c4-9494-4bc9-9eba-e3e4c2556be9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""GroundPound"",
                     ""type"": ""Button"",
                     ""id"": ""0a9b5aaf-8a6f-4eab-8cc7-de1766ab1474"",
@@ -229,28 +221,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PullDash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7d7798f4-906c-4625-99c5-3812dc2eabf2"",
-                    ""path"": ""<XInputController>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Kick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8a974a7c-573a-4f23-9564-25e9b3a735dc"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Kick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -628,7 +598,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Mute = m_Player.FindAction("Mute", throwIfNotFound: true);
         m_Player_PullDash = m_Player.FindAction("PullDash", throwIfNotFound: true);
-        m_Player_Kick = m_Player.FindAction("Kick", throwIfNotFound: true);
         m_Player_GroundPound = m_Player.FindAction("GroundPound", throwIfNotFound: true);
         m_Player_SwitchCamera = m_Player.FindAction("SwitchCamera", throwIfNotFound: true);
         // UI
@@ -700,7 +669,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Mute;
     private readonly InputAction m_Player_PullDash;
-    private readonly InputAction m_Player_Kick;
     private readonly InputAction m_Player_GroundPound;
     private readonly InputAction m_Player_SwitchCamera;
     public struct PlayerActions
@@ -714,7 +682,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Mute => m_Wrapper.m_Player_Mute;
         public InputAction @PullDash => m_Wrapper.m_Player_PullDash;
-        public InputAction @Kick => m_Wrapper.m_Player_Kick;
         public InputAction @GroundPound => m_Wrapper.m_Player_GroundPound;
         public InputAction @SwitchCamera => m_Wrapper.m_Player_SwitchCamera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -747,9 +714,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @PullDash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPullDash;
                 @PullDash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPullDash;
                 @PullDash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPullDash;
-                @Kick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
-                @Kick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
-                @Kick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnKick;
                 @GroundPound.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
                 @GroundPound.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
                 @GroundPound.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
@@ -781,9 +745,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @PullDash.started += instance.OnPullDash;
                 @PullDash.performed += instance.OnPullDash;
                 @PullDash.canceled += instance.OnPullDash;
-                @Kick.started += instance.OnKick;
-                @Kick.performed += instance.OnKick;
-                @Kick.canceled += instance.OnKick;
                 @GroundPound.started += instance.OnGroundPound;
                 @GroundPound.performed += instance.OnGroundPound;
                 @GroundPound.canceled += instance.OnGroundPound;
@@ -916,7 +877,6 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         void OnTalk(InputAction.CallbackContext context);
         void OnMute(InputAction.CallbackContext context);
         void OnPullDash(InputAction.CallbackContext context);
-        void OnKick(InputAction.CallbackContext context);
         void OnGroundPound(InputAction.CallbackContext context);
         void OnSwitchCamera(InputAction.CallbackContext context);
     }

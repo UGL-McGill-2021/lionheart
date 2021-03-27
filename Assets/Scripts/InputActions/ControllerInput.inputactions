@@ -62,14 +62,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Kick",
-                    "type": "Button",
-                    "id": "fb8374c4-9494-4bc9-9eba-e3e4c2556be9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "GroundPound",
                     "type": "Button",
                     "id": "0a9b5aaf-8a6f-4eab-8cc7-de1766ab1474",
@@ -216,28 +208,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "PullDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7d7798f4-906c-4625-99c5-3812dc2eabf2",
-                    "path": "<XInputController>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Kick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8a974a7c-573a-4f23-9564-25e9b3a735dc",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Kick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
