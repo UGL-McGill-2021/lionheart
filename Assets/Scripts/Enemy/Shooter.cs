@@ -20,6 +20,7 @@ public class Shooter : Enemy
 
     public float ProjectileSpeed;   // how fast the projectile will travel
     public float ShootCooldown;     // how long to wait in between attacks
+    public float AttackDelay;  // delay for performing animation
 
     public GameObject Projectile;
 
@@ -105,7 +106,7 @@ public class Shooter : Enemy
         WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
-        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject, this.AnimManager);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject, this.AnimManager, this.AttackDelay);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 

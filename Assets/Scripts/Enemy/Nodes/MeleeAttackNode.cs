@@ -9,12 +9,14 @@ public class MeleeAttackNode : Node
     private bool AttackRunning = false;
     private bool AttackComplete = false;
     private AnimationManager AnimManager;
+    private float AnimDelay;  
 
-    public MeleeAttackNode (float CooldownTime, MonoBehaviour MonoBehaviour, AnimationManager AnimationManager)
+    public MeleeAttackNode (float CooldownTime, MonoBehaviour MonoBehaviour, AnimationManager AnimationManager, float delay)
     {
         this.CooldownTime = CooldownTime;
         this.MonoBehaviour = MonoBehaviour;
         this.AnimManager = AnimationManager;
+        this.AnimDelay = delay;
     }
     public override NodeState Evaluate()
     {
@@ -38,11 +40,17 @@ public class MeleeAttackNode : Node
     {
         Debug.Log("Melee attack executed!");
         MonoBehaviour.gameObject.GetComponent<EnemyCombatManager>().Smash();
+    }
+
+    private void PerformAnimation()
+    {
         if (AnimManager != null) AnimManager.TriggerAttack();
     }
 
     IEnumerator AttackAndCooldown()
     {
+        PerformAnimation();
+        yield return new WaitForSeconds(AnimDelay);
         MeleeAttack();
         yield return new WaitForSeconds(CooldownTime);
         AttackRunning = false;

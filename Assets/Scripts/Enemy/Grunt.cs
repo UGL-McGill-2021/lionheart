@@ -17,6 +17,7 @@ public class Grunt : Enemy
     public Transform WanderTarget;  // the area the grunt will wander around
     public float WanderRange;       // how far to wander around the wander target
     public float AttackCooldown;    // how long to wait in between attacks
+    public float AttackDelay;  // delay for performing animation
 
     private Transform CurrentTarget;
     private Node RootNode;
@@ -85,7 +86,7 @@ public class Grunt : Enemy
         WalkToPlayerNode WalkToPlayerNode = new WalkToPlayerNode(GetTarget, NearnessToPlayer, NavMeshAgent);
         WanderNode WanderNode = new WanderNode(WanderTarget, NavMeshAgent, WanderRange);
         TargetInRangeNode TargetInRangeNode = new TargetInRangeNode(ChasingRange, PlayerList, this.transform, SetTarget);
-        MeleeAttackNode MeleeAttackNode = new MeleeAttackNode(AttackCooldown, this, AnimManager);
+        MeleeAttackNode MeleeAttackNode = new MeleeAttackNode(AttackCooldown, this, AnimManager, AttackDelay);
 
         Inverter TargetNotInRange = new Inverter(TargetInRangeNode);
 

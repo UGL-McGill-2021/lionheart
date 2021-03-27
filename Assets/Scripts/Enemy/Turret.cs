@@ -16,6 +16,7 @@ public class Turret : Enemy
 
     public float ProjectileSpeed;   //how fast projectiles travel
     public float ShootCooldown;     //how long to wait before next shot
+    public float AttackDelay;  // delay for performing animation
 
     public GameObject Projectile;   //gameobject to instantiate and shoot
 
@@ -65,7 +66,7 @@ public class Turret : Enemy
 
     private void ConstructBehaviourTree()
     {
-        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject, AnimManager);
+        ShootNode ShootNode = new ShootNode(Projectile, GetTarget, ProjectileSpeed, ShootCooldown, this.gameObject, AnimManager, this.AttackDelay);
         RootNode = ShootNode;
     }
 

@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour {
         {
             if (spawningPoint != null)
             {
-                GameObject obj = PhotonNetwork.Instantiate("Grunt", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                GameObject obj = PhotonNetwork.Instantiate("Grunt_v2", spawningPoint.transform.position, spawningPoint.transform.rotation);
                 obj.GetComponent<Grunt>().enabled = true;
                 obj.GetComponent<NavMeshAgent>().enabled = true;
                 obj.GetComponent<Grunt>().WanderTarget = spawningPoint.transform;
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour {
         {
             if(spawningPoint != null)
             {
-                GameObject obj = PhotonNetwork.Instantiate("Shooter", spawningPoint.transform.position, spawningPoint.transform.rotation);
+                GameObject obj = PhotonNetwork.Instantiate("Shooter_v2", spawningPoint.transform.position, spawningPoint.transform.rotation);
                 obj.GetComponent<Shooter>().enabled = true;
                 obj.GetComponent<NavMeshAgent>().enabled = true;
                 obj.GetComponent<Shooter>().WanderTarget = spawningPoint.transform;
@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour {
             {
                 if (TurretSpawningPoints[i] != null && TurretTargetsPoints[i] != null)
                 {
-                    GameObject obj = PhotonNetwork.Instantiate("Turret", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
+                    GameObject obj = PhotonNetwork.Instantiate("Turret_v2", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
                     obj.GetComponent<Turret>().Target = TurretTargetsPoints[i].transform;
                 }
             }
