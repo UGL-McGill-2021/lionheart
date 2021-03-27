@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Photon.Pun;
 using UnityEngine;
 
 /// <summary>
@@ -13,16 +14,22 @@ public class FollowCam : MonoBehaviour
     public float SmoothTime = .5f;
     public float PullbackSpeed = 1.5f;
 
+    public float StopFollowHeight;               //Height at which the camera stops following the player
+
     public List<GameObject> PlayerList;
     public Camera Cam;
 
 
     private Vector3 OffSet;
     private Vector3 Velocity;
+    private Vector3 LastCenter;
+
+    private CheckpointManager CheckpointMan;
 
     private void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
+        CheckpointMan = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
     }
 
     void LateUpdate()
@@ -34,14 +41,20 @@ public class FollowCam : MonoBehaviour
 
         //Set Camera Position
         Vector3 CenterPoint = GetCenterPoint();
+        print(CenterPoint);
         Vector3 NewPosition = CenterPoint + OffSet;
         transform.position = Vector3.SmoothDamp(transform.position, NewPosition, ref Velocity, SmoothTime);
 
         if (PlayerList.Count < 2) return;
 
+        //Stop tracking if a player falls too low
+
+
         //Pull camera back if players are too far apart
         float _Distance = Vector3.Distance(PlayerList[0].transform.position, PlayerList[1].transform.position);
-        if (_Distance > MaxDistance)
+        if (_Distance > MaxDistance/* && 
+            PlayerList[0].transform.position.y >= StopFollowHeight && 
+            PlayerList[1].transform.position.y >= StopFollowHeight*/)
         {
             float _OffSetFactor = (_Distance - MaxDistance) / PullbackSpeed;
             OffSet = new Vector3(0f, _OffSetFactor/5, -(_OffSetFactor));
@@ -53,6 +66,7 @@ public class FollowCam : MonoBehaviour
 
     }
 
+    //check if player is in frame
     private bool Visible(GameObject Object)
     {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Cam);
@@ -75,8 +89,15 @@ public class FollowCam : MonoBehaviour
         foreach(GameObject G in PlayerList)
         {
             Bounds.Encapsulate(G.transform.position);
+            //if (G.transform.position.y < StopFollowHeight) {
+            //    Bounds.Encapsulate(new Vector3(G.transform.position.x, StopFollowHeight, G.transform.position.y));
+            //} else
+            //{
+            //    Bounds.Encapsulate(G.transform.position);
+            //}
         }
 
+        LastCenter = Bounds.center;
         return Bounds.center;
     }
 }

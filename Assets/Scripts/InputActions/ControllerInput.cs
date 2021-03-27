@@ -81,6 +81,14 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwitchCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""58f719b1-ef56-40fb-98c6-305b2742169e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -235,6 +243,28 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""GroundPound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d8e60fa-468d-4333-a0f7-a191141ccf5a"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da879836-ef98-41b5-970d-55c0be51a6d7"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -569,6 +599,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         m_Player_Mute = m_Player.FindAction("Mute", throwIfNotFound: true);
         m_Player_PullDash = m_Player.FindAction("PullDash", throwIfNotFound: true);
         m_Player_GroundPound = m_Player.FindAction("GroundPound", throwIfNotFound: true);
+        m_Player_SwitchCamera = m_Player.FindAction("SwitchCamera", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -639,6 +670,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Mute;
     private readonly InputAction m_Player_PullDash;
     private readonly InputAction m_Player_GroundPound;
+    private readonly InputAction m_Player_SwitchCamera;
     public struct PlayerActions
     {
         private @ControllerInput m_Wrapper;
@@ -651,6 +683,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         public InputAction @Mute => m_Wrapper.m_Player_Mute;
         public InputAction @PullDash => m_Wrapper.m_Player_PullDash;
         public InputAction @GroundPound => m_Wrapper.m_Player_GroundPound;
+        public InputAction @SwitchCamera => m_Wrapper.m_Player_SwitchCamera;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -684,6 +717,9 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @GroundPound.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
                 @GroundPound.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
                 @GroundPound.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
+                @SwitchCamera.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchCamera;
+                @SwitchCamera.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchCamera;
+                @SwitchCamera.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchCamera;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -712,6 +748,9 @@ public class @ControllerInput : IInputActionCollection, IDisposable
                 @GroundPound.started += instance.OnGroundPound;
                 @GroundPound.performed += instance.OnGroundPound;
                 @GroundPound.canceled += instance.OnGroundPound;
+                @SwitchCamera.started += instance.OnSwitchCamera;
+                @SwitchCamera.performed += instance.OnSwitchCamera;
+                @SwitchCamera.canceled += instance.OnSwitchCamera;
             }
         }
     }
@@ -839,6 +878,7 @@ public class @ControllerInput : IInputActionCollection, IDisposable
         void OnMute(InputAction.CallbackContext context);
         void OnPullDash(InputAction.CallbackContext context);
         void OnGroundPound(InputAction.CallbackContext context);
+        void OnSwitchCamera(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
