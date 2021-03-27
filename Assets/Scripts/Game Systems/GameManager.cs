@@ -65,36 +65,23 @@ public class GameManager : MonoBehaviour {
             // This kind of changes will be level dependent
             switch (SceneManager.GetActiveScene().name)
             {
+                case LevelName.Level0:
+                    break;
                 case LevelName.Level1:
                     // for example, change the speed of the first moving platform in the list to 5 and stop time to 1
                     //MovingPlatformScriptList[0].speed = 5f;
                     //MovingPlatformScriptList[0].StopTime = 1f;
                     // MovingPlatformScriptList[0].isAutomatic = false;
-                    GameObject obj = PhotonNetwork.Instantiate("Grunt_v2", new Vector3(100, 8, -90), Quaternion.identity);
-                    obj.GetComponent<Grunt>().enabled = true;
-                    obj.GetComponent<NavMeshAgent>().enabled = true;
-                    obj.GetComponent<Grunt>().WanderTarget = obj.transform;
-                    obj.GetComponent<Grunt>().WanderRange = 20;
-
-                    obj = PhotonNetwork.Instantiate("Shooter_v2", new Vector3(119, 8, -90), Quaternion.identity);
-                    obj.GetComponent<Shooter>().enabled = true;
-                    obj.GetComponent<NavMeshAgent>().enabled = true;
-                    obj.GetComponent<Shooter>().WanderTarget = obj.transform;
-                    obj.GetComponent<Shooter>().WanderRange = 20;
-                    Transform t = obj.transform;
-
-                    obj = PhotonNetwork.Instantiate("Turret_v2", new Vector3(119, 14, -85), Quaternion.identity);
-                    obj.GetComponent<Turret>().Target = t;
 
                     // for example, change the disappear time of the second temp platform in the list to 1.5
                     //TempPlatformScriptList[1].DisappearDelay = 1.5f;
 
                     break;
                 case LevelName.Level2:
-                    
+
                     break;
                 case LevelName.Level3:
-                    
+
                     break;
                 case LevelName.Level4:
 
@@ -120,14 +107,14 @@ public class GameManager : MonoBehaviour {
         if (PhotonNetwork.IsMasterClient)
         {
             // generate master player
-            player = PhotonNetwork.Instantiate("Playerv2", PlayerSpawningPoints[0].transform.position, PlayerSpawningPoints[0].transform.rotation);
+            player = PhotonNetwork.Instantiate("Playerv4", PlayerSpawningPoints[0].transform.position, PlayerSpawningPoints[0].transform.rotation);
             int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
             PhotonView.RPC("RPC_addPlayer", RpcTarget.AllViaServer, ViewId);  // use RPC call to add player to the player list
         }
         else
         {
             // generate client player
-            player = PhotonNetwork.Instantiate("Playerv22", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
+            player = PhotonNetwork.Instantiate("Playerv4-1", PlayerSpawningPoints[1].transform.position, PlayerSpawningPoints[1].transform.rotation);
             int ViewId = player.gameObject.GetComponent<PhotonView>().ViewID;
             PhotonView.RPC("RPC_addPlayer", RpcTarget.AllViaServer, ViewId);  // use RPC call to add player to the player list
         }
