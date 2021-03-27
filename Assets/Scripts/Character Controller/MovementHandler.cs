@@ -15,6 +15,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] Rigidbody Rb;
         [SerializeField] Camera PlayerCamera;
         [SerializeField] GameObject Player;
+        [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] GroundPound PlayerGroundPound;
 
         [Header("Parameters")]
         [SerializeField] public float AirRestrictAngle = 60f;
@@ -34,6 +36,8 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PhotonView = GetComponent<PhotonView>();
+            PlayerPullDash = gameObject.GetComponent<PullDash>();
+            PlayerGroundPound = gameObject.GetComponent<GroundPound>();
         }
 
         private void FixedUpdate() => Move();
@@ -59,9 +63,10 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void Move()
         {
-            IsPullDashing = gameObject.GetComponent<PullDash>().IsPullDashing;
-            DisableGravity = gameObject.GetComponent<PullDash>().DisableGravity;
-            IsGroundPound = gameObject.GetComponent<GroundPound>().IsGroundPound;
+            IsPullDashing = PlayerPullDash.IsPullDashing;
+            DisableGravity = PlayerPullDash.DisableGravity;
+            IsGroundPound = PlayerGroundPound.IsGroundPound;
+            //TODO xDeprecated
             bool Restrict = AirControlCompensation();
 
             if (PhotonView.IsMine)
@@ -107,6 +112,7 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// While pull dashing air control is restricted to an angle range
+        /// TODO xDeprecated
         /// </summary>
         /// <returns></returns>
         private bool AirControlCompensation()

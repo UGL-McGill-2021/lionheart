@@ -14,7 +14,10 @@ namespace Lionheart.Player.Movement
     {
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
+        [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] GroundPound PlayerGroundPound;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
         [SerializeField] GameObject GroundCheck;
         [SerializeField] Gamepad Controller;
         [SerializeField] Rigidbody Rb;
@@ -25,16 +28,21 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float GroundDistance = 0.6f;
         [SerializeField] private float CoyoteHopTimer = 1f;
         [SerializeField] private float FallTimer = 2f;
+        [SerializeField] private float LandingAnimTriggerDistance = 0.5f;
+        [SerializeField] private float SmashingAnimTriggerDistance = 1f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
         public bool IsGrounded;
         public bool IsFalling;
+        public bool PlayedLandingAnim;
+        public bool WithinSmashDistance;
 
         private float GravityForce = Physics.gravity.y;
         private bool HasJumped;
         private bool CanCoyoteHop;
         private bool WasGroundedLastFrame;
+        private Vector3 Vec;
         private Vector3 Vec2 = Vector3.zero;
 
         //TODO: Replace by Coroutine is found to be unstable
@@ -55,8 +63,20 @@ namespace Lionheart.Player.Movement
             HasJumped = false;
             CanCoyoteHop = false;
             WasGroundedLastFrame = false;
+            PlayedLandingAnim = false;
+            WithinSmashDistance = false;
 
             Type = MovementModifier.MovementType.Jump;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Caching components
+        /// </summary>
+        private void Start()
+        {
+            PlayerPullDash = gameObject.GetComponent<PullDash>();
+            PlayerGroundPound = gameObject.GetComponent<GroundPound>();
         }
 
         /// <summary>
@@ -96,30 +116,78 @@ namespace Lionheart.Player.Movement
                 HasJumped = true;
                 CanCoyoteHop = false;
                 JumpedFrameCounter = 10;
+
+                AnimatorController.SetBool("IsJumping", true);
+                StartCoroutine(AnimationTrigger("IsJumping"));
+                PlayedLandingAnim = false;
             }
         }
 
-        private void FixedUpdate() => VerticalForces();
+        /// <summary>
+        /// Author: Denis
+        /// Jump vectors and animation logic
+        /// </summary>
+        private void FixedUpdate()
+        {
+            Vec = Vector3.zero;
+
+            CheckIfGrounded();
+
+            EarlyPlayAnimations();
+
+            VerticalForces();
+
+            if (PlayedLandingAnim == false)
+            {
+                LatePlayAnimations();
+            }
+
+            WasGroundedLastFrame = IsGrounded;
+        }
 
         /// <summary>
         /// Author: Denis
-        /// Solves the jump and gravity vectors to produce a final y axis vector.
+        /// Manages the fall animation and a counter airborne softlock state landing animation 
+        /// </summary>
+        private void EarlyPlayAnimations()
+        {
+            if (IsGrounded == false && HasJumped == false && PlayerPullDash.IsPullDashing == false &&
+                PlayerGroundPound.IsGroundPound == false && Value.y < -8f)
+            {
+                AnimatorController.SetBool("IsFalling", true);
+                StartCoroutine(AnimationTrigger("IsFalling"));
+                IsFalling = true;
+                PlayedLandingAnim = false;
+            }
+
+            if (IsGrounded == true)
+            {
+                AnimatorStateInfo St = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                if (St.IsName("Airborne"))
+                {
+                    AnimatorController.SetBool("IsLanding", true);
+                    StartCoroutine(AnimationTrigger("IsLanding"));
+                    PlayedLandingAnim = true;
+                }
+                
+                if (AnimatorController.GetBool("IsAirDashing") == true)
+                {
+                    AnimatorController.SetBool("IsAirDashing", false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Solves the jump, jump counterforce and gravity vectors to produce a final y axis vector. Also triggers rumble
         /// </summary>
         private void VerticalForces()
         {
-            Vector3 Vec = Vector3.zero;
-            CheckIfGrounded();
-
-            /*if (IsGrounded == true)
-            {
-                StopCoroutine(MinFallTimeWindow());
-            }*/
-
+            //coyote time for the jump
             if (IsGrounded == false && WasGroundedLastFrame == true)
             {
                 CanCoyoteHop = true;
                 StartCoroutine(CoyoteHopTimeWindow());
-                //StartCoroutine(MinFallTimeWindow());
             }
 
             //allows for the varying jump sizes
@@ -133,7 +201,7 @@ namespace Lionheart.Player.Movement
             }
 
             //calculates gravity
-            if (gameObject.GetComponent<PullDash>().DisableGravity == true)
+            if (PlayerPullDash.DisableGravity == true)
             {
                 Vec = Vector3.zero;
             }
@@ -142,6 +210,7 @@ namespace Lionheart.Player.Movement
                 Vec = new Vector3(0f, 3f * GravityForce * Time.deltaTime, 0f);
             }
 
+            //checks landing after a jump or fall
             if (IsGrounded == true && JumpedFrameCounter == 0)
             {
                 Value = Vector3.zero;
@@ -159,13 +228,13 @@ namespace Lionheart.Player.Movement
                     IsFalling = false;
                 }
             }
+            //reduces jump collision ignore time
             if (JumpedFrameCounter > 0)
             {
                 JumpedFrameCounter--;
             }
-            Value += Vec + Vec2;
 
-            WasGroundedLastFrame = IsGrounded;
+            Value += Vec + Vec2;
         }
 
         /// <summary>
@@ -179,12 +248,6 @@ namespace Lionheart.Player.Movement
             CanCoyoteHop = false;
         }
 
-        private IEnumerator MinFallTimeWindow()
-        {
-            yield return new WaitForSecondsRealtime(FallTimer);
-            IsFalling = true;
-        }
-
         /// <summary>
         /// Author: Denis
         /// Detect collision with the ground
@@ -192,12 +255,42 @@ namespace Lionheart.Player.Movement
         private void CheckIfGrounded()
         {
             IsGrounded = Physics.CheckSphere(GroundCheck.transform.position, GroundDistance, GroundMask);
+            //WithinSmashDistance = Physics.CheckSphere(GroundCheck.transform.position, SmashingAnimTriggerDistance, GroundMask);
         }
 
         /// <summary>
         /// Author: Denis
+        /// Play Landing animation when about to hit the ground
+        /// TODO Integrate with photon
+        /// </summary>
+        private void LatePlayAnimations()
+        {
+            if (Physics.CheckSphere(GroundCheck.transform.position, LandingAnimTriggerDistance, GroundMask) &&
+                HasJumped == true)
+            {
+                if (Value.y < 0f)
+                {
+                    AnimatorController.SetBool("IsLanding", true);
+                    StartCoroutine(AnimationTrigger("IsLanding"));
+                    PlayedLandingAnim = true;
+                }
+                else
+                {
+                    AnimatorStateInfo st = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                    if (st.IsName("Airborne"))
+                    {
+                        AnimatorController.SetBool("IsLanding", true);
+                        StartCoroutine(AnimationTrigger("IsLanding"));
+                        PlayedLandingAnim = true;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Author: Denis, Ziqi
         /// Simple Rumble feedback on landing
-        /// TODO: rumble doesn't trigger if fell off an edge
+        /// TODO: PS4 vs XB rumble
         /// </summary>
         /// <returns></returns>
         IEnumerator PlayHaptics()
@@ -207,6 +300,30 @@ namespace Lionheart.Player.Movement
             else Gamepad.current.SetMotorSpeeds(0.05f, 0f);
             yield return new WaitForSecondsRealtime(0.1f);
             Gamepad.current.ResetHaptics();
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Simulates animation trigger for bools
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        IEnumerator AnimationTrigger(string Name)
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+           
+            switch (Name)
+            {
+                case "IsJumping":
+                    AnimatorController.SetBool("IsJumping", false);
+                    break;
+                case "IsFalling":
+                    AnimatorController.SetBool("IsFalling", false);
+                    break;
+                case "IsLanding":
+                    AnimatorController.SetBool("IsLanding", false);
+                    break;
+            }
         }
     }
 }

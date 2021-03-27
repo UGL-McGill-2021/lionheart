@@ -11,6 +11,7 @@ namespace Lionheart.Player.Movement {
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
 
         [Header("Parameters")]
         [SerializeField] private readonly float MaxWalkSpeed = 10f;
@@ -77,6 +78,8 @@ namespace Lionheart.Player.Movement {
                 }
                 Value = Value.normalized * CurrentSpeed;
             }
+
+            AnimatorController.SetFloat("MoveMagnitude", Value.magnitude);
         }
     }
 }

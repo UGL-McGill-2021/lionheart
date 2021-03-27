@@ -16,6 +16,9 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Animator AnimatorController;
+        [SerializeField] PlayerCombatManager CombatManager;
+        [SerializeField] Jump PlayerJump;
 
         [Header("State")]
         [SerializeField] public bool IsGroundPound;
@@ -23,13 +26,6 @@ namespace Lionheart.Player.Movement
         [Header("Parameters")]
         [SerializeField] private float FreezeTimer = 0.2f;
         [SerializeField] private float GroundPoundForce = 40f;
-
-        /// <summary>
-        /// Author: Feiyang
-        /// Combat integration
-        /// </summary>
-        [Header("Combat")]
-        public PlayerCombatManager CombatManager;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -44,6 +40,15 @@ namespace Lionheart.Player.Movement
             IsGroundPound = false;
 
             Type = MovementModifier.MovementType.GroundPound;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Caching components
+        /// </summary>
+        private void Start()
+        {
+            PlayerJump = gameObject.GetComponent<Jump>();
         }
 
         /// <summary>
@@ -77,9 +82,13 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterGroundPound(InputAction.CallbackContext Ctx)
         {
-            if (IsGroundPound == false && gameObject.GetComponent<Jump>().IsGrounded == false) 
+            if (IsGroundPound == false && PlayerJump.IsGrounded == false) 
             {
                 IsGroundPound = true;
+
+                AnimatorController.SetBool("IsGroundPound", true);
+                StartCoroutine(AnimationTrigger("IsGroundPound"));
+
                 StartCoroutine(GroundPoundRumble());
             }
         }
@@ -95,7 +104,13 @@ namespace Lionheart.Player.Movement
             else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(6f, 1f);
             else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
 
-            yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
+            /*yield return new WaitWhile(() => !PlayerJump.WithinSmashDistance);
+            AnimatorController.SetBool("IsSmashing", true);
+            StartCoroutine(AnimationTrigger("IsSmashing"));*/
+
+            yield return new WaitWhile(() => !PlayerJump.IsGrounded);
+            AnimatorController.SetBool("IsSmashing", true);
+            StartCoroutine(AnimationTrigger("IsSmashing"));
             IsGroundPound = false;
 
             if (CombatManager != null) {
@@ -127,6 +142,26 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Simulates animation trigger for bools
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <returns></returns>
+        IEnumerator AnimationTrigger(string Name)
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            switch (Name)
+            {
+                case "IsGroundPound":
+                    AnimatorController.SetBool("IsGroundPound", false);
+                    break;
+                case "IsSmashing":
+                    AnimatorController.SetBool("IsSmashing", false);
+                    break;
+            }
+        }
     }
 }
 

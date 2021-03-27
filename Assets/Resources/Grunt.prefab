@@ -326,6 +326,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 2501426362866264069}
+  agent: {fileID: 2501426362866264072}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  GroundDistance: 3
   AttackBox: {fileID: 0}
   SmashRadius: 5
   DefaultSmashTime: 0.3
