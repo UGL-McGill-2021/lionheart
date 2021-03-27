@@ -19,6 +19,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] Animator AnimatorController;
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] Jump PlayerJump;
+        [SerializeField] MultiplayerActivator PlayerMultiplayer;
 
         [Header("State")]
         [SerializeField] public bool IsGroundPound;
@@ -49,6 +50,7 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PlayerJump = gameObject.GetComponent<Jump>();
+            PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
         /// <summary>
@@ -102,9 +104,12 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         IEnumerator GroundPoundRumble()
         {
-            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(6f, 1f);
-            else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(6f, 1f);
-            else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
+            if (PlayerMultiplayer.hasVibration == true)
+            {
+                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(6f, 1f);
+                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(6f, 1f);
+                else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
+            }
 
             /*yield return new WaitWhile(() => !PlayerJump.WithinSmashDistance);
             AnimatorController.SetBool("IsSmashing", true);
@@ -122,9 +127,13 @@ namespace Lionheart.Player.Movement
                 CombatManager.Smash();
             }
 
-            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(1f, 5f);
-            else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(1f, 5f);
-            else Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);
+            if (PlayerMultiplayer.hasVibration == true)
+            {
+                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(1f, 5f);
+                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(1f, 5f);
+                else Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);
+            }
+
             yield return new WaitForSecondsRealtime(0.1f);
             Gamepad.current.ResetHaptics();
         }
