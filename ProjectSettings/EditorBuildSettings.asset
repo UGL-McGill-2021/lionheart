@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Menu/MainMenu.unity
     guid: b8408cd19c550944587b76b72dcc39f7
   - enabled: 1
@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/2/Level 2.unity
     guid: 781a9a7fb7498b64baab843ce329516f
   - enabled: 1
+    path: Assets/Scenes/Levels/3/Level 3.unity
+    guid: 3b843b1acc6acf346b3be5a40b04d2ef
+  - enabled: 0
     path: Assets/Scenes/Tests/CombatTest/CombatTest.unity
     guid: 999698ad95361ca4d8afe0c06b0c5aae
   m_configObjects: {}

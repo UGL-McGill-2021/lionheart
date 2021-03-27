@@ -565,8 +565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
-  ChasingRange: 30
-  NearnessToPlayer: 25
+  ChasingRange: 501
+  NearnessToPlayer: 500
   WanderTarget: {fileID: 0}
   WanderRange: 6
   ProjectileSpeed: 5
@@ -648,6 +648,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 7447072229981552792}
+  agent: {fileID: 0}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  GroundDistance: 0
   AttackBox: {fileID: 7447072229981552793}
   SmashRadius: 500
   DefaultSmashTime: 1
