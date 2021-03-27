@@ -19,6 +19,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
         [SerializeField] PlayerCombatManager CombatManager;
+        [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Vector3 Direction;
 
         [Header("Parameters")]
@@ -59,6 +60,7 @@ namespace Lionheart.Player.Movement
             PlayerPullDash = gameObject.GetComponent<PullDash>();
             PlayerJump = gameObject.GetComponent<Jump>();
             PlayerCombat = gameObject.GetComponent<PlayerCombatManager>();
+            PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
         /// <summary>
@@ -131,9 +133,12 @@ namespace Lionheart.Player.Movement
             AnimatorController.SetBool("IsDashing", true);
             CombatManager.SetInvincible(true);
 
-            if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(2f, 2f);
-            else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(2f, 2f);
-            else Gamepad.current.SetMotorSpeeds(0f, 0.3f);
+            if (PlayerMultiplayer.hasVibration == true)
+            {
+                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(2f, 2f);
+                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(2f, 2f);
+                else Gamepad.current.SetMotorSpeeds(0f, 0.3f);
+            }
 
             yield return new WaitForSecondsRealtime(DashExecutionTime);
 

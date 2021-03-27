@@ -16,6 +16,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] PullDash PlayerPullDash;
         [SerializeField] GroundPound PlayerGroundPound;
+        [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
         [SerializeField] GameObject GroundCheck;
@@ -77,6 +78,7 @@ namespace Lionheart.Player.Movement
         {
             PlayerPullDash = gameObject.GetComponent<PullDash>();
             PlayerGroundPound = gameObject.GetComponent<GroundPound>();
+            PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
         /// <summary>
@@ -218,13 +220,13 @@ namespace Lionheart.Player.Movement
                 GravityForce = Physics.gravity.y;
                 if (HasJumped == true)
                 {
-                    StartCoroutine(PlayHaptics());
+                    if (PlayerMultiplayer.hasVibration==true) StartCoroutine(PlayHaptics());
                     HasJumped = false;
                     IsFalling = false;
                 }
                 else if (IsFalling == true)
                 {
-                    StartCoroutine(PlayHaptics());
+                    if (PlayerMultiplayer.hasVibration == true) StartCoroutine(PlayHaptics());
                     IsFalling = false;
                 }
             }
