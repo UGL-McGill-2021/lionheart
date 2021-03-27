@@ -2,7 +2,16 @@ fileFormatVersion: 2
 guid: 7ad416cd039c587469264a40d90dc63e
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -2627919135642719983
+    second: Armature|Activation
+  - first:
+      74: -1658046829664225209
+    second: Armature|Active
+  - first:
+      74: -9070932992494364291
+    second: Armature|AimAndShoot
   externalObjects: {}
   materials:
     materialImportMode: 2

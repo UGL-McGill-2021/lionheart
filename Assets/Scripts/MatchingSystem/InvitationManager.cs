@@ -90,7 +90,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         //if (PhotonNetwork.IsMasterClient)
         //{
         //    InputAction.Player.Disable();
-        //    PhotonNetwork.LoadLevel("CombatTest");
+        //    PhotonNetwork.LoadLevel("Level 0");
         //}
 
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
@@ -107,7 +107,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InputAction.Player.Disable();
             
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("CombatTest");
+                PhotonNetwork.LoadLevel("Level 0");
         }
     }
 

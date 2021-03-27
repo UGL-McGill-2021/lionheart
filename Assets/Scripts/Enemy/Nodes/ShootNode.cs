@@ -22,14 +22,18 @@ public class ShootNode : Node
 
     public delegate Transform GetTargetDelegate();
     private GetTargetDelegate GetTarget;
+    private AnimationManager AnimManager;
+    private float AnimDelay;
 
-    public ShootNode(GameObject Projectile, GetTargetDelegate GetTarget, float Speed, float CooldownTime, GameObject Shooter)
+    public ShootNode(GameObject Projectile, GetTargetDelegate GetTarget, float Speed, float CooldownTime, GameObject Shooter, AnimationManager AnimationManager, float animDelay)
     {
         this.Projectile = Projectile;
         this.CooldownTime = CooldownTime;
         this.Shooter = Shooter;
         this.GetTarget = GetTarget;
         this.Speed = Speed;
+        this.AnimManager = AnimationManager;
+        this.AnimDelay = animDelay;
 
         Transform = Shooter.GetComponent<Transform>();
         ShooterScript = Shooter.GetComponent<Enemy>();
@@ -59,8 +63,11 @@ public class ShootNode : Node
         return NodeState.RUNNING;
     }
 
+    private void PerformAnimation()
+    {
+        if (AnimManager != null) AnimManager.TriggerAttack();
+    }
 
-    
     //private void Shoot()
     //{
     //    GameObject bullet = ((MonoBehaviour) MonoBehaviour).Instantiate(Projectile, Transform.position + Transform.forward * 1.5f, Quaternion.identity) as GameObject;
@@ -69,8 +76,14 @@ public class ShootNode : Node
 
     IEnumerator AttackAndCooldown()
     {
+        PerformAnimation();
+        yield return new WaitForSeconds(AnimDelay);
+
         // call the RPC function to fire bullet if this enemy belong to the current client
-        if (ShooterScript.PhotonView.IsMine) ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
+        if (ShooterScript.PhotonView.IsMine)
+        {
+            ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
+        }
         yield return new WaitForSeconds(CooldownTime);
         AttackRunning = false;
     }
