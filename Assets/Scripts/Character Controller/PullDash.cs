@@ -23,6 +23,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] PullDash OtherPlayerPullDashScript;
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
+        [SerializeField] Jump PlayerJump;
 
         [Header("State")]
         [SerializeField] public bool ChargingPullDash;
@@ -38,7 +39,6 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float MaxVectorMagnitude = 40f;
         [SerializeField] private float CompletionDistance = 2f;
         [SerializeField] private float ExpiryTimer = 0.8f;
-        [SerializeField] private float AirControlAngleRange = 60;
         [SerializeField] private float TriggerTime = 0.5f;
 
         private Vector3 T;
@@ -74,6 +74,7 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
+            PlayerJump = gameObject.GetComponent<Jump>();
         }
 
         /// <summary>
@@ -225,6 +226,9 @@ namespace Lionheart.Player.Movement
                     ChargingPullDash = false;
                     IsPullDashing = true;
                     DisableGravity = true;
+
+                    PlayerJump.HasSecondJump = true;
+                    PlayerJump.HasJumped = false;
 
                     AnimatorController.SetBool("IsPullDashing", true);
                     StartCoroutine(AnimationTrigger("IsPullDashing"));

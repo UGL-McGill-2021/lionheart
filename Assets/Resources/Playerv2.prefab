@@ -5464,7 +5464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4559522712707332172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4085598448771675480}
@@ -5944,6 +5944,7 @@ MonoBehaviour:
   - {fileID: 6742636947217563593}
   - {fileID: 291058629658783102}
   - {fileID: 7158537297210349565}
+  IgnoreControlInput: 0
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5959,6 +5960,10 @@ MonoBehaviour:
   Rb: {fileID: 3535366763632785127}
   PlayerCamera: {fileID: 0}
   Player: {fileID: 0}
+  PlayerPullDash: {fileID: 0}
+  PlayerGroundPound: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
+  AnimatorController: {fileID: 0}
   AirRestrictAngle: 60
   PhotonView: {fileID: 5480352261030030601}
 --- !u!114 &5368698313015805028
@@ -5974,6 +5979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  AnimatorController: {fileID: 0}
   MoveAction:
     m_Name: <Gamepad>/leftStick
     m_Type: 0
@@ -6003,6 +6009,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 0}
+  PlayerGroundPound: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
+  AnimatorController: {fileID: 0}
   GroundCheck: {fileID: 5590533885952136207}
   Rb: {fileID: 3535366763632785127}
   JumpPower: 12
@@ -6010,11 +6020,18 @@ MonoBehaviour:
   GroundDistance: 0.15
   CoyoteHopTimer: 1
   FallTimer: 0.8
+  LandingAnimTriggerDistance: 0.5
+  SmashingAnimTriggerDistance: 1
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
   IsGrounded: 0
   IsFalling: 0
+  PlayedLandingAnim: 0
+  WithinSmashDistance: 0
+  BlockInput: 0
+  HasSecondJump: 0
+  Vec: {x: 0, y: 0, z: 0}
 --- !u!114 &8654789910141434568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6062,11 +6079,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 0}
+  PlayerJump: {fileID: 0}
+  PlayerCombat: {fileID: 0}
+  AnimatorController: {fileID: 0}
+  CombatManager: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
   Direction: {x: 0, y: 0, z: 0}
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
+  KnockbackForce: 1000
+  KnockbackTime: 1
   IsDashing: 0
+  IsAirDashing: 0
 --- !u!114 &6742636947217563593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6080,15 +6106,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  AnimatorController: {fileID: 0}
   Direction: {x: 0, y: 0, z: 0}
   OwnPullDashTarget: {fileID: 4559522712707332172}
   OtherPlayer: {fileID: 0}
   OtherPlayerTarget: {fileID: 0}
   OtherPlayerPullDashScript: {fileID: 0}
+  CombatManager: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
+  PlayerJump: {fileID: 0}
   ChargingPullDash: 0
   PullDashCharged: 0
   IsPullDashing: 0
   DisableGravity: 0
+  BlockInput: 0
   MaxTriggerDistance: 60
   LaunchVectorMultiplier: 1
   MinVectorMagnitude: 25
@@ -6189,10 +6220,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  AnimatorController: {fileID: 0}
+  CombatManager: {fileID: 7158537297210349565}
+  PlayerJump: {fileID: 0}
+  PlayerMultiplayer: {fileID: 0}
+  BlockInput: 0
   IsGroundPound: 0
   FreezeTimer: 0.2
   GroundPoundForce: 40
-  CombatManager: {fileID: 7158537297210349565}
 --- !u!114 &7158537297210349565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6211,6 +6246,7 @@ MonoBehaviour:
   SmashRadius: 15
   DefaultSmashTime: 1
   DefaultSmashForce: 500
+  GroundCheck: {fileID: 0}
   StompDistance: 40
   StompForce: 10
 --- !u!136 &1197355403299462303
