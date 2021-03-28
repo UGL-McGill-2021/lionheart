@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// Author: Ziqi Li
+/// Script for ca menu
+/// </summary>
 public class ConceptArtMenuManager : MenuManager
 {
     [Header("UI elements")]
@@ -30,7 +34,7 @@ public class ConceptArtMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
-    /// Function to back to the main menu
+    /// Function to back to the main menu (call back function setting up in button object)
     /// </summary>
     public void Back()
     {
