@@ -70,11 +70,13 @@ namespace Lionheart.Player.Movement {
                 if (CurrentSpeed > 1f) {
                     CurrentSpeed -= Deceleration * Time.deltaTime;
                 } 
-                else {
+                else 
+                {
                     CurrentSpeed = 1f;
                 }
             } 
-            else {
+            else 
+            {
                 if (CurrentSpeed < MaxWalkSpeed) {
                     CurrentSpeed += Acceleration * Time.deltaTime;
                 }

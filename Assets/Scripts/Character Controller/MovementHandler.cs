@@ -20,9 +20,6 @@ namespace Lionheart.Player.Movement
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Animator AnimatorController;
 
-        [Header("Parameters")]
-        [SerializeField] public float AirRestrictAngle = 60f;
-
         [Header("Photon")]
         public PhotonView PhotonView;
 
@@ -83,8 +80,6 @@ namespace Lionheart.Player.Movement
             IsPullDashing = PlayerPullDash.IsPullDashing;
             DisableGravity = PlayerPullDash.DisableGravity;
             IsGroundPound = PlayerGroundPound.IsGroundPound;
-            //TODO xDeprecated
-            bool Restrict = AirControlCompensation();
 
             if (PhotonView.IsMine)
             {
@@ -110,10 +105,10 @@ namespace Lionheart.Player.Movement
                         }
                     }
 
-                    //while pull dashing ignore the walk vector if it is outside of the angle tolerance range
+                    //disable directional air control while pull dashing
                     if (M.Type == MovementModifier.MovementType.Walk)
                     {
-                        if (Restrict == true)
+                        if (IsPullDashing == true)
                         {
                             continue;
                         }
@@ -124,41 +119,6 @@ namespace Lionheart.Player.Movement
 
                 Rb.velocity = Movement;
             }
-        }
-
-        /// <summary>
-        /// Author: Denis
-        /// While pull dashing air control is restricted to an angle range
-        /// TODO xDeprecated
-        /// </summary>
-        /// <returns></returns>
-        private bool AirControlCompensation()
-        {
-            Vector3 V1 = Vector3.one, V2 = Vector3.one;
-
-            if (IsPullDashing == true)
-            {
-                foreach (MovementModifier M in Modifiers)
-                {
-                    if (M.Type == MovementModifier.MovementType.Walk)
-                    {
-                        V1 = M.Value;
-                    }
-                    else if (M.Type == MovementModifier.MovementType.PullDash)
-                    {
-                        V2 = M.Value;
-                    }
-                }
-
-                float teta = Vector3.Angle(V2, V1);
-
-                if (teta > AirRestrictAngle)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }
