@@ -1547,6 +1547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneLoader: {fileID: 4658896976795027750}
   StartButton: {fileID: 545374494}
+  cursor: 0
 --- !u!4 &1498048447
 Transform:
   m_ObjectHideFlags: 0
@@ -2107,6 +2108,71 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0ece816a006b44128be66aac0c68336, type: 3}
+--- !u!1001 &3482476475331571883
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407306, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407307, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: IconImageList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482476475111407307, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: IconImageList.Array.data[0]
+      value: 
+      objectReference: {fileID: 2056815898}
+    - target: {fileID: 3482476475111407348, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: m_Name
+      value: ControllerIconSwitcher
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
 --- !u!1001 &4658896976795027749
 PrefabInstance:
   m_ObjectHideFlags: 0

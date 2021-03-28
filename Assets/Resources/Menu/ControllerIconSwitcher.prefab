@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3482476475111407348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3482476475111407306}
+  - component: {fileID: 3482476475111407307}
+  m_Layer: 0
+  m_Name: ControllerIconSwitcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3482476475111407306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3482476475111407348}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3482476475111407307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3482476475111407348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4e18684e17d4ae1ada5e028c6bbf40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconImageList: []
+  PS4_NORTH: {fileID: 21300000, guid: 51cb8bb78a3594553a56831fbc66f847, type: 3}
+  PS4_SOUTH: {fileID: 21300000, guid: 6ddc832b2adca422a864da3cef0557b8, type: 3}
+  PS4_EAST: {fileID: 21300000, guid: 4b78fbb41af9e479f80d39a0b22d5f17, type: 3}
+  PS4_WEST: {fileID: 21300000, guid: c71dbba2ddd9245dda3127b5afc751f9, type: 3}
+  PS4_UP: {fileID: 21300000, guid: e58fb8333e3b9434b80aea4ad95514fd, type: 3}
+  PS4_DOWN: {fileID: 21300000, guid: d4cef9c9942b14c0e9d9c7463f377097, type: 3}
+  PS4_LEFT: {fileID: 21300000, guid: 57e46ae70b1784195b87f23ecd1bddfc, type: 3}
+  PS4_RIGHT: {fileID: 21300000, guid: 68765536769c34526a23b25713071c49, type: 3}
+  PS4_L1: {fileID: 21300000, guid: c5902b9b7b9d24919be7124f215926a5, type: 3}
+  PS4_L2: {fileID: 21300000, guid: f8a73fa26f4684797a6ac69c70fcc2ea, type: 3}
+  PS4_R1: {fileID: 21300000, guid: 835d5e440ca8f45f8b3d996711c43e90, type: 3}
+  PS4_R2: {fileID: 21300000, guid: 6c19d95639cf04f4cb9dfbb7ed27dcd6, type: 3}
+  XBOX_NORTH: {fileID: 21300000, guid: 324990cb5114ddf41a87b3c7a5046d05, type: 3}
+  XBOX_SOUTH: {fileID: 21300000, guid: 8da57f44e81ce844e9f186368e1ba867, type: 3}
+  XBOX_EAST: {fileID: 21300000, guid: cbbe5a29a81475b4da40008746537624, type: 3}
+  XBOX_WEST: {fileID: 21300000, guid: 68a4d70bec1b20941878587217c5f6f2, type: 3}
+  XBOX_UP: {fileID: 21300000, guid: d8fc8ff560a93364bb8a7df134cf1e7b, type: 3}
+  XBOX_DOWN: {fileID: 21300000, guid: 9434c4d31cfdc414f99846b23c176487, type: 3}
+  XBOX_LEFT: {fileID: 21300000, guid: cd84c4150182c394591884d4e4d268fd, type: 3}
+  XBOX_RIGHT: {fileID: 21300000, guid: b1b8975335b209148b6327343df7dbee, type: 3}
+  XBOX_L1: {fileID: 21300000, guid: 5d704efe4216e9848a93769db3657563, type: 3}
+  XBOX_L2: {fileID: 21300000, guid: 5fcbe81ea17b6ef459dc71b063effa40, type: 3}
+  XBOX_R1: {fileID: 21300000, guid: f5a088ff1bd455f4b86fd3afc53645c3, type: 3}
+  XBOX_R2: {fileID: 21300000, guid: bc11018b28784af4eac29987a31ca2f5, type: 3}
