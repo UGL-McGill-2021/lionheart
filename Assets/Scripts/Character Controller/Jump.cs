@@ -39,9 +39,10 @@ namespace Lionheart.Player.Movement
         public bool PlayedLandingAnim;
         public bool WithinSmashDistance;
         public bool BlockInput;
+        public bool HasSecondJump;
+        public bool HasJumped;
 
         private float GravityForce = Physics.gravity.y;
-        private bool HasJumped;
         private bool CanCoyoteHop;
         private bool WasGroundedLastFrame;
         private Vector3 Vec;
@@ -68,6 +69,7 @@ namespace Lionheart.Player.Movement
             PlayedLandingAnim = false;
             WithinSmashDistance = false;
             BlockInput = false;
+            HasSecondJump = false;
 
             Type = MovementModifier.MovementType.Jump;
         }
@@ -114,11 +116,14 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterJump(InputAction.CallbackContext Ctx)
         {
-            if ((IsGrounded == true || CanCoyoteHop == true) && HasJumped == false && BlockInput == false)
+            if ((IsGrounded == true || CanCoyoteHop == true || HasSecondJump == true) 
+                && HasJumped == false && BlockInput == false)
             {
+                Vec2 = Vector3.zero;
                 Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
                 HasJumped = true;
                 CanCoyoteHop = false;
+                HasSecondJump = false;
                 JumpedFrameCounter = 10;
 
                 AnimatorController.SetBool("IsJumping", true);

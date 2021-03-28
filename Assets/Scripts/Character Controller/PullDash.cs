@@ -23,6 +23,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] PullDash OtherPlayerPullDashScript;
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
+        [SerializeField] Jump PlayerJump;
 
         [Header("State")]
         [SerializeField] public bool ChargingPullDash;
@@ -38,11 +39,9 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float MaxVectorMagnitude = 40f;
         [SerializeField] private float CompletionDistance = 2f;
         [SerializeField] private float ExpiryTimer = 0.8f;
-        [SerializeField] private float AirControlAngleRange = 60;
         [SerializeField] private float TriggerTime = 0.5f;
 
         private Vector3 T;
-        private Vector3 OgDir;
         private Vector3 Dir;
 
         public Vector3 Value { get; private set; }
@@ -74,6 +73,7 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
+            PlayerJump = gameObject.GetComponent<Jump>();
         }
 
         /// <summary>
@@ -172,12 +172,6 @@ namespace Lionheart.Player.Movement
             //if pull dash was successfully activated execute the motion
             if (IsPullDashing == true)
             {
-                /*if (DisableGravity == false && Vector3.Angle(OgDir, transform.forward) <= AirControlAngleRange)
-                {
-                    float M = Value.magnitude;
-                    Dir = transform.forward * M;
-                }*/
-
                 Vector3 V = Dir * LaunchVectorMultiplier;
 
                 if (V.magnitude > MaxVectorMagnitude)
@@ -220,11 +214,13 @@ namespace Lionheart.Player.Movement
                 {
                     T = OtherPlayerTarget.transform.position;
                     Dir = (OtherPlayerTarget.transform.position - transform.position);
-                    OgDir = Dir;
 
                     ChargingPullDash = false;
                     IsPullDashing = true;
                     DisableGravity = true;
+
+                    PlayerJump.HasSecondJump = true;
+                    PlayerJump.HasJumped = false;
 
                     AnimatorController.SetBool("IsPullDashing", true);
                     StartCoroutine(AnimationTrigger("IsPullDashing"));
@@ -246,7 +242,6 @@ namespace Lionheart.Player.Movement
         {
             if (Vector3.Distance(gameObject.transform.position, T)< CompletionDistance)
             {
-                gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
                 DisableGravity = false;
 
                 StartCoroutine(PullDashFall());
@@ -262,7 +257,6 @@ namespace Lionheart.Player.Movement
         IEnumerator PullDashFall()
         {
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
-            gameObject.GetComponent<Rotation>().ResetRotationSpeed();
             IsPullDashing = false;
         }
 
@@ -275,7 +269,6 @@ namespace Lionheart.Player.Movement
         IEnumerator PullDashTimer()
         {
             yield return new WaitForSecondsRealtime(ExpiryTimer);
-            gameObject.GetComponent<Rotation>().EnablePullDashRotationSpeed();
             DisableGravity = false;
 
             CombatManager.SetInvincible(false);

@@ -69,10 +69,14 @@ namespace Lionheart.Player.Movement {
                 Vector3.Lerp(Value, Vector3.zero, 0.01f);
                 if (CurrentSpeed > 1f) {
                     CurrentSpeed -= Deceleration * Time.deltaTime;
-                } else {
+                } 
+                else 
+                {
                     CurrentSpeed = 1f;
                 }
-            } else {
+            } 
+            else 
+            {
                 if (CurrentSpeed < MaxWalkSpeed) {
                     CurrentSpeed += Acceleration * Time.deltaTime;
                 }
