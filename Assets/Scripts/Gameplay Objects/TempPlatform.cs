@@ -9,6 +9,9 @@ public class TempPlatform : MonoBehaviour
     public bool isReusable = false;
     public float RespawnDelay = 10f;
 
+    public delegate void OnPlatformStateChangedDelegate(bool PlatformAppears);
+    public OnPlatformStateChangedDelegate OnPlatformStateChanged;
+
     private Coroutine CurrentCoroutine;
     private PhotonView PhotonView;
 
@@ -45,6 +48,8 @@ public class TempPlatform : MonoBehaviour
     [PunRPC]
     void PRC_DisableThisObject()
     {
+        OnPlatformStateChanged(false);
+
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = false;
         foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
@@ -58,6 +63,8 @@ public class TempPlatform : MonoBehaviour
     [PunRPC]
     void PRC_EnableThisObject()
     {
+        OnPlatformStateChanged(true);
+
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = true;
         foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())

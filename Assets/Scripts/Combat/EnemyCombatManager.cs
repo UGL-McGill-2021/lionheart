@@ -7,6 +7,7 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
     public NavMeshAgent agent;
+    public MonoBehaviour EnemyController;
 
     public LayerMask GroundLayerMask;
     public float GroundDistance;
@@ -134,5 +135,22 @@ public class EnemyCombatManager : MonoBehaviour {
         yield return new WaitForSeconds(_time);
 
         PhotonNetwork.Destroy(_gameObject);
+    }
+
+    public void TriggerGivePhysControlOnAll(bool givePhysControl) {
+        PhotonView.Get(this).RPC("GivePhysSysControl", RpcTarget.All, givePhysControl);
+    }
+
+    [PunRPC]
+    public void GivePhysSysControl(bool givePhysControl) {
+        if (givePhysControl) {
+            this.EnemyController.enabled = false;
+            this.agent.enabled = false;
+            this.Body.isKinematic = false;
+        } else {
+            this.Body.isKinematic = true;
+            this.agent.enabled = true;
+            this.EnemyController.enabled = true;
+        }
     }
 }

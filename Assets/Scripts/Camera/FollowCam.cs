@@ -41,7 +41,7 @@ public class FollowCam : MonoBehaviour
 
         //Set Camera Position
         Vector3 CenterPoint = GetCenterPoint();
-        print(CenterPoint);
+        //print(CenterPoint);
         Vector3 NewPosition = CenterPoint + OffSet;
         transform.position = Vector3.SmoothDamp(transform.position, NewPosition, ref Velocity, SmoothTime);
 

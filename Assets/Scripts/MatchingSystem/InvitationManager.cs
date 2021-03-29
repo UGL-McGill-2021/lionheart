@@ -25,6 +25,10 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     public InvitationCodePresenter GeneratedCodePresenter;
     public InvitationCodePresenter InputCodePresenter;
 
+    [Header("Local Debug")]
+    public bool EnableLocalDeubug = false;
+    public string DebugTargetLevel;
+
     /// <summary>
     /// Author: Feiyang Li
     /// Initialize controller input system for invitation code input
@@ -38,7 +42,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         InputAction.Player.AddX.performed += _ => AddCodeCharacter('X');
         InputAction.Player.AddY.performed += _ => AddCodeCharacter('Y');
         InputAction.Player.Enable();
-        
+
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -85,10 +89,11 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// </summary>
     public override void OnJoinedRoom() {
         // Debug.Log("Network (INFO): Successfully joined room " + PhotonNetwork.CurrentRoom.Name);
-        if (PhotonNetwork.IsMasterClient)
-        {
-            InputAction.Player.Disable();
-            PhotonNetwork.LoadLevel("Level 2");
+        if (EnableLocalDeubug) {
+            if (PhotonNetwork.IsMasterClient) {
+                InputAction.Player.Disable();
+                PhotonNetwork.LoadLevel(DebugTargetLevel);
+            }
         }
 
         if (!PhotonNetwork.IsMasterClient) InputAction.Player.Disable();
@@ -103,7 +108,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2) {
             Debug.Log("Network (INFO): Invitation complete!");
             InputAction.Player.Disable();
-            
+
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.LoadLevel("Level 2");
         }
@@ -153,8 +158,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// Author: Ziqi
     /// Call back function for leaving room
     /// </summary>
-    public override void OnLeftRoom()
-    {
+    public override void OnLeftRoom() {
         base.OnLeftRoom();
     }
 
@@ -163,12 +167,10 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// Function to create room with a random room code
     /// </summary>
     /// <returns></returns>
-    private string CreateRoom()
-    {
+    private string CreateRoom() {
         string InvitationCode = "";
 
-        for (int i = 0; i < CodeLength; i++)
-        {
+        for (int i = 0; i < CodeLength; i++) {
             InvitationCode += (ControllerButton)Random.Range(0, 3);
         }
 
@@ -186,8 +188,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
     /// Author: Ziqi
     /// Call back function when this object is destroyed
     /// </summary>
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         // unregister the keys bindings
         System.Action<InputAction.CallbackContext> handler = _ => AddCodeCharacter('A');
         InputAction.Player.AddA.performed -= handler;

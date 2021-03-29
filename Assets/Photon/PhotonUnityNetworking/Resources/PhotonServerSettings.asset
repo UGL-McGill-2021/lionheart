@@ -66,6 +66,8 @@ MonoBehaviour:
   - Teleport
   - OnPlayerAttacked
   - OnPlayerSmashed
+  - SetInvincible
+  - GivePhysicsSysControl
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
