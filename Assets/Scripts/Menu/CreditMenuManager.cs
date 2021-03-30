@@ -53,20 +53,13 @@ public class CreditMenuManager : MenuManager
     /// </summary>
     public void Next()
     {
-        if(CurrentPage < TextGroupList.Count-1)
+        if (CurrentPage < TextGroupList.Count - 1)
         {
             // disable current page
-            foreach(Transform textObj in TextGroupList[CurrentPage].transform)
-            {
-                textObj.gameObject.SetActive(false);
-            }
-
+            TextGroupList[CurrentPage].gameObject.SetActive(false);
             CurrentPage++;
             // enable next page
-            foreach(Transform textObj in TextGroupList[CurrentPage].transform)
-            {
-                textObj.gameObject.SetActive(true);
-            }
+            TextGroupList[CurrentPage].gameObject.SetActive(true);
         }
     }
 
@@ -76,20 +69,13 @@ public class CreditMenuManager : MenuManager
     /// </summary>
     public void Previous()
     {
-        if(CurrentPage > 0)
+        if (CurrentPage > 0)
         {
             // disable current page
-            foreach(Transform textObj in (TextGroupList[CurrentPage]).transform)
-            {
-                textObj.gameObject.SetActive(false);
-            }
-
+            TextGroupList[CurrentPage].gameObject.SetActive(false);
             CurrentPage--;
             // enable next page
-            foreach(Transform textObj in (TextGroupList[CurrentPage]).transform)
-            {
-                textObj.gameObject.SetActive(true);
-            }
+            TextGroupList[CurrentPage].gameObject.SetActive(true);
         }
     }
 }

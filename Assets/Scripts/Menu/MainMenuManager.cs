@@ -88,6 +88,15 @@ public class MainMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
+    /// Function for loading controls scene
+    /// </summary>
+    public void ConceptArt()
+    {
+        SceneLoader.LoadSceneWithName("ConceptArt");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
     /// Slider callback function for volume slider
     /// </summary>
     public void ChangeVolume()

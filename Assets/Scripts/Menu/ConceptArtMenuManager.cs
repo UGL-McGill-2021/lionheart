@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 /// <summary>
 /// Author: Ziqi Li
@@ -13,13 +14,16 @@ public class ConceptArtMenuManager : MenuManager
     public Button PreviousButton;
     public Button BackButton;
 
+    public List<GameObject> TextGroupList = new List<GameObject>();  // list store the parent gameObject of texts
+    private int CurrentPage = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (BackButton != null)
+        if (NextButton != null)
         {
             base.DefaultButton = NextButton;  // set the defaultButton in the parent class
-            BackButton.Select();
+            NextButton.Select();
         }
     }
 
@@ -39,5 +43,37 @@ public class ConceptArtMenuManager : MenuManager
     public void Back()
     {
         SceneLoader.LoadSceneWithName("MainMenu");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function to show next page (call back function setting up in button object)
+    /// </summary>
+    public void Next()
+    {
+        if (CurrentPage < TextGroupList.Count - 1)
+        {
+            // disable current page
+            TextGroupList[CurrentPage].gameObject.SetActive(false);
+            CurrentPage++;
+            // enable next page
+            TextGroupList[CurrentPage].gameObject.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function to show previous page (call back function setting up in button object)
+    /// </summary>
+    public void Previous()
+    {
+        if (CurrentPage > 0)
+        {
+            // disable current page
+            TextGroupList[CurrentPage].gameObject.SetActive(false);
+            CurrentPage--;
+            // enable next page
+            TextGroupList[CurrentPage].gameObject.SetActive(true);
+        }
     }
 }
