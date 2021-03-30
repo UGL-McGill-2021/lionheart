@@ -145,6 +145,8 @@ namespace Lionheart.Player.Movement
             IsDashing = false;
             CombatManager.SetInvincible(false);
 
+            PlayerCombat.StopAttack();
+
             if (IsAirDashing == true)
             {
                 AnimatorController.SetBool("IsAirDashing", true);
