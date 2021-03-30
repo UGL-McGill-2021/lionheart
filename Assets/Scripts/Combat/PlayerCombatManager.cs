@@ -13,7 +13,6 @@ public class PlayerCombatManager : MonoBehaviour {
 
     ControllerInput Input;
     Rigidbody Body;
-    
 
     MovementHandler Handler;
     PhotonTransformViewClassic PhotonTransformView;

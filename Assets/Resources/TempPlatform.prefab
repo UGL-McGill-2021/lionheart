@@ -169,7 +169,6 @@ MonoBehaviour:
   DisappearDelay: 2
   isReusable: 1
   RespawnDelay: 3
-  Disappeared: 0
 --- !u!114 &6405015803263307463
 MonoBehaviour:
   m_ObjectHideFlags: 0

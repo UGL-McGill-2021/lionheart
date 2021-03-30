@@ -134,7 +134,10 @@ public class EnemyCombatManager : MonoBehaviour {
 
         yield return new WaitForSeconds(_time);
 
-        PhotonNetwork.Destroy(_gameObject);
+        if (!Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
+            PhotonNetwork.Destroy(_gameObject);
+        }
+        
     }
 
     public void TriggerGivePhysControlOnAll(bool givePhysControl) {
