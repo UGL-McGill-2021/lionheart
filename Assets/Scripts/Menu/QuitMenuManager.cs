@@ -13,6 +13,7 @@ public class QuitMenuManager : MenuManager
     public Button ContinueButton;
     public Button QuitButton;
     public Toggle VibToggle;
+    public Slider VolumeSlider;
 
     private List<GameObject> PlayerList;
     [SerializeField]
@@ -24,9 +25,10 @@ public class QuitMenuManager : MenuManager
     {
         PhotonView = GetComponent<PhotonView>();
 
-        // initialize the vibration setting using static PlayerGameSettings class
+        // initialize the user setting using static PlayerGameSettings class
         // so the setting will be keept when loading new scene
-        VibToggle.isOn = PlayerGameSettings.IsVibrationOn;  
+        VibToggle.isOn = PlayerGameSettings.IsVibrationOn;
+        VolumeSlider.value = PlayerGameSettings.AudioVolume;
         QuitMenuUI.SetActive(false);  // hide the menu UI
 
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
@@ -95,6 +97,19 @@ public class QuitMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
+    /// Callback function of input system
+    /// </summary>
+    //void OnCloseMenu()
+    //{
+    //    if (QuitMenuUI.activeSelf)
+    //    {
+    //        QuitMenuUI.SetActive(false);
+    //        CurrentPlayerActivator.EnableControls();
+    //    }
+    //}
+
+    /// <summary>
+    /// Author: Ziqi Li
     /// Button callback function to close the menu
     /// </summary>
     public void Continue()
@@ -124,6 +139,15 @@ public class QuitMenuManager : MenuManager
             PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
             CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;
         }
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for volume slider
+    /// </summary>
+    public void ChangeVolume()
+    {
+        PlayerGameSettings.AudioVolume = VolumeSlider.value;
     }
 
     /// <summary>

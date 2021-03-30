@@ -7,5 +7,5 @@
 public static class PlayerGameSettings
 {
     public static bool IsVibrationOn = true;
-    public static int AudioVolume;
+    public static float AudioVolume = 0.5f;  // default volume is 0.5
 }

@@ -24,6 +24,7 @@ public class ControllerIconSwitcher : MonoBehaviour
     public Sprite PS4_L2;
     public Sprite PS4_R1;
     public Sprite PS4_R2;
+    public Sprite PS4_Menu;
     [Header("XBOX icons")]
     public Sprite XBOX_NORTH;
     public Sprite XBOX_SOUTH;
@@ -37,6 +38,7 @@ public class ControllerIconSwitcher : MonoBehaviour
     public Sprite XBOX_L2;
     public Sprite XBOX_R1;
     public Sprite XBOX_R2;
+    public Sprite XBOX_Menu;
 
     private string PreviousGampad;
     public const string PS4_controllerName = "DualShock4GamepadHID";
@@ -81,6 +83,7 @@ public class ControllerIconSwitcher : MonoBehaviour
                 else if (iconSpriteName == XBOX_L2.name) icon.sprite = PS4_L2;
                 else if (iconSpriteName == XBOX_R1.name) icon.sprite = PS4_R1;
                 else if (iconSpriteName == XBOX_R2.name) icon.sprite = PS4_R2;
+                else if (iconSpriteName == XBOX_Menu.name) icon.sprite = PS4_Menu;
                 else Debug.Log("ERROR in controller icon initial assignment");
             }
         }
@@ -101,6 +104,7 @@ public class ControllerIconSwitcher : MonoBehaviour
                 else if (iconSpriteName == PS4_L2.name) icon.sprite = XBOX_L2;
                 else if (iconSpriteName == PS4_R1.name) icon.sprite = XBOX_R1;
                 else if (iconSpriteName == PS4_R2.name) icon.sprite = XBOX_R2;
+                else if (iconSpriteName == PS4_Menu.name) icon.sprite = XBOX_Menu;
                 else Debug.Log("ERROR in controller icon initial assignment");
             }
         }

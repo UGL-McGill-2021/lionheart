@@ -15,9 +15,11 @@ public class MainMenuManager : MenuManager
     [Header("UI elements")]
     public Button StartButton;
     public bool cursor;
+    public Slider VolumeSlider;
 
     private void Awake()
     {
+        VolumeSlider.value = PlayerGameSettings.AudioVolume;
         if (StartButton != null)
         {
             base.DefaultButton = StartButton;  // set the defaultButton in the parent class
@@ -82,5 +84,14 @@ public class MainMenuManager : MenuManager
     public void Controls()
     {
         SceneLoader.LoadSceneWithName("Controls");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for volume slider
+    /// </summary>
+    public void ChangeVolume()
+    {
+        PlayerGameSettings.AudioVolume = VolumeSlider.value;
     }
 }

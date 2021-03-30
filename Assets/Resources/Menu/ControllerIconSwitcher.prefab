@@ -56,6 +56,7 @@ MonoBehaviour:
   PS4_L2: {fileID: 21300000, guid: f8a73fa26f4684797a6ac69c70fcc2ea, type: 3}
   PS4_R1: {fileID: 21300000, guid: 835d5e440ca8f45f8b3d996711c43e90, type: 3}
   PS4_R2: {fileID: 21300000, guid: 6c19d95639cf04f4cb9dfbb7ed27dcd6, type: 3}
+  PS4_Menu: {fileID: 21300000, guid: 33ecddf77e03942a6b1d02719775d3f4, type: 3}
   XBOX_NORTH: {fileID: 21300000, guid: 324990cb5114ddf41a87b3c7a5046d05, type: 3}
   XBOX_SOUTH: {fileID: 21300000, guid: 8da57f44e81ce844e9f186368e1ba867, type: 3}
   XBOX_EAST: {fileID: 21300000, guid: cbbe5a29a81475b4da40008746537624, type: 3}
@@ -68,3 +69,4 @@ MonoBehaviour:
   XBOX_L2: {fileID: 21300000, guid: 5fcbe81ea17b6ef459dc71b063effa40, type: 3}
   XBOX_R1: {fileID: 21300000, guid: f5a088ff1bd455f4b86fd3afc53645c3, type: 3}
   XBOX_R2: {fileID: 21300000, guid: bc11018b28784af4eac29987a31ca2f5, type: 3}
+  XBOX_Menu: {fileID: 21300000, guid: 0de796785eee0f64ea5956c70c199894, type: 3}
