@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 7447072229981552796}
   - component: {fileID: 7447072229981552803}
   - component: {fileID: 7623857274139953912}
+  - component: {fileID: 7741029374228097727}
   m_Layer: 0
   m_Name: Shooter_v2
   m_TagString: Enemy
@@ -616,6 +617,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7447072229981552796}
   - {fileID: 7623857274139953912}
+  - {fileID: 7741029374228097727}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -681,6 +683,22 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
+--- !u!114 &7741029374228097727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7447072229981552801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7706527977402537421
 GameObject:
   m_ObjectHideFlags: 0
