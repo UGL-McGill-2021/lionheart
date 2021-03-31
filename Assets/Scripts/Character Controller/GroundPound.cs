@@ -95,22 +95,20 @@ namespace Lionheart.Player.Movement
                 AnimatorController.SetBool("IsGroundPound", true);
                 StartCoroutine(AnimationTrigger("IsGroundPound"));
 
-                StartCoroutine(GroundPoundRumble());
+                StartCoroutine(GroundPoundExecution());
             }
         }
 
         /// <summary>
         /// Author: Denis
-        /// Ground Pound rumble
+        /// Ground Pound execution
         /// </summary>
         /// <returns></returns>
-        IEnumerator GroundPoundRumble()
+        IEnumerator GroundPoundExecution()
         {
             if (PlayerMultiplayer.hasVibration == true)
             {
-                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(6f, 1f);
-                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(6f, 1f);
-                else Gamepad.current.SetMotorSpeeds(0.6f, 0.1f);
+                Gamepad.current.SetMotorSpeeds(0.5f, 0.7f);
             }
 
             /*yield return new WaitWhile(() => !PlayerJump.WithinSmashDistance);
@@ -131,12 +129,10 @@ namespace Lionheart.Player.Movement
 
             if (PlayerMultiplayer.hasVibration == true)
             {
-                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(1f, 5f);
-                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(1f, 5f);
-                else Gamepad.current.SetMotorSpeeds(0.1f, 0.5f);
+                Gamepad.current.SetMotorSpeeds(1f, 0.2f);
             }
 
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(0.2f);
             Gamepad.current.ResetHaptics();
         }
 
