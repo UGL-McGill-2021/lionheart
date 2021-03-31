@@ -105,7 +105,6 @@ public class ControllerIconSwitcher : MonoBehaviour
                 else if (iconSpriteName == PS4_R1.name) icon.sprite = XBOX_R1;
                 else if (iconSpriteName == PS4_R2.name) icon.sprite = XBOX_R2;
                 else if (iconSpriteName == PS4_Menu.name) icon.sprite = XBOX_Menu;
-                else Debug.Log("ERROR in controller icon initial assignment");
             }
         }
     }
