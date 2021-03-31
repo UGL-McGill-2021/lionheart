@@ -178,7 +178,13 @@ namespace Lionheart.Player.Movement
                     StartCoroutine(AnimationTrigger("IsLanding"));
                     PlayedLandingAnim = true;
                 }
-                
+                else if (St.IsName("GPAirborne"))
+                {
+                    AnimatorController.SetBool("Smash", true);
+                    StartCoroutine(AnimationTrigger("Smash"));
+                    PlayedLandingAnim = true;
+                }
+
                 if (AnimatorController.GetBool("IsAirDashing") == true)
                 {
                     AnimatorController.SetBool("IsAirDashing", false);
@@ -329,6 +335,9 @@ namespace Lionheart.Player.Movement
                     break;
                 case "IsLanding":
                     AnimatorController.SetBool("IsLanding", false);
+                    break;
+                case "Smash":
+                    AnimatorController.SetBool("Smash", false);
                     break;
             }
         }
