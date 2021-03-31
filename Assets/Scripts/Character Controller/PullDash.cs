@@ -148,9 +148,7 @@ namespace Lionheart.Player.Movement
 
             if (PlayerMultiplayer.hasVibration == true)
             {
-                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(4f, 4f);
-                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(4f, 4f);
-                else Gamepad.current.SetMotorSpeeds(0.05f, 0.3f);
+                Gamepad.current.SetMotorSpeeds(0.25f, 0.3f);
             }
 
             yield return new WaitForSecondsRealtime(0.2f);
