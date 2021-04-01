@@ -209,7 +209,10 @@ public class PlayerCombatManager : MonoBehaviour {
             yield break;
         }
 
-        OnKnockBackStateChanged(true);
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(true);
+        }
+        
 
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
@@ -219,7 +222,9 @@ public class PlayerCombatManager : MonoBehaviour {
 
         Handler.enabled = true;
 
-        OnKnockBackStateChanged(false);
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(false);
+        }
 
     }
 

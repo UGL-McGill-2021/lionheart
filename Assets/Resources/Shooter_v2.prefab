@@ -649,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 7447072229981552792}
   agent: {fileID: 7447072229981552798}
-  EnemyController: {fileID: 0}
+  EnemyController: {fileID: 7447072229981552799}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8

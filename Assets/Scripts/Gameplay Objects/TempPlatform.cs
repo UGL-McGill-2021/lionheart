@@ -27,7 +27,7 @@ public class TempPlatform : MonoBehaviour
     /// Coroutine for starting the disappearing of this platform
     /// </summary>
     /// <returns></returns>
-    private IEnumerator StartDisappearing(bool isReusable)
+    public IEnumerator StartDisappearing(bool isReusable)
     {
         yield return new WaitForSeconds(DisappearDelay);
         PhotonView.RPC("PRC_DisableThisObject", RpcTarget.All);
@@ -77,11 +77,15 @@ public class TempPlatform : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Enemy") {
+            Debug.Log("Enemy collided with platform");
+        }
+
         // only the master client will start the coroutine using an RPC call
-        if (collision.gameObject.tag == "Player" && CurrentCoroutine == null && PhotonView.IsMine)
+        if ((collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy") && CurrentCoroutine == null && PhotonView.IsMine)
         {
+            Debug.Log(gameObject + " collided with temp platform ");
             CurrentCoroutine = StartCoroutine(StartDisappearing(isReusable));
         }
     }
-
 }
