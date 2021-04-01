@@ -156,12 +156,12 @@ public class EnemyCombatManager : MonoBehaviour {
             this.EnemyController.enabled = true;
         }
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
 
         // if after 5 seconds, the enemy still isn't on the ground, destroy it
         if (!Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
             Debug.Log("No Longer on Ground");
-            Destroy(this);
+            Destroy(gameObject);
         } else {
             Debug.Log("Still on Ground");
         }
