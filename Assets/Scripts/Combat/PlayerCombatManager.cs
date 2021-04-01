@@ -13,10 +13,12 @@ public class PlayerCombatManager : MonoBehaviour {
 
     ControllerInput Input;
     Rigidbody Body;
-    
 
     MovementHandler Handler;
     PhotonTransformViewClassic PhotonTransformView;
+
+    public delegate void OnKnockBackStateChangedDelegate(bool isKnockedBack);
+    public OnKnockBackStateChangedDelegate OnKnockBackStateChanged;
 
     public Collider AttackBox;
 
@@ -154,6 +156,8 @@ public class PlayerCombatManager : MonoBehaviour {
             yield break;
         }
 
+        OnKnockBackStateChanged(true);
+
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
 
         Handler.enabled = false;
@@ -165,6 +169,8 @@ public class PlayerCombatManager : MonoBehaviour {
 
         Handler.enabled = true;
         //PhotonTransformView.enabled = true;
+
+        OnKnockBackStateChanged(false);
     }
 
     /// <summary>
@@ -203,6 +209,11 @@ public class PlayerCombatManager : MonoBehaviour {
             yield break;
         }
 
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(true);
+        }
+        
+
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
         Handler.enabled = false;
@@ -210,6 +221,10 @@ public class PlayerCombatManager : MonoBehaviour {
         yield return new WaitForSeconds(_time);
 
         Handler.enabled = true;
+
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(false);
+        }
 
     }
 

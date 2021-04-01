@@ -7,6 +7,7 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public Rigidbody Body;
     public NavMeshAgent agent;
+    public MonoBehaviour EnemyController;
 
     public LayerMask GroundLayerMask;
     public float GroundDistance;
@@ -88,9 +89,9 @@ public class EnemyCombatManager : MonoBehaviour {
         }
     }
 
-    public void ReceiveSmash(float _smashTime, 
-        float _ExplosionForce, 
-        Vector3 _ExplosionPos, 
+    public void ReceiveSmash(float _smashTime,
+        float _ExplosionForce,
+        Vector3 _ExplosionPos,
         float _SmashRadius) {
 
         PhotonView _view = PhotonView.Get(this);
@@ -104,11 +105,11 @@ public class EnemyCombatManager : MonoBehaviour {
     }
 
     [PunRPC]
-    public IEnumerator OnSmashed(float _time, 
-        float _explosionForce, 
-        float _ExplosionX, 
-        float _ExplosionY, 
-        float _ExplosionZ, 
+    public IEnumerator OnSmashed(float _time,
+        float _explosionForce,
+        float _ExplosionX,
+        float _ExplosionY,
+        float _ExplosionZ,
         float _smashRadius) {
 
         this.agent.enabled = false;
@@ -126,13 +127,44 @@ public class EnemyCombatManager : MonoBehaviour {
             this.agent.enabled = false;
             StartCoroutine(WaitAndDestroy(this.gameObject, 5));
         }
-        
+
     }
 
     public IEnumerator WaitAndDestroy(GameObject _gameObject, float _time) {
 
         yield return new WaitForSeconds(_time);
 
-        PhotonNetwork.Destroy(_gameObject);
+        if (!Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
+            PhotonNetwork.Destroy(_gameObject);
+        }
+
+    }
+
+    public void TriggerGivePhysControlOnAll(bool givePhysControl) {
+        PhotonView.Get(this).RPC("GivePhysSysControl", RpcTarget.All, givePhysControl);
+    }
+
+    [PunRPC]
+    public IEnumerator GivePhysSysControl(bool givePhysControl) {
+        if (givePhysControl) {
+            this.EnemyController.enabled = false;
+            this.agent.enabled = false;
+            this.Body.isKinematic = false;
+        } else {
+            this.Body.isKinematic = true;
+            this.agent.enabled = true;
+            this.EnemyController.enabled = true;
+        }
+
+        yield return new WaitForSeconds(10f);
+
+        // if after 5 seconds, the enemy still isn't on the ground, destroy it
+        if (!Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
+            Debug.Log("No Longer on Ground");
+            Destroy(gameObject);
+        } else {
+            Debug.Log("Still on Ground");
+        }
+
     }
 }
