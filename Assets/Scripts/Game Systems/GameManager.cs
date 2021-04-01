@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour {
             if(spawningPoint != null)
             {
                 GameObject obj = PhotonNetwork.Instantiate("TempPlatform", spawningPoint.transform.position, spawningPoint.transform.rotation);
-                obj.GetComponent<TempPlatform>().isReusable = true;
+                obj.GetComponentInChildren<TempPlatform>().isReusable = true;
 
                 TempPlatformScriptList.Add(obj.GetComponent<TempPlatform>());
             }

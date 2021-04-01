@@ -48,12 +48,12 @@ public class TempPlatform : MonoBehaviour
     [PunRPC]
     void PRC_DisableThisObject()
     {
-        OnPlatformStateChanged(false);
-
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = false;
-        foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer mesh in this.gameObject.GetComponents<MeshRenderer>())
             mesh.enabled = false;
+
+        OnPlatformStateChanged(false);
     }
 
     /// <summary>
@@ -63,12 +63,12 @@ public class TempPlatform : MonoBehaviour
     [PunRPC]
     void PRC_EnableThisObject()
     {
-        OnPlatformStateChanged(true);
-
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = true;
-        foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer mesh in this.gameObject.GetComponents<MeshRenderer>())
             mesh.enabled = true;
+
+        OnPlatformStateChanged(true);
     }
 
     /// <summary>
