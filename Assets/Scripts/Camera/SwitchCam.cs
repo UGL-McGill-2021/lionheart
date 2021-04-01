@@ -10,6 +10,7 @@ public class SwitchCam : MonoBehaviour
     public ControllerInput ControllerActions;
     public CinemachineVirtualCamera Cam;
     public List<GameObject> PlayerList;
+
     private bool CurrState = true;
 
     private void Awake()

@@ -15,9 +15,14 @@ public class MainMenuManager : MenuManager
     [Header("UI elements")]
     public Button StartButton;
     public bool cursor;
+    public Slider VolumeSlider;
+    public Toggle VibToggle;
 
     private void Awake()
     {
+        VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        VibToggle.isOn = PlayerGameSettings.IsVibrationOn;
+
         if (StartButton != null)
         {
             base.DefaultButton = StartButton;  // set the defaultButton in the parent class
@@ -82,5 +87,32 @@ public class MainMenuManager : MenuManager
     public void Controls()
     {
         SceneLoader.LoadSceneWithName("Controls");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function for loading controls scene
+    /// </summary>
+    public void ConceptArt()
+    {
+        SceneLoader.LoadSceneWithName("ConceptArt");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for volume slider
+    /// </summary>
+    public void ChangeVolume()
+    {
+        PlayerGameSettings.AudioVolume = VolumeSlider.value;
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Toggle callback function for vibration toggle
+    /// </summary>
+    public void TurnVibration()
+    {
+        PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
     }
 }
