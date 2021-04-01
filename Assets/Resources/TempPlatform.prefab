@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2897077155387752483}
   - component: {fileID: 6405015803263307463}
   - component: {fileID: 5608777177103274318}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TempPlatform
   m_TagString: TempPlatform
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 6857680864642809372}
   - component: {fileID: 747654103773058938}
   - component: {fileID: 4462627979686417383}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlatformStateCheckTrigger
   m_TagString: TempPlatform
   m_Icon: {fileID: 0}
@@ -259,3 +259,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 2897077155387752483}
+  PlatformAppears: 1
