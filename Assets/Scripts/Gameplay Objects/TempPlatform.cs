@@ -77,7 +77,7 @@ public class TempPlatform : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Enemy") {
+        if (other.gameObject.tag == "Enemy") {
             Debug.Log("Enemy collided with platform");
         }
 
