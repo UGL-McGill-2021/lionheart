@@ -29,6 +29,7 @@ public class QuitMenuManager : MenuManager
         // so the setting will be keept when loading new scene
         VibToggle.isOn = PlayerGameSettings.IsVibrationOn;
         VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        PlayerGameSettings.IsInGameMenuOpened = false;
         QuitMenuUI.SetActive(false);  // hide the menu UI
 
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
@@ -85,11 +86,27 @@ public class QuitMenuManager : MenuManager
     {
         if(!QuitMenuUI.activeSelf)
         {
+            PlayerGameSettings.IsInGameMenuOpened = true;
             QuitMenuUI.SetActive(true);
             CurrentPlayerActivator.DisableControls();  // disable the current player control when open menu
         }
         else
         {
+            PlayerGameSettings.IsInGameMenuOpened = false;
+            QuitMenuUI.SetActive(false);
+            CurrentPlayerActivator.EnableControls();
+        }
+    }
+
+    // <summary>
+    // Author: Ziqi Li
+    // Callback function of input system
+    // </summary>
+    void OnCloseMenu()
+    {
+        if (QuitMenuUI.activeSelf)
+        {
+            PlayerGameSettings.IsInGameMenuOpened = false;
             QuitMenuUI.SetActive(false);
             CurrentPlayerActivator.EnableControls();
         }
@@ -97,23 +114,11 @@ public class QuitMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
-    /// Callback function of input system
-    /// </summary>
-    //void OnCloseMenu()
-    //{
-    //    if (QuitMenuUI.activeSelf)
-    //    {
-    //        QuitMenuUI.SetActive(false);
-    //        CurrentPlayerActivator.EnableControls();
-    //    }
-    //}
-
-    /// <summary>
-    /// Author: Ziqi Li
     /// Button callback function to close the menu
     /// </summary>
     public void Continue()
     {
+        PlayerGameSettings.IsInGameMenuOpened = false;
         QuitMenuUI.SetActive(false);
         CurrentPlayerActivator.EnableControls();
     }

@@ -16,10 +16,13 @@ public class MainMenuManager : MenuManager
     public Button StartButton;
     public bool cursor;
     public Slider VolumeSlider;
+    public Toggle VibToggle;
 
     private void Awake()
     {
         VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        VibToggle.isOn = PlayerGameSettings.IsVibrationOn;
+
         if (StartButton != null)
         {
             base.DefaultButton = StartButton;  // set the defaultButton in the parent class
@@ -102,5 +105,14 @@ public class MainMenuManager : MenuManager
     public void ChangeVolume()
     {
         PlayerGameSettings.AudioVolume = VolumeSlider.value;
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Toggle callback function for vibration toggle
+    /// </summary>
+    public void TurnVibration()
+    {
+        PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
     }
 }
