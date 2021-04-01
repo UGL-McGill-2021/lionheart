@@ -75,17 +75,16 @@ public class TempPlatform : MonoBehaviour
     /// Call back function of collider
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (collision.gameObject.tag == "Enemy") {
             Debug.Log("Enemy collided with platform");
         }
 
         // only the master client will start the coroutine using an RPC call
-        if ((collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy") && CurrentCoroutine == null && PhotonView.IsMine)
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Enemy") && CurrentCoroutine == null && PhotonView.IsMine)
         {
-            Debug.Log(gameObject + " collided with temp platform ");
-            CurrentCoroutine = StartCoroutine(StartDisappearing(isReusable));
+            if (!other.isTrigger) CurrentCoroutine = StartCoroutine(StartDisappearing(isReusable));
         }
     }
 }
