@@ -281,7 +281,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7, y: 9.531011, z: 7}
+  m_Size: {x: 5.5, y: 9.531011, z: 5.5}
   m_Center: {x: 0, y: 4.5655055, z: 0}
 --- !u!114 &4462627979686417383
 MonoBehaviour:
@@ -297,3 +297,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platform: {fileID: 5422829132371424907}
   PlatformAppears: 1
+  OverlappingNPCs: []

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 136832463164600941}
   - component: {fileID: 5878663970160552205}
   - component: {fileID: 4095460288887844238}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletAttackTimeSpan: 0.4
   Force: 4000
+  owner: {fileID: 0}
 --- !u!54 &5878663970160552205
 Rigidbody:
   m_ObjectHideFlags: 0
