@@ -43,9 +43,10 @@ public class ShootNode : Node
     public override NodeState Evaluate()
     {
         // Use rigidbody to rotate (Ziqi)
-        Quaternion rotation = Quaternion.LookRotation(GetTarget().position - Shooter.transform.position);
-        rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 25 * Time.deltaTime);
-        RigidBody.MoveRotation(rotation);
+        //Quaternion rotation = Quaternion.LookRotation(GetTarget().position - Shooter.transform.position);
+        //rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 25 * Time.deltaTime);
+        //RigidBody.MoveRotation(rotation);
+        Shooter.transform.LookAt(new Vector3(GetTarget().position.x, 0f, GetTarget().position.z));
 
         if (!AttackRunning)
         {
