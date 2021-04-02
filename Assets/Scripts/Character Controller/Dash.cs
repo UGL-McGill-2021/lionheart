@@ -135,15 +135,15 @@ namespace Lionheart.Player.Movement
 
             if (PlayerMultiplayer.hasVibration == true)
             {
-                if (Gamepad.current.name == "DualShock4GamepadHID") Gamepad.current.SetMotorSpeeds(2f, 2f);
-                else if (Gamepad.current.name == "PS4Controller") Gamepad.current.SetMotorSpeeds(2f, 2f);
-                else Gamepad.current.SetMotorSpeeds(0f, 0.3f);
+                Gamepad.current.SetMotorSpeeds(0f, 0.5f);
             }
 
             yield return new WaitForSecondsRealtime(DashExecutionTime);
 
             IsDashing = false;
             CombatManager.SetInvincible(false);
+
+            PlayerCombat.StopAttack();
 
             if (IsAirDashing == true)
             {

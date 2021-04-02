@@ -13,10 +13,12 @@ public class PlayerCombatManager : MonoBehaviour {
 
     ControllerInput Input;
     Rigidbody Body;
-    
 
     MovementHandler Handler;
     PhotonTransformViewClassic PhotonTransformView;
+
+    public delegate void OnKnockBackStateChangedDelegate(bool isKnockedBack);
+    public OnKnockBackStateChangedDelegate OnKnockBackStateChanged;
 
     public Collider AttackBox;
 
@@ -86,7 +88,7 @@ public class PlayerCombatManager : MonoBehaviour {
             if (_enemyCombatManager != null && CurrentAttackMotion != null) {
                 // calculate regular attack
                 Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
-                Debug.Log("Attacked with " + _AttackVector);
+                Debug.Log("Trigger stay Attacked with " + _AttackVector);
                 _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
             }
@@ -94,8 +96,14 @@ public class PlayerCombatManager : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        // stomp
-        if (other.transform.position.y < this.transform.position.y && Vector3.Distance(GroundCheck.transform.position, other.transform.position) < StompDistance) {
+        // check if player is directly above the enemy
+        Vector3 playerToEnemy = this.transform.position - other.transform.position;
+        float angle = Vector3.Angle(this.transform.forward, playerToEnemy);
+
+        if (other.transform.position.y < this.transform.position.y && 
+            (angle <= 95f && angle >= 85f) && 
+            Vector3.Distance(GroundCheck.transform.position, other.transform.position) < StompDistance){
+
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null) {
                 
@@ -104,7 +112,7 @@ public class PlayerCombatManager : MonoBehaviour {
             }
         }
     }
-
+    
 
     /// <summary>
     /// Author: Feiyang
@@ -154,6 +162,8 @@ public class PlayerCombatManager : MonoBehaviour {
             yield break;
         }
 
+        OnKnockBackStateChanged(true);
+
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
 
         Handler.enabled = false;
@@ -165,6 +175,8 @@ public class PlayerCombatManager : MonoBehaviour {
 
         Handler.enabled = true;
         //PhotonTransformView.enabled = true;
+
+        OnKnockBackStateChanged(false);
     }
 
     /// <summary>
@@ -203,6 +215,11 @@ public class PlayerCombatManager : MonoBehaviour {
             yield break;
         }
 
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(true);
+        }
+        
+
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
         Handler.enabled = false;
@@ -210,6 +227,10 @@ public class PlayerCombatManager : MonoBehaviour {
         yield return new WaitForSeconds(_time);
 
         Handler.enabled = true;
+
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(false);
+        }
 
     }
 

@@ -9,6 +9,9 @@ public class TempPlatform : MonoBehaviour
     public bool isReusable = false;
     public float RespawnDelay = 10f;
 
+    public delegate void OnPlatformStateChangedDelegate(bool PlatformAppears);
+    public OnPlatformStateChangedDelegate OnPlatformStateChanged;
+
     private Coroutine CurrentCoroutine;
     private PhotonView PhotonView;
 
@@ -24,7 +27,7 @@ public class TempPlatform : MonoBehaviour
     /// Coroutine for starting the disappearing of this platform
     /// </summary>
     /// <returns></returns>
-    private IEnumerator StartDisappearing(bool isReusable)
+    public IEnumerator StartDisappearing(bool isReusable)
     {
         yield return new WaitForSeconds(DisappearDelay);
         PhotonView.RPC("PRC_DisableThisObject", RpcTarget.All);
@@ -47,8 +50,10 @@ public class TempPlatform : MonoBehaviour
     {
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = false;
-        foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer mesh in this.gameObject.GetComponents<MeshRenderer>())
             mesh.enabled = false;
+
+        OnPlatformStateChanged(false);
     }
 
     /// <summary>
@@ -60,21 +65,26 @@ public class TempPlatform : MonoBehaviour
     {
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = true;
-        foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer mesh in this.gameObject.GetComponents<MeshRenderer>())
             mesh.enabled = true;
+
+        OnPlatformStateChanged(true);
     }
 
     /// <summary>
     /// Call back function of collider
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Enemy") {
+            Debug.Log("Enemy collided with platform");
+        }
+
         // only the master client will start the coroutine using an RPC call
-        if (collision.gameObject.tag == "Player" && CurrentCoroutine == null && PhotonView.IsMine)
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Enemy") && CurrentCoroutine == null && PhotonView.IsMine)
         {
-            CurrentCoroutine = StartCoroutine(StartDisappearing(isReusable));
+            if (!other.isTrigger) CurrentCoroutine = StartCoroutine(StartDisappearing(isReusable));
         }
     }
-
 }

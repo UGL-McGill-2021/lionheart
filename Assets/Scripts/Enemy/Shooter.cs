@@ -93,6 +93,7 @@ public class Shooter : Enemy
     public void RPC_Shoot()
     {
         GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 2.4f, Quaternion.identity);
+        bullet.GetComponent<Bullet>().owner = this.gameObject; // Modification made by Feiyang: Register the owner of the bullet to enable friendly fire
         Debug.Log(bullet.transform);
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * (ProjectileSpeed * 100));
     }

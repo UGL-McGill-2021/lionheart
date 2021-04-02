@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu/MainMenu.unity
     guid: b8408cd19c550944587b76b72dcc39f7
   - enabled: 1
@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Tests/CombatTest/CombatTest.unity
     guid: 999698ad95361ca4d8afe0c06b0c5aae
+  - enabled: 1
+    path: Assets/Scenes/Menu/ConceptArt.unity
+    guid: a7efe923f11754dacb4dd3ad22ed8493
   m_configObjects: {}
