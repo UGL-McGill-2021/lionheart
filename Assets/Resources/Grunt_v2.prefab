@@ -1602,11 +1602,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
-  ChasingRange: 15
+  ChasingRange: 35
   NearnessToPlayer: 2
   WanderTarget: {fileID: 0}
   WanderRange: 6
-  AttackCooldown: 5
+  AttackCooldown: 2
   AttackDelay: 0.75
   PlayerList: []
 --- !u!114 &7328338531983162814
