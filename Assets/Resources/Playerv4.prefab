@@ -5918,7 +5918,7 @@ MonoBehaviour:
   DefaultSmashTime: 1
   DefaultSmashForce: 500
   GroundCheck: {fileID: 6675483342905746456}
-  StompDistance: 10
+  StompDistance: 5
   StompForce: 5
 --- !u!136 &1197355403299462303
 CapsuleCollider:

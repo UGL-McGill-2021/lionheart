@@ -68,6 +68,7 @@ MonoBehaviour:
   - OnPlayerSmashed
   - SetInvincible
   - GivePhysicsSysControl
+  - GivePhysSysControl
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
