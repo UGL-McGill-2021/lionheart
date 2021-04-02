@@ -407,6 +407,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
   m_PrefabInstance: {fileID: 51929736}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &51929738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6169593494034404756, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+  m_PrefabInstance: {fileID: 51929736}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &69169486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,7 +1166,7 @@ PrefabInstance:
     - target: {fileID: 8930462087138975882, guid: e46ff8c133598244b99bf20eb20c2c89, type: 3}
       propertyPath: PlayerList.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 51929738}
     - target: {fileID: 8930462087138975883, guid: e46ff8c133598244b99bf20eb20c2c89, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -3227,19 +3232,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415619, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: field of view
-      value: 40
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66.27
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 35.47
+      value: 8.3
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -51.94
+      value: -21.6
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalRotation.w
