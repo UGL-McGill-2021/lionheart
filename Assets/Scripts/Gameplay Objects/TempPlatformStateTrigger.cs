@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
@@ -25,7 +24,7 @@ public class TempPlatformStateTrigger : MonoBehaviour {
                     Rigidbody _body = _enemy.gameObject.GetComponent<Rigidbody>();
                     if (_agent != null && _body != null) {
                         if (_agent.enabled && _body.isKinematic) {
-                            _enemy.TriggerGivePhysControlOnAll(true);
+                            //_enemy.TriggerGivePhysControlOnAll(true);
                         }
                     }
                 }
