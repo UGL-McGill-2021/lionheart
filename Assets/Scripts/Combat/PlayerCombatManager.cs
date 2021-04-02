@@ -162,7 +162,10 @@ public class PlayerCombatManager : MonoBehaviour {
             yield break;
         }
 
-        OnKnockBackStateChanged(true);
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(true);
+        }
+        
 
         Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
 
@@ -176,7 +179,10 @@ public class PlayerCombatManager : MonoBehaviour {
         Handler.enabled = true;
         //PhotonTransformView.enabled = true;
 
-        OnKnockBackStateChanged(false);
+        if (OnKnockBackStateChanged != null) {
+            OnKnockBackStateChanged(false);
+        }
+        
     }
 
     /// <summary>
