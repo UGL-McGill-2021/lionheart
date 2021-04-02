@@ -12,6 +12,7 @@ TagManager:
   - CheckpointManager
   - VoiceChatCanvas
   - TempPlatform
+  - EnemyTempPlatformProbe
   layers:
   - Default
   - TransparentFX
