@@ -9,20 +9,20 @@ using UnityEngine.SceneManagement;
 /// Keeps track of the last checkpoint reached by each player
 /// </summary>
 
-public class CheckpointManager : MonoBehaviour
+public class CheckpointManagerOLD : MonoBehaviour
 {
-    public Checkpoint FirstCheckPoint;      //Put initial starting point here
-    public Checkpoint FinalCheckPoint;      //put final checkpoint here
-    public Checkpoint CurrentCheckPoint;    //Currently activated checkpoint
+    public CheckpointOLD FirstCheckPoint;      //Put initial starting point here
+    public CheckpointOLD FinalCheckPoint;      //put final checkpoint here
     public float RespawnHeight;             //height which will cause players to respawn
 
-    public List<GameObject> PlayerList;     //keeps track of players for respawning
+    public List<GameObject> PlayerList;
     public SceneLoader SceneLoader;  // used to load next scene
+
+    public Dictionary<GameObject, CheckpointOLD> CheckpointDict = new Dictionary<GameObject, CheckpointOLD>();
 
     void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        if (CurrentCheckPoint = null) { CurrentCheckPoint = FirstCheckPoint; }
     }
 
     void Update()
@@ -33,23 +33,25 @@ public class CheckpointManager : MonoBehaviour
             {
                 if (O.transform.position.y <= RespawnHeight)
                 {
+                    if (!CheckpointDict.ContainsKey(O)) { CheckpointDict.Add(O, FirstCheckPoint); }
+
                     if (O.GetComponent<PhotonView>().IsMine) {
-                        O.transform.position = CurrentCheckPoint.GetSpawnPoint(true).position;
+                        O.transform.position = CheckpointDict[O].GetSpawnPoint().position;
                     } else
                     {
-                        O.GetComponent<PhotonView>().RPC("Teleport", RpcTarget.All, CurrentCheckPoint.GetSpawnPoint(false).position);
+                        O.GetComponent<PhotonView>().RPC("Teleport", RpcTarget.All, CheckpointDict[O].GetSpawnPoint().position);
                     }
                 }
             }
         }
     }
 
-    public void SetCheckpoint(Checkpoint NewCheckpoint)
+    public void SetCheckpoint(GameObject Player, CheckpointOLD NewCheckpoint)
     {
-        CurrentCheckPoint = NewCheckpoint;
+        CheckpointDict[Player] = NewCheckpoint;
     }
 
-    public void CheckpointCompleted(Checkpoint Checkpoint)
+    public void CheckpointCompleted(CheckpointOLD Checkpoint)
     {
         if (Checkpoint == FinalCheckPoint)
         {
