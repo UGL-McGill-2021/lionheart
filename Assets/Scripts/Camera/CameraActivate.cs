@@ -13,21 +13,21 @@ using UnityEngine;
 public class CameraActivate : MonoBehaviour
 {
     public CinemachineVirtualCamera Camera;
-    private int PlayersInArea;
+    public HashSet<GameObject> PlayersInArea;
 
-    
+    private void Awake()
+    {
+        PlayersInArea = new HashSet<GameObject>();
+    }
+
     private void Update()
     {
-        if (PlayersInArea < 0) { PlayersInArea = 0; }
-
-        if (PlayersInArea > 2) { PlayersInArea = 2; }
-
-        if (PlayersInArea == 2)
+        if (PlayersInArea.Count == 2)
         {
             Camera.gameObject.SetActive(true);
-        } else if (PlayersInArea == 0)
+        } else
         {
-          Camera.gameObject.SetActive(false);
+            Camera.gameObject.SetActive(false);
         }
     }
 
@@ -35,7 +35,7 @@ public class CameraActivate : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PlayersInArea++;
+            PlayersInArea.Add(other.gameObject);
         }
     }
 
@@ -43,7 +43,7 @@ public class CameraActivate : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PlayersInArea--;
+            PlayersInArea.Remove(other.gameObject);
         }
     }
 
