@@ -643,7 +643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press             to Back
+  m_text: Press             to go Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 29.71053, z: 57.39105, w: 0}
+  m_margin: {x: 0, y: 29.71053, z: -32.4742, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1264,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: LunachLevel
-      value: Level 0
+      value: Level 3
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: DebugTargetLevel
