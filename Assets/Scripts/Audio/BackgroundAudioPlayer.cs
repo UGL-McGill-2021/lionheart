@@ -1,8 +1,16 @@
 using UnityEngine;
 
 public class BackgroundAudioPlayer : MonoBehaviour {
-    // Start is called before the first frame update
+    public static BackgroundAudioPlayer instance;
+    public GameObject BackgroundMusic;
+    
     void Start() {
-        DontDestroyOnLoad(this);
+        if (instance == null) {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(Instantiate(BackgroundMusic));
+        }
+        
+        
     }
 }
