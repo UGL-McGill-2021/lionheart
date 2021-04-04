@@ -27,7 +27,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
 
     [Header("Debug")]
     public bool EnableLocalDeubug = false;
-    public string LunachLevel;
+    public string LaunchLevel;
 
     /// <summary>
     /// Author: Feiyang Li
@@ -92,8 +92,8 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         if (EnableLocalDeubug) {
             if (PhotonNetwork.IsMasterClient) {
                 InputAction.Player.Disable();
-                if (!LunachLevel.Equals("")) {
-                    PhotonNetwork.LoadLevel(LunachLevel);
+                if (!LaunchLevel.Equals("")) {
+                    PhotonNetwork.LoadLevel(LaunchLevel);
                 } else {
                     PhotonNetwork.LoadLevel("Level 0");
                 }
@@ -115,8 +115,8 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
             InputAction.Player.Disable();
 
             if (PhotonNetwork.IsMasterClient)
-                if (!LunachLevel.Equals("")) {
-                    PhotonNetwork.LoadLevel(LunachLevel);
+                if (!LaunchLevel.Equals("")) {
+                    PhotonNetwork.LoadLevel(LaunchLevel);
                 } else {
                     PhotonNetwork.LoadLevel("Level 0");
                 }

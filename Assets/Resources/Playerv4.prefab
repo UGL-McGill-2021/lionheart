@@ -6016,10 +6016,10 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: IsPullDashing
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: IsGroundPound
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: IsSmashing
   m_SynchronizeLayers:
   - SynchronizeType: 2

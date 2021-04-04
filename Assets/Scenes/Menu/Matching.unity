@@ -1263,8 +1263,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
+      propertyPath: LaunchLevel
+      value: Level 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: LunachLevel
-      value: Level 0
+      value: Level 3
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: DebugTargetLevel
