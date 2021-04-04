@@ -6,17 +6,18 @@ using UnityEngine;
 /// Author: Daniel
 /// </summary>
 
-public class Checkpoint : MonoBehaviour
+public class CheckpointOLD : MonoBehaviour
 {
     public List<Transform> SpawnPoints;
 
-    public CheckpointManager CheckpointMan;
+    public CheckpointManagerOLD CheckpointMan;
     private GameObject LastPlayerEntered;
+    private bool SpawnSwitch = false;   //used to help prevent players from being spawned in the same position 
 
 
     void Awake()
     {
-        CheckpointMan = GameObject.FindGameObjectWithTag("CheckpointManager").GetComponent<CheckpointManager>();
+        CheckpointMan = GameObject.FindGameObjectWithTag("CheckpointManager").GetComponent<CheckpointManagerOLD>();
     }
 
     private void OnTriggerEnter(Collider Other)
@@ -25,25 +26,27 @@ public class Checkpoint : MonoBehaviour
         {
             if (!LastPlayerEntered)
             {
+                CheckpointMan.SetCheckpoint(Other.gameObject, this);
                 LastPlayerEntered = Other.gameObject;
             }
             else
             {
                 if (LastPlayerEntered != Other.gameObject)
                 {
-                    CheckpointMan.SetCheckpoint(this);
+                    CheckpointMan.SetCheckpoint(Other.gameObject, this);
                     CheckpointMan.CheckpointCompleted(this);
                     GetComponent<BoxCollider>().enabled = false;
                     GetComponent<MeshRenderer>().enabled = false;
                 }
             }
         }
+
         
     }
 
-    //used to help prevent players from being spawned in the same position 
-    public Transform GetSpawnPoint(bool IsMaster)
+    public Transform GetSpawnPoint()
     {
-        return IsMaster ? SpawnPoints[0] : SpawnPoints[1];
+        SpawnSwitch = !SpawnSwitch;
+        return SpawnSwitch ? SpawnPoints[0] : SpawnPoints[1];
     }
 }
