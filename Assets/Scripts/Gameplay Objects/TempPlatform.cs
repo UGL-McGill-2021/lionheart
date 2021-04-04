@@ -50,7 +50,7 @@ public class TempPlatform : MonoBehaviour
     {
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = false;
-        foreach (MeshRenderer mesh in this.gameObject.GetComponents<MeshRenderer>())
+        foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
             mesh.enabled = false;
 
         OnPlatformStateChanged(false);
@@ -65,7 +65,7 @@ public class TempPlatform : MonoBehaviour
     {
         foreach (Collider collider in this.gameObject.GetComponents<Collider>())
             collider.enabled = true;
-        foreach (MeshRenderer mesh in this.gameObject.GetComponents<MeshRenderer>())
+        foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
             mesh.enabled = true;
 
         OnPlatformStateChanged(true);
