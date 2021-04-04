@@ -141,6 +141,7 @@ public class EnemyCombatManager : MonoBehaviour {
     }
 
     public void TriggerGivePhysControlOnAll(bool givePhysControl) {
+        Debug.Log("Control changed");
         PhotonView.Get(this).RPC("GivePhysSysControl", RpcTarget.All, givePhysControl);
     }
 

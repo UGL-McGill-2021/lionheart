@@ -1463,6 +1463,7 @@ Transform:
   m_Children:
   - {fileID: 1317435859916715929}
   - {fileID: 3839496024748186333}
+  - {fileID: 8348359219453368030}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1576,7 +1577,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 300
@@ -1601,12 +1602,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
-  ChasingRange: 15
+  ChasingRange: 35
   NearnessToPlayer: 2
   WanderTarget: {fileID: 0}
   WanderRange: 6
-  AttackCooldown: 5
-  AttackDelay: 0.75
+  AttackCooldown: 2
+  AttackDelay: 0.375
   PlayerList: []
 --- !u!114 &7328338531983162814
 MonoBehaviour:
@@ -1916,6 +1917,50 @@ Transform:
   m_Father: {fileID: 5060264451372897520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -15.940182, y: 1.3172805, z: -33.97685}
+--- !u!1 &8528385966617907705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8348359219453368030}
+  - component: {fileID: 6336989866784605126}
+  m_Layer: 0
+  m_Name: TempPlatformProbe
+  m_TagString: EnemyTempPlatformProbe
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8348359219453368030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528385966617907705}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.578, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7996332169047418631}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6336989866784605126
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528385966617907705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8610299218635330766
 GameObject:
   m_ObjectHideFlags: 0
