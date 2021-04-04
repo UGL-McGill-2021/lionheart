@@ -200,41 +200,8 @@ public class QuitMenuManager : MenuManager
     private void RPC_Respawn()
     {
         Respawn_RequestPlayerNum++;
-        //if(ReloadCoroutine == null) ReloadCoroutine = StartCoroutine(RequestReload(RespawnConsentTime, SceneManager.GetActiveScene().name));
         if(RespawnCoroutine == null) RespawnCoroutine = StartCoroutine(RequestRespawn(RespawnConsentTime));
     }
-
-    /// <summary>
-    /// Author: Ziqi Li
-    /// Function to request reload level and waiting for other player's consent
-    /// </summary>
-    //IEnumerator RequestReload(float countDownTime, string levelName)
-    //{
-    //    while(countDownTime > 0 && ReloadLevel_RequestPlayerNum < PlayerList.Count)
-    //    {
-    //        ShowCountDownMessage("Player requests to respawn: ", ReloadLevel_RequestPlayerNum, PlayerList.Count, countDownTime);
-    //        //ShowCountDownMessage("Player requests reload level: ", ReloadLevel_RequestPlayerNum, PlayerList.Count, countDownTime);
-    //        yield return new WaitForSeconds(1);  // update the text every second
-    //        countDownTime--;
-    //    }
-
-    //    // if all players want to reload
-    //    if(ReloadLevel_RequestPlayerNum >= PlayerList.Count)
-    //    {
-    //        string message = "Player requests reloading level: " + " " + ReloadLevel_RequestPlayerNum + "/" + PlayerList.Count;
-    //        CountDownText.SetText(message);
-    //        yield return new WaitForSeconds(1f);  // add a delay before reload level
-    //        //if (PhotonNetwork.IsMasterClient) SceneLoader.LoadPhotonSceneWithName(levelName);
-    //        foreach (GameObject player in PlayerList) if (player.GetComponent<PhotonView>().IsMine) player.transform.Translate(Vector3.up * RespawnHeight);
-    //    }
-    //    else
-    //    {
-    //        CountDownText.SetText("");  // empty the text object
-    //        ReloadLevel_RequestPlayerNum = 0;  // reset num of consent players
-    //        ReloadCoroutine = null;
-    //        HasSentReloadRequest = false;
-    //    }
-    //}
 
     /// <summary>
     /// Author: Ziqi Li
@@ -253,7 +220,7 @@ public class QuitMenuManager : MenuManager
         // if all players want to reload
         if (Respawn_RequestPlayerNum >= PlayerList.Count)
         {
-            string message = "Player requests reloading level: " + " " + Respawn_RequestPlayerNum + "/" + PlayerList.Count;
+            string message = "Player requests to respawn: " + " " + Respawn_RequestPlayerNum + "/" + PlayerList.Count;
             CountDownText.SetText(message);
             yield return new WaitForSeconds(1f);  // add a delay before reload level
             foreach (GameObject player in PlayerList) if (player.GetComponent<PhotonView>().IsMine) player.transform.Translate(Vector3.up * RespawnHeight);
