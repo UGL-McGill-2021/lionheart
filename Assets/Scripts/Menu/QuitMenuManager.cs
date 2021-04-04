@@ -6,19 +6,30 @@ using System.Collections.Generic;
 using Lionheart.Player.Movement;
 using UnityEngine.EventSystems;
 using Photon.Voice.PUN;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class QuitMenuManager : MenuManager
 {
+    [Header("UI elements")]
     public GameObject QuitMenuUI;
     public Button ContinueButton;
     public Button QuitButton;
     public Toggle VibToggle;
     public Slider VolumeSlider;
+    public TMP_Text CountDownText;
+
+    [Header("Respawn System")]
+    public float RespawnConsentTime = 15f;
+    public float RespawnHeight = -35f;
 
     private List<GameObject> PlayerList;
     [SerializeField]
     private MultiplayerActivator CurrentPlayerActivator = null;  // the current client's playerActivator
     private PhotonView PhotonView;
+    private int Respawn_RequestPlayerNum = 0;  // number of player want to reload level
+    private Coroutine RespawnCoroutine = null;
+    private bool HasSentRespawnRequest = false;
 
     // Use this for initialization
     void Start()
@@ -135,6 +146,20 @@ public class QuitMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
+    /// Button callback function for reloading level
+    /// </summary>
+    public void ReloadLevel()
+    {
+        if (!HasSentRespawnRequest)
+        {
+            HasSentRespawnRequest = true;
+            PhotonView.RPC("RPC_Respawn", RpcTarget.AllViaServer);
+        }
+        OnCloseMenu();  // close the menu
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
     /// Toggle callback function for vibration toggle
     /// </summary>
     public void TurnVibration()
@@ -157,7 +182,7 @@ public class QuitMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
-    /// Function to back to the main menu
+    /// RPC Function to back to the main menu
     /// </summary>
     [PunRPC]
     private void RPC_Quit()
@@ -165,5 +190,60 @@ public class QuitMenuManager : MenuManager
         Destroy(GameObject.FindGameObjectWithTag("VoiceChatManager"));  // destroy the "DontDestroyOnLoad" VoiceChat object
         PhotonNetwork.Disconnect();  // disconnect from Photon
         SceneLoader.LoadSceneWithName("MainMenu");
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// RPC Function to respawn players
+    /// </summary>
+    [PunRPC]
+    private void RPC_Respawn()
+    {
+        Respawn_RequestPlayerNum++;
+        if(RespawnCoroutine == null) RespawnCoroutine = StartCoroutine(RequestRespawn(RespawnConsentTime));
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function to request respawn and waiting for other player's consent
+    /// </summary>
+    IEnumerator RequestRespawn(float countDownTime)
+    {
+        // activate count down
+        while (countDownTime > 0 && Respawn_RequestPlayerNum < PlayerList.Count)
+        {
+            ShowCountDownMessage("Player requests to respawn: ", Respawn_RequestPlayerNum, PlayerList.Count, countDownTime);
+            yield return new WaitForSeconds(1);  // update the text every second
+            countDownTime--;
+        }
+
+        // if all players want to reload
+        if (Respawn_RequestPlayerNum >= PlayerList.Count)
+        {
+            string message = "Player requests to respawn: " + " " + Respawn_RequestPlayerNum + "/" + PlayerList.Count;
+            CountDownText.SetText(message);
+            yield return new WaitForSeconds(1f);  // add a delay before reload level
+            foreach (GameObject player in PlayerList) if (player.GetComponent<PhotonView>().IsMine) player.transform.Translate(Vector3.up * RespawnHeight);
+        }
+
+        // reset status
+        Respawn_RequestPlayerNum = 0;  // reset num of consent players
+        RespawnCoroutine = null;
+        HasSentRespawnRequest = false;
+        CountDownText.SetText("");  // empty the text object
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function to show count down message along with player consent status
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="numPlayer"></param>
+    /// <param name="maxNumPlayer"></param>
+    /// <param name="countDownTime"></param>
+    void ShowCountDownMessage(string text, int numPlayer, int maxNumPlayer, float countDownTime)
+    {
+        string message = text + " " + numPlayer + "/" + maxNumPlayer + " (" + countDownTime + "s)";
+        CountDownText.SetText(message);
     }
 }
