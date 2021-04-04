@@ -655,7 +655,7 @@ MonoBehaviour:
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  GroundDistance: 4
+  GroundDistance: 1
   AttackBox: {fileID: 7447072229981552793}
   SmashRadius: 500
   DefaultSmashTime: 1

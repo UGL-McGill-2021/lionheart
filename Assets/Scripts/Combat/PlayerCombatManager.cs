@@ -172,6 +172,7 @@ public class PlayerCombatManager : MonoBehaviour {
         Handler.enabled = false;
         //PhotonTransformView.enabled = false;
 
+        Debug.DrawRay(this.transform.position, new Vector3(_x, _y, _z), Color.red, 5f);
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
         yield return new WaitForSeconds(_time);
