@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> TurretTargetsPoints = new List<GameObject>();  // target points for the turrets
 
     // for targeting by enemies
-    [HideInInspector]
+    //[HideInInspector]
     public List<GameObject> PlayerList = new List<GameObject>();
 
     // List of platfroms (used for change speed, stop time... etc)
@@ -159,6 +159,7 @@ public class GameManager : MonoBehaviour {
                 {
                     GameObject obj = PhotonNetwork.Instantiate("Turret_v2", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
                     obj.GetComponent<Turret>().Target = TurretTargetsPoints[i].transform;
+                    obj.transform.rotation = Quaternion.LookRotation(TurretTargetsPoints[i].transform.position);
                 }
             }
         }

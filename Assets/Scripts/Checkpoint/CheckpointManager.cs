@@ -22,7 +22,7 @@ public class CheckpointManager : MonoBehaviour
     void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        if (CurrentCheckPoint = null) { CurrentCheckPoint = FirstCheckPoint; }
+        if (CurrentCheckPoint == null) { CurrentCheckPoint = FirstCheckPoint; }
     }
 
     void Update()
@@ -62,26 +62,23 @@ public class CheckpointManager : MonoBehaviour
         print("Final Chekpoint collected by both players!");
 
         // load the next level if we are not in the last level
-        if(PhotonNetwork.IsMasterClient)
+        switch (SceneManager.GetActiveScene().name)
         {
-            switch (SceneManager.GetActiveScene().name)
-            {
-                case LevelName.Level0:
-                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level1);
-                    break;
-                case LevelName.Level1:
-                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level2);
-                    break;
-                case LevelName.Level2:
-                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level3);
-                    break;
-                case LevelName.Level3:
-                    SceneLoader.LoadPhotonSceneWithName(LevelName.Level4);
-                    break;
-                default:
-                    print("All levels are completed!");
-                    break;
-            }
+            case LevelName.Level0:
+                if (PhotonNetwork.IsMasterClient) SceneLoader.LoadPhotonSceneWithName(LevelName.Level1);
+                break;
+            case LevelName.Level1:
+                if (PhotonNetwork.IsMasterClient) SceneLoader.LoadPhotonSceneWithName(LevelName.Level2);
+                break;
+            case LevelName.Level2:
+                if (PhotonNetwork.IsMasterClient) SceneLoader.LoadPhotonSceneWithName(LevelName.Level3);
+                break;
+            case LevelName.Level3:
+                print("All levels are completed!");
+                SceneLoader.LoadSceneWithName("MainMenu");
+                break;
+            default:
+                break;
         }
     }
 }
