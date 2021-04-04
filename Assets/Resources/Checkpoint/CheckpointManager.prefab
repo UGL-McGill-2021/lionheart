@@ -46,10 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirstCheckPoint: {fileID: 0}
   FinalCheckPoint: {fileID: 0}
+  CurrentCheckPoint: {fileID: 0}
   RespawnHeight: -30
-  PlayerList:
-  - {fileID: 0}
-  - {fileID: 0}
+  PlayerList: []
+  SceneLoader: {fileID: 0}
 --- !u!114 &4995943997845263625
 MonoBehaviour:
   m_ObjectHideFlags: 0

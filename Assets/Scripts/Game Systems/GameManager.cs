@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> TurretTargetsPoints = new List<GameObject>();  // target points for the turrets
 
     // for targeting by enemies
-    [HideInInspector]
+    //[HideInInspector]
     public List<GameObject> PlayerList = new List<GameObject>();
 
     // List of platfroms (used for change speed, stop time... etc)

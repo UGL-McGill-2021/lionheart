@@ -22,7 +22,7 @@ public class CheckpointManager : MonoBehaviour
     void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
-        if (CurrentCheckPoint = null) { CurrentCheckPoint = FirstCheckPoint; }
+        if (CurrentCheckPoint == null) { CurrentCheckPoint = FirstCheckPoint; }
     }
 
     void Update()
