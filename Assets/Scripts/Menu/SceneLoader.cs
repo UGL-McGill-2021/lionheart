@@ -122,7 +122,6 @@ public class SceneLoader : MonoBehaviour
         // Let the master client to load the scene
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("EmptyScene"); // load empty scene first to avoid reloading scene issue
             PhotonNetwork.LoadLevel(sceneNameToLoad);
         }
     }
