@@ -26,8 +26,8 @@ public class Bullet : MonoBehaviour {
         if (Other.gameObject.tag == "Player") {
             PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
-                //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
-                //_playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
+                Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
+                _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
 
             Destroy(this.gameObject);
