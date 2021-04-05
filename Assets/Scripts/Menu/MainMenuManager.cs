@@ -105,6 +105,7 @@ public class MainMenuManager : MenuManager
     public void ChangeVolume()
     {
         PlayerGameSettings.AudioVolume = VolumeSlider.value;
+        BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VolumeSlider.value);
     }
 
     /// <summary>
