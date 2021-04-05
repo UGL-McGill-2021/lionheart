@@ -312,7 +312,6 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis, Ziqi
         /// Simple Rumble feedback on landing
-        /// TODO: PS4 vs XB rumble
         /// </summary>
         /// <returns></returns>
         IEnumerator PlayHaptics()

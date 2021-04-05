@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Lionheart.Player.Movement
 {
@@ -16,6 +17,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] Jump PlayerJump;
         [SerializeField] Rotation PlayerRotation;
         [SerializeField] Animator AnimatorController;
+        [SerializeField] MultiplayerActivator PlayerMultiplayer;
+        [SerializeField] Gamepad Controller;
 
         [Header("Parameters")]
         [SerializeField] private float BulletHitForce = 0.005f;
@@ -68,6 +71,7 @@ namespace Lionheart.Player.Movement
             CombatManager = gameObject.GetComponent<PlayerCombatManager>();
             PlayerJump = gameObject.GetComponent<Jump>();
             PlayerRotation = gameObject.GetComponent<Rotation>();
+            PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
             WasHit = false;
             IsKnockback = false;
             TookOff = false;
@@ -87,6 +91,11 @@ namespace Lionheart.Player.Movement
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
+
+            if (PlayerMultiplayer.hasVibration == true)
+            {
+                StartCoroutine(PlayHaptics());
+            }
         }
 
         /// <summary>
@@ -109,6 +118,11 @@ namespace Lionheart.Player.Movement
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
+
+            if (PlayerMultiplayer.hasVibration == true)
+            {
+                StartCoroutine(PlayHaptics());
+            }
         }
 
         /// <summary>
@@ -147,6 +161,18 @@ namespace Lionheart.Player.Movement
             yield return new WaitForSecondsRealtime(0.3f);
             HitCount++;
             TookOff = true;
+        }
+
+        /// <summary>
+        /// Author: Denis, Ziqi
+        /// Simple Rumble feedback on knockback
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator PlayHaptics()
+        {
+            Gamepad.current.SetMotorSpeeds(0.2f, 0.9f);
+            yield return new WaitForSecondsRealtime(0.1f);
+            Gamepad.current.ResetHaptics();
         }
 
         /// <summary>

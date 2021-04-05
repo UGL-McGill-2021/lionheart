@@ -5822,6 +5822,7 @@ MonoBehaviour:
   PlayerJump: {fileID: 0}
   PlayerRotation: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
+  PlayerMultiplayer: {fileID: 0}
   BulletHitForce: 0.005
   GruntSmashForce: 15
   VerticalForce: 15
