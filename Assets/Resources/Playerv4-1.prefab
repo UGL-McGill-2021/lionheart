@@ -5942,6 +5942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5c8a1ec046fcd4ab45467d3dc84639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerKnockback: {fileID: 6996219064944051542}
   AttackBox: {fileID: 182331204493443372}
   DefaultAttackForce: 1000
   DashAttackAngleOfViewDegree: 5
