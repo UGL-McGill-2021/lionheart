@@ -12,13 +12,13 @@ namespace Lionheart.Player.Movement
     public class Knockback : MonoBehaviour, MovementModifier
     {
         [Header("References")]
-        [SerializeField] MovementHandler PlayerMovementHandler;
-        [SerializeField] PlayerCombatManager CombatManager;
-        [SerializeField] Jump PlayerJump;
-        [SerializeField] Rotation PlayerRotation;
-        [SerializeField] Animator AnimatorController;
-        [SerializeField] MultiplayerActivator PlayerMultiplayer;
-        [SerializeField] Gamepad Controller;
+        [SerializeField] public MovementHandler PlayerMovementHandler;
+        [SerializeField] public PlayerCombatManager CombatManager;
+        [SerializeField] public Jump PlayerJump;
+        [SerializeField] public Rotation PlayerRotation;
+        [SerializeField] public Animator AnimatorController;
+        [SerializeField] public MultiplayerActivator PlayerMultiplayer;
+        [SerializeField] public Gamepad Controller;
 
         [Header("Parameters")]
         [SerializeField] private float BulletHitForce = 0.005f;

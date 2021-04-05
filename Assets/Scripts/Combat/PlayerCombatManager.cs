@@ -14,7 +14,7 @@ public class PlayerCombatManager : MonoBehaviour {
     ControllerInput Input;
     Rigidbody Body;
 
-    MovementHandler Handler;
+    public MovementHandler Handler;
     public Knockback PlayerKnockback;
     PhotonTransformViewClassic PhotonTransformView;
 

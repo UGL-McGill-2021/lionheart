@@ -5818,11 +5818,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
-  CombatManager: {fileID: 0}
-  PlayerJump: {fileID: 0}
+  CombatManager: {fileID: 7158537297210349565}
+  PlayerJump: {fileID: 8962104049189637306}
   PlayerRotation: {fileID: 8654789910141434568}
   AnimatorController: {fileID: 3717460445037045334}
-  PlayerMultiplayer: {fileID: 0}
+  PlayerMultiplayer: {fileID: 6449621252990841457}
   BulletHitForce: 0.005
   GruntSmashForce: 15
   VerticalForce: 15
