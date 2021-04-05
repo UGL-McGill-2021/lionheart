@@ -32,6 +32,10 @@ namespace Lionheart.Player.Movement
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
 
+        /// <summary>
+        /// Author: Denis
+        /// Initial setup
+        /// </summary>
         private void Awake()
         {
             Type = MovementModifier.MovementType.Knockback;
@@ -55,6 +59,10 @@ namespace Lionheart.Player.Movement
             PlayerMovementHandler.RemoveModifier(this);
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Caching components
+        /// </summary>
         private void Start()
         {
             CombatManager = gameObject.GetComponent<PlayerCombatManager>();
@@ -65,28 +73,51 @@ namespace Lionheart.Player.Movement
             TookOff = false;
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Applies a bullet hit knockback 
+        /// </summary>
+        /// <param name="Dir"></param>
         public void AddKnockback(Vector3 Dir)
         {
             PlayerRotation.enabled = false;
+
             Value = new Vector3(BulletHitForce * Dir.x, VerticalForce, BulletHitForce * Dir.z);
+            
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Applies a grunt smash hit knockback to the player
+        /// The knockback vector is more intense the closer the player and the grunt are
+        /// </summary>
+        /// <param name="Force"></param>
+        /// <param name="Radius"></param>
+        /// <param name="V0"></param>
         public void AddExplosiveKnockback(float Force, float Radius, Vector3 V0)
         {
             Vector3 Dir = gameObject.transform.position-V0;
             float Scale = GruntSmashForce / Dir.magnitude;
+
             PlayerRotation.enabled = false;
+
             Value = new Vector3(Scale * Dir.x, VerticalForce, Scale * Dir.z);
+            
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Controls the start of the animation and the knockback end logic
+        /// </summary>
         private void FixedUpdate()
         {
+            //play the animation after getting hit
             if (WasHit == true)
             {
                 AnimatorController.SetBool("IsKnockback", true);
@@ -94,17 +125,23 @@ namespace Lionheart.Player.Movement
                 WasHit = false;
             }
 
-            //landing 
+            //landing on a knockback restores movement control
             if (HitCount > 0 && PlayerJump.IsGrounded == true)
             {
                 HitCount = 0;
                 Value = Vector3.zero;
+
                 IsKnockback = false;
                 TookOff = false;
                 PlayerRotation.enabled = true;
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// This coroutine prevents triggering the the landing animation too early after getting hit
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator TakeOffTimer()
         {
             yield return new WaitForSecondsRealtime(0.3f);
