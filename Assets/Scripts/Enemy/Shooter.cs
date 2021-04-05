@@ -98,6 +98,19 @@ public class Shooter : Enemy
     }
 
     /// <summary>
+    /// Author: Ziqi Li
+    /// Function for shooting bullet
+    /// </summary>
+    //public void Shoot()
+    //{
+    //    GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position + transform.forward * 2.4f, Quaternion.identity);
+    //    bullet.GetComponent<Bullet>().owner = this.gameObject; // Modification made by Feiyang: Register the owner of the bullet to enable friendly fire
+    //    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * (ProjectileSpeed * 100));
+        
+    //}
+
+
+    /// <summary>
     /// Author: Daniel Holker
     /// Constructs nodes and puts them together into a behaviour tree that determines its actions
     /// </summary>
