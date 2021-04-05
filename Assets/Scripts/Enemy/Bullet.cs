@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour {
                 _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
 
-            Destroy(this.gameObject);
+            if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(this.gameObject);
         }
         //else if (Other.gameObject.tag == "Enemy" && Other.gameObject != owner) {
         //    EnemyCombatManager _enemyCombatManager = Other.gameObject.GetComponent<EnemyCombatManager>();
