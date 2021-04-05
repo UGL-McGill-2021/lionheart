@@ -3592,11 +3592,6 @@ MonoBehaviour:
   - {fileID: 758923945}
   - {fileID: 621429}
   - {fileID: 1300682773}
-  - {fileID: 433003326}
-  - {fileID: 442265483}
-  - {fileID: 569213046}
-  - {fileID: 1766724477}
-  - {fileID: 404819734}
   ShooterSpawningPoints:
   - {fileID: 664772144}
   - {fileID: 975611632}
@@ -3604,14 +3599,6 @@ MonoBehaviour:
   - {fileID: 1463549809}
   - {fileID: 1602148250}
   - {fileID: 1485162425}
-  - {fileID: 2132645424}
-  - {fileID: 2060564260}
-  - {fileID: 926470391}
-  - {fileID: 202993756}
-  - {fileID: 249710413}
-  - {fileID: 2015779740}
-  - {fileID: 253451588}
-  - {fileID: 616683914}
   TurretSpawningPoints: []
   TurretTargetsPoints: []
   PlayerList: []
