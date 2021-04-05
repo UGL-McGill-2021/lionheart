@@ -24,6 +24,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Jump PlayerJump;
+        [SerializeField] Knockback PlayerKnockback;
 
         [Header("State")]
         [SerializeField] public bool ChargingPullDash;
@@ -73,6 +74,7 @@ namespace Lionheart.Player.Movement
         private void Start()
         {
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
+            PlayerKnockback = gameObject.GetComponent<Knockback>();
             PlayerJump = gameObject.GetComponent<Jump>();
         }
 
@@ -126,7 +128,7 @@ namespace Lionheart.Player.Movement
             Vector3 V = (OtherPlayer.transform.position - transform.position);
 
             if (ChargingPullDash == false && IsPullDashing == false && OtherPlayerPullDashScript != null
-                && V.magnitude <= MaxTriggerDistance && BlockInput == false)
+                && V.magnitude <= MaxTriggerDistance && BlockInput == false && PlayerKnockback.IsKnockback == false)
             {
                 ChargingPullDash = true;
                 PullDashCharged = false;
