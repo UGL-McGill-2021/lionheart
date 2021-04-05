@@ -26,21 +26,21 @@ public class Bullet : MonoBehaviour {
         if (Other.gameObject.tag == "Player") {
             PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
-                //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
+                Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
                 _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
 
             Destroy(this.gameObject);
-
-        } else if (Other.gameObject.tag == "Enemy" && Other.gameObject != owner) {
-            EnemyCombatManager _enemyCombatManager = Other.gameObject.GetComponent<EnemyCombatManager>();
-            if (_enemyCombatManager != null) {
-                //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
-                _enemyCombatManager.ReceiveAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
-            }
-
-            Destroy(this.gameObject);
         }
+        //else if (Other.gameObject.tag == "Enemy" && Other.gameObject != owner) {
+        //    EnemyCombatManager _enemyCombatManager = Other.gameObject.GetComponent<EnemyCombatManager>();
+        //    if (_enemyCombatManager != null) {
+        //        //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
+        //        _enemyCombatManager.ReceiveAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
+        //    }
+
+        //    Destroy(this.gameObject);
+        //}
     }
 
     public void FixedUpdate() {
