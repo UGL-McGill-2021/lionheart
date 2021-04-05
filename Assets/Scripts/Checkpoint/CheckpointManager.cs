@@ -76,8 +76,8 @@ public class CheckpointManager : MonoBehaviour
                 break;
             case LevelName.Level3:
                 print("All levels are completed!");
-                PhotonNetwork.Disconnect();  // disconnect from Photon
                 SceneLoader.LoadSceneWithName("MainMenu");
+                PhotonNetwork.Disconnect();  // disconnect from Photon
                 break;
             default:
                 break;
