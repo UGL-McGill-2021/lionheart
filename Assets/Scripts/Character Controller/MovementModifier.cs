@@ -19,7 +19,8 @@ namespace Lionheart.Player.Movement
             Dash,
             PullDash,
             GroundPound,
-            Contraption
+            Contraption,
+            Knockback
         }
     }
 }

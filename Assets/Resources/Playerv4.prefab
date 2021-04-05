@@ -5479,6 +5479,7 @@ GameObject:
   - component: {fileID: 8654789910141434568}
   - component: {fileID: 5566292478228044567}
   - component: {fileID: 6742636947217563593}
+  - component: {fileID: 5812675267136057219}
   - component: {fileID: 3535366763632785127}
   - component: {fileID: 3327485241153220109}
   - component: {fileID: 3922513343799244647}
@@ -5489,7 +5490,7 @@ GameObject:
   - component: {fileID: 182331204493443372}
   - component: {fileID: 5949393889879185399}
   - component: {fileID: 3717460445037045334}
-  - component: {fileID: 6876555075720079990}
+  - component: {fileID: 265025149833944745}
   m_Layer: 7
   m_Name: Playerv4
   m_TagString: Player
@@ -5574,7 +5575,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3327485241153220109}
   - {fileID: 996414870726799083}
-  - {fileID: 6876555075720079990}
+  - {fileID: 265025149833944745}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5620,6 +5621,7 @@ MonoBehaviour:
   - {fileID: 6742636947217563593}
   - {fileID: 291058629658783102}
   - {fileID: 7158537297210349565}
+  - {fileID: 5812675267136057219}
   IgnoreControlInput: 0
 --- !u!114 &9057546429446380302
 MonoBehaviour:
@@ -5638,6 +5640,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   PlayerPullDash: {fileID: 0}
   PlayerGroundPound: {fileID: 0}
+  PlayerKnockback: {fileID: 0}
   PlayerMultiplayer: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   PhotonView: {fileID: 5480352261030030601}
@@ -5686,6 +5689,7 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   PlayerPullDash: {fileID: 0}
   PlayerGroundPound: {fileID: 0}
+  PlayerKnockback: {fileID: 0}
   PlayerMultiplayer: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   GroundCheck: {fileID: 6675483342905746456}
@@ -5753,6 +5757,7 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   PlayerPullDash: {fileID: 0}
   PlayerJump: {fileID: 0}
+  PlayerKnockback: {fileID: 0}
   PlayerCombat: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   CombatManager: {fileID: 7158537297210349565}
@@ -5787,6 +5792,7 @@ MonoBehaviour:
   CombatManager: {fileID: 7158537297210349565}
   PlayerMultiplayer: {fileID: 0}
   PlayerJump: {fileID: 0}
+  PlayerKnockback: {fileID: 0}
   ChargingPullDash: 0
   PullDashCharged: 0
   IsPullDashing: 0
@@ -5799,6 +5805,30 @@ MonoBehaviour:
   CompletionDistance: 2
   ExpiryTimer: 0.8
   TriggerTime: 0.5
+--- !u!114 &5812675267136057219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401703996827886909}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ce5770e79f8f447aba3edc09595ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerMovementHandler: {fileID: 9057546429446380302}
+  CombatManager: {fileID: 0}
+  PlayerJump: {fileID: 0}
+  PlayerRotation: {fileID: 0}
+  AnimatorController: {fileID: 3717460445037045334}
+  PlayerMultiplayer: {fileID: 0}
+  BulletHitForce: 0.005
+  GruntSmashForce: 15
+  VerticalForce: 15
+  WasHit: 0
+  IsKnockback: 0
+  TookOff: 0
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5891,6 +5921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerKnockback: {fileID: 0}
   AnimatorController: {fileID: 3717460445037045334}
   CombatManager: {fileID: 7158537297210349565}
   PlayerJump: {fileID: 0}
@@ -5970,7 +6001,7 @@ Animator:
   m_GameObject: {fileID: 8401703996827886909}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c4c4974444632f845b518423e9e29aed, type: 3}
-  m_Controller: {fileID: 9100000, guid: f7da1300faf8b8347b5a967affd62477, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8360fd2187b2ccf4e910cb292f55710e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5979,7 +6010,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6876555075720079990
+--- !u!114 &265025149833944745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5994,16 +6025,16 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 2
-    Name: IsJumping
-  - Type: 9
-    SynchronizeType: 2
-    Name: IsLanding
   - Type: 1
     SynchronizeType: 2
     Name: MoveMagnitude
-  - Type: 9
+  - Type: 4
+    SynchronizeType: 2
+    Name: IsJumping
+  - Type: 4
+    SynchronizeType: 2
+    Name: IsLanding
+  - Type: 4
     SynchronizeType: 2
     Name: IsFalling
   - Type: 4
@@ -6012,7 +6043,7 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: IsAirDashing
-  - Type: 9
+  - Type: 4
     SynchronizeType: 2
     Name: IsPullDashing
   - Type: 4
@@ -6021,6 +6052,12 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: IsSmashing
+  - Type: 4
+    SynchronizeType: 2
+    Name: IsKnockback
+  - Type: 4
+    SynchronizeType: 2
+    Name: IsKBLanding
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0

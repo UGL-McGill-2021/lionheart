@@ -6,7 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 /// <summary>
-/// Author: Feiyang Li
+/// Author: Feiyang Li, Denis
 /// CombatManager for player
 /// </summary>
 public class PlayerCombatManager : MonoBehaviour {
@@ -15,10 +15,8 @@ public class PlayerCombatManager : MonoBehaviour {
     Rigidbody Body;
 
     MovementHandler Handler;
+    Knockback PlayerKnockback;
     PhotonTransformViewClassic PhotonTransformView;
-
-    public delegate void OnKnockBackStateChangedDelegate(bool isKnockedBack);
-    public OnKnockBackStateChangedDelegate OnKnockBackStateChanged;
 
     public Collider AttackBox;
 
@@ -53,6 +51,7 @@ public class PlayerCombatManager : MonoBehaviour {
         Input = new ControllerInput();
         //Input.Player.Kick.performed += _ => Attack(new Kick(DefaultAttackForce, 1));
         Input.Enable();
+        PlayerKnockback = gameObject.GetComponent<Knockback>();
     }
 
     /// <summary>
@@ -147,8 +146,8 @@ public class PlayerCombatManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Author: Feiyang
-    /// Attack handling logic
+    /// Author: Feiyang, Denis
+    /// Applies a bullet hit to the player
     /// </summary>
     /// <param name="_x"></param>
     /// <param name="_y"></param>
@@ -156,34 +155,13 @@ public class PlayerCombatManager : MonoBehaviour {
     /// <param name="_time"></param>
     /// <returns></returns>
     [PunRPC]
-    public IEnumerator OnPlayerAttacked(float _x, float _y, float _z, float _time) {
+    public void OnPlayerAttacked(float _x, float _y, float _z, float _time) {
         if (this.IsInvicible) {
             Debug.Log(gameObject + " is invincible");
-            yield break;
+            return;
         }
 
-        if (OnKnockBackStateChanged != null) {
-            OnKnockBackStateChanged(true);
-        }
-        
-
-        Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
-
-        Handler.enabled = false;
-        //PhotonTransformView.enabled = false;
-
-        //Debug.DrawRay(this.transform.position, new Vector3(_x, _y, _z), Color.red, 5f);
-        this.Body.AddForce(new Vector3(_x, _y, _z));
-
-        yield return new WaitForSeconds(_time);
-
-        Handler.enabled = true;
-        //PhotonTransformView.enabled = true;
-
-        if (OnKnockBackStateChanged != null) {
-            OnKnockBackStateChanged(false);
-        }
-        
+        PlayerKnockback.AddKnockback(new Vector3(_x, _y, _z));
     }
 
     /// <summary>
@@ -209,8 +187,18 @@ public class PlayerCombatManager : MonoBehaviour {
             _SmashRadius);
     }
 
+    /// <summary>
+    /// Author: Feiyang, Denis
+    /// Applies a smah to the player
+    /// </summary>
+    /// <param name="_time"></param>
+    /// <param name="_explosionForce"></param>
+    /// <param name="_ExplosionX"></param>
+    /// <param name="_ExplosionY"></param>
+    /// <param name="_ExplosionZ"></param>
+    /// <param name="_smashRadius"></param>
     [PunRPC]
-    public IEnumerator OnPlayerSmashed(float _time,
+    public void OnPlayerSmashed(float _time,
         float _explosionForce,
         float _ExplosionX,
         float _ExplosionY,
@@ -219,26 +207,10 @@ public class PlayerCombatManager : MonoBehaviour {
 
         if (this.IsInvicible) {
             Debug.Log(gameObject + " is invincible");
-            yield break;
-        }
-
-        if (OnKnockBackStateChanged != null) {
-            OnKnockBackStateChanged(true);
+            return;
         }
         
-
-        this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
-
-        Handler.enabled = false;
-
-        yield return new WaitForSeconds(_time);
-
-        Handler.enabled = true;
-
-        if (OnKnockBackStateChanged != null) {
-            OnKnockBackStateChanged(false);
-        }
-
+        PlayerKnockback.AddExplosiveKnockback(_explosionForce, _smashRadius, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ));
     }
 
     /// <summary>

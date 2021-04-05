@@ -16,6 +16,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] PullDash PlayerPullDash;
         [SerializeField] GroundPound PlayerGroundPound;
+        [SerializeField] Knockback PlayerKnockback;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
@@ -82,6 +83,7 @@ namespace Lionheart.Player.Movement
         {
             PlayerPullDash = gameObject.GetComponent<PullDash>();
             PlayerGroundPound = gameObject.GetComponent<GroundPound>();
+            PlayerKnockback = gameObject.GetComponent<Knockback>();
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
@@ -116,8 +118,8 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterJump(InputAction.CallbackContext Ctx)
         {
-            if ((IsGrounded == true || CanCoyoteHop == true || HasSecondJump == true) 
-                && HasJumped == false && BlockInput == false)
+            if ((IsGrounded == true || CanCoyoteHop == true || HasSecondJump == true)
+                && HasJumped == false && BlockInput == false && PlayerKnockback.IsKnockback == false)
             {
                 Vec2 = Vector3.zero;
                 Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
@@ -156,7 +158,7 @@ namespace Lionheart.Player.Movement
 
         /// <summary>
         /// Author: Denis
-        /// Manages the fall animation and a counter airborne softlock state landing animation 
+        /// Manages the fall animation and a failsafe to prevent being stuck on any airborne state 
         /// </summary>
         private void EarlyPlayAnimations()
         {
@@ -182,6 +184,12 @@ namespace Lionheart.Player.Movement
                 {
                     AnimatorController.SetBool("IsSmashing", true);
                     StartCoroutine(AnimationTrigger("IsSmashing"));
+                    PlayedLandingAnim = true;
+                }
+                else if (St.IsName("KBAirborne") && PlayerKnockback.TookOff == true)
+                {
+                    AnimatorController.SetBool("IsKBLanding", true);
+                    StartCoroutine(AnimationTrigger("IsKBLanding"));
                     PlayedLandingAnim = true;
                 }
 
@@ -276,7 +284,6 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// Play Landing animation when about to hit the ground
-        /// TODO Integrate with photon
         /// </summary>
         private void LatePlayAnimations()
         {
@@ -305,7 +312,6 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis, Ziqi
         /// Simple Rumble feedback on landing
-        /// TODO: PS4 vs XB rumble
         /// </summary>
         /// <returns></returns>
         IEnumerator PlayHaptics()
@@ -338,6 +344,9 @@ namespace Lionheart.Player.Movement
                     break;
                 case "IsSmashing":
                     AnimatorController.SetBool("IsSmashing", false);
+                    break;
+                case "IsKBLanding":
+                    AnimatorController.SetBool("IsKBLanding", false);
                     break;
             }
         }
