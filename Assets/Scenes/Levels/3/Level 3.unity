@@ -1103,15 +1103,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 236.5
+      value: 159.29999
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 31.9
+      value: 20.9
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -24.300003
+      value: -58.9
       objectReference: {fileID: 0}
     - target: {fileID: 8343944308012415645, guid: 5ec2c8923f59d954395adfab674b8bad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2195,6 +2195,10 @@ PrefabInstance:
     - target: {fileID: 2897077155387752481, guid: b2a300dffb70b424ba0d4de188775911, type: 3}
       propertyPath: m_Name
       value: TempPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2897077155387752481, guid: b2a300dffb70b424ba0d4de188775911, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2897077155387752481, guid: b2a300dffb70b424ba0d4de188775911, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3881,7 +3885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &814138493
 Transform:
   m_ObjectHideFlags: 0
@@ -3912,7 +3916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &822786638
 Transform:
   m_ObjectHideFlags: 0
@@ -7301,6 +7305,10 @@ PrefabInstance:
     - target: {fileID: 2897077155387752481, guid: b2a300dffb70b424ba0d4de188775911, type: 3}
       propertyPath: m_Name
       value: TempPlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2897077155387752481, guid: b2a300dffb70b424ba0d4de188775911, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2897077155387752481, guid: b2a300dffb70b424ba0d4de188775911, type: 3}
       propertyPath: m_StaticEditorFlags
