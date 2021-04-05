@@ -5942,7 +5942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5c8a1ec046fcd4ab45467d3dc84639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerKnockback: {fileID: 5812675267136057219}
   AttackBox: {fileID: 182331204493443372}
   DefaultAttackForce: 1000
   DashAttackAngleOfViewDegree: 5
@@ -5950,8 +5949,8 @@ MonoBehaviour:
   DefaultSmashTime: 1
   DefaultSmashForce: 500
   GroundCheck: {fileID: 6675483342905746456}
-  StompDistance: 5
-  StompForce: 5
+  StompDistance: 4
+  StompForce: 100
 --- !u!136 &1197355403299462303
 CapsuleCollider:
   m_ObjectHideFlags: 0
