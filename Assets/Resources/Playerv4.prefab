@@ -5820,7 +5820,7 @@ MonoBehaviour:
   PlayerMovementHandler: {fileID: 9057546429446380302}
   CombatManager: {fileID: 0}
   PlayerJump: {fileID: 0}
-  PlayerRotation: {fileID: 0}
+  PlayerRotation: {fileID: 8654789910141434568}
   AnimatorController: {fileID: 3717460445037045334}
   PlayerMultiplayer: {fileID: 0}
   BulletHitForce: 0.005
