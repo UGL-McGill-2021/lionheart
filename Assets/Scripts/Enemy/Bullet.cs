@@ -15,8 +15,11 @@ public class Bullet : MonoBehaviour {
     [HideInInspector]
     public Vector3 Forward;
 
+    private PhotonView PhontonView;
+
     private void Awake() {
         StartCoroutine(DestroyDelay());
+        PhontonView = GetComponent<PhotonView>();
     }
 
     /// <summary>
@@ -24,14 +27,18 @@ public class Bullet : MonoBehaviour {
     /// integrating with combat system
     /// </summary>
     private void OnTriggerStay(Collider Other) {
-        if (Other.gameObject.tag == "Player") {
+        if (Other.gameObject.tag == "Player" && PhontonView.IsMine) {
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(this.gameObject);
+            }
+
             PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
                 Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
                 _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
-
-            if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(this.gameObject);
         }
         //else if (Other.gameObject.tag == "Enemy" && Other.gameObject != owner) {
         //    EnemyCombatManager _enemyCombatManager = Other.gameObject.GetComponent<EnemyCombatManager>();

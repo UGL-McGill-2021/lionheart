@@ -89,24 +89,12 @@ public class Shooter : Enemy
     /// Author: Ziqi Li
     /// RPC function for shooting bullet
     /// </summary>
-    [PunRPC]
-    public void RPC_Shoot()
-    {
-        GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 2.4f, Quaternion.identity);
-        bullet.GetComponent<Bullet>().owner = this.gameObject; // Modification made by Feiyang: Register the owner of the bullet to enable friendly fire
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * (ProjectileSpeed * 100));
-    }
-
-    /// <summary>
-    /// Author: Ziqi Li
-    /// Function for shooting bullet
-    /// </summary>
-    //public void Shoot()
+    //[PunRPC]
+    //public void RPC_Shoot()
     //{
-    //    GameObject bullet = PhotonNetwork.Instantiate("Bullet", transform.position + transform.forward * 2.4f, Quaternion.identity);
+    //    GameObject bullet = Instantiate(Projectile, transform.position + transform.forward * 2.4f, Quaternion.identity);
     //    bullet.GetComponent<Bullet>().owner = this.gameObject; // Modification made by Feiyang: Register the owner of the bullet to enable friendly fire
     //    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * (ProjectileSpeed * 100));
-        
     //}
 
 

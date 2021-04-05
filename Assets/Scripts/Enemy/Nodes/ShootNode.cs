@@ -93,7 +93,6 @@ public class ShootNode : Node
         if (PhotonNetwork.IsMasterClient)
         {
             //ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
-            //(ShooterScript).Shoot();
             Shoot();
         }
         yield return new WaitForSeconds(CooldownTime);
