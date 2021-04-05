@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour {
             {
                 if (TurretSpawningPoints[i] != null && TurretTargetsPoints[i] != null)
                 {
-                    GameObject obj = PhotonNetwork.Instantiate("Turret_v2", TurretSpawningPoints[i].transform.position, TurretSpawningPoints[i].transform.rotation);
+                    GameObject obj = PhotonNetwork.Instantiate("Turret_v2", TurretSpawningPoints[i].transform.position, Quaternion.identity);
                     obj.GetComponent<Turret>().Target = TurretTargetsPoints[i].transform;
                     obj.transform.rotation = Quaternion.LookRotation(TurretTargetsPoints[i].transform.position);
                 }
