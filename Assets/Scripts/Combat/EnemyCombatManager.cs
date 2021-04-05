@@ -61,6 +61,8 @@ public class EnemyCombatManager : MonoBehaviour {
 
         yield return new WaitForSeconds(_time);
 
+        if (this.gameObject == null) yield break;
+
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
             Debug.Log("Attacked: On Ground");
             this.Body.isKinematic = true;
@@ -128,6 +130,34 @@ public class EnemyCombatManager : MonoBehaviour {
             StartCoroutine(WaitAndDestroy(this.gameObject, 5));
         }
 
+    }
+
+    public void ReceiveStomp(Vector3 _AttackVelocity, float _AttackTimeSpan) {
+        PhotonView _view = PhotonView.Get(this);
+        Debug.Log("Invoking OnAttacked on MasterClient");
+        _view.RPC("OnStomped", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+    }
+
+    [PunRPC]
+    public IEnumerator OnStomped(float _x, float _y, float _z, float _time) {
+        Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
+        this.agent.enabled = false;
+        this.Body.isKinematic = false;
+        this.Body.AddForce(new Vector3(_x, _y, _z));
+
+        yield return new WaitForSeconds(_time);
+
+        if (this.gameObject == null) yield break;
+
+        if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
+            Debug.Log("Attacked: On Ground");
+            this.Body.isKinematic = true;
+            this.agent.enabled = true;
+        } else {
+            this.Body.isKinematic = false;
+            this.agent.enabled = false;
+            StartCoroutine(WaitAndDestroy(this.gameObject, 5));
+        }
     }
 
     public IEnumerator WaitAndDestroy(GameObject _gameObject, float _time) {

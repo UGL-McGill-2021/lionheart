@@ -14,8 +14,8 @@ public class PlayerCombatManager : MonoBehaviour {
     ControllerInput Input;
     Rigidbody Body;
 
-    public MovementHandler Handler;
-    public Knockback PlayerKnockback;
+    MovementHandler Handler;
+    Knockback PlayerKnockback;
     PhotonTransformViewClassic PhotonTransformView;
 
     public Collider AttackBox;
@@ -96,22 +96,25 @@ public class PlayerCombatManager : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         // check if player is directly above the enemy
+        
         Vector3 playerToEnemy = this.transform.position - other.transform.position;
         float angle = Vector3.Angle(this.transform.forward, playerToEnemy);
-
+        
         if (other.transform.position.y < this.transform.position.y && 
-            (angle <= 95f && angle >= 85f) && 
+            (angle <= 120f && angle >= 60f) && 
             Vector3.Distance(GroundCheck.transform.position, other.transform.position) < StompDistance){
-
+            Debug.Log("Stomp angle" + angle);
             EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null) {
                 
-                _enemyCombatManager.ReceiveAttack(this.transform.forward.normalized * -1 * StompForce, 0.5f);
-                Debug.Log("Stomped " + gameObject + " with " + this.transform.forward.normalized * -1 * StompForce);
+                _enemyCombatManager.ReceiveStomp(this.transform.forward.normalized * -1 * StompForce, 0.5f);
+                Debug.Log("Stomped " + other.gameObject + " with " + this.transform.forward.normalized * -1 * StompForce);
+                
             }
         }
+        
     }
-    
+
 
     /// <summary>
     /// Author: Feiyang
