@@ -24,11 +24,13 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float BulletHitForce = 0.005f;
         [SerializeField] private float GruntSmashForce = 15f;
         [SerializeField] private float VerticalForce = 15f;
+        [SerializeField] private float ImmunityTimeAfterLanding = 0.5f;
 
         [Header("State")]
         [SerializeField] private bool WasHit;
         [SerializeField] public bool IsKnockback;
         [SerializeField] public bool TookOff;
+        [SerializeField] public bool IsImmune;
 
         private int HitCount = 0;
 
@@ -75,6 +77,7 @@ namespace Lionheart.Player.Movement
             WasHit = false;
             IsKnockback = false;
             TookOff = false;
+            IsImmune = false;
         }
 
         /// <summary>
@@ -84,6 +87,9 @@ namespace Lionheart.Player.Movement
         /// <param name="Dir"></param>
         public void AddKnockback(Vector3 Dir)
         {
+            if (IsImmune == true) return;
+            IsImmune = true;
+
             PlayerRotation.enabled = false;
 
             Value = new Vector3(BulletHitForce * Dir.x, VerticalForce, BulletHitForce * Dir.z);
@@ -108,6 +114,9 @@ namespace Lionheart.Player.Movement
         /// <param name="V0"></param>
         public void AddExplosiveKnockback(float Force, float Radius, Vector3 V0)
         {
+            if (IsImmune == true) return;
+            IsImmune = true;
+
             Vector3 Dir = gameObject.transform.position-V0;
             float Scale = GruntSmashForce / Dir.magnitude;
 
@@ -148,7 +157,20 @@ namespace Lionheart.Player.Movement
                 IsKnockback = false;
                 TookOff = false;
                 PlayerRotation.enabled = true;
+
+                StartCoroutine(ImmunityTimer());
             }
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Countdowns until the player isn't immune anymore
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator ImmunityTimer()
+        {
+            yield return new WaitForSecondsRealtime(ImmunityTimeAfterLanding);
+            IsImmune = false;
         }
 
         /// <summary>
