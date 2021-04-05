@@ -1264,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: LaunchLevel
-      value: Level 2
+      value: Level 3
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: LunachLevel
@@ -1276,7 +1276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762735, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: EnableLocalDeubug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2117670322885762770, guid: 6fbce8bb659254ce4a3f38207f47800f, type: 3}
       propertyPath: m_Name
