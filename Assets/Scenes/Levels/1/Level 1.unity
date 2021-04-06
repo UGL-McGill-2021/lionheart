@@ -918,6 +918,10 @@ PrefabInstance:
       propertyPath: CheckpointMan
       value: 
       objectReference: {fileID: 492381693}
+    - target: {fileID: 6169593494034404757, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+      propertyPath: IsFinalCheckpoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8022017264999297553, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: viewIdField
       value: 10
@@ -3872,17 +3876,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
---- !u!114 &1165532983 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 321259811, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
-  m_PrefabInstance: {fileID: 1165532982}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1169373745
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,7 +4052,7 @@ PrefabInstance:
     - target: {fileID: 3482476475111407307, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
       propertyPath: IconImageList.Array.data[0]
       value: 
-      objectReference: {fileID: 1165532983}
+      objectReference: {fileID: 0}
     - target: {fileID: 3482476475111407348, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
       propertyPath: m_Name
       value: ControllerIconSwitcher
@@ -8216,6 +8209,34 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 638559997282713460, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 638559997282713460, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 638559997282713460, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195629421594683483, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195629421594683483, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310141269589511875, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310141269589511875, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4480450123633251657, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
       propertyPath: viewIdField
       value: 4
@@ -8280,6 +8301,18 @@ PrefabInstance:
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 402563412}
+    - target: {fileID: 7390131458646863355, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390131458646863355, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390131458646863355, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc6e6f24f3e374566b8e50c0223c092c, type: 3}
 --- !u!1001 &4740684953639983098
