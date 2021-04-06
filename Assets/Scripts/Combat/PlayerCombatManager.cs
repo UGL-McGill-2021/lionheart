@@ -91,30 +91,8 @@ public class PlayerCombatManager : MonoBehaviour {
                 _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
             }
-        }
+        }   
     }
-
-    private void OnTriggerEnter(Collider other) {
-        // check if player is directly above the enemy
-        
-        Vector3 playerToEnemy = this.transform.position - other.transform.position;
-        float angle = Vector3.Angle(this.transform.forward, playerToEnemy);
-        
-        if (other.transform.position.y < this.transform.position.y && 
-            (angle <= 120f && angle >= 60f) && 
-            Vector3.Distance(GroundCheck.transform.position, other.transform.position) < StompDistance){
-            Debug.Log("Stomp angle" + angle);
-            EnemyCombatManager _enemyCombatManager = other.gameObject.GetComponent<EnemyCombatManager>();
-            if (_enemyCombatManager != null) {
-                
-                _enemyCombatManager.ReceiveStomp(this.transform.forward.normalized * -1 * StompForce, 0.5f);
-                Debug.Log("Stomped " + other.gameObject + " with " + this.transform.forward.normalized * -1 * StompForce);
-                
-            }
-        }
-        
-    }
-
 
     /// <summary>
     /// Author: Feiyang
