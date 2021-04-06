@@ -21,5 +21,6 @@ public abstract class MenuManager : MonoBehaviour
     {
         // make sure the button is always selected despite to mouse interference
         if (DefaultButton != null && !EventSystem.current.currentSelectedGameObject) DefaultButton.Select();
+        Debug.Log(EventSystem.current.currentSelectedGameObject);
     }
 }
