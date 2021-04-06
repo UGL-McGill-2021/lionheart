@@ -19,6 +19,7 @@ public class Checkpoint : MonoBehaviour
     void Awake()
     {
         CheckpointMan = GameObject.FindGameObjectWithTag("CheckpointManager").GetComponent<CheckpointManager>();
+        PlayersInArea = new HashSet<GameObject>();
     }
 
     private void OnTriggerEnter(Collider Other)
