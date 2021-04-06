@@ -16,7 +16,9 @@ public class QuitMenuManager : MenuManager
     public Button ContinueButton;
     public Button QuitButton;
     public Toggle VibToggle;
-    public Slider VolumeSlider;
+    public Slider Music_VolumeSlider;
+    public Slider SFX_Slider;
+    public Slider VC_Slider;
     public TMP_Text CountDownText;
 
     [Header("Respawn System")]
@@ -39,7 +41,10 @@ public class QuitMenuManager : MenuManager
         // initialize the user setting using static PlayerGameSettings class
         // so the setting will be keept when loading new scene
         VibToggle.isOn = PlayerGameSettings.IsVibrationOn;
-        VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        Music_VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        SFX_Slider.value = PlayerGameSettings.SFXVolume;
+        VC_Slider.value = PlayerGameSettings.VCVolume;
+
         PlayerGameSettings.IsInGameMenuOpened = false;
         QuitMenuUI.SetActive(false);  // hide the menu UI
 
@@ -173,12 +178,37 @@ public class QuitMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
-    /// Slider callback function for volume slider
+    /// Slider callback function for music volume slider
     /// </summary>
     public void ChangeVolume()
     {
+<<<<<<< HEAD
         PlayerGameSettings.AudioVolume = VolumeSlider.value;
         BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VolumeSlider.value);
+=======
+        PlayerGameSettings.AudioVolume = Music_VolumeSlider.value;
+        BackgroundAudioManager.instance.OnBackgroundVolumeChanged(Music_VolumeSlider.value);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for SFX volume slider
+    /// </summary>
+    public void ChangeSFXVolume()
+    {
+        PlayerGameSettings.SFXVolume = SFX_Slider.value;
+        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(SFX_Slider.value);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for voice chat volume slider
+    /// </summary>
+    public void ChangeVCVolume()
+    {
+        PlayerGameSettings.VCVolume = VC_Slider.value;
+        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VC_Slider.value);
+>>>>>>> main
     }
 
     /// <summary>
@@ -213,6 +243,7 @@ public class QuitMenuManager : MenuManager
         // activate count down
         while (countDownTime > 0 && Respawn_RequestPlayerNum < PlayerList.Count)
         {
+            CountDownText.rectTransform.parent.GetComponent<Image>().enabled = true;  // enable the hint icon
             ShowCountDownMessage("Player requests to respawn: ", Respawn_RequestPlayerNum, PlayerList.Count, countDownTime);
             yield return new WaitForSeconds(1);  // update the text every second
             countDownTime--;
@@ -221,8 +252,7 @@ public class QuitMenuManager : MenuManager
         // if all players want to reload
         if (Respawn_RequestPlayerNum >= PlayerList.Count)
         {
-            string message = "Player requests to respawn: " + " " + Respawn_RequestPlayerNum + "/" + PlayerList.Count;
-            CountDownText.SetText(message);
+            ShowCountDownMessage("Player requests to respawn: ", Respawn_RequestPlayerNum, PlayerList.Count, 0);
             yield return new WaitForSeconds(1f);  // add a delay before reload level
             foreach (GameObject player in PlayerList) if (player.GetComponent<PhotonView>().IsMine) player.transform.Translate(Vector3.up * RespawnHeight);
         }
@@ -232,6 +262,7 @@ public class QuitMenuManager : MenuManager
         RespawnCoroutine = null;
         HasSentRespawnRequest = false;
         CountDownText.SetText("");  // empty the text object
+        CountDownText.rectTransform.parent.GetComponent<Image>().enabled = false;  // disable the hint icon
     }
 
     /// <summary>
@@ -244,7 +275,15 @@ public class QuitMenuManager : MenuManager
     /// <param name="countDownTime"></param>
     void ShowCountDownMessage(string text, int numPlayer, int maxNumPlayer, float countDownTime)
     {
-        string message = text + " " + numPlayer + "/" + maxNumPlayer + " (" + countDownTime + "s)";
+        string message;
+        if (countDownTime == 0)
+        {
+            message = text + " " + numPlayer + "/" + maxNumPlayer;
+        }
+        else
+        {
+            message = text + " " + numPlayer + "/" + maxNumPlayer + " (" + countDownTime + "s)";
+        }
         CountDownText.SetText(message);
     }
 }

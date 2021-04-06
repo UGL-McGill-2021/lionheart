@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -15,13 +16,24 @@ public class MainMenuManager : MenuManager
     [Header("UI elements")]
     public Button StartButton;
     public bool cursor;
-    public Slider VolumeSlider;
+    public Slider Music_VolumeSlider;
+    public Slider SFX_Slider;
+    public Slider VC_Slider;
     public Toggle VibToggle;
+
+    public GameObject OptionGroup;
 
     private void Awake()
     {
-        VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        // initialize settings
+        Music_VolumeSlider.value = PlayerGameSettings.AudioVolume;
+        SFX_Slider.value = PlayerGameSettings.SFXVolume;
+        VC_Slider.value = PlayerGameSettings.VCVolume;
         VibToggle.isOn = PlayerGameSettings.IsVibrationOn;
+
+        OptionGroup.SetActive(false);
+
+        if (PhotonNetwork.IsConnected) PhotonNetwork.Disconnect();  // make sure disconnecting when finishing game
 
         if (StartButton != null)
         {
@@ -100,12 +112,37 @@ public class MainMenuManager : MenuManager
 
     /// <summary>
     /// Author: Ziqi Li
-    /// Slider callback function for volume slider
+    /// Slider callback function for music volume slider
     /// </summary>
     public void ChangeVolume()
     {
+<<<<<<< HEAD
         PlayerGameSettings.AudioVolume = VolumeSlider.value;
         BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VolumeSlider.value);
+=======
+        PlayerGameSettings.AudioVolume = Music_VolumeSlider.value;
+        BackgroundAudioManager.instance.OnBackgroundVolumeChanged(Music_VolumeSlider.value);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for SFX volume slider
+    /// </summary>
+    public void ChangeSFXVolume()
+    {
+        PlayerGameSettings.SFXVolume = SFX_Slider.value;
+        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(SFX_Slider.value);
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Slider callback function for voice chat volume slider
+    /// </summary>
+    public void ChangeVCVolume()
+    {
+        PlayerGameSettings.VCVolume = VC_Slider.value;
+        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VC_Slider.value);
+>>>>>>> main
     }
 
     /// <summary>
@@ -115,5 +152,14 @@ public class MainMenuManager : MenuManager
     public void TurnVibration()
     {
         PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Toggle callback function for option button
+    /// </summary>
+    public void Options()
+    {
+        OptionGroup.SetActive(!OptionGroup.activeSelf);
     }
 }

@@ -91,9 +91,10 @@ public class PlayerCombatManager : MonoBehaviour {
                 _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
             }
-        }
+        }   
     }
 
+<<<<<<< HEAD
     private void OnTriggerEnter(Collider other) {
         // check if player is directly above the enemy
         
@@ -116,6 +117,8 @@ public class PlayerCombatManager : MonoBehaviour {
     }
 
 
+=======
+>>>>>>> main
     /// <summary>
     /// Author: Feiyang
     /// Initiate Smash
