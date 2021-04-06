@@ -116,6 +116,10 @@ public class MainMenuManager : MenuManager
     /// </summary>
     public void ChangeVolume()
     {
+<<<<<<< HEAD
+        PlayerGameSettings.AudioVolume = VolumeSlider.value;
+        BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VolumeSlider.value);
+=======
         PlayerGameSettings.AudioVolume = Music_VolumeSlider.value;
         BackgroundAudioManager.instance.OnBackgroundVolumeChanged(Music_VolumeSlider.value);
     }
@@ -138,6 +142,7 @@ public class MainMenuManager : MenuManager
     {
         PlayerGameSettings.VCVolume = VC_Slider.value;
         //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VC_Slider.value);
+>>>>>>> main
     }
 
     /// <summary>
