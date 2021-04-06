@@ -15,6 +15,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] PullDash PlayerPullDash;
         [SerializeField] Jump PlayerJump;
+        [SerializeField] Knockback PlayerKnockback;
         [SerializeField] PlayerCombatManager PlayerCombat;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
@@ -59,7 +60,8 @@ namespace Lionheart.Player.Movement
         {
             PlayerPullDash = gameObject.GetComponent<PullDash>();
             PlayerJump = gameObject.GetComponent<Jump>();
-            PlayerCombat = gameObject.GetComponent<PlayerCombatManager>();
+            PlayerCombat = gameObject.GetComponent<PlayerCombatManager>(); 
+            PlayerKnockback = gameObject.GetComponent<Knockback>();
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
@@ -94,7 +96,8 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterDash(InputAction.CallbackContext Ctx)
         {
-            if (DashOnCooldown == false && PlayerPullDash.DisableGravity == false)
+            if (DashOnCooldown == false && PlayerPullDash.DisableGravity == false
+                 && PlayerKnockback.IsKnockback == false)
             {
                 IsDashing = true;
                 DashOnCooldown = true;

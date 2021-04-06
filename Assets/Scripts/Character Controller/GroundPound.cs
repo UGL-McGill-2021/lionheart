@@ -16,6 +16,7 @@ namespace Lionheart.Player.Movement
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] Knockback PlayerKnockback;
         [SerializeField] Animator AnimatorController;
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] Jump PlayerJump;
@@ -53,6 +54,7 @@ namespace Lionheart.Player.Movement
         {
             PlayerJump = gameObject.GetComponent<Jump>();
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
+            PlayerKnockback = gameObject.GetComponent<Knockback>();
         }
 
         /// <summary>
@@ -86,7 +88,8 @@ namespace Lionheart.Player.Movement
         /// <param name="Ctx"></param>
         private void RegisterGroundPound(InputAction.CallbackContext Ctx)
         {
-            if (IsGroundPound == false && PlayerJump.IsGrounded == false && BlockInput == false) 
+            if (IsGroundPound == false && PlayerJump.IsGrounded == false && BlockInput == false
+                 && PlayerKnockback.IsKnockback == false) 
             {
                 IsGroundPound = true;
 

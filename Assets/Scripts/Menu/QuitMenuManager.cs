@@ -178,6 +178,7 @@ public class QuitMenuManager : MenuManager
     public void ChangeVolume()
     {
         PlayerGameSettings.AudioVolume = VolumeSlider.value;
+        BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VolumeSlider.value);
     }
 
     /// <summary>

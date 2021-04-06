@@ -66,14 +66,23 @@ public class ShootNode : Node
 
     private void PerformAnimation()
     {
-        if (AnimManager != null) AnimManager.TriggerAttack();
+        if (AnimManager != null)
+        {
+            Debug.Log("PERFORM");
+            AnimManager.TriggerAttack();
+        }
     }
 
-    //private void Shoot()
-    //{
-    //    GameObject bullet = ((MonoBehaviour) MonoBehaviour).Instantiate(Projectile, Transform.position + Transform.forward * 1.5f, Quaternion.identity) as GameObject;
-    //    bullet.GetComponent<Rigidbody>().AddForce(Transform.forward * (Speed*100));
-    //}
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Function for shooting bullet
+    /// </summary>
+    private void Shoot()
+    {
+        GameObject bullet = PhotonNetwork.Instantiate("Bullet", Shooter.transform.position + Shooter.transform.forward * 2.4f, Quaternion.identity);
+        bullet.GetComponent<Bullet>().owner = Shooter; // Modification made by Feiyang: Register the owner of the bullet to enable friendly fire
+        bullet.GetComponent<Rigidbody>().AddForce(Shooter.transform.forward * (Speed * 100));
+    }
 
     IEnumerator AttackAndCooldown()
     {
@@ -81,9 +90,10 @@ public class ShootNode : Node
         yield return new WaitForSeconds(AnimDelay);
 
         // call the RPC function to fire bullet if this enemy belong to the current client
-        if (ShooterScript.PhotonView.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
-            ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
+            //ShooterScript.PhotonView.RPC("RPC_Shoot", RpcTarget.AllViaServer);
+            Shoot();
         }
         yield return new WaitForSeconds(CooldownTime);
         AttackRunning = false;

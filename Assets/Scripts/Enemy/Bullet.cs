@@ -1,4 +1,5 @@
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 
@@ -14,8 +15,11 @@ public class Bullet : MonoBehaviour {
     [HideInInspector]
     public Vector3 Forward;
 
+    private PhotonView PhontonView;
+
     private void Awake() {
         StartCoroutine(DestroyDelay());
+        PhontonView = GetComponent<PhotonView>();
     }
 
     /// <summary>
@@ -23,24 +27,28 @@ public class Bullet : MonoBehaviour {
     /// integrating with combat system
     /// </summary>
     private void OnTriggerStay(Collider Other) {
-        if (Other.gameObject.tag == "Player") {
+        if (Other.gameObject.tag == "Player" && PhontonView.IsMine) {
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(this.gameObject);
+            }
+
             PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
-                //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
+                Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
                 _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
-
-            Destroy(this.gameObject);
-
-        } else if (Other.gameObject.tag == "Enemy" && Other.gameObject != owner) {
-            EnemyCombatManager _enemyCombatManager = Other.gameObject.GetComponent<EnemyCombatManager>();
-            if (_enemyCombatManager != null) {
-                //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
-                _enemyCombatManager.ReceiveAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
-            }
-
-            Destroy(this.gameObject);
         }
+        //else if (Other.gameObject.tag == "Enemy" && Other.gameObject != owner) {
+        //    EnemyCombatManager _enemyCombatManager = Other.gameObject.GetComponent<EnemyCombatManager>();
+        //    if (_enemyCombatManager != null) {
+        //        //Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
+        //        _enemyCombatManager.ReceiveAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
+        //    }
+
+        //    Destroy(this.gameObject);
+        //}
     }
 
     public void FixedUpdate() {
@@ -50,6 +58,6 @@ public class Bullet : MonoBehaviour {
 
     IEnumerator DestroyDelay() {
         yield return new WaitForSeconds(5f);
-        Destroy(this.gameObject);
+        if(PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(this.gameObject);
     }
 }
