@@ -12,7 +12,6 @@ using UnityEngine.SceneManagement;
 public class CheckpointManager : MonoBehaviour
 {
     public Checkpoint FirstCheckPoint;      //Put initial starting point here
-    public Checkpoint FinalCheckPoint;      //put final checkpoint here
     public Checkpoint CurrentCheckPoint;    //Currently activated checkpoint
     public float RespawnHeight;             //height which will cause players to respawn
 
@@ -50,15 +49,7 @@ public class CheckpointManager : MonoBehaviour
         CurrentCheckPoint = NewCheckpoint;
     }
 
-    public void CheckpointCompleted(Checkpoint Checkpoint)
-    {
-        if (Checkpoint == FinalCheckPoint)
-        {
-            FinalCheckpointComplete();
-        }
-    }
-
-    private void FinalCheckpointComplete()
+    public void FinalCheckpointComplete()
     {
         print("Final Chekpoint collected by both players!");
 
