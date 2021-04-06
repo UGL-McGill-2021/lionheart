@@ -33,7 +33,6 @@ public class WalkToPlayerNode : Node
         if (distance > Range)
         {
             Agent.isStopped = false;
-            Agent.isStopped = false;
             Agent.SetDestination(Target.position);
             return NodeState.RUNNING;
         }
