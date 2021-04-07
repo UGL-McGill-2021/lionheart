@@ -15,6 +15,7 @@ TagManager:
   - EnemyTempPlatformProbe
   - Bullet
   - EnemyHat
+  - Microphone
   layers:
   - Default
   - TransparentFX
