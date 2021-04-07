@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 5362449810661967725}
   - component: {fileID: 5887148552656250056}
   - component: {fileID: 1165532985}
+  - component: {fileID: 7783361257053605072}
   m_Layer: 0
   m_Name: VoiceChatSystem
   m_TagString: VoiceChatManager
@@ -159,9 +160,9 @@ MonoBehaviour:
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 0
-  samplingRate: 24000
-  frameDuration: 20000
-  bitrate: 30000
+  samplingRate: 48000
+  frameDuration: 5000
+  bitrate: 64000
   sourceType: 0
   microphoneType: 0
   audioClip: {fileID: 0}
@@ -248,9 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recorder: {fileID: 5362449810661967723}
-  TalkIcon: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
-  MuteIcon: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  PlayerIconList: []
+  PlayerList: []
+  PlayerMicIconList: []
 --- !u!114 &5887148552656250056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,3 +303,19 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7783361257053605072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5362449810661967721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3986deb98168394684c41606a9495af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logLevel: 3
+  ignoreGlobalLogLevel: 0
+  boostValue: 0
+  amplificationFactor: 5
