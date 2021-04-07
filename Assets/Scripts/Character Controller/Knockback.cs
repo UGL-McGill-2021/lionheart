@@ -32,7 +32,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] public bool TookOff;
         [SerializeField] public bool IsImmune;
 
-        private int HitCount = 0;
+        public int HitCount = 0;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -188,7 +188,7 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         private IEnumerator TakeOffTimer()
         {
-            yield return new WaitForSecondsRealtime(0.3f);
+            yield return new WaitForSecondsRealtime(0.8f);
             TookOff = true;
             HitCount++;
         }
@@ -219,6 +219,9 @@ namespace Lionheart.Player.Movement
             {
                 case "IsKnockback":
                     AnimatorController.SetBool("IsKnockback", false);
+                    break;
+                case "IsKBLanding":
+                    AnimatorController.SetBool("IsKBLanding", false);
                     break;
             }
         }
