@@ -11,4 +11,5 @@ public static class PlayerGameSettings
     public static float SFXVolume = 0.5f;  // sfx
     public static float VCVolume = 0.5f;  // voice chat
     public static bool IsInGameMenuOpened = false;
+    public static bool IsHintsOn = true;
 }
