@@ -4949,6 +4949,8 @@ MonoBehaviour:
   DisappearDelay: 2
   isReusable: 1
   RespawnDelay: 3
+  UsualParticle: {fileID: 4303771733751419194}
+  DisappearingParticle: {fileID: 1128513997712839136}
 --- !u!65 &8751614418467510397
 BoxCollider:
   m_ObjectHideFlags: 0
