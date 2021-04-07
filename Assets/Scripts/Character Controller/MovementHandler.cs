@@ -17,6 +17,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] GameObject Player;
         [SerializeField] PullDash PlayerPullDash;
         [SerializeField] GroundPound PlayerGroundPound;
+        [SerializeField] Knockback PlayerKnockback;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Animator AnimatorController;
 
@@ -28,6 +29,7 @@ namespace Lionheart.Player.Movement
         private bool IsPullDashing;
         private bool DisableGravity;
         private bool IsGroundPound;
+        private bool IsKnockback;
 
         /// <summary>
         /// Author: Ziqi
@@ -37,6 +39,7 @@ namespace Lionheart.Player.Movement
             PhotonView = GetComponent<PhotonView>();
             PlayerPullDash = gameObject.GetComponent<PullDash>();
             PlayerGroundPound = gameObject.GetComponent<GroundPound>();
+            PlayerKnockback = gameObject.GetComponent<Knockback>();
             PlayerMultiplayer = gameObject.GetComponent<MultiplayerActivator>();
         }
 
@@ -80,6 +83,7 @@ namespace Lionheart.Player.Movement
             IsPullDashing = PlayerPullDash.IsPullDashing;
             DisableGravity = PlayerPullDash.DisableGravity;
             IsGroundPound = PlayerGroundPound.IsGroundPound;
+            IsKnockback = PlayerKnockback.IsKnockback;
 
             if (PhotonView.IsMine)
             {
@@ -87,6 +91,16 @@ namespace Lionheart.Player.Movement
 
                 foreach (MovementModifier M in Modifiers)
                 {
+                    //if the player is knockbacked by an enemy hit the player looses movement control
+                    if (IsKnockback == true)
+                    {
+                        if (M.Type != MovementModifier.MovementType.Knockback &&
+                            M.Type != MovementModifier.MovementType.Jump)
+                        {
+                            continue;
+                        }
+                    }
+
                     //ground pound state overrides other movement vectors
                     if (IsGroundPound == true)
                     {

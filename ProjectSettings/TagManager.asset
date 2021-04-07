@@ -14,7 +14,8 @@ TagManager:
   - TempPlatform
   - EnemyTempPlatformProbe
   - Bullet
-  - BirdsManager
+  - EnemyHat
+  - Microphone
   layers:
   - Default
   - TransparentFX
