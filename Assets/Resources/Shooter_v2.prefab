@@ -703,6 +703,8 @@ MonoBehaviour:
     m_Bits: 8
   GroundDistance: 3
   AttackBox: {fileID: 7447072229981552793}
+  Force: 0
+  KnockbackTime: 0
   SmashRadius: 5
   DefaultSmashTime: 0.3
   DefaultSmashForce: 5000
