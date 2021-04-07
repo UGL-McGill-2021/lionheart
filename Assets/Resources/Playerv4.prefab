@@ -5681,7 +5681,7 @@ MonoBehaviour:
   BlockInput: 0
   MaxTriggerDistance: 60
   LaunchVectorMultiplier: 1
-  MinVectorMagnitude: 15
+  MinVectorMagnitude: 21
   MaxVectorMagnitude: 50
   CompletionDistance: 2
   ExpiryTimer: 0.8
