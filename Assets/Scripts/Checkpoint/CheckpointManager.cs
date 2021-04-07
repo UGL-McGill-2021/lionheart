@@ -38,7 +38,6 @@ public class CheckpointManager : MonoBehaviour
                     {
                         O.GetComponent<PhotonView>().RPC("Teleport", RpcTarget.All, CurrentCheckPoint.GetSpawnPoint(false).position);
                     }
-                    O.GetComponent<Animator>().Play("Idle");
                 }
             }
         }

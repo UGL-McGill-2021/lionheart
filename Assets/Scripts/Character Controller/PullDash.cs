@@ -25,6 +25,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Jump PlayerJump;
         [SerializeField] Knockback PlayerKnockback;
+        [SerializeField] VFXHandler PlayerVFX;
+        public PhotonView NetworkView;
 
         [Header("State")]
         [SerializeField] public bool ChargingPullDash;
@@ -133,6 +135,8 @@ namespace Lionheart.Player.Movement
                 ChargingPullDash = true;
                 PullDashCharged = false;
                 StartCoroutine(PullDashCharge());
+
+                PhotonView.Get(PlayerVFX).RPC("UpdateBeamBegin", RpcTarget.All, true);
             }
         }
 
@@ -147,6 +151,8 @@ namespace Lionheart.Player.Movement
             yield return new WaitForSecondsRealtime(TriggerTime);
 
             PullDashCharged = true;
+
+            PhotonView.Get(PlayerVFX).RPC("UpdateBeamAndEnd", RpcTarget.All, true);
 
             if (PlayerMultiplayer.hasVibration == true)
             {
@@ -167,6 +173,16 @@ namespace Lionheart.Player.Movement
             if (ChargingPullDash == true)
             {
                 Charger();
+            }
+
+            //update LineRenderer
+            if (PullDashCharged == true)
+            {
+                Vector3 Vd = (OtherPlayer.transform.position - transform.position);
+                if (Vd.magnitude > MaxTriggerDistance)
+                {
+                    PhotonView.Get(PlayerVFX).RPC("UpdateBeamAll", RpcTarget.All, false);
+                }
             }
 
             //if pull dash was successfully activated execute the motion
@@ -209,9 +225,13 @@ namespace Lionheart.Player.Movement
                     StopAllCoroutines();
                     Gamepad.current.ResetHaptics();
                     ChargingPullDash = false;
+
+                    PhotonView.Get(PlayerVFX).RPC("UpdateBeamAndBegin", RpcTarget.All, false);
                 }
                 else
                 {
+                    PhotonView.Get(PlayerVFX).RPC("UpdateBeamAll", RpcTarget.All, false);
+
                     T = OtherPlayerTarget.transform.position;
                     Dir = (OtherPlayerTarget.transform.position - transform.position);
 
@@ -287,11 +307,11 @@ namespace Lionheart.Player.Movement
         /// <param name="collision"></param>
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.gameObject.layer == 3)
+            /*if (collision.collider.gameObject.layer == 3)
             {
                 DisableGravity = false;
                 IsPullDashing = false;
-            }
+            }*/
         }
 
         /// <summary>

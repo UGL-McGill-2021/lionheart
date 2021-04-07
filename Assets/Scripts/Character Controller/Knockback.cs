@@ -154,6 +154,8 @@ namespace Lionheart.Player.Movement
                 HitCount = 0;
                 Value = Vector3.zero;
 
+                //TODO: add a forceful anim transition (failsafe)
+
                 IsKnockback = false;
                 TookOff = false;
                 PlayerRotation.enabled = true;
