@@ -186,12 +186,13 @@ namespace Lionheart.Player.Movement
                     StartCoroutine(AnimationTrigger("IsSmashing"));
                     PlayedLandingAnim = true;
                 }
-                else if (St.IsName("KBAirborne") && PlayerKnockback.TookOff == true)
+                /*else if (St.IsName("KBAirborne") && PlayerKnockback.TookOff == true)
+                           //|| Rb.velocity.y < 0f))
                 {
                     AnimatorController.SetBool("IsKBLanding", true);
                     StartCoroutine(AnimationTrigger("IsKBLanding"));
                     PlayedLandingAnim = true;
-                }
+                }*/
 
                 if (AnimatorController.GetBool("IsAirDashing") == true)
                 {

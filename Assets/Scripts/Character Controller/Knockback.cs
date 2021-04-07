@@ -32,7 +32,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] public bool TookOff;
         [SerializeField] public bool IsImmune;
 
-        private int HitCount = 0;
+        public int HitCount = 0;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -154,6 +154,14 @@ namespace Lionheart.Player.Movement
                 HitCount = 0;
                 Value = Vector3.zero;
 
+                AnimatorStateInfo St = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                if (St.IsName("KBAirborne") && TookOff == true)
+                //|| Rb.velocity.y < 0f))
+                {
+                    AnimatorController.SetBool("IsKBLanding", true);
+                    StartCoroutine(AnimationTrigger("IsKBLanding"));
+                }
+
                 IsKnockback = false;
                 TookOff = false;
                 PlayerRotation.enabled = true;
@@ -180,9 +188,9 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         private IEnumerator TakeOffTimer()
         {
-            yield return new WaitForSecondsRealtime(0.3f);
-            HitCount++;
+            yield return new WaitForSecondsRealtime(0.8f);
             TookOff = true;
+            HitCount++;
         }
 
         /// <summary>
@@ -211,6 +219,9 @@ namespace Lionheart.Player.Movement
             {
                 case "IsKnockback":
                     AnimatorController.SetBool("IsKnockback", false);
+                    break;
+                case "IsKBLanding":
+                    AnimatorController.SetBool("IsKBLanding", false);
                     break;
             }
         }
