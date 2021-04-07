@@ -13,9 +13,13 @@ public class QuitMenuManager : MenuManager
 {
     [Header("UI elements")]
     public GameObject QuitMenuUI;
+    public GameObject HintUI;
+    public GameObject SettingUI;
     public Button ContinueButton;
+    public Button SettingsButton;
     public Button QuitButton;
     public Toggle VibToggle;
+    public Toggle HintToggle;
     public Slider Music_VolumeSlider;
     public Slider SFX_Slider;
     public Slider VC_Slider;
@@ -44,9 +48,11 @@ public class QuitMenuManager : MenuManager
         Music_VolumeSlider.value = PlayerGameSettings.AudioVolume;
         SFX_Slider.value = PlayerGameSettings.SFXVolume;
         VC_Slider.value = PlayerGameSettings.VCVolume;
+        HintToggle.isOn = PlayerGameSettings.IsHintsOn;
 
         PlayerGameSettings.IsInGameMenuOpened = false;
         QuitMenuUI.SetActive(false);  // hide the menu UI
+        HintUI.SetActive(PlayerGameSettings.IsHintsOn);
 
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
 
@@ -111,6 +117,7 @@ public class QuitMenuManager : MenuManager
             PlayerGameSettings.IsInGameMenuOpened = false;
             QuitMenuUI.SetActive(false);
             CurrentPlayerActivator.EnableControls();
+            //SettingUI.SetActive(false);
         }
     }
 
@@ -125,6 +132,7 @@ public class QuitMenuManager : MenuManager
             PlayerGameSettings.IsInGameMenuOpened = false;
             QuitMenuUI.SetActive(false);
             CurrentPlayerActivator.EnableControls();
+            //SettingUI.SetActive(false);
         }
     }
 
@@ -137,6 +145,15 @@ public class QuitMenuManager : MenuManager
         PlayerGameSettings.IsInGameMenuOpened = false;
         QuitMenuUI.SetActive(false);
         CurrentPlayerActivator.EnableControls();
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Button callback function to open settings
+    /// </summary>
+    public void Settings()
+    {
+        // SettingUI.SetActive(!SettingUI.activeSelf);
     }
 
     /// <summary>
@@ -174,6 +191,16 @@ public class QuitMenuManager : MenuManager
             PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
             CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;
         }
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Toggle callback function for hint toggle
+    /// </summary>
+    public void TurnControlHints()
+    {
+        PlayerGameSettings.IsHintsOn = HintToggle.isOn;
+        HintUI.SetActive(PlayerGameSettings.IsHintsOn);
     }
 
     /// <summary>
