@@ -5712,6 +5712,7 @@ MonoBehaviour:
   IsKnockback: 0
   TookOff: 0
   IsImmune: 0
+  HitCount: 0
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5963,8 +5964,6 @@ MonoBehaviour:
   PullDashBeamEnd: {fileID: 0}
   PullDashBeamTarget: {fileID: 0}
   PullDashLR: {fileID: 0}
-  PullDashCharging: 0
-  PullDashCharged: 0
 --- !u!1 &8833452435930719326
 GameObject:
   m_ObjectHideFlags: 0
