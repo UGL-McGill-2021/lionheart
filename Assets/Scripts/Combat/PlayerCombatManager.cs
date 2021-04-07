@@ -15,7 +15,7 @@ public class PlayerCombatManager : MonoBehaviour {
     Rigidbody Body;
 
     MovementHandler Handler;
-    Knockback PlayerKnockback;
+    public Knockback PlayerKnockback;
     PhotonTransformViewClassic PhotonTransformView;
 
     public Collider AttackBox;
@@ -142,7 +142,12 @@ public class PlayerCombatManager : MonoBehaviour {
             return;
         }
 
-        PlayerKnockback.AddKnockback(new Vector3(_x, _y, _z));
+        if (PlayerKnockback != null) {
+            PlayerKnockback.AddKnockback(new Vector3(_x, _y, _z));
+        } else {
+            Debug.LogWarning("PlayerKnockback is null!!!");
+        }
+        
     }
 
     /// <summary>

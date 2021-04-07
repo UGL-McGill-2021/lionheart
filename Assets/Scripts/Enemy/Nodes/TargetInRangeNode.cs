@@ -26,13 +26,22 @@ public class TargetInRangeNode : Node
 
     public override NodeState Evaluate()
     {
-        foreach (GameObject Target in TargetList)
+        if (TargetList.Count < 2)
         {
-            if (Vector3.Distance(Target.transform.position, Origin.position) <= Range)
+            if (Vector3.Distance(TargetList[0].transform.position, Origin.position) <= Range)
             {
-                SetTarget(Target.transform);
+                SetTarget(TargetList[0].transform);
                 return NodeState.SUCCESS;
             }
+            return NodeState.FAILURE;
+        }
+
+        GameObject _Closest = Vector3.Distance(TargetList[0].transform.position, Origin.position) < Vector3.Distance(TargetList[1].transform.position, Origin.position) ? TargetList[0] : TargetList[1];
+
+        if (Vector3.Distance(_Closest.transform.position, Origin.position) <= Range)
+        {
+            SetTarget(_Closest.transform);
+            return NodeState.SUCCESS;
         }
         return NodeState.FAILURE;
     }
