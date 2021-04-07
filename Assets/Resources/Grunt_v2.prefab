@@ -1565,7 +1565,7 @@ MonoBehaviour:
     m_Bits: 8
   GroundDistance: 2
   AttackBox: {fileID: 7328338531983162812}
-  Force: 5000
+  Force: 4000
   KnockbackTime: 0.3
   SmashRadius: 5
   DefaultSmashTime: 0.3
