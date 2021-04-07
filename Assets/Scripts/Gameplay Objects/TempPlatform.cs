@@ -8,6 +8,8 @@ public class TempPlatform : MonoBehaviour
     public float DisappearDelay = 3f;
     public bool isReusable = false;
     public float RespawnDelay = 10f;
+    public ParticleSystem UsualParticle;
+    public ParticleSystem DisappearingParticle;
 
     public delegate void OnPlatformStateChangedDelegate(bool PlatformAppears);
     public OnPlatformStateChangedDelegate OnPlatformStateChanged;
@@ -20,6 +22,8 @@ public class TempPlatform : MonoBehaviour
     {
         CurrentCoroutine = null;
         PhotonView = this.GetComponent<PhotonView>();
+        UsualParticle.Play();
+        DisappearingParticle.Stop();
     }
 
     /// <summary>
@@ -53,6 +57,8 @@ public class TempPlatform : MonoBehaviour
         foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
             mesh.enabled = false;
 
+        UsualParticle.Stop();
+        DisappearingParticle.Play();
         OnPlatformStateChanged(false);
     }
 
@@ -68,6 +74,8 @@ public class TempPlatform : MonoBehaviour
         foreach (MeshRenderer mesh in this.gameObject.GetComponentsInChildren<MeshRenderer>())
             mesh.enabled = true;
 
+        UsualParticle.Play();
+        DisappearingParticle.Stop();
         OnPlatformStateChanged(true);
     }
 
