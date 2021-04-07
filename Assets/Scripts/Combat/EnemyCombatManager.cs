@@ -80,9 +80,11 @@ public class EnemyCombatManager : MonoBehaviour {
         Collider[] colliders = Physics.OverlapSphere(transform.position, SmashRadius);
 
         foreach (Collider _nearby in colliders) {
+            Debug.Log("grabbed nearby colliders");
             GameObject _nearbyObjects = _nearby.gameObject;
             PlayerCombatManager _playerCombatManager = _nearbyObjects.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
+                Debug.Log("applying smash to player" + _playerCombatManager.gameObject);
                 _playerCombatManager.ReceivePlayerSmash(DefaultSmashTime,
                 DefaultSmashForce,
                 this.transform.position,
