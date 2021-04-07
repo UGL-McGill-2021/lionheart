@@ -5963,8 +5963,6 @@ MonoBehaviour:
   PullDashBeamEnd: {fileID: 0}
   PullDashBeamTarget: {fileID: 0}
   PullDashLR: {fileID: 0}
-  PullDashCharging: 0
-  PullDashCharged: 0
 --- !u!1 &8833452435930719326
 GameObject:
   m_ObjectHideFlags: 0

@@ -154,7 +154,13 @@ namespace Lionheart.Player.Movement
                 HitCount = 0;
                 Value = Vector3.zero;
 
-                //TODO: add a forceful anim transition (failsafe)
+                AnimatorStateInfo St = AnimatorController.GetCurrentAnimatorStateInfo(0);
+                if (St.IsName("KBAirborne") && TookOff == true)
+                //|| Rb.velocity.y < 0f))
+                {
+                    AnimatorController.SetBool("IsKBLanding", true);
+                    StartCoroutine(AnimationTrigger("IsKBLanding"));
+                }
 
                 IsKnockback = false;
                 TookOff = false;
@@ -183,8 +189,8 @@ namespace Lionheart.Player.Movement
         private IEnumerator TakeOffTimer()
         {
             yield return new WaitForSecondsRealtime(0.3f);
-            HitCount++;
             TookOff = true;
+            HitCount++;
         }
 
         /// <summary>
