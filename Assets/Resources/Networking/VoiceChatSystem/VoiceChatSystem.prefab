@@ -161,7 +161,7 @@ MonoBehaviour:
   encrypt: 0
   transmitEnabled: 0
   samplingRate: 48000
-  frameDuration: 5000
+  frameDuration: 10000
   bitrate: 64000
   sourceType: 0
   microphoneType: 0
@@ -318,4 +318,4 @@ MonoBehaviour:
   logLevel: 3
   ignoreGlobalLogLevel: 0
   boostValue: 0
-  amplificationFactor: 5
+  amplificationFactor: 10

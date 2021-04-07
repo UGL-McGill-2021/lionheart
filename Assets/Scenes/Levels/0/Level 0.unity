@@ -4313,17 +4313,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 321259810, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 232
-      objectReference: {fileID: 0}
-    - target: {fileID: 321259810, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -88.000244
-      objectReference: {fileID: 0}
     - target: {fileID: 1165532985, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
       propertyPath: viewIdField
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5362449810661967721, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
       propertyPath: m_Name
@@ -4372,10 +4364,6 @@ PrefabInstance:
     - target: {fileID: 5362449810661967722, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362449810661967723, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
-      propertyPath: samplingRate
-      value: 48000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73fec1bea9d6349de852fd129e9f9e53, type: 3}
