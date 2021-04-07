@@ -16,6 +16,10 @@ public class EnemyCombatManager : MonoBehaviour {
     private AttackMotion CurrentAttackMotion;
     public Collider AttackBox;
 
+    [Header("Default Attack Motion")]
+    public float Force;
+    public float KnockbackTime;
+
     [Header("Smash")]
     public float SmashRadius = 500;
     public float DefaultSmashTime = 1;
@@ -24,6 +28,12 @@ public class EnemyCombatManager : MonoBehaviour {
     public void Attack(AttackMotion _attackMotion) {
         AttackBox.enabled = true;
         CurrentAttackMotion = _attackMotion;
+        IsAttacking = true;
+    }
+
+    public void Attack() {
+        AttackBox.enabled = true;
+        CurrentAttackMotion = new Kick(Force, KnockbackTime);
         IsAttacking = true;
     }
 
@@ -40,8 +50,8 @@ public class EnemyCombatManager : MonoBehaviour {
                 // calculate regular attack
                 Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
                 Debug.Log("Attacked with " + _AttackVector);
-                StopAttack();
                 _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
+                StopAttack();
             }
         }
     }
@@ -60,8 +70,6 @@ public class EnemyCombatManager : MonoBehaviour {
         this.Body.AddForce(new Vector3(_x, _y, _z));
 
         yield return new WaitForSeconds(_time);
-
-        if (this.gameObject == null) yield break;
 
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
             Debug.Log("Attacked: On Ground");

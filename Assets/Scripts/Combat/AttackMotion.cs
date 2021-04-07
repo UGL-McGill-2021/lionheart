@@ -7,6 +7,6 @@ using UnityEngine;
 public abstract class AttackMotion {
     public float Force { get; set; }
 
-    public int KnockBackTime { get; set; }
+    public float KnockBackTime { get; set; }
 
 }
