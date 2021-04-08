@@ -5502,6 +5502,15 @@ MonoBehaviour:
   - {fileID: 7158537297210349565}
   - {fileID: 6996219064944051542}
   IgnoreControlInput: 0
+  PlayerDash: {fileID: 5566292478228044567}
+  PlayerGroundPound: {fileID: 291058629658783102}
+  PlayerJump: {fileID: 8962104049189637306}
+  PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 6742636947217563593}
+  PlayerRotation: {fileID: 8654789910141434568}
+  PlayerWalkMotion: {fileID: 5368698313015805028}
+  AnimatorController: {fileID: 3717460445037045334}
+  PlayerSwitchCam: {fileID: 0}
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5537,6 +5546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
   AnimatorController: {fileID: 3717460445037045334}
+  BlockInput: 0
   MoveAction:
     m_Name: <Gamepad>/leftStick
     m_Type: 0
@@ -5603,6 +5613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  BlockInput: 0
   MoveAction:
     m_Name: move
     m_Type: 0
@@ -6340,14 +6351,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8610951926741449982, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
   m_PrefabInstance: {fileID: 7415259701111410371}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1254380378240451300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8610951927628155943, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
-  m_PrefabInstance: {fileID: 7415259701111410371}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9119644030292976741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1758427524710017702, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
+  m_PrefabInstance: {fileID: 7415259701111410371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1254380378240451300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8610951927628155943, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
   m_PrefabInstance: {fileID: 7415259701111410371}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7603801641427103804
