@@ -26,6 +26,11 @@ public class TargetInRangeNode : Node
 
     public override NodeState Evaluate()
     {
+        if (TargetList.Count == 0 || TargetList == null)
+        {
+            return NodeState.RUNNING;
+        }
+
         if (TargetList.Count < 2)
         {
             if (Vector3.Distance(TargetList[0].transform.position, Origin.position) <= Range)
