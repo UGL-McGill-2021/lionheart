@@ -5762,6 +5762,7 @@ MonoBehaviour:
   ExpiryTimer: 0.8
   TriggerTime: 0.5
   Dir: {x: 0, y: 0, z: 0}
+  Vd: {x: 0, y: 0, z: 0}
 --- !u!114 &5812675267136057219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6036,6 +6037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkView: {fileID: 5480352261030030601}
+  PlayerPullDash: {fileID: 6742636947217563593}
   PullDashBeam: {fileID: 8466672229747182504}
   PullDashBeamBegin: {fileID: 1916464347041705257}
   PullDashBeamEnd: {fileID: 0}
@@ -6268,7 +6270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
       propertyPath: m_Parameters.widthMultiplier
-      value: 0.5219849
+      value: 0.24696705
       objectReference: {fileID: 0}
     - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
