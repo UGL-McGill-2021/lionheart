@@ -302,21 +302,6 @@ namespace Lionheart.Player.Movement
 
         /// <summary>
         /// Author: Denis
-        /// The whole pull dash move is interruptible upon ground collision at any stage
-        /// TODO: Add more interruptible source layers or tags. 
-        /// </summary>
-        /// <param name="collision"></param>
-        private void OnCollisionEnter(Collision collision)
-        {
-            /*if (collision.collider.gameObject.layer == 3)
-            {
-                DisableGravity = false;
-                IsPullDashing = false;
-            }*/
-        }
-
-        /// <summary>
-        /// Author: Denis
         /// Simulates animation trigger for bools
         /// </summary>
         /// <param name="Name"></param>

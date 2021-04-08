@@ -35,6 +35,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float FallTimer = 2f;
         [SerializeField] private float LandingAnimTriggerDistance = 0.5f;
         [SerializeField] private float SmashingAnimTriggerDistance = 1f;
+        [SerializeField] private float PullDashJumpSlowdown = 0.25f;
+        [SerializeField] private float PullDashMagnitudeDependecyFactor = 0.75f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
@@ -124,10 +126,9 @@ namespace Lionheart.Player.Movement
             {
                 if (PlayerPullDash.IsPullDashing == true)
                 {
-                    PlayerPullDash.LaunchVectorMultiplier=0.25f;
+                    PlayerPullDash.LaunchVectorMultiplier = PullDashJumpSlowdown;
                     PlayerPullDash.DisableGravity = false;
-                    float Scalar = (PlayerPullDash.Value.magnitude / JumpPower) * 0.75f;
-                    Debug.Log("Scalar " + Scalar);
+                    float Scalar = (PlayerPullDash.Value.magnitude / JumpPower) * PullDashMagnitudeDependecyFactor;
                     Value = new Vector3(0f, Mathf.Sqrt(Scalar * JumpPower * -2 * GravityForce), 0f);
                 }
                 else
