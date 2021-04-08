@@ -3087,7 +3087,7 @@ MonoBehaviour:
   VC_Slider: {fileID: 541828558282932556}
   CountDownText: {fileID: 4538572684910813691}
   RespawnConsentTime: 15
-  RespawnHeight: -35
+  RespawnHeight: -60
   CurrentPlayerActivator: {fileID: 0}
 --- !u!114 &4480450123633251657
 MonoBehaviour:
