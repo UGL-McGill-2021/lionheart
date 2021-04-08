@@ -5665,7 +5665,7 @@ MonoBehaviour:
   AnimatorController: {fileID: 3717460445037045334}
   GroundCheck: {fileID: 6675483342905746456}
   Rb: {fileID: 3535366763632785127}
-  AudioController: {fileID: 0}
+  AudioController: {fileID: 5346211990860123939}
   JumpPower: 12
   CounterJumpForce: 2
   GroundDistance: 0.15
@@ -5904,7 +5904,7 @@ MonoBehaviour:
   CombatManager: {fileID: 7158537297210349565}
   PlayerJump: {fileID: 0}
   PlayerMultiplayer: {fileID: 0}
-  AudioController: {fileID: 0}
+  AudioController: {fileID: 5346211990860123939}
   BlockInput: 0
   IsGroundPound: 0
   FreezeTimer: 0.2
