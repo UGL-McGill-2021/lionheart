@@ -41,7 +41,7 @@ public class VFXHandler : MonoBehaviour
             PullDashLR.SetPosition(0, PullDashBeamBegin.transform.position);
             PullDashLR.SetPosition(1, PullDashBeamTarget.transform.position);
             Vector3 Vd = (OtherPlayer.transform.position - transform.position);
-            float _Width = 0.25f + (PlayerPullDash.Vd.magnitude * StepScalar) / 50f;
+            float _Width = 0.25f + (Vd.magnitude * StepScalar) / 50f;
             PullDashLR.startWidth = _Width;
             PullDashLR.endWidth = _Width;
         }
