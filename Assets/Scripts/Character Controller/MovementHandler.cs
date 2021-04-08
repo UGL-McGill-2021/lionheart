@@ -54,8 +54,8 @@ namespace Lionheart.Player.Movement
             }
             else
             {
-                AnimatorController.SetFloat("MoveMagnitude", 0.0f);
-                Rb.velocity = Vector3.zero;
+                /*AnimatorController.SetFloat("MoveMagnitude", 0.0f);
+                Rb.velocity = Vector3.zero;*/
             }
         }
 

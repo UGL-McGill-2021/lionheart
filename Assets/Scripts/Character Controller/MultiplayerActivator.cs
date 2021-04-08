@@ -21,6 +21,16 @@ namespace Lionheart.Player.Movement
 
         private bool CoroutineRunning = false;
 
+        [SerializeField] Dash PlayerDash;
+        [SerializeField] GroundPound PlayerGroundPound;
+        [SerializeField] Jump PlayerJump;
+        [SerializeField] MovementHandler PlayerMovementHandler;
+        [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] Rotation PlayerRotation;
+        [SerializeField] WalkMotion PlayerWalkMotion;
+        [SerializeField] Animator AnimatorController;
+        [SerializeField] SwitchCam PlayerSwitchCam;
+
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
             if (this.gameObject.GetComponent<PhotonView>().IsMine)
@@ -31,19 +41,27 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        private void Update()
+        {
+            if (PlayerSwitchCam == null) PlayerSwitchCam = GameObject.Find("SwitchCam").GetComponent<SwitchCam>();
+        }
+
         /// <summary>
         /// Author: Ziqi, Denis
         /// Function to disable all attached scripts
         /// </summary>
         public void DisableControls()
         {
-            gameObject.GetComponent<Rotation>().enabled = false;
-            gameObject.GetComponent<WalkMotion>().enabled = false;
-            gameObject.GetComponent<Dash>().enabled = false;
+            PlayerDash.enabled = false;
 
-            gameObject.GetComponent<GroundPound>().BlockInput = true;
-            gameObject.GetComponent<PullDash>().BlockInput = true;
-            gameObject.GetComponent<Jump>().BlockInput = true;
+            StopCoroutine(PlayerSwitchCam.WaitForButtonRelease());
+            StopCoroutine(PlayerJump.WaitForButtonRelease());
+            PlayerGroundPound.BlockInput = true;
+            PlayerPullDash.BlockInput = true;
+            PlayerJump.BlockInput = true;
+            PlayerWalkMotion.BlockInput = true;
+            PlayerRotation.BlockInput = true;
+            PlayerSwitchCam.BlockInput = true;
 
             StopAllCoroutines();
             StartCoroutine(WaitToDisableControls());
@@ -56,16 +74,10 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         private IEnumerator WaitToDisableControls()
         {
-            yield return new WaitUntil(() => gameObject.GetComponent<Jump>().IsGrounded == true);
+            yield return new WaitUntil(() => PlayerJump.IsGrounded == true);
 
-            IgnoreControlInput = true;
-
-            foreach (MonoBehaviour script in scripts)
-            {
-                script.enabled = false;
-            }
-
-            gameObject.GetComponent<MovementHandler>().enabled = true;
+            PlayerWalkMotion.ResetMovementVector();
+            AnimatorController.SetFloat("MoveMagnitude", 0.0f);
         }
 
         /// <summary>
@@ -81,11 +93,12 @@ namespace Lionheart.Player.Movement
                 script.enabled = true;
             }
 
-            IgnoreControlInput = false;
-
-            gameObject.GetComponent<GroundPound>().BlockInput = false;
-            gameObject.GetComponent<PullDash>().BlockInput = false;
-            gameObject.GetComponent<Jump>().BlockInput = false;
+            PlayerGroundPound.BlockInput = false;
+            PlayerPullDash.BlockInput = false;
+            PlayerWalkMotion.BlockInput = false;
+            PlayerRotation.BlockInput = false;
+            StartCoroutine(PlayerJump.WaitForButtonRelease());
+            if (PlayerSwitchCam != null) StartCoroutine(PlayerSwitchCam.WaitForButtonRelease());
         }
     }
 }

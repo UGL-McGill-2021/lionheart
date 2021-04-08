@@ -48,8 +48,6 @@ namespace Lionheart.Player.Movement
         private bool WasGroundedLastFrame;
         private Vector3 Vec;
         private Vector3 Vec2 = Vector3.zero;
-
-        //TODO: Replace by Coroutine is found to be unstable
         private int JumpedFrameCounter = 10;
 
         public Vector3 Value { get; private set; }
@@ -350,6 +348,12 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetBool("IsKBLanding", false);
                     break;
             }
+        }
+
+        public IEnumerator WaitForButtonRelease()
+        {
+            yield return new WaitWhile(() => Gamepad.current.buttonSouth.isPressed);
+            BlockInput = false;
         }
     }
 }

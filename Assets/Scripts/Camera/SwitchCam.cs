@@ -10,6 +10,7 @@ public class SwitchCam : MonoBehaviour
     public ControllerInput ControllerActions;
     public CinemachineVirtualCamera Cam;
     public List<GameObject> PlayerList;
+    public bool BlockInput = false;
 
     private bool CurrState = true;
 
@@ -48,9 +49,16 @@ public class SwitchCam : MonoBehaviour
 
     private void RegisterSwitchCamera(InputAction.CallbackContext Ctx)
     {
-        Cam.enabled = CurrState;
-        CurrState = !CurrState;
+        if (BlockInput == false)
+        {
+            Cam.enabled = CurrState;
+            CurrState = !CurrState;
+        }
     }
 
-
+    public IEnumerator WaitForButtonRelease()
+    {
+        yield return new WaitWhile(() => Gamepad.current.buttonEast.isPressed);
+        BlockInput = false;
+    }
 }

@@ -12,6 +12,8 @@ namespace Lionheart.Player.Movement {
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
 
+        [Header("State")]
+        public bool BlockInput = false;
 
         //The following is a polling approach
         public InputAction MoveAction = new InputAction("move", binding: "<Gamepad>/leftStick");
@@ -45,7 +47,13 @@ namespace Lionheart.Player.Movement {
             MoveAction.Disable();
         }
 
-        private void FixedUpdate() => Rotate();
+        private void FixedUpdate()
+        {   
+            if (BlockInput == false)
+            {
+                Rotate();
+            }
+        }
 
         /// <summary>
         /// Author: Denis

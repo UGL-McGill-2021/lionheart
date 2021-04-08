@@ -18,6 +18,9 @@ namespace Lionheart.Player.Movement {
         [SerializeField] private readonly float Acceleration = 8f;
         [SerializeField] private readonly float Deceleration = 16f;
 
+        [Header("State")]
+        public bool BlockInput = false;
+
         private float CurrentSpeed = 1f;
 
         [Header("Input")]
@@ -54,7 +57,13 @@ namespace Lionheart.Player.Movement {
             PlayerMovementHandler.RemoveModifier(this);
         }
 
-        private void FixedUpdate() => Move();
+        private void FixedUpdate()
+        {
+            if (BlockInput == false)
+            {
+                Move();
+            }
+        }
 
         /// <summary>
         /// Author: Denis
@@ -84,6 +93,11 @@ namespace Lionheart.Player.Movement {
             }
 
             AnimatorController.SetFloat("MoveMagnitude", Value.magnitude);
+        }
+
+        public void ResetMovementVector()
+        {
+            Value = Vector3.zero;
         }
     }
 }
