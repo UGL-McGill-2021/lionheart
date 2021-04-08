@@ -1,17 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
 /// Author: Ziqi, Kaya
 /// Script for main menu
 /// </summary>
-public class MainMenuManager : MenuManager
-{
+public class MainMenuManager : MenuManager {
 
     [Header("UI elements")]
     public Button StartButton;
@@ -23,8 +18,7 @@ public class MainMenuManager : MenuManager
 
     public GameObject OptionGroup;
 
-    private void Awake()
-    {
+    private void Awake() {
         // initialize settings
         Music_VolumeSlider.value = PlayerGameSettings.AudioVolume;
         SFX_Slider.value = PlayerGameSettings.SFXVolume;
@@ -35,51 +29,65 @@ public class MainMenuManager : MenuManager
 
         if (PhotonNetwork.IsConnected) PhotonNetwork.Disconnect();  // make sure disconnecting when finishing game
 
-        if (StartButton != null)
-        {
+        if (StartButton != null) {
             base.DefaultButton = StartButton;  // set the defaultButton in the parent class
             StartButton.Select();
         }
 
-        if (!cursor)
-        {
+        if (!cursor) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-        }
-        else
+        } else
             Cursor.visible = true;
+    }
+
+    /// <summary>
+    /// Author: Feiyang Li
+    /// Initialize volume
+    /// </summary>
+    private void Start() {
+        if (VolumeManager.instance.OnBackgroundMusicVolumeChanged != null)
+            VolumeManager.instance.OnBackgroundMusicVolumeChanged(PlayerGameSettings.AudioVolume);
+        else
+            Debug.LogWarning("MainMenuManager: background music volume delegate null");
+
+        if (VolumeManager.instance.OnSFXVolumeChanged != null)
+            VolumeManager.instance.OnSFXVolumeChanged(PlayerGameSettings.SFXVolume);
+        else
+            Debug.LogWarning("MainMenuManager: SFX volume delegate null");
+
+        if (VolumeManager.instance.OnVoiceChatVolumeChanged != null)
+            VolumeManager.instance.OnVoiceChatVolumeChanged(PlayerGameSettings.VCVolume);
+        else
+            Debug.LogWarning("MainMenuManager: VC volume delegate null");
     }
 
     /// <summary>
     /// Author: Ziqi
     /// An Update function that override (extend) the parent class's Update function
     /// </summary>
-    protected override void Update()
-    {
+    protected override void Update() {
         base.Update();
     }
 
     /// <summary>
     /// Author: Kaya
     /// </summary>
-    public void Play()
-    {
+    public void Play() {
         SceneLoader.LoadSceneWithName("Matching");
     }
 
     /// <summary>
     /// Author: Kaya
     /// </summary>
-    public void Quit()
-    {
+    public void Quit() {
         Application.Quit();
     }
 
     /// <summary>
     /// Author: Kaya
     /// </summary>
-    public void URL(string url)
-    {
+    public void URL(string url) {
         Application.OpenURL(url);
     }
 
@@ -87,8 +95,7 @@ public class MainMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Function for loading credits scene
     /// </summary>
-    public void Credits()
-    {
+    public void Credits() {
         SceneLoader.LoadSceneWithName("Credits");
     }
 
@@ -96,8 +103,7 @@ public class MainMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Function for loading controls scene
     /// </summary>
-    public void Controls()
-    {
+    public void Controls() {
         SceneLoader.LoadSceneWithName("Controls");
     }
 
@@ -105,8 +111,7 @@ public class MainMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Function for loading controls scene
     /// </summary>
-    public void ConceptArt()
-    {
+    public void ConceptArt() {
         SceneLoader.LoadSceneWithName("ConceptArt");
     }
 
@@ -114,38 +119,39 @@ public class MainMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Slider callback function for music volume slider
     /// </summary>
-    public void ChangeVolume()
-    {
+    public void ChangeVolume() {
         PlayerGameSettings.AudioVolume = Music_VolumeSlider.value;
-        BackgroundAudioManager.instance.OnBackgroundVolumeChanged(Music_VolumeSlider.value);
+        if (VolumeManager.instance.OnBackgroundMusicVolumeChanged != null)
+            VolumeManager.instance.OnBackgroundMusicVolumeChanged(Music_VolumeSlider.value);
+        else
+            Debug.LogWarning("OnBackgroundMusicVChanged null");
     }
 
     /// <summary>
     /// Author: Ziqi Li
     /// Slider callback function for SFX volume slider
     /// </summary>
-    public void ChangeSFXVolume()
-    {
+    public void ChangeSFXVolume() {
         PlayerGameSettings.SFXVolume = SFX_Slider.value;
-        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(SFX_Slider.value);
+        if (VolumeManager.instance.OnSFXVolumeChanged != null)
+            VolumeManager.instance.OnSFXVolumeChanged(SFX_Slider.value);
     }
 
     /// <summary>
     /// Author: Ziqi Li
     /// Slider callback function for voice chat volume slider
     /// </summary>
-    public void ChangeVCVolume()
-    {
+    public void ChangeVCVolume() {
         PlayerGameSettings.VCVolume = VC_Slider.value;
-        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VC_Slider.value);
+        if (VolumeManager.instance.OnVoiceChatVolumeChanged != null)
+            VolumeManager.instance.OnVoiceChatVolumeChanged(VC_Slider.value);
     }
 
     /// <summary>
     /// Author: Ziqi Li
     /// Toggle callback function for vibration toggle
     /// </summary>
-    public void TurnVibration()
-    {
+    public void TurnVibration() {
         PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
     }
 
@@ -153,8 +159,7 @@ public class MainMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Toggle callback function for option button
     /// </summary>
-    public void Options()
-    {
+    public void Options() {
         OptionGroup.SetActive(!OptionGroup.activeSelf);
     }
 }

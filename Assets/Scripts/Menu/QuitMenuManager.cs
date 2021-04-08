@@ -1,16 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+﻿using Lionheart.Player.Movement;
 using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
-using Lionheart.Player.Movement;
-using UnityEngine.EventSystems;
-using Photon.Voice.PUN;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class QuitMenuManager : MenuManager
-{
+public class QuitMenuManager : MenuManager {
     [Header("UI elements")]
     public GameObject QuitMenuUI;
     public GameObject HintUI;
@@ -38,8 +35,7 @@ public class QuitMenuManager : MenuManager
     private bool HasSentRespawnRequest = false;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         PhotonView = GetComponent<PhotonView>();
 
         // initialize the user setting using static PlayerGameSettings class
@@ -56,8 +52,7 @@ public class QuitMenuManager : MenuManager
 
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
 
-        if (ContinueButton != null)
-        {
+        if (ContinueButton != null) {
             base.DefaultButton = ContinueButton;  // set the defaultButton in the parent class
         }
     }
@@ -66,11 +61,10 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi
     /// An Update function that override (extend) the parent class's Update function
     /// </summary>
-    protected override void Update()
-    {
+    protected override void Update() {
         // handle the default selection of button
         if (QuitMenuUI.activeSelf) base.Update();
-        else if(EventSystem.current.currentSelectedGameObject) EventSystem.current.SetSelectedGameObject(null);
+        else if (EventSystem.current.currentSelectedGameObject) EventSystem.current.SetSelectedGameObject(null);
 
         // Get the current player activator from game manager
         // (in Update instead of Start since the Player list may be not initialized due to Start() execution order
@@ -83,18 +77,14 @@ public class QuitMenuManager : MenuManager
     /// Function to get current player activator
     /// </summary>
     /// <param name="numPlayers">Number of players we have</param>
-    void GetPlayerActivator()
-    {
+    void GetPlayerActivator() {
         // we have to keep trying to find current player from the player list
-        if (CurrentPlayerActivator == null)
-        {
-            foreach (GameObject player in PlayerList)
-            {
-                if (player != null && player.GetComponent<PhotonView>().IsMine)
-                {
+        if (CurrentPlayerActivator == null) {
+            foreach (GameObject player in PlayerList) {
+                if (player != null && player.GetComponent<PhotonView>().IsMine) {
                     CurrentPlayerActivator = player.GetComponent<MultiplayerActivator>();
                     // initialize the player setting using static class field, so the setting will be keept when loading new scene
-                    CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;  
+                    CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;
                 }
             }
         }
@@ -104,16 +94,12 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Callback function of input system
     /// </summary>
-    void OnOpenMenu()
-    {
-        if(!QuitMenuUI.activeSelf)
-        {
+    void OnOpenMenu() {
+        if (!QuitMenuUI.activeSelf) {
             PlayerGameSettings.IsInGameMenuOpened = true;
             QuitMenuUI.SetActive(true);
             CurrentPlayerActivator.DisableControls();  // disable the current player control when open menu
-        }
-        else
-        {
+        } else {
             PlayerGameSettings.IsInGameMenuOpened = false;
             QuitMenuUI.SetActive(false);
             CurrentPlayerActivator.EnableControls();
@@ -125,10 +111,8 @@ public class QuitMenuManager : MenuManager
     // Author: Ziqi Li
     // Callback function of input system
     // </summary>
-    void OnCloseMenu()
-    {
-        if (QuitMenuUI.activeSelf)
-        {
+    void OnCloseMenu() {
+        if (QuitMenuUI.activeSelf) {
             PlayerGameSettings.IsInGameMenuOpened = false;
             QuitMenuUI.SetActive(false);
             CurrentPlayerActivator.EnableControls();
@@ -140,8 +124,7 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Button callback function to close the menu
     /// </summary>
-    public void Continue()
-    {
+    public void Continue() {
         PlayerGameSettings.IsInGameMenuOpened = false;
         QuitMenuUI.SetActive(false);
         CurrentPlayerActivator.EnableControls();
@@ -151,8 +134,7 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Button callback function to open settings
     /// </summary>
-    public void Settings()
-    {
+    public void Settings() {
         // SettingUI.SetActive(!SettingUI.activeSelf);
     }
 
@@ -160,8 +142,7 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Button callback function to back to the main menu
     /// </summary>
-    public void Quit()
-    {
+    public void Quit() {
         // use AllViaServer option to make sure that the RPC can be executed on both client before the client disconnects
         PhotonView.RPC("RPC_Quit", RpcTarget.AllViaServer);
     }
@@ -170,10 +151,8 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Button callback function for reloading level
     /// </summary>
-    public void ReloadLevel()
-    {
-        if (!HasSentRespawnRequest)
-        {
+    public void ReloadLevel() {
+        if (!HasSentRespawnRequest) {
             HasSentRespawnRequest = true;
             PhotonView.RPC("RPC_Respawn", RpcTarget.AllViaServer);
         }
@@ -184,10 +163,8 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Toggle callback function for vibration toggle
     /// </summary>
-    public void TurnVibration()
-    {
-        if(CurrentPlayerActivator != null)
-        {
+    public void TurnVibration() {
+        if (CurrentPlayerActivator != null) {
             PlayerGameSettings.IsVibrationOn = VibToggle.isOn;
             CurrentPlayerActivator.hasVibration = PlayerGameSettings.IsVibrationOn;
         }
@@ -197,8 +174,7 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Toggle callback function for hint toggle
     /// </summary>
-    public void TurnControlHints()
-    {
+    public void TurnControlHints() {
         PlayerGameSettings.IsHintsOn = HintToggle.isOn;
         HintUI.SetActive(PlayerGameSettings.IsHintsOn);
     }
@@ -207,30 +183,30 @@ public class QuitMenuManager : MenuManager
     /// Author: Ziqi Li
     /// Slider callback function for music volume slider
     /// </summary>
-    public void ChangeVolume()
-    {
+    public void ChangeVolume() {
         PlayerGameSettings.AudioVolume = Music_VolumeSlider.value;
-        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(Music_VolumeSlider.value);
+        if (VolumeManager.instance.OnBackgroundMusicVolumeChanged != null)
+            VolumeManager.instance.OnBackgroundMusicVolumeChanged(Music_VolumeSlider.value);
     }
 
     /// <summary>
     /// Author: Ziqi Li
     /// Slider callback function for SFX volume slider
     /// </summary>
-    public void ChangeSFXVolume()
-    {
+    public void ChangeSFXVolume() {
         PlayerGameSettings.SFXVolume = SFX_Slider.value;
-        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(SFX_Slider.value);
+        if (VolumeManager.instance.OnSFXVolumeChanged != null)
+            VolumeManager.instance.OnSFXVolumeChanged(SFX_Slider.value);
     }
 
     /// <summary>
     /// Author: Ziqi Li
     /// Slider callback function for voice chat volume slider
     /// </summary>
-    public void ChangeVCVolume()
-    {
+    public void ChangeVCVolume() {
         PlayerGameSettings.VCVolume = VC_Slider.value;
-        //BackgroundAudioManager.instance.OnBackgroundVolumeChanged(VC_Slider.value);
+        if (VolumeManager.instance.OnVoiceChatVolumeChanged != null)
+            VolumeManager.instance.OnVoiceChatVolumeChanged(VC_Slider.value);
     }
 
     /// <summary>
@@ -238,8 +214,7 @@ public class QuitMenuManager : MenuManager
     /// RPC Function to back to the main menu
     /// </summary>
     [PunRPC]
-    private void RPC_Quit()
-    {
+    private void RPC_Quit() {
         Destroy(GameObject.FindGameObjectWithTag("VoiceChatManager"));  // destroy the "DontDestroyOnLoad" VoiceChat object
         PhotonNetwork.Disconnect();  // disconnect from Photon
         SceneLoader.LoadSceneWithName("MainMenu");
@@ -250,21 +225,18 @@ public class QuitMenuManager : MenuManager
     /// RPC Function to respawn players
     /// </summary>
     [PunRPC]
-    private void RPC_Respawn()
-    {
+    private void RPC_Respawn() {
         Respawn_RequestPlayerNum++;
-        if(RespawnCoroutine == null) RespawnCoroutine = StartCoroutine(RequestRespawn(RespawnConsentTime));
+        if (RespawnCoroutine == null) RespawnCoroutine = StartCoroutine(RequestRespawn(RespawnConsentTime));
     }
 
     /// <summary>
     /// Author: Ziqi Li
     /// Function to request respawn and waiting for other player's consent
     /// </summary>
-    IEnumerator RequestRespawn(float countDownTime)
-    {
+    IEnumerator RequestRespawn(float countDownTime) {
         // activate count down
-        while (countDownTime > 0 && Respawn_RequestPlayerNum < PlayerList.Count)
-        {
+        while (countDownTime > 0 && Respawn_RequestPlayerNum < PlayerList.Count) {
             CountDownText.rectTransform.parent.GetComponent<Image>().enabled = true;  // enable the hint icon
             ShowCountDownMessage("Player requests to respawn: ", Respawn_RequestPlayerNum, PlayerList.Count, countDownTime);
             yield return new WaitForSeconds(1);  // update the text every second
@@ -272,8 +244,7 @@ public class QuitMenuManager : MenuManager
         }
 
         // if all players want to reload
-        if (Respawn_RequestPlayerNum >= PlayerList.Count)
-        {
+        if (Respawn_RequestPlayerNum >= PlayerList.Count) {
             ShowCountDownMessage("Player requests to respawn: ", Respawn_RequestPlayerNum, PlayerList.Count, 0);
             yield return new WaitForSeconds(1f);  // add a delay before reload level
             foreach (GameObject player in PlayerList) if (player.GetComponent<PhotonView>().IsMine) player.transform.Translate(Vector3.up * RespawnHeight);
@@ -295,15 +266,11 @@ public class QuitMenuManager : MenuManager
     /// <param name="numPlayer"></param>
     /// <param name="maxNumPlayer"></param>
     /// <param name="countDownTime"></param>
-    void ShowCountDownMessage(string text, int numPlayer, int maxNumPlayer, float countDownTime)
-    {
+    void ShowCountDownMessage(string text, int numPlayer, int maxNumPlayer, float countDownTime) {
         string message;
-        if (countDownTime == 0)
-        {
+        if (countDownTime == 0) {
             message = text + " " + numPlayer + "/" + maxNumPlayer;
-        }
-        else
-        {
+        } else {
             message = text + " " + numPlayer + "/" + maxNumPlayer + " (" + countDownTime + "s)";
         }
         CountDownText.SetText(message);
