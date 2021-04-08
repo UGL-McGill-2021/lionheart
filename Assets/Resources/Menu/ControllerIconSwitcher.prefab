@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4e18684e17d4ae1ada5e028c6bbf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconImageList: []
+  IconImageList:
+  - {fileID: 0}
   PS4_NORTH: {fileID: 21300000, guid: 51cb8bb78a3594553a56831fbc66f847, type: 3}
   PS4_SOUTH: {fileID: 21300000, guid: 6ddc832b2adca422a864da3cef0557b8, type: 3}
   PS4_EAST: {fileID: 21300000, guid: 4b78fbb41af9e479f80d39a0b22d5f17, type: 3}
@@ -57,6 +58,7 @@ MonoBehaviour:
   PS4_R1: {fileID: 21300000, guid: 835d5e440ca8f45f8b3d996711c43e90, type: 3}
   PS4_R2: {fileID: 21300000, guid: 6c19d95639cf04f4cb9dfbb7ed27dcd6, type: 3}
   PS4_Menu: {fileID: 21300000, guid: 33ecddf77e03942a6b1d02719775d3f4, type: 3}
+  PS4_Controller: {fileID: 21300000, guid: 1fbc0ee159262483f9af78b640b22b40, type: 3}
   XBOX_NORTH: {fileID: 21300000, guid: 324990cb5114ddf41a87b3c7a5046d05, type: 3}
   XBOX_SOUTH: {fileID: 21300000, guid: 8da57f44e81ce844e9f186368e1ba867, type: 3}
   XBOX_EAST: {fileID: 21300000, guid: cbbe5a29a81475b4da40008746537624, type: 3}
@@ -70,3 +72,4 @@ MonoBehaviour:
   XBOX_R1: {fileID: 21300000, guid: f5a088ff1bd455f4b86fd3afc53645c3, type: 3}
   XBOX_R2: {fileID: 21300000, guid: bc11018b28784af4eac29987a31ca2f5, type: 3}
   XBOX_Menu: {fileID: 21300000, guid: 0de796785eee0f64ea5956c70c199894, type: 3}
+  XBOX_Controller: {fileID: 21300000, guid: cab1c8517d4da43ee9df4df3a206fcfd, type: 3}
