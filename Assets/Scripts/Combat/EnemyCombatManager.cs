@@ -59,7 +59,7 @@ public class EnemyCombatManager : MonoBehaviour {
     public void ReceiveAttack(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
-        _view.RPC("OnAttacked", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+        _view.RPC("OnAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
@@ -107,7 +107,7 @@ public class EnemyCombatManager : MonoBehaviour {
         float _SmashRadius) {
 
         PhotonView _view = PhotonView.Get(this);
-        _view.RPC("OnSmashed", RpcTarget.MasterClient,
+        _view.RPC("OnSmashed", RpcTarget.All,
             _smashTime,
             _ExplosionForce,
             _ExplosionPos.x,
@@ -145,7 +145,7 @@ public class EnemyCombatManager : MonoBehaviour {
     public void ReceiveStomp(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
         Debug.Log("Invoking OnAttacked on MasterClient");
-        _view.RPC("OnStomped", RpcTarget.MasterClient, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+        _view.RPC("OnStomped", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
