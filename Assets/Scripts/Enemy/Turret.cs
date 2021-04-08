@@ -49,7 +49,7 @@ public class Turret : Enemy
 
     public override void Attacked()
     {
-        print("Turret has been attacked!");
+        //print("Turret has been attacked!");
     }
 
     /// <summary>

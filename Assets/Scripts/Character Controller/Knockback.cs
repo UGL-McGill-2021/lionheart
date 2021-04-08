@@ -93,7 +93,8 @@ namespace Lionheart.Player.Movement
             PlayerRotation.enabled = false;
 
             Value = new Vector3(BulletHitForce * Dir.x, VerticalForce, BulletHitForce * Dir.z);
-            
+            PlayerJump.ResetMovementVector();
+
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
@@ -123,7 +124,8 @@ namespace Lionheart.Player.Movement
             PlayerRotation.enabled = false;
 
             Value = new Vector3(Scale * Dir.x, VerticalForce, Scale * Dir.z);
-            
+            PlayerJump.ResetMovementVector();
+
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
