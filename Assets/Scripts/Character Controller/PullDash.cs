@@ -45,7 +45,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float TriggerTime = 0.5f;
 
         private Vector3 T;
-        private Vector3 Dir;
+        public Vector3 Dir;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }

@@ -5676,6 +5676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 6742636947217563593}
   BlockInput: 0
   MoveAction:
     m_Name: move
@@ -5760,6 +5761,7 @@ MonoBehaviour:
   CompletionDistance: 2
   ExpiryTimer: 0.8
   TriggerTime: 0.5
+  Dir: {x: 0, y: 0, z: 0}
 --- !u!114 &5812675267136057219
 MonoBehaviour:
   m_ObjectHideFlags: 0
