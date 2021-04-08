@@ -22,6 +22,9 @@ namespace Lionheart.Player.Movement
         [SerializeField] Jump PlayerJump;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
 
+        // Feiyang: SFX integration
+        public PlayerAudioController AudioController;
+
         [Header("State")]
         [SerializeField] public bool BlockInput;
         [SerializeField] public bool IsGroundPound;
@@ -134,6 +137,10 @@ namespace Lionheart.Player.Movement
             {
                 Gamepad.current.SetMotorSpeeds(1f, 0.2f);
             }
+
+            Debug.Log("Played GROUND_POUND sfx");
+            if (AudioController != null)
+                AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.GROUND_POUND);
 
             yield return new WaitForSecondsRealtime(0.2f);
             Gamepad.current.ResetHaptics();

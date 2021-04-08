@@ -24,6 +24,9 @@ namespace Lionheart.Player.Movement
         [SerializeField] Gamepad Controller;
         [SerializeField] Rigidbody Rb;
 
+        // Feiyang: Audio System integration
+        [SerializeField] PlayerAudioController AudioController;
+
         [Header("Parameters")]
         [SerializeField] private float JumpPower = 12f;
         [SerializeField] private float CounterJumpForce = 0.75f;
@@ -294,6 +297,9 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetBool("IsLanding", true);
                     StartCoroutine(AnimationTrigger("IsLanding"));
                     PlayedLandingAnim = true;
+
+                    if (AudioController != null)
+                        AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.JUMPLAND);
                 }
                 else
                 {
@@ -303,6 +309,9 @@ namespace Lionheart.Player.Movement
                         AnimatorController.SetBool("IsLanding", true);
                         StartCoroutine(AnimationTrigger("IsLanding"));
                         PlayedLandingAnim = true;
+
+                        if (AudioController != null)
+                            AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.JUMPLAND);
                     }
                 }
             }

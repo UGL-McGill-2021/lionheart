@@ -1492,6 +1492,7 @@ GameObject:
   - component: {fileID: 575776675}
   - component: {fileID: 575776676}
   - component: {fileID: 575776674}
+  - component: {fileID: 575776677}
   m_Layer: 0
   m_Name: BackgrounAudioPlayer
   m_TagString: Untagged
@@ -1511,7 +1512,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1623,6 +1624,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 575776674}
   BackgroundMusic: {fileID: 8300000, guid: fef1a0d6421f6f543a7789546454df04, type: 3}
+--- !u!114 &575776677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575776673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196293e4692f8b341be210e98817dac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundMusicVolume: 0.5
+  SFXVolume: 0.5
+  VoiceChatVolume: 0.5
 --- !u!1 &593394306
 GameObject:
   m_ObjectHideFlags: 0
@@ -3458,6 +3474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d127a7a68c41446aa5d390041e3e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxFrameRate: 180
 --- !u!1 &1523188583
 GameObject:
   m_ObjectHideFlags: 0
