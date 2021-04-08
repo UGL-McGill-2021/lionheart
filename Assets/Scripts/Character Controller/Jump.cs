@@ -350,6 +350,11 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Prevents the jump from happening when exiting the pause menu with resume (press A)
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator WaitForButtonRelease()
         {
             yield return new WaitWhile(() => Gamepad.current.buttonSouth.isPressed);

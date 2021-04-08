@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Lionheart.Player.Movement
 {
     /// <summary>
-    /// Author: Ziqi Li
+    /// Author: Ziqi Li, Denis
     /// A script for activate the components of the multiplayer character
     /// </summary>
     public class MultiplayerActivator : MonoBehaviour, IPunInstantiateMagicCallback
@@ -17,9 +17,6 @@ namespace Lionheart.Player.Movement
         public List<MonoBehaviour> scripts = new List<MonoBehaviour>();
 
         public bool hasVibration { get; set; } = true;
-        public bool IgnoreControlInput;
-
-        private bool CoroutineRunning = false;
 
         [SerializeField] Dash PlayerDash;
         [SerializeField] GroundPound PlayerGroundPound;
@@ -41,6 +38,10 @@ namespace Lionheart.Player.Movement
             }
         }
 
+        /// <summary>
+        /// Author: Denis
+        /// Gets the reference to the scene switch cam
+        /// </summary>
         private void Update()
         {
             if (PlayerSwitchCam == null) PlayerSwitchCam = GameObject.Find("SwitchCam").GetComponent<SwitchCam>();
@@ -48,7 +49,7 @@ namespace Lionheart.Player.Movement
 
         /// <summary>
         /// Author: Ziqi, Denis
-        /// Function to disable all attached scripts
+        /// Blocks the input of the movement scripts
         /// </summary>
         public void DisableControls()
         {
@@ -69,7 +70,8 @@ namespace Lionheart.Player.Movement
 
         /// <summary>
         /// Author: Denis
-        /// Disables the movement system after the player hits the ground
+        /// Blocks the controller input reading of movement system after 
+        /// the player hits the ground. Reset the walk vector to avoid sliding.
         /// </summary>
         /// <returns></returns>
         private IEnumerator WaitToDisableControls()
@@ -82,7 +84,7 @@ namespace Lionheart.Player.Movement
 
         /// <summary>
         /// Author: Ziqi, Denis
-        /// Function to enable all attached scripts
+        /// Function to enable all attached scripts and their input reading 
         /// </summary>
         public void EnableControls()
         {

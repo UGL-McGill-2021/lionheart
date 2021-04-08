@@ -5,6 +5,10 @@ using Photon.Pun;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
+/// <summary>
+/// Author: Daniel, Denis
+/// Manages the switching between the 2 camera modes
+/// </summary>
 public class SwitchCam : MonoBehaviour
 {
     public ControllerInput ControllerActions;
@@ -56,6 +60,11 @@ public class SwitchCam : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Author: Denis
+    /// Prevents the switch from happening when exiting the pause menu with B
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator WaitForButtonRelease()
     {
         yield return new WaitWhile(() => Gamepad.current.buttonEast.isPressed);
