@@ -16,15 +16,16 @@ public class VoiceChatManager : MonoBehaviour {
 
     public Recorder recorder;
 
-    public Sprite TalkIcon;
-    public Sprite MuteIcon;
+    //public Sprite TalkIcon;
+    //public Sprite MuteIcon;
 
     private PhotonVoiceNetwork punVoiceNetwork;
     private PhotonView PhotonView;
 
+    [SerializeField]
     private List<GameObject> PlayerList;
     [SerializeField]
-    private List<Image> PlayerIconList = new List<Image>();
+    private List<MeshRenderer> PlayerMicIconList = new List<MeshRenderer>();
 
     private void Awake() {
         punVoiceNetwork = PhotonVoiceNetwork.Instance;
@@ -49,14 +50,14 @@ public class VoiceChatManager : MonoBehaviour {
     void GetPlayerMicIcons()
     {
         // if we didn't get all players in the list
-        if (PlayerList.Count != PlayerIconList.Count)
+        if (PlayerList.Count != PlayerMicIconList.Count)
         {
-            PlayerIconList = new List<Image>();
+            PlayerMicIconList = new List<MeshRenderer>();
             foreach (GameObject player in PlayerList)
             {
-                foreach (Canvas canvas in player.GetComponentsInChildren<Canvas>())
+                foreach (MeshRenderer mic in player.GetComponentsInChildren<MeshRenderer>())
                 {
-                    if (canvas.tag == "VoiceChatCanvas") PlayerIconList.Add(canvas.GetComponentInChildren<Image>());
+                    if (mic.gameObject.tag == "Microphone") PlayerMicIconList.Add(mic);
                 }
             }
         }
@@ -72,7 +73,7 @@ public class VoiceChatManager : MonoBehaviour {
         this.recorder.TransmitEnabled = true;
 
         // find the current player and call RPC to update the icon state
-        foreach (Image icon in PlayerIconList)
+        foreach (MeshRenderer icon in PlayerMicIconList)
         {
             if(icon.GetComponentInParent<PhotonView>().IsMine)
             {
@@ -93,7 +94,7 @@ public class VoiceChatManager : MonoBehaviour {
         this.recorder.TransmitEnabled = false;
 
         // find the current player and call RPC to update the icon state
-        foreach (Image icon in PlayerIconList)
+        foreach (MeshRenderer icon in PlayerMicIconList)
         {
             if (icon.GetComponentInParent<PhotonView>().IsMine)
             {
@@ -111,15 +112,11 @@ public class VoiceChatManager : MonoBehaviour {
     [PunRPC]
     private void RPC_SetTalkIcon(int playerViewID)
     {
-        foreach (Image icon in PlayerIconList)
+        foreach (MeshRenderer icon in PlayerMicIconList)
         {
             if (playerViewID == icon.GetComponentInParent<PhotonView>().ViewID)
             {
-                icon.sprite = TalkIcon;
-                // set icon to opaque
-                var tempColor = icon.color;
-                tempColor.a = 1f;
-                icon.color = tempColor;
+                icon.enabled = true;
             }
         }
     }
@@ -132,15 +129,11 @@ public class VoiceChatManager : MonoBehaviour {
     [PunRPC]
     private void RPC_SetMuteIcon(int playerViewID)
     {
-        foreach (Image icon in PlayerIconList)
+        foreach (MeshRenderer icon in PlayerMicIconList)
         {
             if (playerViewID == icon.GetComponentInParent<PhotonView>().ViewID)
             {
-                icon.sprite = MuteIcon;
-                // set icon to transparent
-                var tempColor = icon.color;
-                tempColor.a = 0f;
-                icon.color = tempColor;
+                icon.enabled = false;
             }
         }
     }

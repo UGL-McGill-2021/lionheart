@@ -9,9 +9,9 @@ public class MeleeAttackNode : Node
     private bool AttackRunning = false;
     private bool AttackComplete = false;
     private AnimationManager AnimManager;
-    private float AnimDelay;  
+    private float AnimDelay;
 
-    public MeleeAttackNode (float CooldownTime, MonoBehaviour MonoBehaviour, AnimationManager AnimationManager, float delay)
+    public MeleeAttackNode(float CooldownTime, MonoBehaviour MonoBehaviour, AnimationManager AnimationManager, float delay)
     {
         this.CooldownTime = CooldownTime;
         this.MonoBehaviour = MonoBehaviour;
@@ -24,22 +24,25 @@ public class MeleeAttackNode : Node
         {
             AttackRunning = true;
             MonoBehaviour.StartCoroutine(AttackAndCooldown());
+            return NodeState.RUNNING;
         }
-
-        if (AttackComplete)
+        else
         {
-            AttackComplete = false;
-            AttackRunning = false;
-            return NodeState.SUCCESS;
+            if (AttackComplete)
+            {
+                AttackComplete = false;
+                AttackRunning = false;
+                return NodeState.SUCCESS;
+            }
+            return NodeState.RUNNING;
         }
-
-        return NodeState.RUNNING;
     }
 
     private void MeleeAttack()
     {
-        Debug.Log("Melee attack executed!");
-        MonoBehaviour.gameObject.GetComponent<EnemyCombatManager>().Smash();
+        //Debug.Log("Starting Attack");
+        MonoBehaviour.gameObject.GetComponent<EnemyCombatManager>().Attack();
+        //Debug.Log("Ending Attack");
     }
 
     private void PerformAnimation()
@@ -53,6 +56,6 @@ public class MeleeAttackNode : Node
         yield return new WaitForSeconds(AnimDelay);
         MeleeAttack();
         yield return new WaitForSeconds(CooldownTime);
-        AttackRunning = false;
+        AttackComplete = true;
     }
 }

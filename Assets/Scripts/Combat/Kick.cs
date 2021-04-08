@@ -11,7 +11,7 @@ public class Kick : AttackMotion {
     /// Kick constructor
     /// </summary>
     /// <param name="force"></param>
-    public Kick(float force, int knockbackTime) {
+    public Kick(float force, float knockbackTime) {
         this.Force = force;
         this.KnockBackTime = knockbackTime;
     }

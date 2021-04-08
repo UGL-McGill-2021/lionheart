@@ -15,7 +15,7 @@ public class PlayerCombatManager : MonoBehaviour {
     Rigidbody Body;
 
     MovementHandler Handler;
-    Knockback PlayerKnockback;
+    public Knockback PlayerKnockback;
     PhotonTransformViewClassic PhotonTransformView;
 
     public Collider AttackBox;
@@ -87,7 +87,7 @@ public class PlayerCombatManager : MonoBehaviour {
             if (_enemyCombatManager != null && CurrentAttackMotion != null) {
                 // calculate regular attack
                 Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
-                Debug.Log("Trigger stay Attacked with " + _AttackVector);
+                //Debug.Log("Trigger stay Attacked with " + _AttackVector);
                 _enemyCombatManager.ReceiveAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
             }
@@ -122,7 +122,7 @@ public class PlayerCombatManager : MonoBehaviour {
     /// <param name="_AttackTimeSpan"></param>
     public void ReceivePlayerAttack(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
-        Debug.Log("Invoking OnAttacked on MasterClient");
+        //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnPlayerAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
@@ -138,11 +138,16 @@ public class PlayerCombatManager : MonoBehaviour {
     [PunRPC]
     public void OnPlayerAttacked(float _x, float _y, float _z, float _time) {
         if (this.IsInvicible) {
-            Debug.Log(gameObject + " is invincible");
+            //Debug.Log(gameObject + " is invincible");
             return;
         }
 
-        PlayerKnockback.AddKnockback(new Vector3(_x, _y, _z));
+        if (PlayerKnockback != null) {
+            PlayerKnockback.AddKnockback(new Vector3(_x, _y, _z));
+        } else {
+            //Debug.LogWarning("PlayerKnockback is null!!!");
+        }
+        
     }
 
     /// <summary>

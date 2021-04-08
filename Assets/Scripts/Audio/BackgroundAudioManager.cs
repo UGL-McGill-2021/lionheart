@@ -10,19 +10,16 @@ public class BackgroundAudioManager : MonoBehaviour {
     [Header("Audio Sources")]
     public AudioClip BackgroundMusic;
 
-    public delegate void BackgroundVolumeChangedDelegate(float Volume);
-    public BackgroundVolumeChangedDelegate OnBackgroundVolumeChanged;
-
     private void Start() {
         if (instance == null) {
             instance = this;
-            if (AudioSource.isPlaying) {
-                AudioSource.Stop();
-                AudioSource.clip = BackgroundMusic;
-                AudioSource.loop = true;
-                AudioSource.Play();
-                OnBackgroundVolumeChanged += UpdateVolume;
-            }
+            AudioSource.Stop();
+            AudioSource.clip = BackgroundMusic;
+            AudioSource.loop = true;
+            AudioSource.Play();
+
+            VolumeManager.instance.OnBackgroundMusicVolumeChanged += UpdateVolume;
+
             DontDestroyOnLoad(this.gameObject);
         }
     }
@@ -32,7 +29,7 @@ public class BackgroundAudioManager : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        OnBackgroundVolumeChanged -= UpdateVolume;
+        VolumeManager.instance.OnBackgroundMusicVolumeChanged -= UpdateVolume;
     }
 
 }

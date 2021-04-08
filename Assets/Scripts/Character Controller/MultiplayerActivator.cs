@@ -7,43 +7,62 @@ using UnityEngine;
 namespace Lionheart.Player.Movement
 {
     /// <summary>
-    /// Author: Ziqi Li
+    /// Author: Ziqi Li, Denis
     /// A script for activate the components of the multiplayer character
     /// </summary>
     public class MultiplayerActivator : MonoBehaviour, IPunInstantiateMagicCallback
     {
-        public Camera cam;
-        public AudioListener aud;
+        //public Camera cam;
+        //public AudioListener aud;
         public List<MonoBehaviour> scripts = new List<MonoBehaviour>();
 
         public bool hasVibration { get; set; } = true;
-        public bool IgnoreControlInput;
 
-        private bool CoroutineRunning = false;
+        [SerializeField] Dash PlayerDash;
+        [SerializeField] GroundPound PlayerGroundPound;
+        [SerializeField] Jump PlayerJump;
+        [SerializeField] MovementHandler PlayerMovementHandler;
+        [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] Rotation PlayerRotation;
+        [SerializeField] WalkMotion PlayerWalkMotion;
+        [SerializeField] Animator AnimatorController;
+        [SerializeField] SwitchCam PlayerSwitchCam;
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
             if (this.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 //cam.enabled = true;
-                aud.enabled = true;
+                //aud.enabled = true;
                 EnableControls();
             }
         }
 
         /// <summary>
+        /// Author: Denis
+        /// Gets the reference to the scene switch cam
+        /// </summary>
+        private void Update()
+        {
+            if (PlayerSwitchCam == null) PlayerSwitchCam = GameObject.Find("SwitchCam").GetComponent<SwitchCam>();
+        }
+
+        /// <summary>
         /// Author: Ziqi, Denis
-        /// Function to disable all attached scripts
+        /// Blocks the input of the movement scripts
         /// </summary>
         public void DisableControls()
         {
-            gameObject.GetComponent<Rotation>().enabled = false;
-            gameObject.GetComponent<WalkMotion>().enabled = false;
-            gameObject.GetComponent<Dash>().enabled = false;
+            PlayerDash.enabled = false;
 
-            gameObject.GetComponent<GroundPound>().BlockInput = true;
-            gameObject.GetComponent<PullDash>().BlockInput = true;
-            gameObject.GetComponent<Jump>().BlockInput = true;
+            StopCoroutine(PlayerSwitchCam.WaitForButtonRelease());
+            StopCoroutine(PlayerJump.WaitForButtonRelease());
+            PlayerGroundPound.BlockInput = true;
+            PlayerPullDash.BlockInput = true;
+            PlayerJump.BlockInput = true;
+            PlayerWalkMotion.BlockInput = true;
+            PlayerRotation.BlockInput = true;
+            PlayerSwitchCam.BlockInput = true;
 
             StopAllCoroutines();
             StartCoroutine(WaitToDisableControls());
@@ -51,26 +70,21 @@ namespace Lionheart.Player.Movement
 
         /// <summary>
         /// Author: Denis
-        /// Disables the movement system after the player hits the ground
+        /// Blocks the controller input reading of movement system after 
+        /// the player hits the ground. Reset the walk vector to avoid sliding.
         /// </summary>
         /// <returns></returns>
         private IEnumerator WaitToDisableControls()
         {
-            yield return new WaitUntil(() => gameObject.GetComponent<Jump>().IsGrounded == true);
+            yield return new WaitUntil(() => PlayerJump.IsGrounded == true);
 
-            IgnoreControlInput = true;
-
-            foreach (MonoBehaviour script in scripts)
-            {
-                script.enabled = false;
-            }
-
-            gameObject.GetComponent<MovementHandler>().enabled = true;
+            PlayerWalkMotion.ResetMovementVector();
+            AnimatorController.SetFloat("MoveMagnitude", 0.0f);
         }
 
         /// <summary>
         /// Author: Ziqi, Denis
-        /// Function to enable all attached scripts
+        /// Function to enable all attached scripts and their input reading 
         /// </summary>
         public void EnableControls()
         {
@@ -81,11 +95,12 @@ namespace Lionheart.Player.Movement
                 script.enabled = true;
             }
 
-            IgnoreControlInput = false;
-
-            gameObject.GetComponent<GroundPound>().BlockInput = false;
-            gameObject.GetComponent<PullDash>().BlockInput = false;
-            gameObject.GetComponent<Jump>().BlockInput = false;
+            PlayerGroundPound.BlockInput = false;
+            PlayerPullDash.BlockInput = false;
+            PlayerWalkMotion.BlockInput = false;
+            PlayerRotation.BlockInput = false;
+            StartCoroutine(PlayerJump.WaitForButtonRelease());
+            if (PlayerSwitchCam != null) StartCoroutine(PlayerSwitchCam.WaitForButtonRelease());
         }
     }
 }

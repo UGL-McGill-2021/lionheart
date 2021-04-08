@@ -5,11 +5,16 @@ using Photon.Pun;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
+/// <summary>
+/// Author: Daniel, Denis
+/// Manages the switching between the 2 camera modes
+/// </summary>
 public class SwitchCam : MonoBehaviour
 {
     public ControllerInput ControllerActions;
     public CinemachineVirtualCamera Cam;
     public List<GameObject> PlayerList;
+    public bool BlockInput = false;
 
     private bool CurrState = true;
 
@@ -48,9 +53,21 @@ public class SwitchCam : MonoBehaviour
 
     private void RegisterSwitchCamera(InputAction.CallbackContext Ctx)
     {
-        Cam.enabled = CurrState;
-        CurrState = !CurrState;
+        if (BlockInput == false)
+        {
+            Cam.enabled = CurrState;
+            CurrState = !CurrState;
+        }
     }
 
-
+    /// <summary>
+    /// Author: Denis
+    /// Prevents the switch from happening when exiting the pause menu with B
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator WaitForButtonRelease()
+    {
+        yield return new WaitWhile(() => Gamepad.current.buttonEast.isPressed);
+        BlockInput = false;
+    }
 }

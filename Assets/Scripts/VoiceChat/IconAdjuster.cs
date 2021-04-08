@@ -7,18 +7,14 @@ using UnityEngine;
 /// </summary>
 public class IconAdjuster : MonoBehaviour
 {
-    [SerializeField]
-    private Camera MainCamera;
 
     private void Start()
     {
-        MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
-    void LateUpdate()
+    void Update()
     {
-        if(MainCamera == null) MainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        // adjust the rotation to make icon always facing the camera
-        this.transform.forward = new Vector3(MainCamera.transform.forward.x, MainCamera.transform.forward.y, this.transform.forward.z);
+        // rotate the icon
+        this.transform.Rotate(new Vector3(0, 45, 0) * Time.deltaTime, Space.World);
     }
 }

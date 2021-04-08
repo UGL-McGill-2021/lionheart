@@ -26,9 +26,9 @@ MonoBehaviour:
     EnableProtocolFallback: 1
     AuthMode: 0
     EnableLobbyStatistics: 0
-    NetworkLogging: 1
+    NetworkLogging: 0
   DevRegion: cae
-  PunLogging: 2
+  PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
@@ -71,6 +71,12 @@ MonoBehaviour:
   - GivePhysSysControl
   - RPC_Respawn
   - OnStomped
+  - PlaySFXByIndex
+  - StopSFX
+  - UpdateBeamAll
+  - UpdateBeamAndBegin
+  - UpdateBeamAndEnd
+  - UpdateBeamBegin
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

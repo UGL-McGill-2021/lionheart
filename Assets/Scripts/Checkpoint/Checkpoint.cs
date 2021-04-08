@@ -11,35 +11,67 @@ public class Checkpoint : MonoBehaviour
     public List<Transform> SpawnPoints;
 
     public CheckpointManager CheckpointMan;
-    private GameObject LastPlayerEntered;
+    public bool IsFinalCheckpoint;
 
+    private GameObject LastPlayerEntered;
+    private HashSet<GameObject> PlayersInArea;
+    private bool LoadLock = false;     //used to prevent calling level loader more than once
 
     void Awake()
     {
         CheckpointMan = GameObject.FindGameObjectWithTag("CheckpointManager").GetComponent<CheckpointManager>();
+        PlayersInArea = new HashSet<GameObject>();
     }
 
     private void OnTriggerEnter(Collider Other)
     {
-        if (Other.tag == "Player")
+        if (IsFinalCheckpoint)
         {
-            if (!LastPlayerEntered)
+            if (Other.tag == "Player")
             {
-                LastPlayerEntered = Other.gameObject;
-            }
-            else
-            {
-                if (LastPlayerEntered != Other.gameObject)
+                PlayersInArea.Add(Other.gameObject);
+                if (!LoadLock && PlayersInArea.Count == 2)
                 {
-                    CheckpointMan.SetCheckpoint(this);
-                    CheckpointMan.CheckpointCompleted(this);
-                    GetComponent<BoxCollider>().enabled = false;
-                    GetComponent<MeshRenderer>().enabled = false;
+                    CheckpointMan.FinalCheckpointComplete();
+                    LoadLock = true;
+                }
+            }
+        } else {
+            if (Other.tag == "Player")
+            {
+                if (!LastPlayerEntered)
+                {
+                    LastPlayerEntered = Other.gameObject;
+                }
+                else
+                {
+                    if (LastPlayerEntered != Other.gameObject)
+                    {
+                        CheckpointMan.SetCheckpoint(this);
+                        CheckpointCompleted();
+                    }
                 }
             }
         }
-        
     }
+
+    private void OnTriggerExit(Collider Other)
+    {
+        if (IsFinalCheckpoint) {
+            if (Other.tag == "Player")
+            {
+                PlayersInArea.Remove(Other.gameObject);
+            }
+        }
+    }
+
+
+    private void CheckpointCompleted()
+    {
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+    }
+
 
     //used to help prevent players from being spawned in the same position 
     public Transform GetSpawnPoint(bool IsMaster)

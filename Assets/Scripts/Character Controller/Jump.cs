@@ -24,6 +24,9 @@ namespace Lionheart.Player.Movement
         [SerializeField] Gamepad Controller;
         [SerializeField] Rigidbody Rb;
 
+        // Feiyang: Audio System integration
+        [SerializeField] PlayerAudioController AudioController;
+
         [Header("Parameters")]
         [SerializeField] private float JumpPower = 12f;
         [SerializeField] private float CounterJumpForce = 0.75f;
@@ -32,6 +35,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float FallTimer = 2f;
         [SerializeField] private float LandingAnimTriggerDistance = 0.5f;
         [SerializeField] private float SmashingAnimTriggerDistance = 1f;
+        [SerializeField] private float PullDashJumpSlowdown = 0.25f;
+        [SerializeField] private float PullDashMagnitudeDependecyFactor = 0.75f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
@@ -48,8 +53,6 @@ namespace Lionheart.Player.Movement
         private bool WasGroundedLastFrame;
         private Vector3 Vec;
         private Vector3 Vec2 = Vector3.zero;
-
-        //TODO: Replace by Coroutine is found to be unstable
         private int JumpedFrameCounter = 10;
 
         public Vector3 Value { get; private set; }
@@ -121,8 +124,19 @@ namespace Lionheart.Player.Movement
             if ((IsGrounded == true || CanCoyoteHop == true || HasSecondJump == true)
                 && HasJumped == false && BlockInput == false && PlayerKnockback.IsKnockback == false)
             {
+                if (PlayerPullDash.IsPullDashing == true)
+                {
+                    PlayerPullDash.LaunchVectorMultiplier = PullDashJumpSlowdown;
+                    PlayerPullDash.DisableGravity = false;
+                    float Scalar = (PlayerPullDash.Value.magnitude / JumpPower) * PullDashMagnitudeDependecyFactor;
+                    Value = new Vector3(0f, Mathf.Sqrt(Scalar * JumpPower * -2 * GravityForce), 0f);
+                }
+                else
+                {
+                    Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
+                }
+
                 Vec2 = Vector3.zero;
-                Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
                 HasJumped = true;
                 CanCoyoteHop = false;
                 HasSecondJump = false;
@@ -186,12 +200,13 @@ namespace Lionheart.Player.Movement
                     StartCoroutine(AnimationTrigger("IsSmashing"));
                     PlayedLandingAnim = true;
                 }
-                else if (St.IsName("KBAirborne") && PlayerKnockback.TookOff == true)
+                /*else if (St.IsName("KBAirborne") && PlayerKnockback.TookOff == true)
+                           //|| Rb.velocity.y < 0f))
                 {
                     AnimatorController.SetBool("IsKBLanding", true);
                     StartCoroutine(AnimationTrigger("IsKBLanding"));
                     PlayedLandingAnim = true;
-                }
+                }*/
 
                 if (AnimatorController.GetBool("IsAirDashing") == true)
                 {
@@ -295,6 +310,9 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetBool("IsLanding", true);
                     StartCoroutine(AnimationTrigger("IsLanding"));
                     PlayedLandingAnim = true;
+
+                    if (AudioController != null)
+                        AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.JUMPLAND);
                 }
                 else
                 {
@@ -304,6 +322,9 @@ namespace Lionheart.Player.Movement
                         AnimatorController.SetBool("IsLanding", true);
                         StartCoroutine(AnimationTrigger("IsLanding"));
                         PlayedLandingAnim = true;
+
+                        if (AudioController != null)
+                            AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.JUMPLAND);
                     }
                 }
             }
@@ -349,6 +370,26 @@ namespace Lionheart.Player.Movement
                     AnimatorController.SetBool("IsKBLanding", false);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Prevents the jump from happening when exiting the pause menu with resume (press A)
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator WaitForButtonRelease()
+        {
+            yield return new WaitWhile(() => Gamepad.current.buttonSouth.isPressed);
+            BlockInput = false;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Resets the value vector. Used by the knocback to avoid combining jump and kb.
+        /// </summary>
+        public void ResetMovementVector()
+        {
+            Value = Vector3.zero;
         }
     }
 }

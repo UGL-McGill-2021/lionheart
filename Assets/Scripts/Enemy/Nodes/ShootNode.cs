@@ -46,7 +46,7 @@ public class ShootNode : Node
         //Quaternion rotation = Quaternion.LookRotation(GetTarget().position - Shooter.transform.position);
         //rotation = Quaternion.Slerp(Shooter.transform.rotation, rotation, 25 * Time.deltaTime);
         //RigidBody.MoveRotation(rotation);
-        Shooter.transform.LookAt(new Vector3(GetTarget().position.x, 0f, GetTarget().position.z));
+        Shooter.transform.LookAt(new Vector3(GetTarget().position.x, Transform.position.y, GetTarget().position.z));
 
         if (!AttackRunning)
         {
@@ -68,7 +68,7 @@ public class ShootNode : Node
     {
         if (AnimManager != null)
         {
-            Debug.Log("PERFORM");
+            //Debug.Log("PERFORM");
             AnimManager.TriggerAttack();
         }
     }

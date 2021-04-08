@@ -46,18 +46,7 @@ namespace Lionheart.Player.Movement
         /// <summary>
         /// Author: Denis
         /// </summary>
-        private void FixedUpdate()
-        {
-            if (PlayerMultiplayer.IgnoreControlInput == false)
-            {
-                Move();
-            }
-            else
-            {
-                AnimatorController.SetFloat("MoveMagnitude", 0.0f);
-                Rb.velocity = Vector3.zero;
-            }
-        }
+        private void FixedUpdate() => Move();
 
         /// <summary>
         /// Author: Denis
