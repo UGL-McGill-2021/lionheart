@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8343944306583270443}
   - component: {fileID: 8343944306583270442}
-  - component: {fileID: 1934871174469886423}
   m_Layer: 0
   m_Name: FollowCamV2
   m_TagString: Untagged
@@ -54,14 +53,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   Cam: {fileID: 8343944308012415619}
---- !u!81 &1934871174469886423
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8343944306583270436}
-  m_Enabled: 1
 --- !u!1 &8343944307391827804
 GameObject:
   m_ObjectHideFlags: 0
