@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour {
             PlayerCombatManager _playerCombatManager = Other.gameObject.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
                 Vector3 _AttackVector = (Other.transform.position - this.transform.position).normalized * Force;
-                //_playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
+                _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
         }
     }
