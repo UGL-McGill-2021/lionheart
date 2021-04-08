@@ -5455,8 +5455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d94a80e4e69844e4b980592b503ca87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  aud: {fileID: 0}
   scripts:
   - {fileID: 9057546429446380302}
   - {fileID: 5368698313015805028}
@@ -5556,6 +5554,8 @@ MonoBehaviour:
   FallTimer: 2
   LandingAnimTriggerDistance: 0.5
   SmashingAnimTriggerDistance: 1
+  PullDashJumpSlowdown: 0.25
+  PullDashMagnitudeDependecyFactor: 0.75
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -5579,6 +5579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
+  PlayerPullDash: {fileID: 6742636947217563593}
   BlockInput: 0
   MoveAction:
     m_Name: move
@@ -5663,6 +5664,7 @@ MonoBehaviour:
   CompletionDistance: 2
   ExpiryTimer: 0.8
   TriggerTime: 0.5
+  Dir: {x: 0, y: 0, z: 0}
 --- !u!114 &6996219064944051542
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ namespace Lionheart.Player.Movement {
         [Header("References")]
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
+        [SerializeField] PullDash PlayerPullDash;
 
         [Header("State")]
         public bool BlockInput = false;
@@ -47,9 +48,21 @@ namespace Lionheart.Player.Movement {
             MoveAction.Disable();
         }
 
+        /// <summary>
+        /// Author: Denis 
+        /// Rotates the player according to thumbstick input.
+        /// While pull dashing rotation is locked to movement direction.
+        /// </summary>
         private void FixedUpdate()
-        {   
-            if (BlockInput == false)
+        {
+
+            if (PlayerPullDash.DisableGravity == true)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                        Quaternion.LookRotation(new Vector3(PlayerPullDash.Dir.x, 0f, PlayerPullDash.Dir.z))
+                        , 15 * Time.deltaTime);
+            }
+            else if (BlockInput == false)
             {
                 Rotate();
             }
