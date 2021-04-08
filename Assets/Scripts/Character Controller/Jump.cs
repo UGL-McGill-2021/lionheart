@@ -369,6 +369,15 @@ namespace Lionheart.Player.Movement
             yield return new WaitWhile(() => Gamepad.current.buttonSouth.isPressed);
             BlockInput = false;
         }
+
+        /// <summary>
+        /// Author: Denis
+        /// Resets the value vector. Used by the knocback to avoid combining jump and kb.
+        /// </summary>
+        public void ResetMovementVector()
+        {
+            Value = Vector3.zero;
+        }
     }
 }
 
