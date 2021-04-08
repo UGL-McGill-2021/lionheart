@@ -317,5 +317,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logLevel: 3
   ignoreGlobalLogLevel: 0
-  boostValue: 0
-  amplificationFactor: 10
+  boostValue: 100
+  amplificationFactor: 2
