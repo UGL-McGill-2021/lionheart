@@ -55,7 +55,6 @@ namespace Lionheart.Player.Movement {
         /// </summary>
         private void FixedUpdate()
         {
-
             if (PlayerPullDash.DisableGravity == true)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation,

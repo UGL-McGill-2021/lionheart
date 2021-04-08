@@ -6266,6 +6266,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.5219849
+      objectReference: {fileID: 0}
+    - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.02352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8610951927628155943, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
       propertyPath: m_IsActive
       value: 0
