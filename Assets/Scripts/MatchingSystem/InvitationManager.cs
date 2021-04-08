@@ -180,7 +180,7 @@ public class InvitationManager : MonoBehaviourPunCallbacks {
         string InvitationCode = "";
 
         for (int i = 0; i < CodeLength; i++) {
-            InvitationCode += (ControllerButton)Random.Range(0, 3);
+            InvitationCode += (ControllerButton) Random.Range(0, 4);
         }
 
         RoomOptions options = new RoomOptions();

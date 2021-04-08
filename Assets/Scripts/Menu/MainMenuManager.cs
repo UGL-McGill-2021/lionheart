@@ -123,8 +123,6 @@ public class MainMenuManager : MenuManager {
         PlayerGameSettings.AudioVolume = Music_VolumeSlider.value;
         if (VolumeManager.instance.OnBackgroundMusicVolumeChanged != null)
             VolumeManager.instance.OnBackgroundMusicVolumeChanged(Music_VolumeSlider.value);
-        else
-            Debug.LogWarning("OnBackgroundMusicVChanged null");
     }
 
     /// <summary>
