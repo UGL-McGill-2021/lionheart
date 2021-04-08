@@ -71,6 +71,12 @@ MonoBehaviour:
   - GivePhysSysControl
   - RPC_Respawn
   - OnStomped
+  - PlaySFXByIndex
+  - StopSFX
+  - UpdateBeamAll
+  - UpdateBeamAndBegin
+  - UpdateBeamAndEnd
+  - UpdateBeamBegin
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
