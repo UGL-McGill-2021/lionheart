@@ -122,8 +122,20 @@ namespace Lionheart.Player.Movement
             if ((IsGrounded == true || CanCoyoteHop == true || HasSecondJump == true)
                 && HasJumped == false && BlockInput == false && PlayerKnockback.IsKnockback == false)
             {
+                if (PlayerPullDash.IsPullDashing == true)
+                {
+                    PlayerPullDash.LaunchVectorMultiplier=0.25f;
+                    PlayerPullDash.DisableGravity = false;
+                    float Scalar = (PlayerPullDash.Value.magnitude / JumpPower) * 0.75f;
+                    Debug.Log("Scalar " + Scalar);
+                    Value = new Vector3(0f, Mathf.Sqrt(Scalar * JumpPower * -2 * GravityForce), 0f);
+                }
+                else
+                {
+                    Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
+                }
+
                 Vec2 = Vector3.zero;
-                Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
                 HasJumped = true;
                 CanCoyoteHop = false;
                 HasSecondJump = false;

@@ -12,7 +12,7 @@ public class StompTrigger : MonoBehaviour {
             EnemyCombatManager _enemyCombatManager = other.transform.parent.GetComponent<EnemyCombatManager>();
             if (_enemyCombatManager != null) {
                 _enemyCombatManager.ReceiveStomp(this.transform.forward.normalized * -1 * StompForce, 0.5f);
-                Debug.Log("Stomped " + other.gameObject + " with " + this.transform.forward.normalized * -1 * StompForce);
+                //Debug.Log("Stomped " + other.gameObject + " with " + this.transform.forward.normalized * -1 * StompForce);
             }
         }
     }

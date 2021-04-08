@@ -37,7 +37,7 @@ namespace Lionheart.Player.Movement
 
         [Header("Parameters")]
         [SerializeField] private float MaxTriggerDistance = 60f;
-        [SerializeField] private float LaunchVectorMultiplier = 1f;
+        [SerializeField] public float LaunchVectorMultiplier = 1f;
         [SerializeField] private float MinVectorMagnitude = 15f;
         [SerializeField] private float MaxVectorMagnitude = 40f;
         [SerializeField] private float CompletionDistance = 2f;
@@ -278,6 +278,7 @@ namespace Lionheart.Player.Movement
         {
             yield return new WaitWhile(() => !gameObject.GetComponent<Jump>().IsGrounded);
             IsPullDashing = false;
+            LaunchVectorMultiplier = 1f;
         }
 
         /// <summary>

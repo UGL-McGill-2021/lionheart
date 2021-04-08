@@ -68,7 +68,7 @@ public class ShootNode : Node
     {
         if (AnimManager != null)
         {
-            Debug.Log("PERFORM");
+            //Debug.Log("PERFORM");
             AnimManager.TriggerAttack();
         }
     }
