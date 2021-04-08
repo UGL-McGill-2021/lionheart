@@ -15,6 +15,7 @@ public class Checkpoint : MonoBehaviour
 
     private GameObject LastPlayerEntered;
     private HashSet<GameObject> PlayersInArea;
+    private bool LoadLock = false;     //used to prevent calling level loader more than once
 
     void Awake()
     {
@@ -29,9 +30,10 @@ public class Checkpoint : MonoBehaviour
             if (Other.tag == "Player")
             {
                 PlayersInArea.Add(Other.gameObject);
-                if (PlayersInArea.Count == 2)
+                if (!LoadLock && PlayersInArea.Count == 2)
                 {
                     CheckpointMan.FinalCheckpointComplete();
+                    LoadLock = true;
                 }
             }
         } else {
