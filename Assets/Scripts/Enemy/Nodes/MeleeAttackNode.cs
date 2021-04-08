@@ -40,9 +40,9 @@ public class MeleeAttackNode : Node
 
     private void MeleeAttack()
     {
-        Debug.Log("Starting Attack");
+        //Debug.Log("Starting Attack");
         MonoBehaviour.gameObject.GetComponent<EnemyCombatManager>().Attack();
-        Debug.Log("Ending Attack");
+        //Debug.Log("Ending Attack");
     }
 
     private void PerformAnimation()

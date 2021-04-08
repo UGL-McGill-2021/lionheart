@@ -5653,6 +5653,8 @@ MonoBehaviour:
   FallTimer: 2
   LandingAnimTriggerDistance: 0.5
   SmashingAnimTriggerDistance: 1
+  PullDashJumpSlowdown: 0.25
+  PullDashMagnitudeDependecyFactor: 0.75
   GroundMask:
     serializedVersion: 2
     m_Bits: 8

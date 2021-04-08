@@ -49,7 +49,7 @@ public class EnemyCombatManager : MonoBehaviour {
             if (_playerCombatManager != null && CurrentAttackMotion != null) {
                 // calculate regular attack
                 Vector3 _AttackVector = this.transform.forward.normalized * CurrentAttackMotion.Force;
-                Debug.Log("Attacked with " + _AttackVector);
+                //Debug.Log("Attacked with " + _AttackVector);
                 _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
             }
@@ -58,13 +58,13 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public void ReceiveAttack(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
-        Debug.Log("Invoking OnAttacked on MasterClient");
+        //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
     public IEnumerator OnAttacked(float _x, float _y, float _z, float _time) {
-        Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
+        //Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
         this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
@@ -72,7 +72,7 @@ public class EnemyCombatManager : MonoBehaviour {
         yield return new WaitForSeconds(_time);
 
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
-            Debug.Log("Attacked: On Ground");
+            //Debug.Log("Attacked: On Ground");
             this.Body.isKinematic = true;
             this.agent.enabled = true;
         } else {
@@ -83,16 +83,16 @@ public class EnemyCombatManager : MonoBehaviour {
     }
 
     public void Smash() {
-        Debug.Log("ExplosionForceApplied");
+        //Debug.Log("ExplosionForceApplied");
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, SmashRadius);
 
         foreach (Collider _nearby in colliders) {
-            Debug.Log("grabbed nearby colliders");
+            //Debug.Log("grabbed nearby colliders");
             GameObject _nearbyObjects = _nearby.gameObject;
             PlayerCombatManager _playerCombatManager = _nearbyObjects.GetComponent<PlayerCombatManager>();
             if (_playerCombatManager != null) {
-                Debug.Log("applying smash to player" + _playerCombatManager.gameObject);
+                //Debug.Log("applying smash to player" + _playerCombatManager.gameObject);
                 _playerCombatManager.ReceivePlayerSmash(DefaultSmashTime,
                 DefaultSmashForce,
                 this.transform.position,
@@ -131,7 +131,7 @@ public class EnemyCombatManager : MonoBehaviour {
         yield return new WaitForSeconds(_time);
 
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
-            Debug.Log("Smashed: On Ground");
+            //Debug.Log("Smashed: On Ground");
             this.Body.isKinematic = true;
             this.agent.enabled = true;
         } else {
@@ -144,13 +144,13 @@ public class EnemyCombatManager : MonoBehaviour {
 
     public void ReceiveStomp(Vector3 _AttackVelocity, float _AttackTimeSpan) {
         PhotonView _view = PhotonView.Get(this);
-        Debug.Log("Invoking OnAttacked on MasterClient");
+        //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnStomped", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
     }
 
     [PunRPC]
     public IEnumerator OnStomped(float _x, float _y, float _z, float _time) {
-        Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
+        //Debug.Log("OnAttacked executed with " + _x + " " + _y + " " + _z + " with knockback " + _time);
         this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
@@ -160,7 +160,7 @@ public class EnemyCombatManager : MonoBehaviour {
         if (this.gameObject == null) yield break;
 
         if (Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
-            Debug.Log("Attacked: On Ground");
+            //Debug.Log("Attacked: On Ground");
             this.Body.isKinematic = true;
             this.agent.enabled = true;
         } else {
@@ -181,7 +181,7 @@ public class EnemyCombatManager : MonoBehaviour {
     }
 
     public void TriggerGivePhysControlOnAll(bool givePhysControl) {
-        Debug.Log("Control changed");
+        //Debug.Log("Control changed");
         PhotonView.Get(this).RPC("GivePhysSysControl", RpcTarget.All, givePhysControl);
     }
 
@@ -201,10 +201,10 @@ public class EnemyCombatManager : MonoBehaviour {
 
         // if after 5 seconds, the enemy still isn't on the ground, destroy it
         if (!Physics.CheckSphere(this.transform.position, GroundDistance, GroundLayerMask)) {
-            Debug.Log("No Longer on Ground");
+            //Debug.Log("No Longer on Ground");
             Destroy(gameObject);
         } else {
-            Debug.Log("Still on Ground");
+            //Debug.Log("Still on Ground");
         }
 
     }
