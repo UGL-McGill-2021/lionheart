@@ -12,8 +12,8 @@ namespace Lionheart.Player.Movement
     /// </summary>
     public class MultiplayerActivator : MonoBehaviour, IPunInstantiateMagicCallback
     {
-        public Camera cam;
-        public AudioListener aud;
+        //public Camera cam;
+        //public AudioListener aud;
         public List<MonoBehaviour> scripts = new List<MonoBehaviour>();
 
         public bool hasVibration { get; set; } = true;
@@ -33,7 +33,7 @@ namespace Lionheart.Player.Movement
             if (this.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 //cam.enabled = true;
-                aud.enabled = true;
+                //aud.enabled = true;
                 EnableControls();
             }
         }
