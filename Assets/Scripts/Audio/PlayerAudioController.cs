@@ -33,6 +33,7 @@ public class PlayerAudioController : MonoBehaviour {
             source.Stop();
         }
 
+        source.volume = VolumeManager.instance.SFXVolume;
         VolumeManager.instance.OnSFXVolumeChanged += UpdateVolume;
     }
 
@@ -42,7 +43,7 @@ public class PlayerAudioController : MonoBehaviour {
 
     [PunRPC]
     public void PlaySFXByIndex(int SFXIndex) {
-        PlayerSFX _RequestedSFX = (PlayerSFX)SFXIndex;
+        PlayerSFX _RequestedSFX = (PlayerSFX) SFXIndex;
         PlaySFX(_RequestedSFX);
     }
 

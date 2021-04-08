@@ -22,6 +22,7 @@ public class EnemyAudioController : MonoBehaviour {
             source.Stop();
         }
 
+        source.volume = VolumeManager.instance.SFXVolume;
         VolumeManager.instance.OnSFXVolumeChanged += UpdateVolume;
     }
 
