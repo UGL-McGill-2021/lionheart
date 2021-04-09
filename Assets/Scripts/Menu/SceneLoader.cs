@@ -28,6 +28,13 @@ public class SceneLoader : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
         float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
+        foreach (GameObject player in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList)
+        {
+            player.GetComponent<MultiplayerActivator>().ActivatePlayer();
+            yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
+            player.GetComponent<MultiplayerActivator>().DisableControls();
+        }
+
 
         // wait for a delay before loading the next level 
         yield return new WaitForSeconds(animDuration);
