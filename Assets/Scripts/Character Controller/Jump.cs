@@ -35,6 +35,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float FallTimer = 2f;
         [SerializeField] private float LandingAnimTriggerDistance = 0.5f;
         [SerializeField] private float SmashingAnimTriggerDistance = 1f;
+        [SerializeField] private float PullDashJumpSlowdown = 0.25f;
+        [SerializeField] private float PullDashMagnitudeDependecyFactor = 0.75f;
         [SerializeField] private LayerMask GroundMask;
 
         [Header("State")]
@@ -122,8 +124,19 @@ namespace Lionheart.Player.Movement
             if ((IsGrounded == true || CanCoyoteHop == true || HasSecondJump == true)
                 && HasJumped == false && BlockInput == false && PlayerKnockback.IsKnockback == false)
             {
+                if (PlayerPullDash.IsPullDashing == true)
+                {
+                    PlayerPullDash.LaunchVectorMultiplier = PullDashJumpSlowdown;
+                    PlayerPullDash.DisableGravity = false;
+                    float Scalar = (PlayerPullDash.Value.magnitude / JumpPower) * PullDashMagnitudeDependecyFactor;
+                    Value = new Vector3(0f, Mathf.Sqrt(Scalar * JumpPower * -2 * GravityForce), 0f);
+                }
+                else
+                {
+                    Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
+                }
+
                 Vec2 = Vector3.zero;
-                Value = new Vector3(0f, Mathf.Sqrt(JumpPower * -2 * GravityForce), 0f);
                 HasJumped = true;
                 CanCoyoteHop = false;
                 HasSecondJump = false;
@@ -368,6 +381,15 @@ namespace Lionheart.Player.Movement
         {
             yield return new WaitWhile(() => Gamepad.current.buttonSouth.isPressed);
             BlockInput = false;
+        }
+
+        /// <summary>
+        /// Author: Denis
+        /// Resets the value vector. Used by the knocback to avoid combining jump and kb.
+        /// </summary>
+        public void ResetMovementVector()
+        {
+            Value = Vector3.zero;
         }
     }
 }
