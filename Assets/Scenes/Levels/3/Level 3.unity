@@ -5220,7 +5220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6462715871437185255, guid: c66f7309d1af7204d8fb944bb897b90a, type: 3}
       propertyPath: m_Name
-      value: AreaCam (1)
+      value: AreaCam Final
       objectReference: {fileID: 0}
     - target: {fileID: 6462715871437185255, guid: c66f7309d1af7204d8fb944bb897b90a, type: 3}
       propertyPath: m_IsActive
@@ -6865,7 +6865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5706502199716169634, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706502199716169660, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_RootOrder
