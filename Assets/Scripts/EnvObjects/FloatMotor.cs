@@ -5,11 +5,8 @@ using UnityEngine;
 /// Floats objects in the background
 /// </summary>
 public class FloatMotor : MonoBehaviour {
-    [SerializeField]
-    float Height = 0.1f;
-
-    [SerializeField]
-    float Period = 1;
+    private float Height = 0.1f;
+    private float Period = 1;
 
     private Vector3 InitialPos;
     private float Offset;
@@ -18,6 +15,9 @@ public class FloatMotor : MonoBehaviour {
         InitialPos = transform.position;
 
         Offset = 1 - (Random.value * 2);
+
+        Height = Random.Range(2f, 7f);
+        Period = Random.Range(0.5f, 1.5f);
     }
 
     private void Update() {
