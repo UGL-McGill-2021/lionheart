@@ -32,8 +32,6 @@ namespace Lionheart.Player.Movement
         {
             if (this.gameObject.GetComponent<PhotonView>().IsMine)
             {
-                //cam.enabled = true;
-                //aud.enabled = true;
                 EnableControls();
             }
         }
