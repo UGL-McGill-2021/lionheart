@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 namespace Lionheart.Player.Movement
 {
@@ -19,6 +20,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] public Animator AnimatorController;
         [SerializeField] public MultiplayerActivator PlayerMultiplayer;
         [SerializeField] public Gamepad Controller;
+        [SerializeField] VFXHandler PlayerVFX;
+        public PhotonView NetworkView;
 
         [Header("Parameters")]
         [SerializeField] private float BulletHitForce = 0.005f;
@@ -95,6 +98,8 @@ namespace Lionheart.Player.Movement
             Value = new Vector3(BulletHitForce * Dir.x, VerticalForce, BulletHitForce * Dir.z);
             PlayerJump.ResetMovementVector();
 
+            PhotonView.Get(PlayerVFX).RPC("PlayHit", RpcTarget.All);
+
             WasHit = true;
             IsKnockback = true;
             StartCoroutine(TakeOffTimer());
@@ -125,6 +130,8 @@ namespace Lionheart.Player.Movement
 
             Value = new Vector3(Scale * Dir.x, VerticalForce, Scale * Dir.z);
             PlayerJump.ResetMovementVector();
+
+            PhotonView.Get(PlayerVFX).RPC("PlayHit", RpcTarget.All);
 
             WasHit = true;
             IsKnockback = true;

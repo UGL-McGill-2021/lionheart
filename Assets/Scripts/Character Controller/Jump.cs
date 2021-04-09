@@ -20,7 +20,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
-        [SerializeField] GameObject GroundCheck;
+        [SerializeField] public GameObject GroundCheck;
         [SerializeField] Gamepad Controller;
         [SerializeField] Rigidbody Rb;
 
@@ -350,7 +350,7 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         IEnumerator AnimationTrigger(string Name)
         {
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(1f);
            
             switch (Name)
             {
