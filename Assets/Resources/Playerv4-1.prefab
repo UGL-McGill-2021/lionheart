@@ -15708,7 +15708,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
   PlayerPullDash: {fileID: 6742636947217563593}
-  PlayerKnockback: {fileID: 6996219064944051542}
   BlockInput: 0
   MoveAction:
     m_Name: move
@@ -15827,7 +15826,6 @@ MonoBehaviour:
   TookOff: 0
   IsImmune: 0
   HitCount: 0
-  KBDir: {x: 0, y: 0, z: 0}
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15950,7 +15948,7 @@ MonoBehaviour:
   DashAttackAngleOfViewDegree: 5
   SmashRadius: 15
   DefaultSmashTime: 1
-  DefaultSmashForce: 500
+  DefaultSmashForce: 650
   GroundCheck: {fileID: 6675483342905746456}
   StompDistance: 8
   StompForce: 5
@@ -16095,7 +16093,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8401703996827886909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2ae29221e2e2bd489373dc16299ad08, type: 3}
   m_Name: 

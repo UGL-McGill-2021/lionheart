@@ -11014,9 +11014,9 @@ MonoBehaviour:
   DashAttackAngleOfViewDegree: 5
   SmashRadius: 15
   DefaultSmashTime: 1
-  DefaultSmashForce: 500
+  DefaultSmashForce: 650
   GroundCheck: {fileID: 6675483342905746456}
-  StompDistance: 3
+  StompDistance: 8
   StompForce: 5
 --- !u!136 &1197355403299462303
 CapsuleCollider:
@@ -11159,7 +11159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8401703996827886909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2ae29221e2e2bd489373dc16299ad08, type: 3}
   m_Name: 
