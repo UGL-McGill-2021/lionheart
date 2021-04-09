@@ -331,6 +331,9 @@ MonoBehaviour:
 
     https://www.colordic.org/w
 
+    EastWest
+    Composer Cloud
+
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -641,7 +644,7 @@ MonoBehaviour:
     color
     palette
 
-'
+    AUDIO'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
