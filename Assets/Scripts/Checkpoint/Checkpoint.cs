@@ -29,9 +29,13 @@ public class Checkpoint : MonoBehaviour
         PlayersInArea.Add(Other.gameObject);
         if (PlayersInArea.Count == 2)
         {
-            if (IsFinalCheckpoint && !LoadLock) {
-                CheckpointMan.FinalCheckpointComplete();
-                LoadLock = true;
+            if (IsFinalCheckpoint)
+            {
+                if (!LoadLock)
+                {
+                    CheckpointMan.FinalCheckpointComplete();
+                    LoadLock = true;
+                }
             } else
             {
                 CheckpointMan.SetCheckpoint(this);
