@@ -77,6 +77,9 @@ MonoBehaviour:
   - UpdateBeamAndBegin
   - UpdateBeamAndEnd
   - UpdateBeamBegin
+  - PlayDash
+  - PlayGroundPound
+  - PlayHit
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

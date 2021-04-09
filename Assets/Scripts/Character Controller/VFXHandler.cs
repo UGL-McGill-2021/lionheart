@@ -21,6 +21,7 @@ public class VFXHandler : MonoBehaviour
     [SerializeField] LineRenderer PullDashLR;
     [SerializeField] GameObject GroundPoundPS;
     [SerializeField] ParticleSystem DashPS;
+    [SerializeField] ParticleSystem HitPS;
 
     [Header("Parameters")]
     public float StepScalar = 1.4f; 
@@ -111,6 +112,12 @@ public class VFXHandler : MonoBehaviour
 
     [PunRPC]
     public void PlayDash()
+    {
+        DashPS.Emit(100);
+    }
+
+    [PunRPC]
+    public void PlayHit()
     {
         DashPS.Emit(100);
     }
