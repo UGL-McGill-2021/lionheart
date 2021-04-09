@@ -25,34 +25,20 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider Other)
     {
-        if (IsFinalCheckpoint)
+
+        PlayersInArea.Add(Other.gameObject);
+        if (PlayersInArea.Count == 2)
         {
-            if (Other.tag == "Player")
+            if (IsFinalCheckpoint && !LoadLock) {
+                CheckpointMan.FinalCheckpointComplete();
+                LoadLock = true;
+            } else
             {
-                PlayersInArea.Add(Other.gameObject);
-                if (!LoadLock && PlayersInArea.Count == 2)
-                {
-                    CheckpointMan.FinalCheckpointComplete();
-                    LoadLock = true;
-                }
-            }
-        } else {
-            if (Other.tag == "Player")
-            {
-                if (!LastPlayerEntered)
-                {
-                    LastPlayerEntered = Other.gameObject;
-                }
-                else
-                {
-                    if (LastPlayerEntered != Other.gameObject)
-                    {
-                        CheckpointMan.SetCheckpoint(this);
-                        CheckpointCompleted();
-                    }
-                }
+                CheckpointMan.SetCheckpoint(this);
+                CheckpointCompleted();
             }
         }
+
     }
 
     private void OnTriggerExit(Collider Other)
