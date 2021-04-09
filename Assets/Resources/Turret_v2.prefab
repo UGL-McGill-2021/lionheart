@@ -178,9 +178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PhotonView: {fileID: 0}
   Target: {fileID: 0}
-  ProjectileSpeed: 5
+  ProjectileSpeed: 7
   ShootCooldown: 4
-  AttackDelay: 3.5
+  AttackDelay: 3
   Projectile: {fileID: 2049853414566648947, guid: 264eac3b10c46d7419632e5c7c4d16a6, type: 3}
 --- !u!54 &4960378774823047338
 Rigidbody:
