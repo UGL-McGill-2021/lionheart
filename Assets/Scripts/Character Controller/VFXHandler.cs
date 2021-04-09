@@ -112,6 +112,6 @@ public class VFXHandler : MonoBehaviour
     [PunRPC]
     public void PlayDash()
     {
-        DashPS.Emit(1);
+        DashPS.Emit(100);
     }
 }
