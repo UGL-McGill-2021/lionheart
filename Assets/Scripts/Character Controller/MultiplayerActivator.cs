@@ -63,19 +63,22 @@ namespace Lionheart.Player.Movement
         /// </summary>
         public void DisableControls()
         {
-            PlayerDash.enabled = false;
+            if (this.gameObject.GetComponent<PhotonView>().IsMine)
+            {
+                PlayerDash.enabled = false;
 
-            StopCoroutine(PlayerSwitchCam.WaitForButtonRelease());
-            StopCoroutine(PlayerJump.WaitForButtonRelease());
-            PlayerGroundPound.BlockInput = true;
-            PlayerPullDash.BlockInput = true;
-            PlayerJump.BlockInput = true;
-            PlayerWalkMotion.BlockInput = true;
-            PlayerRotation.BlockInput = true;
-            PlayerSwitchCam.BlockInput = true;
+                StopCoroutine(PlayerSwitchCam.WaitForButtonRelease());
+                StopCoroutine(PlayerJump.WaitForButtonRelease());
+                PlayerGroundPound.BlockInput = true;
+                PlayerPullDash.BlockInput = true;
+                PlayerJump.BlockInput = true;
+                PlayerWalkMotion.BlockInput = true;
+                PlayerRotation.BlockInput = true;
+                PlayerSwitchCam.BlockInput = true;
 
-            StopAllCoroutines();
-            StartCoroutine(WaitToDisableControls());
+                StopAllCoroutines();
+                StartCoroutine(WaitToDisableControls());
+            }
         }
 
         /// <summary>

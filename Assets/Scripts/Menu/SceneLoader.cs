@@ -26,12 +26,16 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     IEnumerator ControlActivationDelay()
     {
-        yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
+        yield return new WaitForSeconds(0.1f);  // wait for next frame to update the animator current state
         float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
         foreach (GameObject player in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList)
         {
             player.GetComponent<MultiplayerActivator>().ActivatePlayer();
-            yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
+        }
+
+        yield return new WaitForSeconds(0.1f);  // wait for next frame to update the animator current state
+        foreach (GameObject player in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList)
+        {
             player.GetComponent<MultiplayerActivator>().DisableControls();
         }
 
