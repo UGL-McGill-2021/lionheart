@@ -39,13 +39,14 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float MaxTriggerDistance = 60f;
         [SerializeField] public float LaunchVectorMultiplier = 1f;
         [SerializeField] private float MinVectorMagnitude = 15f;
-        [SerializeField] private float MaxVectorMagnitude = 40f;
+        [SerializeField] public float MaxVectorMagnitude = 40f;
         [SerializeField] private float CompletionDistance = 2f;
         [SerializeField] private float ExpiryTimer = 0.8f;
         [SerializeField] private float TriggerTime = 0.5f;
 
         private Vector3 T;
         public Vector3 Dir;
+        public Vector3 Vd;
 
         public Vector3 Value { get; private set; }
         public MovementModifier.MovementType Type { get; private set; }
@@ -178,7 +179,7 @@ namespace Lionheart.Player.Movement
             //update LineRenderer
             if (PullDashCharged == true)
             {
-                Vector3 Vd = (OtherPlayer.transform.position - transform.position);
+                Vd = (OtherPlayer.transform.position - transform.position);
                 if (Vd.magnitude > MaxTriggerDistance)
                 {
                     PhotonView.Get(PlayerVFX).RPC("UpdateBeamAll", RpcTarget.All, false);
