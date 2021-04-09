@@ -8385,6 +8385,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6169593494034404754, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+      propertyPath: m_Size.x
+      value: 11.066206
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169593494034404754, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+      propertyPath: m_Center.x
+      value: 2.4787025
+      objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404756, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_Name
       value: Checkpoint (2)
@@ -9687,6 +9695,14 @@ PrefabInstance:
     - target: {fileID: 6169593494034404753, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169593494034404754, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+      propertyPath: m_Size.x
+      value: 12.351115
+      objectReference: {fileID: 0}
+    - target: {fileID: 6169593494034404754, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
+      propertyPath: m_Center.x
+      value: 3.1211624
       objectReference: {fileID: 0}
     - target: {fileID: 6169593494034404756, guid: ed136d8151459a943ab22c5aa73ab5d9, type: 3}
       propertyPath: m_Name
