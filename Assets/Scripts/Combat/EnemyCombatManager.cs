@@ -25,6 +25,9 @@ public class EnemyCombatManager : MonoBehaviour {
     public float DefaultSmashTime = 1;
     public float DefaultSmashForce = 500;
 
+    [Header("SFX Integration")]
+    public EnemyAudioController AudioController;
+
     public void Attack(AttackMotion _attackMotion) {
         AttackBox.enabled = true;
         CurrentAttackMotion = _attackMotion;
@@ -52,6 +55,7 @@ public class EnemyCombatManager : MonoBehaviour {
                 //Debug.Log("Attacked with " + _AttackVector);
                 _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
+                AudioController.TriggerPlaySFXOnAll((int) EnemySFX.SLAP);
             }
         }
     }
@@ -60,6 +64,8 @@ public class EnemyCombatManager : MonoBehaviour {
         PhotonView _view = PhotonView.Get(this);
         //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+
+        AudioController.TriggerPlaySFXOnAll((int)EnemySFX.IMPACT);
     }
 
     [PunRPC]

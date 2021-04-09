@@ -26,6 +26,9 @@ namespace Lionheart.Player.Movement
         [SerializeField] VFXHandler PlayerVFX;
         public PhotonView NetworkView;
 
+        // Feiyang: Player SFX integration
+        public PlayerAudioController AudioController;
+
         [Header("Parameters")]
         [SerializeField] private float DashForce = 10f;
         [SerializeField] private float DashExecutionTime = 0.2f;
@@ -115,6 +118,9 @@ namespace Lionheart.Player.Movement
                 PhotonView.Get(PlayerVFX).RPC("PlayDash", RpcTarget.All);
 
                 PlayerCombat.Attack(new Kick(KnockbackForce, KnockbackTime));
+
+                if (AudioController != null)
+                    AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.DASH);
             }
         }
 
