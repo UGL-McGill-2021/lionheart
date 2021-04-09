@@ -10774,7 +10774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
   PlayerPullDash: {fileID: 6742636947217563593}
-  PlayerKnockback: {fileID: 5812675267136057219}
   BlockInput: 0
   MoveAction:
     m_Name: move
@@ -10893,7 +10892,6 @@ MonoBehaviour:
   TookOff: 0
   IsImmune: 0
   HitCount: 0
-  KBDir: {x: 0, y: 0, z: 0}
 --- !u!54 &3535366763632785127
 Rigidbody:
   m_ObjectHideFlags: 0

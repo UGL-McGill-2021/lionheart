@@ -137,7 +137,7 @@ public class EnemyCombatManager : MonoBehaviour {
         this.Body.isKinematic = false;
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
 
-        HitPS.Emit(50);
+        HitPS.Emit(75);
 
         yield return new WaitForSeconds(_time);
 
