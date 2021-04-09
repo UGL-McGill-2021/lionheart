@@ -25,7 +25,6 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider Other)
     {
-
         PlayersInArea.Add(Other.gameObject);
         if (PlayersInArea.Count == 2)
         {
@@ -47,11 +46,9 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerExit(Collider Other)
     {
-        if (IsFinalCheckpoint) {
-            if (Other.tag == "Player")
-            {
-                PlayersInArea.Remove(Other.gameObject);
-            }
+        if (Other.tag == "Player")
+        {
+            PlayersInArea.Remove(Other.gameObject);
         }
     }
 
