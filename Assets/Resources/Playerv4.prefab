@@ -6038,11 +6038,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkView: {fileID: 5480352261030030601}
   PlayerPullDash: {fileID: 6742636947217563593}
+  OtherPlayer: {fileID: 0}
   PullDashBeam: {fileID: 8466672229747182504}
   PullDashBeamBegin: {fileID: 1916464347041705257}
   PullDashBeamEnd: {fileID: 0}
   PullDashBeamTarget: {fileID: 0}
   PullDashLR: {fileID: 0}
+  StepScalar: 1.4
 --- !u!1 &8833452435930719326
 GameObject:
   m_ObjectHideFlags: 0
@@ -6271,6 +6273,10 @@ PrefabInstance:
     - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.24696705
+      objectReference: {fileID: 0}
+    - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime0
+      value: 22536
       objectReference: {fileID: 0}
     - target: {fileID: 8610951927628155941, guid: 01144fdb5574841b0a56f4c1fccea440, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
