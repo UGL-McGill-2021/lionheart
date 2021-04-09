@@ -106,7 +106,7 @@ public class VFXHandler : MonoBehaviour
     [PunRPC]
     public void PlayGroundPound(Vector3 Pos)
     {
-        GameObject.Instantiate(GroundPoundPS, Pos, Quaternion.identity);
+        GameObject G = GameObject.Instantiate(GroundPoundPS, Pos, Quaternion.identity);
     }
 
     [PunRPC]
