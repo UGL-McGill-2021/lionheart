@@ -16,6 +16,8 @@ TagManager:
   - Bullet
   - EnemyHat
   - Microphone
+  - BirdsManager
+  - Obstacle
   layers:
   - Default
   - TransparentFX

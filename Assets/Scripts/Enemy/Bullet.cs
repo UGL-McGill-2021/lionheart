@@ -40,6 +40,13 @@ public class Bullet : MonoBehaviour {
                 _playerCombatManager.ReceivePlayerAttack(Forward * Force + UpwardsAdjustmentVector, BulletAttackTimeSpan);
             }
         }
+        else if(Other.gameObject.tag == "Obstacle")
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(this.gameObject);
+            }
+        }
     }
 
     public void FixedUpdate() {
