@@ -64,6 +64,8 @@ public class EnemyCombatManager : MonoBehaviour {
         PhotonView _view = PhotonView.Get(this);
         //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
+
+        AudioController.TriggerPlaySFXOnAll((int)EnemySFX.IMPACT);
     }
 
     [PunRPC]

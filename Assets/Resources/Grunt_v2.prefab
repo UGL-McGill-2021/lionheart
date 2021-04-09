@@ -857,6 +857,8 @@ MonoBehaviour:
   source: {fileID: 7142134304139593474}
   ShootProjectile: {fileID: 0}
   Slap: {fileID: 8300000, guid: fd601efa5ef1cb248857251f3d7a51ea, type: 3}
+  Impact1: {fileID: 8300000, guid: 918ee9156e7afd547b7ce798c391193b, type: 3}
+  Impact2: {fileID: 8300000, guid: 4390098bc4eaa1d49b0c01edbbddb975, type: 3}
   view: {fileID: 9099838261861498823}
 --- !u!82 &7142134304139593474
 AudioSource:
