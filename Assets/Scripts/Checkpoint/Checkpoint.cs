@@ -25,20 +25,24 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider Other)
     {
-        PlayersInArea.Add(Other.gameObject);
-        if (PlayersInArea.Count == 2)
+        if (Other.tag == "Player")
         {
-            if (IsFinalCheckpoint)
+            PlayersInArea.Add(Other.gameObject);
+            if (PlayersInArea.Count == 2)
             {
-                if (!LoadLock)
+                if (IsFinalCheckpoint)
                 {
-                    CheckpointMan.FinalCheckpointComplete();
-                    LoadLock = true;
+                    if (!LoadLock)
+                    {
+                        CheckpointMan.FinalCheckpointComplete();
+                        LoadLock = true;
+                    }
                 }
-            } else
-            {
-                CheckpointMan.SetCheckpoint(this);
-                CheckpointCompleted();
+                else
+                {
+                    CheckpointMan.SetCheckpoint(this);
+                    CheckpointCompleted();
+                }
             }
         }
 
