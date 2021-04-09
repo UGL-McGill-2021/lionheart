@@ -7275,13 +7275,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 371000955, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 37
+      objectReference: {fileID: 0}
     - target: {fileID: 371000956, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_text
-      value: 'Hint: The zoom camera might help.'
+      value: 'Hint: The zoom camera might help'
       objectReference: {fileID: 0}
     - target: {fileID: 371000956, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347027453, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347027453, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -170
       objectReference: {fileID: 0}
     - target: {fileID: 1347027454, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_Sprite

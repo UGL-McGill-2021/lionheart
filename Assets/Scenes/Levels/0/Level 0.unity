@@ -6200,17 +6200,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 510623296, guid: 0439c26577f444535a04395076ab73c0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8da57f44e81ce844e9f186368e1ba867, type: 3}
     - target: {fileID: 2068304006, guid: 0439c26577f444535a04395076ab73c0, type: 3}
-      propertyPath: m_text
-      value: 'Hint: Hold jump for more height.'
+      propertyPath: m_fontColor32.rgba
+      value: 687865855
       objectReference: {fileID: 0}
     - target: {fileID: 487245551365334856, guid: 0439c26577f444535a04395076ab73c0, type: 3}
       propertyPath: viewIdField
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309374025165487856, guid: 0439c26577f444535a04395076ab73c0, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190260
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680735281087339860, guid: 0439c26577f444535a04395076ab73c0, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190260
+      objectReference: {fileID: 0}
+    - target: {fileID: 8309733326387841469, guid: 0439c26577f444535a04395076ab73c0, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8824768534492847085, guid: 0439c26577f444535a04395076ab73c0, type: 3}
       propertyPath: m_RootOrder
@@ -6259,10 +6267,6 @@ PrefabInstance:
     - target: {fileID: 8824768534492847091, guid: 0439c26577f444535a04395076ab73c0, type: 3}
       propertyPath: m_Name
       value: SceneLoader_First
-      objectReference: {fileID: 0}
-    - target: {fileID: 8824768534492847091, guid: 0439c26577f444535a04395076ab73c0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0439c26577f444535a04395076ab73c0, type: 3}
