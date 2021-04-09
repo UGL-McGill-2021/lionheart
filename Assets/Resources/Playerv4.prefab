@@ -10526,6 +10526,7 @@ GameObject:
   - component: {fileID: 3717460445037045334}
   - component: {fileID: 265025149833944745}
   - component: {fileID: 237053471898839460}
+  - component: {fileID: 3155654237322385188}
   m_Layer: 7
   m_Name: Playerv4
   m_TagString: Player
@@ -11150,6 +11151,25 @@ MonoBehaviour:
   DashPS: {fileID: 1788957469184579435}
   HitPS: {fileID: 4639154565993267965}
   StepScalar: 1.4
+--- !u!114 &3155654237322385188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401703996827886909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ae29221e2e2bd489373dc16299ad08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimatorController: {fileID: 3717460445037045334}
+  GroundCheck: {fileID: 6675483342905746456}
+  Rb: {fileID: 3535366763632785127}
+  GroundDistance: 0.6
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &8833452435930719326
 GameObject:
   m_ObjectHideFlags: 0
