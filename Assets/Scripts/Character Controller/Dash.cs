@@ -23,6 +23,9 @@ namespace Lionheart.Player.Movement
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Vector3 Direction;
 
+        // Feiyang: Player SFX integration
+        public PlayerAudioController AudioController;
+
         [Header("Parameters")]
         [SerializeField] private float DashForce = 10f;
         [SerializeField] private float DashExecutionTime = 0.2f;
@@ -110,6 +113,9 @@ namespace Lionheart.Player.Movement
                 }
 
                 PlayerCombat.Attack(new Kick(KnockbackForce, KnockbackTime));
+
+                if (AudioController != null)
+                    AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.DASH);
             }
         }
 

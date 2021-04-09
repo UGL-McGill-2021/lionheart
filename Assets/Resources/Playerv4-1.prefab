@@ -181,11 +181,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 2081032422302788961}
   JumpLandingVolume: 0.5
-  JumpLanding: {fileID: 8300000, guid: f28afddcff9053548bf29dacdafb5c4f, type: 3}
+  JumpLanding: {fileID: 8300000, guid: 74a8d5eec288f5540bcc507a624a421b, type: 3}
   GroundPoundVolume: 0.5
-  GroundPound: {fileID: 8300000, guid: 78dce80f1ce21ed42a9b724bbbae47ce, type: 3}
+  GroundPound: {fileID: 8300000, guid: f28afddcff9053548bf29dacdafb5c4f, type: 3}
   DashVolume: 0.5
-  Dash: {fileID: 0}
+  Dash: {fileID: 8300000, guid: a2ec5a829912e274081d993d5ca45e89, type: 3}
   ImpactVolume: 0.5
   Impact1: {fileID: 8300000, guid: 918ee9156e7afd547b7ce798c391193b, type: 3}
   Impact2: {fileID: 8300000, guid: 4390098bc4eaa1d49b0c01edbbddb975, type: 3}
@@ -235,7 +235,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -268,7 +268,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5717,6 +5717,7 @@ MonoBehaviour:
   CombatManager: {fileID: 7158537297210349565}
   PlayerMultiplayer: {fileID: 0}
   Direction: {x: 0, y: 0, z: 0}
+  AudioController: {fileID: 5346211990860123939}
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3

@@ -50,12 +50,13 @@ public class PlayerAudioController : MonoBehaviour {
     public void PlaySFX(PlayerSFX requestedSFX) {
         switch (requestedSFX) {
             case PlayerSFX.DASH: {
-                    //source.PlayOneShot(Dash);
-                    Debug.Log("Dash sound played");
+                    source.pitch = 1;
+                    source.PlayOneShot(Dash);
                     break;
                 }
 
             case PlayerSFX.GROUND_POUND: {
+                    source.pitch = 1;
                     source.PlayOneShot(GroundPound);
                     break;
                 }
@@ -72,7 +73,7 @@ public class PlayerAudioController : MonoBehaviour {
                 }
 
             case PlayerSFX.JUMPLAND: {
-                    source.pitch = 1;
+                    source.pitch = 1 + Random.Range(-0.4f, 0.4f);
                     source.PlayOneShot(JumpLanding);
                     break;
                 }
