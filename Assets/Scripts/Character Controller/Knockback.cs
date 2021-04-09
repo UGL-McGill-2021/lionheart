@@ -30,7 +30,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] private float ImmunityTimeAfterLanding = 0.5f;
 
         [Header("State")]
-        [SerializeField] private bool WasHit;
+        [SerializeField] public bool WasHit;
         [SerializeField] public bool IsKnockback;
         [SerializeField] public bool TookOff;
         [SerializeField] public bool IsImmune;

@@ -52,12 +52,6 @@ public class LocalAnimFailsafe : MonoBehaviour
 
         switch (Name)
         {
-            case "IsJumping":
-                AnimatorController.SetBool("IsJumping", false);
-                break;
-            case "IsFalling":
-                AnimatorController.SetBool("IsFalling", false);
-                break;
             case "IsLanding":
                 AnimatorController.SetBool("IsLanding", false);
                 break;
