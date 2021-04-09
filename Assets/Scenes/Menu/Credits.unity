@@ -1175,18 +1175,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Team Lead/Programmer:
+  m_text: 'Team Lead/Programming:
 
 
-    Designer:
+    Design:
 
 
-    Programmer:
+    Programming:
 
 
 
 
-    Artist:
+    Art:
 
 
 
@@ -1196,7 +1196,7 @@ MonoBehaviour:
 
 
     Team
-    mentor:'
+    mentors:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f2dcf029949142e28b974630369c8b4e, type: 2}
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -104.94967, w: -316.59683}
+  m_margin: {x: 0, y: 0, z: -104.94967, w: -331.8721}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

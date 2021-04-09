@@ -30,6 +30,18 @@ namespace Lionheart.Player.Movement
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
+            //if (this.gameObject.GetComponent<PhotonView>().IsMine)
+            //{
+            //    EnableControls();
+            //}
+        }
+
+        /// <summary>
+        /// Author: Ziqi Li
+        /// Function to activate players
+        /// </summary>
+        public void ActivatePlayer()
+        {
             if (this.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 EnableControls();

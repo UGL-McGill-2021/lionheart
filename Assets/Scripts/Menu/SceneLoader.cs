@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lionheart.Player.Movement;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,24 @@ public class SceneLoader : MonoBehaviour
     private void Start()
     {
         PhotonView = GetComponent<PhotonView>();
+        if(GameObject.FindGameObjectWithTag("GameManager") != null) StartCoroutine(ControlActivationDelay());
+    }
+
+    /// <summary>
+    /// Author: Ziqi Li
+    /// Coroutine for delay the player control activation
+    /// </summary>
+    IEnumerator ControlActivationDelay()
+    {
+        yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
+        float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // wait for a delay before loading the next level 
+        yield return new WaitForSeconds(animDuration);
+        foreach(GameObject player in GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList)
+        {
+            player.GetComponent<MultiplayerActivator>().ActivatePlayer();
+        }
     }
 
     /// <summary>
@@ -116,6 +135,7 @@ public class SceneLoader : MonoBehaviour
     {
         // trigger the exit transition animation
         Animator.SetTrigger("IsExit");
+        yield return new WaitForSeconds(0.1f);
         yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
         float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
 
