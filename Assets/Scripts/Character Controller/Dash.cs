@@ -113,10 +113,10 @@ namespace Lionheart.Player.Movement
                 }
 
                 PlayerCombat.Attack(new Kick(KnockbackForce, KnockbackTime));
-            }
 
-            if (AudioController != null)
-                AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.DASH);
+                if (AudioController != null)
+                    AudioController.TriggerPlaySFXOnAll((int)PlayerSFX.DASH);
+            }
         }
 
         /// <summary>

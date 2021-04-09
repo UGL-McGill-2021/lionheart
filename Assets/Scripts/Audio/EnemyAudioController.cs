@@ -3,7 +3,8 @@ using UnityEngine;
 
 public enum EnemySFX {
     SHOOT_PROJECTILE = 0,
-    SLAP = 1
+    SLAP = 1,
+    IMPACT = 2
 }
 
 public class EnemyAudioController : MonoBehaviour {
@@ -13,6 +14,9 @@ public class EnemyAudioController : MonoBehaviour {
     public AudioClip ShootProjectile;
 
     public AudioClip Slap;
+
+    public AudioClip Impact1;
+    public AudioClip Impact2;
 
     [Header("Network")]
     public PhotonView view;
@@ -45,6 +49,16 @@ public class EnemyAudioController : MonoBehaviour {
 
             case EnemySFX.SLAP: {
                     source.PlayOneShot(Slap);
+                    break;
+                }
+
+            case EnemySFX.IMPACT: {
+                    source.pitch = 1 + Random.Range(-0.5f, 0.5f);
+                    if (Random.Range(0, 10) < 5) {
+                        source.PlayOneShot(Impact1);
+                    } else {
+                        source.PlayOneShot(Impact2);
+                    }
                     break;
                 }
         }
