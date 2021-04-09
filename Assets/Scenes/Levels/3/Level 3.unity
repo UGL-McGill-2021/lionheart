@@ -6228,6 +6228,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3a944c8208592324bba4f59d5a984c78, type: 3}
   m_PrefabInstance: {fileID: 1345452631}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1347027454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1347027454, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
+  m_PrefabInstance: {fileID: 1444858191}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1357566802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6598,21 +6609,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 371000956, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 16777215
+      objectReference: {fileID: 0}
     - target: {fileID: 1123133097264468194, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278190260
+      value: 503316660
       objectReference: {fileID: 0}
     - target: {fileID: 3712508168763996953, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: viewIdField
-      value: 26
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5706502199716169634, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_Name
       value: SceneLoader_Final
-      objectReference: {fileID: 0}
-    - target: {fileID: 5706502199716169634, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5706502199716169660, guid: 335a166fb6f82437f87db9fbf73ac0d8, type: 3}
       propertyPath: m_RootOrder
@@ -8699,7 +8710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3482476475111407307, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
       propertyPath: IconImageList.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3482476475111407307, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
       propertyPath: IconImageList.Array.data[0]
@@ -8733,6 +8744,10 @@ PrefabInstance:
       propertyPath: IconImageList.Array.data[7]
       value: 
       objectReference: {fileID: 4480450123633251656}
+    - target: {fileID: 3482476475111407307, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
+      propertyPath: IconImageList.Array.data[8]
+      value: 
+      objectReference: {fileID: 1347027454}
     - target: {fileID: 3482476475111407348, guid: feb64eed64528439faa90a7b7f77f500, type: 3}
       propertyPath: m_Name
       value: ControllerIconSwitcher
