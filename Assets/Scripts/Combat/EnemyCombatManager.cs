@@ -56,7 +56,7 @@ public class EnemyCombatManager : MonoBehaviour {
                 //Debug.Log("Attacked with " + _AttackVector);
                 _playerCombatManager.ReceivePlayerAttack(_AttackVector, CurrentAttackMotion.KnockBackTime);
                 StopAttack();
-                AudioController.TriggerPlaySFXOnAll((int) EnemySFX.SLAP);
+                if (AudioController != null) AudioController.TriggerPlaySFXOnAll((int) EnemySFX.SLAP);
             }
         }
     }
@@ -65,8 +65,8 @@ public class EnemyCombatManager : MonoBehaviour {
         PhotonView _view = PhotonView.Get(this);
         //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
-        
-        AudioController.TriggerPlaySFXOnAll((int)EnemySFX.IMPACT);
+
+        if (AudioController != null) AudioController.TriggerPlaySFXOnAll((int)EnemySFX.IMPACT);
     }
 
     [PunRPC]
@@ -136,6 +136,8 @@ public class EnemyCombatManager : MonoBehaviour {
         this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddExplosionForce(_explosionForce, new Vector3(_ExplosionX, _ExplosionY, _ExplosionZ), _smashRadius);
+
+        HitPS.Emit(50);
 
         yield return new WaitForSeconds(_time);
 
