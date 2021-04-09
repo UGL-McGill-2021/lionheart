@@ -350,7 +350,7 @@ namespace Lionheart.Player.Movement
         /// <returns></returns>
         IEnumerator AnimationTrigger(string Name)
         {
-            yield return new WaitForSecondsRealtime(0.8f);
+            yield return new WaitForSecondsRealtime(1f);
            
             switch (Name)
             {
