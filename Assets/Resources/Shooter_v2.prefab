@@ -708,6 +708,7 @@ MonoBehaviour:
   SmashRadius: 5
   DefaultSmashTime: 0.3
   DefaultSmashForce: 5000
+  AudioController: {fileID: 0}
 --- !u!114 &7623857274139953912
 MonoBehaviour:
   m_ObjectHideFlags: 0
