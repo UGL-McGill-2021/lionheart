@@ -19,6 +19,7 @@ public class VFXHandler : MonoBehaviour
     [SerializeField] GameObject PullDashBeamEnd;
     [SerializeField] GameObject PullDashBeamTarget;
     [SerializeField] LineRenderer PullDashLR;
+    [SerializeField] GameObject GroundPoundPS;
 
     [Header("Parameters")]
     public float StepScalar = 1.4f; 
@@ -99,5 +100,11 @@ public class VFXHandler : MonoBehaviour
         PullDashBeamBegin.SetActive(B);
         PullDashBeamEnd.SetActive(B);
         PullDashBeam.SetActive(B);
+    }
+
+    [PunRPC]
+    public void PlayGroundPound(Vector3 Pos)
+    {
+        GameObject.Instantiate(GroundPoundPS, Pos, Quaternion.identity);
     }
 }

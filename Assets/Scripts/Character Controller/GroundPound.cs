@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 namespace Lionheart.Player.Movement
 {
@@ -21,6 +22,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] Jump PlayerJump;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
+        [SerializeField] VFXHandler PlayerVFX;
+        public PhotonView NetworkView;
 
         // Feiyang: SFX integration
         public PlayerAudioController AudioController;
@@ -125,6 +128,8 @@ namespace Lionheart.Player.Movement
 
             AnimatorController.SetBool("IsSmashing", true);
             StartCoroutine(AnimationTrigger("IsSmashing"));
+            
+            PhotonView.Get(PlayerVFX).RPC("PlayGroundPound", RpcTarget.All, PlayerJump.GroundCheck.transform.position);
 
             CombatManager.SetInvincible(false);
             IsGroundPound = false;
