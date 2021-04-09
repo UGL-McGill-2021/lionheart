@@ -5887,6 +5887,8 @@ MonoBehaviour:
   CombatManager: {fileID: 7158537297210349565}
   PlayerJump: {fileID: 0}
   PlayerMultiplayer: {fileID: 0}
+  PlayerVFX: {fileID: 3056973228829986739}
+  NetworkView: {fileID: 5480352261030030601}
   AudioController: {fileID: 5346211990860123939}
   BlockInput: 0
   IsGroundPound: 0
@@ -6044,6 +6046,7 @@ MonoBehaviour:
   PullDashBeamEnd: {fileID: 0}
   PullDashBeamTarget: {fileID: 0}
   PullDashLR: {fileID: 0}
+  GroundPoundPS: {fileID: 1760158403635019858, guid: 914d4782d69af47329bd2ddc2887320e, type: 3}
   StepScalar: 1.4
 --- !u!1 &8833452435930719326
 GameObject:
