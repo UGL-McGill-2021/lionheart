@@ -1742,6 +1742,7 @@ MonoBehaviour:
   DefaultSmashTime: 0.3
   DefaultSmashForce: 5000
   AudioController: {fileID: 99794673092553911}
+  HitPS: {fileID: 8215585923648216028}
 --- !u!195 &7328338531983162800
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2558,5 +2559,10 @@ PrefabInstance:
 --- !u!4 &8215585924627948970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7053342609332636468, guid: f0c56eeb1be044e74bf76dfc56aa28e1, type: 3}
+  m_PrefabInstance: {fileID: 1432459577621999262}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8215585923648216028 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7053342610592871746, guid: f0c56eeb1be044e74bf76dfc56aa28e1, type: 3}
   m_PrefabInstance: {fileID: 1432459577621999262}
   m_PrefabAsset: {fileID: 0}

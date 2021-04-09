@@ -25,8 +25,9 @@ public class EnemyCombatManager : MonoBehaviour {
     public float DefaultSmashTime = 1;
     public float DefaultSmashForce = 500;
 
-    [Header("SFX Integration")]
+    [Header("FX Integration")]
     public EnemyAudioController AudioController;
+    public ParticleSystem HitPS;
 
     public void Attack(AttackMotion _attackMotion) {
         AttackBox.enabled = true;
@@ -64,7 +65,7 @@ public class EnemyCombatManager : MonoBehaviour {
         PhotonView _view = PhotonView.Get(this);
         //Debug.Log("Invoking OnAttacked on MasterClient");
         _view.RPC("OnAttacked", RpcTarget.All, _AttackVelocity.x, _AttackVelocity.y, _AttackVelocity.z, _AttackTimeSpan);
-
+        
         AudioController.TriggerPlaySFXOnAll((int)EnemySFX.IMPACT);
     }
 
@@ -74,6 +75,8 @@ public class EnemyCombatManager : MonoBehaviour {
         this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
+
+        HitPS.Emit(50);
 
         yield return new WaitForSeconds(_time);
 
@@ -160,6 +163,8 @@ public class EnemyCombatManager : MonoBehaviour {
         this.agent.enabled = false;
         this.Body.isKinematic = false;
         this.Body.AddForce(new Vector3(_x, _y, _z));
+
+        HitPS.Emit(50);
 
         yield return new WaitForSeconds(_time);
 
