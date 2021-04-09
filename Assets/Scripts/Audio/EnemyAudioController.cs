@@ -48,8 +48,6 @@ public class EnemyAudioController : MonoBehaviour {
                     break;
                 }
         }
-
-        Debug.Log("Enemy SFX Sound Played!");
     }
 
     public void TriggerStopSFXOnAll() {
