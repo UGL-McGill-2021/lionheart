@@ -75,6 +75,7 @@ public class SceneLoader : MonoBehaviour
     {
         // trigger the exit transition animation
         Animator.SetTrigger("IsExit");
+        yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
         // get the current animation duration time
         float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
 
@@ -95,6 +96,7 @@ public class SceneLoader : MonoBehaviour
     {
         // trigger the exit transition animation
         Animator.SetTrigger("IsExit");
+        yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
         float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
 
         // wait for a delay before loading the next level 
@@ -114,6 +116,7 @@ public class SceneLoader : MonoBehaviour
     {
         // trigger the exit transition animation
         Animator.SetTrigger("IsExit");
+        yield return new WaitForFixedUpdate();  // wait for next frame to update the animator current state
         float animDuration = Animator.GetCurrentAnimatorStateInfo(0).length;
 
         // wait for a delay before loading the next level 
