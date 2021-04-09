@@ -5718,6 +5718,8 @@ MonoBehaviour:
   CombatManager: {fileID: 7158537297210349565}
   PlayerMultiplayer: {fileID: 0}
   Direction: {x: 0, y: 0, z: 0}
+  PlayerVFX: {fileID: 237053471898839460}
+  NetworkView: {fileID: 5480352261030030601}
   DashForce: 20
   DashExecutionTime: 0.2
   DashCooldownTime: 0.3
@@ -6048,6 +6050,7 @@ MonoBehaviour:
   PullDashBeamTarget: {fileID: 0}
   PullDashLR: {fileID: 0}
   GroundPoundPS: {fileID: 1760158403635019858, guid: 914d4782d69af47329bd2ddc2887320e, type: 3}
+  DashPS: {fileID: 1788957469184579435}
   StepScalar: 1.4
 --- !u!1 &8833452435930719326
 GameObject:
@@ -6475,6 +6478,11 @@ PrefabInstance:
 --- !u!4 &5275639614985540975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6469862899827202780, guid: c327b73957dd349cc8727c64a60d2fc4, type: 3}
+  m_PrefabInstance: {fileID: 1224772667209207731}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1788957469184579435 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 589095340991027416, guid: c327b73957dd349cc8727c64a60d2fc4, type: 3}
   m_PrefabInstance: {fileID: 1224772667209207731}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2790604697203607367

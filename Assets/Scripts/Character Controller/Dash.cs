@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 namespace Lionheart.Player.Movement
 {
@@ -22,6 +23,8 @@ namespace Lionheart.Player.Movement
         [SerializeField] PlayerCombatManager CombatManager;
         [SerializeField] MultiplayerActivator PlayerMultiplayer;
         [SerializeField] Vector3 Direction;
+        [SerializeField] VFXHandler PlayerVFX;
+        public PhotonView NetworkView;
 
         [Header("Parameters")]
         [SerializeField] private float DashForce = 10f;
@@ -108,6 +111,8 @@ namespace Lionheart.Player.Movement
                 {
                     IsAirDashing = true;
                 }
+
+                PhotonView.Get(PlayerVFX).RPC("PlayDash", RpcTarget.All);
 
                 PlayerCombat.Attack(new Kick(KnockbackForce, KnockbackTime));
             }
