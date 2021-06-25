@@ -6,6 +6,7 @@ using UnityEngine;
 public class TransitionSkiper : MonoBehaviour
 {
     public Animator Animator;  // the crossfade transition animator
+    private bool hasSkipped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,9 @@ public class TransitionSkiper : MonoBehaviour
     public void OnSkip()
     {
         // if we are at the enter state
-        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("CrossFadeEnter"))
+        if (Animator.GetCurrentAnimatorStateInfo(0).IsName("CrossFadeEnter") && !hasSkipped)
         {
+            hasSkipped = true;
             Animator.speed = 10.0f;
             EnablePlayerControl();
         }
