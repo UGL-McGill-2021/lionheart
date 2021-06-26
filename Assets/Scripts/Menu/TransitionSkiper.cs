@@ -42,7 +42,7 @@ public class TransitionSkiper : MonoBehaviour
     /// </summary>
     public void resetAnimationSpeed()
     {
-        if (!Animator.GetCurrentAnimatorStateInfo(0).IsName("CrossFadeEnter") && Animator.speed != 1)
+        if (!Animator.GetCurrentAnimatorStateInfo(0).IsName("CrossFadeEnter") && Animator.speed > 1)
         {
             Animator.speed = 1.0f;
         }
