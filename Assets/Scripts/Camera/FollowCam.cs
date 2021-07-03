@@ -5,7 +5,7 @@ using Photon.Pun;
 using UnityEngine;
 
 /// <summary>
-/// Author: Daniel Holker
+/// Author: Daniel Holker, Denis Racicot
 /// </summary>
 
 public class FollowCam : MonoBehaviour
@@ -26,10 +26,16 @@ public class FollowCam : MonoBehaviour
 
     private CheckpointManager CheckpointMan;
 
+    public CinemachineVirtualCamera VCam;
+    public GameObject CameraTarget;
+
     private void Awake()
     {
         PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
         CheckpointMan = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
+
+        VCam.LookAt=CameraTarget.transform;
+        VCam.Follow= CameraTarget.transform;
     }
 
     void LateUpdate()
@@ -45,7 +51,11 @@ public class FollowCam : MonoBehaviour
         Vector3 NewPosition = CenterPoint + OffSet;
         transform.position = Vector3.SmoothDamp(transform.position, NewPosition, ref Velocity, SmoothTime);
 
-        if (PlayerList.Count < 2) return;
+        if (PlayerList.Count < 2)
+        {
+            CameraTarget.transform.position = NewPosition;
+            return;
+        }
 
         //Stop tracking if a player falls too low
 
@@ -64,10 +74,12 @@ public class FollowCam : MonoBehaviour
             OffSet = Vector3.zero;
         }
 
+        CameraTarget.transform.position = NewPosition;
+
     }
 
     //check if player is in frame
-    private bool Visible(GameObject Object)
+    /*private bool Visible(GameObject Object)
     {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Cam);
         if (GeometryUtility.TestPlanesAABB(planes, Object.GetComponent<Collider>().bounds))
@@ -75,7 +87,7 @@ public class FollowCam : MonoBehaviour
         else
             Debug.Log(Object.name + " is not in frame.");
             return false;
-    }
+    }*/
 
 
     Vector3 GetCenterPoint()
