@@ -13,7 +13,7 @@ namespace Lionheart.Player.Movement {
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] PullDash PlayerPullDash;
-        [SerializeField] CinemachineVirtualCamera VCam;
+        [SerializeField] CinemachineBrain CamBrain;
 
         [Header("State")]
         public bool BlockInput = false;
@@ -33,7 +33,7 @@ namespace Lionheart.Player.Movement {
         {
             PhotonView = GetComponent<PhotonView>();
 
-            VCam = GameObject.Find("FollowCamV2").GetComponentInChildren<CinemachineVirtualCamera>();
+            CamBrain = GameObject.Find("FollowCamV2").GetComponentInChildren<CinemachineBrain>();
         }
 
         /// <summary>
@@ -79,7 +79,8 @@ namespace Lionheart.Player.Movement {
             if (PhotonView.IsMine)
             {
                 var MoveDirection = MoveAction.ReadValue<Vector2>();
-                Vector2 CorrectedV = Quaternion.Euler(0, 0, -VCam.transform.eulerAngles.y) * MoveDirection;
+                Vector2 CorrectedV = Quaternion.Euler(0, 0, 
+                    -CamBrain.ActiveVirtualCamera.VirtualCameraGameObject.transform.eulerAngles.y) * MoveDirection;
                 MoveDirection = new Vector2(CorrectedV.x, CorrectedV.y);
 
                 if (MoveDirection != Vector2.zero)

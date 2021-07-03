@@ -13,7 +13,7 @@ namespace Lionheart.Player.Movement {
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] Animator AnimatorController;
-        [SerializeField] CinemachineVirtualCamera VCam;
+        [SerializeField] CinemachineBrain CamBrain;
 
         [Header("Parameters")]
         [SerializeField] private readonly float MaxWalkSpeed = 10f;
@@ -38,7 +38,7 @@ namespace Lionheart.Player.Movement {
         private void Awake() {
             Type = MovementModifier.MovementType.Walk;
 
-            VCam = GameObject.Find("FollowCamV2").GetComponentInChildren<CinemachineVirtualCamera>();
+            CamBrain = GameObject.Find("FollowCamV2").GetComponentInChildren<CinemachineBrain>();
         }
 
         /// <summary>
@@ -75,18 +75,12 @@ namespace Lionheart.Player.Movement {
         /// </summary>
         private void Move() {
 
-            //Vector3 VCamRot = VCam.transform.eulerAngles;
-            //Vector2 VCamRot2D = new Vector2(VCamRot.x, VCamRot.y);
             var MoveDirection = MoveAction.ReadValue<Vector2>();
-            Vector2 CorrectedV = Quaternion.Euler(0, 0, -VCam.transform.eulerAngles.y) * MoveDirection;
-
-            //Debug.Log(VCam.transform.eulerAngles.y);
+            
+            Vector2 CorrectedV = Quaternion.Euler(0, 0, 
+                -CamBrain.ActiveVirtualCamera.VirtualCameraGameObject.transform.eulerAngles.y) * MoveDirection;
 
             Value = new Vector3(CorrectedV.x, 0f, CorrectedV.y);
-            //Debug.Log("camera angle"+ -VCam.transform.eulerAngles.y + " " + Time.time);
-            //Debug.Log("corrected v"+CorrectedV+" "+Time.time);
-
-            //Debug.DrawLine(transform.position, transform.position+new Vector3(10*CorrectedV.x, 0, 10*CorrectedV.y), Color.blue, 1f);
 
             if (Value.magnitude < 0.2f) {
                 Vector3.Lerp(Value, Vector3.zero, 0.01f);
