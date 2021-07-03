@@ -1,6 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 namespace Lionheart.Player.Movement {
     /// <summary>
@@ -12,6 +13,7 @@ namespace Lionheart.Player.Movement {
         [SerializeField] MovementHandler PlayerMovementHandler;
         [SerializeField] ControllerInput ControllerActions;
         [SerializeField] PullDash PlayerPullDash;
+        [SerializeField] CinemachineVirtualCamera VCam;
 
         [Header("State")]
         public bool BlockInput = false;
@@ -30,6 +32,8 @@ namespace Lionheart.Player.Movement {
         private void Start()
         {
             PhotonView = GetComponent<PhotonView>();
+
+            VCam = GameObject.Find("FollowCamV2").GetComponentInChildren<CinemachineVirtualCamera>();
         }
 
         /// <summary>
@@ -75,6 +79,8 @@ namespace Lionheart.Player.Movement {
             if (PhotonView.IsMine)
             {
                 var MoveDirection = MoveAction.ReadValue<Vector2>();
+                Vector2 CorrectedV = Quaternion.Euler(0, 0, -VCam.transform.eulerAngles.y) * MoveDirection;
+                MoveDirection = new Vector2(CorrectedV.x, CorrectedV.y);
 
                 if (MoveDirection != Vector2.zero)
                 {
