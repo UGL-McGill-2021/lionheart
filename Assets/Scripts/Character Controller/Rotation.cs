@@ -33,7 +33,7 @@ namespace Lionheart.Player.Movement {
         {
             PhotonView = GetComponent<PhotonView>();
 
-            CamBrain = GameObject.Find("FollowCamV2").GetComponentInChildren<CinemachineBrain>();
+            CamBrain = GameObject.FindGameObjectWithTag("MainCamera").GetComponentInChildren<CinemachineBrain>();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Lionheart.Player.Movement {
             {
                 var MoveDirection = MoveAction.ReadValue<Vector2>();
                 Vector2 CorrectedV = Quaternion.Euler(0, 0, 
-                    -CamBrain.ActiveVirtualCamera.VirtualCameraGameObject.transform.eulerAngles.y) * MoveDirection;
+                    -CamBrain.transform.eulerAngles.y) * MoveDirection;
                 MoveDirection = new Vector2(CorrectedV.x, CorrectedV.y);
 
                 if (MoveDirection != Vector2.zero)

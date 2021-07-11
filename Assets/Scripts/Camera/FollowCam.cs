@@ -19,7 +19,6 @@ public class FollowCam : MonoBehaviour
     public List<GameObject> PlayerList;
     public Camera Cam;
 
-
     private Vector3 OffSet;
     private Vector3 Velocity;
     private Vector3 LastCenter;
@@ -27,6 +26,7 @@ public class FollowCam : MonoBehaviour
     private CheckpointManager CheckpointMan;
 
     public CinemachineVirtualCamera VCam;
+    public GameObject LocalPlayer;
     public GameObject CameraTarget;
 
     private void Awake()
@@ -36,6 +36,21 @@ public class FollowCam : MonoBehaviour
 
         VCam.LookAt=CameraTarget.transform;
         VCam.Follow= CameraTarget.transform;
+    }
+
+    private void Update()
+    {
+        if (LocalPlayer == null)
+        {
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                LocalPlayer = PlayerList[0];
+            }
+            else
+            {
+                LocalPlayer = PlayerList[1];
+            }
+        }
     }
 
     void LateUpdate()
@@ -59,36 +74,23 @@ public class FollowCam : MonoBehaviour
 
         //Stop tracking if a player falls too low
 
-
         //Pull camera back if players are too far apart
         float _Distance = Vector3.Distance(PlayerList[0].transform.position, PlayerList[1].transform.position);
-        if (_Distance > MaxDistance/* && 
-            PlayerList[0].transform.position.y >= StopFollowHeight && 
-            PlayerList[1].transform.position.y >= StopFollowHeight*/)
+        if (_Distance > MaxDistance)
         {
             float _OffSetFactor = (_Distance - MaxDistance) / PullbackSpeed;
             OffSet = new Vector3(0f, _OffSetFactor/5, -(_OffSetFactor));
+            CameraTarget.transform.position = LocalPlayer.transform.position;
 
         } else
         {
             OffSet = Vector3.zero;
+            CameraTarget.transform.position = NewPosition;
         }
 
-        CameraTarget.transform.position = NewPosition;
+        
 
     }
-
-    //check if player is in frame
-    /*private bool Visible(GameObject Object)
-    {
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Cam);
-        if (GeometryUtility.TestPlanesAABB(planes, Object.GetComponent<Collider>().bounds))
-            return true;
-        else
-            Debug.Log(Object.name + " is not in frame.");
-            return false;
-    }*/
-
 
     Vector3 GetCenterPoint()
     {
@@ -101,12 +103,6 @@ public class FollowCam : MonoBehaviour
         foreach(GameObject G in PlayerList)
         {
             Bounds.Encapsulate(G.transform.position);
-            //if (G.transform.position.y < StopFollowHeight) {
-            //    Bounds.Encapsulate(new Vector3(G.transform.position.x, StopFollowHeight, G.transform.position.y));
-            //} else
-            //{
-            //    Bounds.Encapsulate(G.transform.position);
-            //}
         }
 
         LastCenter = Bounds.center;

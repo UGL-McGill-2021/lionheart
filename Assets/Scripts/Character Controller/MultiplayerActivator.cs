@@ -26,7 +26,7 @@ namespace Lionheart.Player.Movement
         [SerializeField] Rotation PlayerRotation;
         [SerializeField] WalkMotion PlayerWalkMotion;
         [SerializeField] Animator AnimatorController;
-        [SerializeField] SwitchCam PlayerSwitchCam;
+        //[SerializeField] SwitchCam PlayerSwitchCam;
 
         void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
         {
@@ -54,7 +54,7 @@ namespace Lionheart.Player.Movement
         /// </summary>
         private void Update()
         {
-            if (PlayerSwitchCam == null) PlayerSwitchCam = GameObject.Find("SwitchCam").GetComponent<SwitchCam>();
+            //if (PlayerSwitchCam == null) PlayerSwitchCam = GameObject.Find("SwitchCam").GetComponent<SwitchCam>();
         }
 
         /// <summary>
@@ -67,14 +67,14 @@ namespace Lionheart.Player.Movement
             {
                 PlayerDash.enabled = false;
 
-                StopCoroutine(PlayerSwitchCam.WaitForButtonRelease());
+                //StopCoroutine(PlayerSwitchCam.WaitForButtonRelease());
                 StopCoroutine(PlayerJump.WaitForButtonRelease());
                 PlayerGroundPound.BlockInput = true;
                 PlayerPullDash.BlockInput = true;
                 PlayerJump.BlockInput = true;
                 PlayerWalkMotion.BlockInput = true;
                 PlayerRotation.BlockInput = true;
-                PlayerSwitchCam.BlockInput = true;
+                //PlayerSwitchCam.BlockInput = true;
 
                 StopAllCoroutines();
                 StartCoroutine(WaitToDisableControls());
@@ -113,7 +113,7 @@ namespace Lionheart.Player.Movement
             PlayerWalkMotion.BlockInput = false;
             PlayerRotation.BlockInput = false;
             StartCoroutine(PlayerJump.WaitForButtonRelease());
-            if (PlayerSwitchCam != null) StartCoroutine(PlayerSwitchCam.WaitForButtonRelease());
+            //if (PlayerSwitchCam != null) StartCoroutine(PlayerSwitchCam.WaitForButtonRelease());
         }
     }
 }

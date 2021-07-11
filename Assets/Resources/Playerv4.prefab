@@ -10715,7 +10715,6 @@ MonoBehaviour:
   PlayerRotation: {fileID: 8654789910141434568}
   PlayerWalkMotion: {fileID: 5368698313015805028}
   AnimatorController: {fileID: 3717460445037045334}
-  PlayerSwitchCam: {fileID: 0}
 --- !u!114 &9057546429446380302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10751,6 +10750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
   AnimatorController: {fileID: 3717460445037045334}
+  CamBrain: {fileID: 0}
   BlockInput: 0
   MoveAction:
     m_Name: <Gamepad>/leftStick
@@ -10822,6 +10822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMovementHandler: {fileID: 9057546429446380302}
   PlayerPullDash: {fileID: 6742636947217563593}
+  CamBrain: {fileID: 0}
   BlockInput: 0
   MoveAction:
     m_Name: move

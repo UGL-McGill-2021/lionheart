@@ -12,31 +12,38 @@ using UnityEngine;
 public class SwitchCam : MonoBehaviour
 {
     public ControllerInput ControllerActions;
-    public CinemachineVirtualCamera Cam;
     public List<GameObject> PlayerList;
     public bool BlockInput = false;
 
     private bool CurrState = true;
 
+    public CinemachineVirtualCamera VCam;
+    public GameObject LocalPlayer;
+    public GameObject CameraTarget;
+
     private void Awake()
     {
         ControllerActions = new ControllerInput();
-        Cam = GetComponent<CinemachineVirtualCamera>();
+        
+        VCam.LookAt = CameraTarget.transform;
+        VCam.Follow = CameraTarget.transform;
     }
 
     void Update()
     {
-        if (Cam.Follow == null) {
+        if (LocalPlayer == null) {
             PlayerList = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().PlayerList;
             foreach (GameObject O in PlayerList)
             {
                 if (O.GetComponent<PhotonView>().IsMine)
                 {
-                    Cam.Follow = O.transform;
+                    LocalPlayer = O;
                     return;
                 }
             }
         }
+
+        CameraTarget.transform.position = LocalPlayer.transform.position;
     }
 
     private void OnEnable()
@@ -55,7 +62,7 @@ public class SwitchCam : MonoBehaviour
     {
         if (BlockInput == false)
         {
-            Cam.enabled = CurrState;
+            VCam.enabled = CurrState;
             CurrState = !CurrState;
         }
     }

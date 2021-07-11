@@ -18,6 +18,7 @@ TagManager:
   - Microphone
   - BirdsManager
   - Obstacle
+  - Camera
   layers:
   - Default
   - TransparentFX
